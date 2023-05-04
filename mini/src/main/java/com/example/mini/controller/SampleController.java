@@ -20,6 +20,21 @@ public class SampleController {
 		return "/smart-recipe";
 	}
 	
+	@RequestMapping("/fund_list.do")
+	public String funding0(Model model) throws Exception{
+		return "/fund-list";
+	}
+	
+	@RequestMapping("/fund_open.do")
+	public String funding(Model model) throws Exception{
+		return "/fund_open";
+	}
+	
+	@RequestMapping("/fund_planned.do")
+	public String funding2(Model model) throws Exception{
+		return "/fund_planned";
+	}
+	
 	@RequestMapping(value = "/recipe/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
 	@ResponseBody
 	public String searchRecipeList(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
