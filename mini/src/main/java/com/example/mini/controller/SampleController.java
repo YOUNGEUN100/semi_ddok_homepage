@@ -8,14 +8,17 @@ import ch.qos.logback.core.model.Model;
 @Controller
 public class SampleController {
 
+	// 본인 페이지 확인하는데 뜨지 않으면 확인할 것
+	// 1. 조장이 페이지 주소에 오타를 냈다.
+	// 2. 조장이 jsp 파일에 오타를 냈다.
+	// 오타 찾으면 알려주세요.
+	
 	// 메인페이지
 	@RequestMapping("/main.do")
 	public String main(Model model) throws Exception{
 		return "/a-main";
 	}
 	
-
-
 	// 1. 투데잇 페이지
 	@RequestMapping("/today-eat.do")
 	public String todayEat(Model model) throws Exception{
@@ -47,31 +50,23 @@ public class SampleController {
 	}
 	
 	// 2-1. 랜선펀딩
-
 	@RequestMapping("/funding.do")
 	public String funding0(Model model) throws Exception{
 		return "/b-funding-list";
 	}
 	
-
-
 	// 2-1. 랜선펀딩 오픈 예정
-
 	@RequestMapping("/funding-open.do")
 	public String funding(Model model) throws Exception{
 		return "/b-funding-open";
 	}
 	
-
-
 	// 2-1. 랜선펀딩 진행 중
 	@RequestMapping("/funding-planned.do")
 	public String funding2(Model model) throws Exception{
 		return "/b-funding-planned";
 	}
 	
-
-
 	// 2-2. 랜선마켓
 	@RequestMapping("/lan-market.do")
 	public String lanmarkete(Model model) throws Exception{
@@ -79,9 +74,9 @@ public class SampleController {
 	}
 	
 	// 2-2. 랜선마켓 상세
-	@RequestMapping("/lan-market-info.do")
+	@RequestMapping("/lan-market-view.do")
 	public String lanmarketInfo(Model model) throws Exception{
-		return "/b-lan-market-info";
+		return "/b-lan-market-view";
 	}
 		
 	// 2-2. 랜선마켓 작성 및 수정
@@ -93,13 +88,13 @@ public class SampleController {
 	// 3-1. 똑똑한 레시피
 	@RequestMapping("/smart-recipe.do")
 	public String recipe(Model model) throws Exception{
-		return "/c-smart-recipe-list";
+		return "/c-smart-recipe";
 	}
 	
 	// 3-1. 똑똑한 레시피 상세
-	@RequestMapping("/smart-recip-info.do")
+	@RequestMapping("/smart-recipe-view.do")
 	public String recipeInfo(Model model) throws Exception{
-		return "/c-smart-recipe-info";
+		return "/c-smart-recipe-view";
 	}
 		
 	// 3-2. 똑똑한 마켓
@@ -109,9 +104,9 @@ public class SampleController {
 	}
 		
 	// 3-2. 똑똑한 마켓 상세
-	@RequestMapping("/smart-market-info.do")
+	@RequestMapping("/smart-market-view.do")
 	public String smartMarketInfo(Model model) throws Exception{
-		return "/c-smart-market-info";
+		return "/c-smart-market-view";
 	}
 	
 	// 4-1. 알뜰정책
@@ -121,9 +116,9 @@ public class SampleController {
 	}
 	
 	// 4-1. 알뜰정책 상세
-	@RequestMapping("/pocily-info.do")
+	@RequestMapping("/pocily-view.do")
 	public String policyInfo(Model model) throws Exception{
-		return "/d-pocily-info";
+		return "/d-pocily-view";
 	}
 	
 	// 4-2. 생활백서
@@ -133,9 +128,9 @@ public class SampleController {
 	}
 	
 	// 4-2. 생활백서 상세
-	@RequestMapping("/cardnews-info.do")
+	@RequestMapping("/cardnews-view.do")
 	public String cardnewsInfo(Model model) throws Exception{
-		return "/d-cardnews-info";
+		return "/d-cardnews-view";
 	}
 	
 	// 4-3. 혼족여지도
@@ -151,9 +146,9 @@ public class SampleController {
 	}
 	
 	// 5. 커뮤니티 상세
-	@RequestMapping("/community-info.do")
+	@RequestMapping("/community-view.do")
 	public String communityInfo(Model model) throws Exception{
-		return "/e-community-info";
+		return "/e-community-view";
 	}
 	
 	// 5. 커뮤니티 글 작성 및 수정
