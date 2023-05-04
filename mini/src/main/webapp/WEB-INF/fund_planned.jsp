@@ -213,75 +213,46 @@
         font-weight: 400;
         font-style: normal;
     }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+    @font-face {
+        font-family:'Pretendard-Medium';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+        font-weight:500;
+        font-style:normal;
     }
-
-    html,
-    body {
-        font-family: 'Pretendard-Regular';
-        font-size: 15px;
-        line-height: 1.5;
+    @font-face {
+        font-family:'Pretendard-SemiBold';
+        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+        font-weight:700;
+        font-style:normal;
     }
-
-    a {
-        color: inherit;
-        text-decoration: none;
+    @font-face {
+        font-family:'Pretendard-Bold';
+        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+        font-weight:800;
+        font-style:normal;
     }
-
-    input {
-        outline: 0;
-        border-radius: 0;
-        border-width: 1px;
-        padding: 5px;
+    * {margin:0; padding:0; box-sizing:border-box;}
+    html, body {font-family:'Pretendard-Regular'; font-size:16px; line-height:1.5;}
+    a {color:inherit; text-decoration:none;}
+    input {outline:0; border-radius:0; border-width:1px; padding:5px;}
+    select {outline:0; border-radius:0; border-width:1px; padding:4px;}
+    img {width:100%; max-width:100%; display:inline-block;}
+    ol, ul ,li {list-style:none;}
+    
+    b, strong {font-family:'Pretendard-Bold';}
+    :root {
+        --main-colorGreen: #bdee71;
+        --main-colorOrange: #fe6458;
+        --base-colorDeepGray: #ccc;
+        --base-colorLightGray: #f7f7f7;
     }
-
-    select {
-        outline: 0;
-        border-radius: 0;
-        border-width: 1px;
-        padding: 4px;
-    }
-
-    img {
-        width: 100%;
-        max-width: 100%;
-        display: inline-block;
-    }
-
-    ol,
-    ul,
-    li {
-        list-style: none;
-    }
-
-    #header,
-    #footer,
-    #subVisual {
-        width: 100%;
-        height: 100px;
-        background: #eee;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #subVisual {
-        height: 300px;
-        border-top: 1px dotted #777;
-        margin-bottom: 70px;
-    }
-
-    #footer {
-        margin-top: 150px;
-    }
-
-    #wrapper {
-        max-width: 1200px;
-        min-height: calc(100vh - 500px);
-        margin: 0 auto;
-    }
+    ::-webkit-scrollbar {width:10px;}
+    ::-webkit-scrollbar-track {background-color:transparent;}
+    ::-webkit-scrollbar-thumb {background-color:var(--base-colorDeepGray); border:2px solid #fff; border-radius:5px;}
+    ::-webkit-scrollbar-button {width:0; height:0;}
+    
+    #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
+    #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:60px;}
+    #footer {margin-top:150px;}
+    #wrapper {max-width:1240px; min-height:calc(100vh - 710px); margin:0 auto; padding:0 20px;}
 </style>
