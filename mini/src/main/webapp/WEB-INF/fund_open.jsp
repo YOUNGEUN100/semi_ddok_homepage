@@ -16,8 +16,7 @@
         } */
 
         .container {
-            width: 1200px;
-            
+            width: 1200px;            
             position: relative;
             margin: auto;
 
@@ -41,16 +40,13 @@
         .fund_img1 {
             width: 500px;
             height: 500px;
-
             float: left;
             background-color: #ebebeb;
         }
 
-        .fund_content1 {
-            border: 1px solid black;
+        .fund_content {            
             width: 650px;
             height: 400px;
-
             margin-right: 0px;
             padding: 40px 30px;
             border: none;
@@ -94,7 +90,6 @@
             margin-left: 49px;
             border-radius: 15px;
             background-color: #5ea152;
-
             border: none;
             font-size: 20px;
             color: white;
@@ -109,9 +104,6 @@
             border-radius: 15px;
             float: right;
             background-color: white;
-            background-image: url('../Images/share.PNG');
-            background-repeat: no-repeat;
-            background-position: center;
             border: none;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
         }
@@ -133,6 +125,7 @@
         #button_box2 {
             display: none;
         }
+        
 
         /* style END */
     </style>
@@ -149,7 +142,7 @@
             <div class="box1">
                 <div class="fund_img1">product Image</div>
 
-                <div class="fund_content1">
+                <div class="fund_content">
                     <h1 class="fund_name">크리넥스 3겹 데코 앤 소프트 수딩플러스 화장지 27m 팩, 24롤</h1>
                     <p class="fund_summary">코튼과 알로에베라 로션으로 피부에 더 편안하고 부드러운 마무리의 도톰한 3겹 제품</p>
                     <span class="fund_cnt">100명 중 67명</span>

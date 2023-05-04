@@ -46,7 +46,7 @@
             background-color: #ebebeb;
         }
 
-        .fund_content1 {
+        .fund_content {
             border: 1px solid black;
             width: 650px;
             height: 400px;
@@ -145,11 +145,11 @@
             <div class="box1">
                 <div class="fund_img1">product Image</div>
 
-                <div class="fund_content1">
+                <div class="fund_content">
                     <h1 class="fund_name">크리넥스 3겹 데코 앤 소프트 수딩플러스 화장지 27m 팩, 24롤</h1>
                     <p class="fund_summary">코튼과 알로에베라 로션으로 피부에 더 편안하고 부드러운 마무리의 도톰한 3겹 제품</p>
                     <span class="fund_cnt">최소 200명</span>
-                    <span class="fund_cnt" style="float: right;">10일 남음</span>
+                    <span class="fund_cnt" style="float: right;">5/3(수) 11시 오픈예정</span>
                     <p></p>
                     <progress value="50" max="200" class="fund_progress"></progress>
                     <div class="price_box">
