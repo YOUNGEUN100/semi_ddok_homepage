@@ -1,16 +1,9 @@
 package com.example.mini.controller;
 
-import java.util.HashMap;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import ch.qos.logback.core.model.Model;
-
-import com.google.gson.Gson;
 
 @Controller
 public class SampleController {
@@ -21,8 +14,8 @@ public class SampleController {
 		return "/a-main";
 	}
 	
-<<<<<<< HEAD
-=======
+
+
 	// 1. 투데잇 페이지
 	@RequestMapping("/today-eat.do")
 	public String todayEat(Model model) throws Exception{
@@ -54,34 +47,32 @@ public class SampleController {
 	}
 	
 	// 2-1. 랜선펀딩
->>>>>>> branch 'main' of https://github.com/YOUNGEUN100/knockknock.git
+
 	@RequestMapping("/funding.do")
 	public String funding0(Model model) throws Exception{
 		return "/b-funding-list";
 	}
 	
-<<<<<<< HEAD
-=======
+
+
 	// 2-1. 랜선펀딩 오픈 예정
->>>>>>> branch 'main' of https://github.com/YOUNGEUN100/knockknock.git
+
 	@RequestMapping("/funding-open.do")
 	public String funding(Model model) throws Exception{
 		return "/b-funding-open";
 	}
 	
-<<<<<<< HEAD
-=======
+
+
 	// 2-1. 랜선펀딩 진행 중
->>>>>>> branch 'main' of https://github.com/YOUNGEUN100/knockknock.git
 	@RequestMapping("/funding-planned.do")
 	public String funding2(Model model) throws Exception{
 		return "/b-funding-planned";
 	}
 	
-<<<<<<< HEAD
-=======
+
+
 	// 2-2. 랜선마켓
->>>>>>> branch 'main' of https://github.com/YOUNGEUN100/knockknock.git
 	@RequestMapping("/lan-market.do")
 	public String lanmarkete(Model model) throws Exception{
 		return "/b-lan-market-list";
