@@ -35,7 +35,7 @@ public class BbsController {
 
 	@RequestMapping("/map.do") // 지도
 	public String map(Model model) throws Exception {
-		return "/map_test";
+		return "/d-useful-map";
 	}
 
 }
