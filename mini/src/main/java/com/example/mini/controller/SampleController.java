@@ -100,7 +100,7 @@ public class SampleController {
 	// 3-2. 똑똑한 마켓
 	@RequestMapping("/smart-market.do")
 	public String smartMarket(Model model) throws Exception{
-		return "/c-smart-market-list";
+		return "/c-smart-market";
 	}
 		
 	// 3-2. 똑똑한 마켓 상세

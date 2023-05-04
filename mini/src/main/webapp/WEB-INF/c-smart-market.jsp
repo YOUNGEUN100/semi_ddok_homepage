@@ -1,10 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ë˜‘ë˜‘ : "ë©”ë‰´ëª…ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”."</title>
+    <title>¶È¶È : "¸Ş´º¸íÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä."</title>
     <style>
         /* style START */
     /* setting * don't touch */
@@ -63,7 +65,7 @@
             height: 220px;
         }
         
-        /*ì •ë ¬*/
+        /*Á¤·Ä*/
         #box1{
             margin-top: 50px;
             align-items: flex-start;
@@ -93,7 +95,7 @@
             gap: 10px;
         }
         .box4{
-            margin: 5px;
+            margin: 2px;
             border: 1px solid blue;
             background-color: #beb6b6;
             width: 210px;
@@ -113,16 +115,41 @@
             font-weight: bold;
             background-color: #777;
         }
+        .product_list{
+            display: flex;
+            position: relative;/*»óÀ§ ±âÁØÀ¸·Î »ó´ëÀû À§Ä¡¸¦ °®´Â´Ù.*/
+
+        }
+        .product_vege{
+            margin-top: 50px;
+            font-size: 23px;
+            font-weight: bold;
+            background-color: #777;
+            width: 80%;
+            
+        }
+        .product_vege_cnt{
+            border: 2px solid green;
+            width: 10%;
+            
+            padding-right: 5px;
+            background-color: #ccc;
+            position: absolute; /*ºê¶ó¿ìÀú¸¦ ±âÁØÀ¸·Î °íÁ¤*/
+            right: 2px;
+            bottom: 1px;
+        }
+        
+        
         /* style END */
-    </style>
+    </style>    
 </head>
 <body>
     <header id="header">&lt;header&gt;</header>
     <div id="subVisual">&lt;subVisual&gt;</div>
     <!-- wrap START -->
-    <div id="wrapper">
+    <div id="wrapper" >
 
-        ì´ê³³ì— ë‚´ìš©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”.
+        ÀÌ°÷¿¡ ³»¿ëÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä.
         <div class="smart_market" id="box1">
             <div ><img src="images/food1.jpg" class="circle"></div>
             <div ><img src="images/food2.jpg" class="circle"></div>
@@ -135,17 +162,17 @@
             <div ><img src="images/food9.jpg" class="circle"></div>
         </div>
         <div class="smart_market" id="box2">
-            <div class="gap1"><p>ì±„ì†Œ</p></div>
-            <div class="gap1"><p>ê³¼ì¼</p></div>
-            <div class="gap1"><p>ì •ìœ¡</p></div>
-            <div class="gap1"><p>ìˆ˜ì‚°ë¬¼</p></div>
-            <div class="gap1"><p>ìœ ì œí’ˆ</p></div>
-            <div class="gap1"><p>ìƒìˆ˜ìŒë£Œ</p></div>
-            <div class="gap1"><p>ì†ŒìŠ¤</p></div>
-            <div class="gap1"><p>ê°€ê³µì‹í’ˆ</p></div>
-            <div class="gap1"><p>ê°„í¸ì‹í’ˆ</p></div>
+            <div class="gap1"><p>Ã¤¼Ò</p></div>
+            <div class="gap1"><p>°úÀÏ</p></div>
+            <div class="gap1"><p>Á¤À°</p></div>
+            <div class="gap1"><p>¼ö»ê¹°</p></div>
+            <div class="gap1"><p>À¯Á¦Ç°</p></div>
+            <div class="gap1"><p>»ı¼öÀ½·á</p></div>
+            <div class="gap1"><p>¼Ò½º</p></div>
+            <div class="gap1"><p>°¡°ø½ÄÇ°</p></div>
+            <div class="gap1"><p>°£Æí½ÄÇ°</p></div>
         </div>
-        <div class="recommend"><P>ì¶”ì²œìƒí’ˆ</P></div>
+        <div class="recommend"><P>ÃßÃµ»óÇ°</P></div>
         <div class="smart_market" id="box3">
             <div ><img src="images/food1.jpg" class="box"></div>
             <div ><img src="images/food2.jpg" class="box"></div>
@@ -155,36 +182,124 @@
         </div>
         <div  id="box4">
             <div class="gap2 box4">
-                <p>í˜„ì¬1ê°œë‚¨ì•˜ì–´ìš”!</p>
-                <p>ì„œìš¸ìš°ìœ 1ê¸‰ìš°ìœ , 2300ml</p>
-                <p>6,230ì› (100ml 230ì›)</p>
-                <p>ë³„ 4.5</p>
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+            <div class="gap2 box4"> 
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
             </div>
             <div class="gap2 box4">
-                <p>í˜„ì¬1ê°œë‚¨ì•˜ì–´ìš”!</p>
-                <p>ì„œìš¸ìš°ìœ 1ê¸‰ìš°ìœ , 2300ml</p>
-                <p>6,230ì› (100ml 230ì›)</p>
-                <p>ë³„ 4.5</p>
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
             </div>
             <div class="gap2 box4">
-                <p>í˜„ì¬1ê°œë‚¨ì•˜ì–´ìš”!</p>
-                <p>ì„œìš¸ìš°ìœ 1ê¸‰ìš°ìœ , 2300ml</p>
-                <p>6,230ì› (100ml 230ì›)</p>
-                <p>ë³„ 4.5</p>
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
             </div>
             <div class="gap2 box4">
-                <p>í˜„ì¬1ê°œë‚¨ì•˜ì–´ìš”!</p>
-                <p>ì„œìš¸ìš°ìœ 1ê¸‰ìš°ìœ , 2300ml</p>
-                <p>6,230ì› (100ml 230ì›)</p>
-                <p>ë³„ 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>í˜„ì¬1ê°œë‚¨ì•˜ì–´ìš”!</p>
-                <p>ì„œìš¸ìš°ìœ 1ê¸‰ìš°ìœ , 2300ml</p>
-                <p>6,230ì› (100ml 230ì›)</p>
-                <p>ë³„ 4.5</p>
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
             </div>
         </div>
+
+        <div class="product_list">
+            <div class="product_vege">
+                <P>»óÇ°¸ñ·Ï : Ã¤¼Ò</P>
+            </div>
+            <div class="product_vege_cnt"><P id="pro_cnt">ÃÑ 10°³ »óÇ°</P></div>
+        </div>
+        <div class="smart_market" id="box3">
+            <div ><img src="images/food1.jpg" class="box"></div>
+            <div ><img src="images/food2.jpg" class="box"></div>
+            <div ><img src="images/food3.jpg" class="box"></div>
+            <div ><img src="images/food4.jpg" class="box"></div>
+            <div ><img src="images/food5.jpg" class="box"></div>            
+        </div>
+        <div  id="box4">
+            <div class="gap2 box4">
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+            <div class="gap2 box4">
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+            <div class="gap2 box4">
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+            <div class="gap2 box4">
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+            <div class="gap2 box4">
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+        </div>
+        
+        <div class="smart_market" id="box3">
+            <div ><img src="images/food1.jpg" class="box"></div>
+            <div ><img src="images/food2.jpg" class="box"></div>
+            <div ><img src="images/food3.jpg" class="box"></div>
+            <div ><img src="images/food4.jpg" class="box"></div>
+            <div ><img src="images/food5.jpg" class="box"></div>            
+        </div>
+        <div  id="box4">
+            <div class="gap2 box4">
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+            <div class="gap2 box4">
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+            <div class="gap2 box4">
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+            <div class="gap2 box4">
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+            <div class="gap2 box4">
+                <p>ÇöÀç1°³³²¾Ò¾î¿ä!</p>
+                <p>¼­¿ï¿ìÀ¯1±Ş¿ìÀ¯, 2300ml</p>
+                <p>6,230¿ø (100ml 230¿ø)</p>
+                <p>º° 4.5</p>
+            </div>
+        </div>
+
+        
         
         
     </div>
@@ -205,5 +320,5 @@
     #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
     #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:70px;}
     #footer {margin-top:150px;}
-    #wrapper {max-width:1200px; min-height:calc(100vh - 500px); margin:0 auto;}
+    #wrapper_smart {max-width:1200px; min-height:calc(100vh - 500px); margin:0 auto;}
 </style>
