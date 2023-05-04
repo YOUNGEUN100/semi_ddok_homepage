@@ -5,6 +5,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <script src="js/jquery.js"></script>
+	<script src="js/vue.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>·£¼±ÆÝµù0</title>
@@ -261,7 +263,19 @@
 
 </html>
 <script>
-
+var app = new Vue({ 
+    el: '#app',
+    data: {
+    	list:[]
+    }   
+    , methods: {
+    	
+   	 }
+    }   
+    , created: function () {
+    	
+	}
+});
 </script>
 
 

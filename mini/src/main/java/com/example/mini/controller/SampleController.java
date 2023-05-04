@@ -20,24 +20,24 @@ public class SampleController {
 		return "/smart-recipe";
 	}
 	
-	@RequestMapping("/fund_list.do")
+	@RequestMapping("/funding.do")
 	public String funding0(Model model) throws Exception{
-		return "/fund-list";
+		return "/b-funding-list";
 	}
 	
-	@RequestMapping("/fund_open.do")
+	@RequestMapping("/funding-open.do")
 	public String funding(Model model) throws Exception{
-		return "/fund_open";
+		return "/b-funding-open";
 	}
 	
-	@RequestMapping("/fund_planned.do")
+	@RequestMapping("/funding-planned.do")
 	public String funding2(Model model) throws Exception{
-		return "/fund_planned";
+		return "/b-funding-planned";
 	}
 	
-	@RequestMapping("/lan_market.do")
+	@RequestMapping("/lan-market.do")
 	public String lanmarkete(Model model) throws Exception{
-		return "/lan_market";
+		return "/b-lan-market-list";
 	}
 	
 	@RequestMapping(value = "/recipe/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
