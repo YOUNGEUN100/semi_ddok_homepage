@@ -5,8 +5,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <script src="js/jquery.js"></script>
-	<script src="js/vue.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>랜선펀딩1</title>
@@ -108,7 +106,6 @@
             background-color: white;
             border: none;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
-            color : #5ea152;
         }
 
         .show_button {
@@ -160,7 +157,7 @@
 
                 <div>
                     <button class="apply_button">신청하기</button>
-                    <button class="share_button"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
+                    <button class="share_button"><i class="fa-sharp fa-solid fa-share-nodes"></i></button>
                 </div>
             </div>
 
