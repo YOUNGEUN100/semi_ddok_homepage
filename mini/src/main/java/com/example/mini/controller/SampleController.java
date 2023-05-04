@@ -35,6 +35,11 @@ public class SampleController {
 		return "/fund_planned";
 	}
 	
+	@RequestMapping("/lan_market.do")
+	public String lanmarkete(Model model) throws Exception{
+		return "/lan_market";
+	}
+	
 	@RequestMapping(value = "/recipe/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
 	@ResponseBody
 	public String searchRecipeList(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
