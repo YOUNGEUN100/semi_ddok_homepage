@@ -9,71 +9,61 @@
     <title>똑똑 : "메뉴명을 입력해 주세요."</title>
     <style>
         /* style START */
-        .log-box{
-            margin: 200px auto;
-            width: 400px;
-            background-color: #EEEFF1;
-            border-radius: 5px;
-            text-align: center;
-            padding: 20px;
-        }
-        h2{
-            margin-top: 15px;
-        }
-        .div1{
-            margin: auto;
-            width: 250px;
-            background-color: #EEEFF1;
-            border-radius: 5px;
-            text-align: center;
-            padding: 20px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            border-radius: 5px;
-            border: none;
-	        }
-        .in {
-            margin-bottom: 10px;
-        }
+       .loginArea{
+            width: 400px; margin: 0 auto;
+            box-shadow: 0 0 10px #e6e5e5; border-radius: 10px;
+            padding: 70px;
+       }
 
-        #btn {
-            background-color: #FCB577;
-            margin-bottom: 30px; padding: 5px;
-            color: black;
-            border-radius: 5px; border: none;
-        }
+       .loginArea .loginBox{
+        display: flex; flex-direction: column; justify-items: center; 
+        align-items: center; 
+       }
+       .loginArea .loginBox input{
+        border: none; border-bottom: 1px solid black;
+        width: 100%; padding: 5px; margin-bottom: 20px; 
+        padding-left: 10px;
+       } 
+       .loginArea .loginBox input:last-child{
+        margin-bottom: 40px;
+       }
+       .loginArea .loginBox input::placeholder{color: black; font-weight: bold; font-size: 0.9em;}
 
-        a {
-            text-decoration: none;
-            color: #9B9B9B;
-            font-size: 12px;
-        }
+       
+       .loginArea .btnBox .loginBtn{
+        background-color: #5EA152; border: none; color: #fff;
+        border-radius: 10px; padding: 10px; width: 100%;
+        font-weight: bold; font-size: 1em;
+        margin-bottom: 30px;
+       }
+
+       .loginArea .linkBox{
+        font-size: 0.8em; display: flex; flex-direction: row;
+        flex-wrap: nowrap; justify-content: space-between;
+       }
+
+
+      
         /* style END */
     </style>
 </head>
 <body>
     <header id="header">&lt;header&gt;</header>
     <!-- wrap START -->
-    <div id="wrapper">
+    <div class="loginArea">
 
-        <div id="app" class="log-box">
-            <h2>로그인</h2>
-                <div class="div1">
-                    <input type="text" class="in" placeholder="아이디" v-model="id"></input>
-                </div>
-                <div class="div1">
-                    <input type="password" class="in" placeholder="비밀번호" v-model="pwd"></input>
-                </div>
-                <div class="div1">
-                    <button id="btn" @click="fnLogin()">로그인</button>
-                    <button id="btn" >회원가입</button>
-                </div>
-                <a href="find.do">비밀번호를 잊어버리셨나요?</a>
-            </div> .
+        <div class="loginBox">
+            <input type="text" placeholder="아이디">
+            <input type="text" placeholder="비밀번호">
+        </div> 
 
+        <div class="btnBox">
+            <button class="loginBtn">로그인</button>
+        </div>
+        <div class="linkBox">
+            <a href="javascript:;">혹시 똑똑이 처음이신가요?</a>
+            <a href="javascript:;">아이디/비밀번호 찾기</a>
+        </div>
     </div>
     <!-- wrap END -->
     <footer id="footer">&lt;footer&gt;</footer>
@@ -90,7 +80,7 @@ var app = new Vue({
     , methods: {
     	
    	 }
-    }   
+      
     , created: function () {
     	
 	}
