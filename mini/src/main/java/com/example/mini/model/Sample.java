@@ -5,7 +5,7 @@ public class Sample {
 	private String userId;
 	private String title;
 	private String content;
-	private int	hits;
+	private int hits;
 	private String boardKind;
 	private String finishYn;
 	private int category;
