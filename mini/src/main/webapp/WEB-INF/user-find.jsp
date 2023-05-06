@@ -6,24 +6,67 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ë˜‘ë˜‘ : "ë©”ë‰´ëª…ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”."</title>
+    <title>¶È¶È : "¸Ş´º¸íÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä."</title>
     <style>
-        /* style START */
+        .findArea{ 
+            width: 400px; margin: auto;
+            background-color: #fff;}
 
-        /* style END */
+        .findArea .idBox{box-shadow: -2px 0 5px 0 #ccc; padding: 15px;   
+            border-top-left-radius: 5px; display: inline-block; width: 50%;
+            border-bottom-left-radius: 5px; font-size: 0.9em; 
+            font-weight: bold; text-align: center; 
+            background-color: #EEEEEE; color: #808080;}
+        .findArea .pwBox{box-shadow: 2px 0 5px 0 #ccc; padding: 15px;
+             border-top-right-radius: 5px; display: inline-block; width: 50%;
+            border-bottom-right-radius: 5px; font-size: 0.9em; 
+            font-weight: bold; text-align: center; 
+            background-color: #EEEEEE;  color: #808080;}
+        .findArea .idBox:hover{background-color: #fff; color: black;}
+        .findArea .pwBox:hover{background-color: #fff; color: black;}
+        .findArea .idBox:visited{background-color: #fff; color: black;}
+        .findArea .pwBox:visited{background-color: #fff; color: black;}
+        
+        .findArea .inputBox{
+            margin-top: 50px; box-shadow: 0 0 5px #ccc; border-radius: 20px;
+            padding: 30px 40px; margin-bottom: 50px; font-weight: bold;
+            }
+        .findArea .markEssential::before{content: '*'; color: #5EA152;}
+        .findArea .markEssential{font-size: 0.85em;}
+        .findArea .inputBox input{
+            border: 0;
+            border-bottom: 1px solid black;
+            margin: 5px; padding-left: 10px;
+            margin-bottom: 20px;
+        }
+        .findArea .inputBox .w100{width: 100%;}
+        .findArea .inputBox .w90{width: 90%;}
+
+        .findArea .inputBox .findIdBtn{
+            margin-top: 20px; background-color: #5EA152; color: #fff;
+            padding: 10px; border: 0; border-radius: 10px; width: 80%; margin-left: 30px;
+            font-weight: bold; font-size: 0.8em;
+        }
     </style>
 </head>
 <body>
     <header id="header">&lt;header&gt;</header>
     <div id="subVisual">&lt;subVisual&gt;</div>
     <!-- wrap START -->
-    <div id="wrapper">
-
-        ì´ê³³ì— ë‚´ìš©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”.
-
+    <div class="findArea">
+        <div class="idBox">¾ÆÀÌµğ Ã£±â </div><div class="pwBox">ºñ¹Ğ¹øÈ£ Ã£±â</div>
+        <div class="inputBox">
+            <div class="markEssential">ÀÌ¸§</div>
+            <input type="text" placeholder="ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä" class="w100">
+            <div class="markEssential">ÀüÈ­¹øÈ£</div>
+            <input type="tel" placeholder="°¡ÀÔ ½Ã ÀÔ·ÂÇß´ø ÈŞ´ëÆù¹øÈ£('-'Á¦¿Ü 11ÀÚ¸® ÀÔ·Â)" class="w100">
+            <div class="markEssential">»ı³â¿ùÀÏ</div>
+            <input type="number" placeholder="»ı³â¿ùÀÏ" class="w90"> 
+            <button class="findIdBtn">¾ÆÀÌµğ Ã£±â</button>
+        </div>
     </div>
-    <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
+     <!-- wrap END -->
+     <footer id="footer">&lt;footer&gt;</footer>
 </body>
 </html>
 <style>
