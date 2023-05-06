@@ -160,48 +160,13 @@
 
                 <div class="purchase_list">
                     <table>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
+                        <tr v-for="(item, index) in list">
+                            <td id="sale_flg">{{item.finishYn}}</td>
                             <td id="address">서울특별시 구로구</td>
                             <td id="title">ddddddddddddddddddddddddddddd다</td>
                             <td id="id">아이디</td>
                             <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
+                        </tr>                        
                     </table>
                 </div>
 
