@@ -162,10 +162,10 @@
                     <table>
                         <tr v-for="(item, index) in list">
                             <td id="sale_flg">{{item.finishYn}}</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddddddddddddd다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
+                            <td id="address">{{item.addr}}</td>
+                            <td id="title">{{item.title}}</td>
+                            <td id="id">item.userId</td>
+                            <td id="date">{{item.cdatetime}}</td>
                         </tr>                        
                     </table>
                 </div>
