@@ -67,6 +67,12 @@ public class SampleController {
 		return "/b-funding-planned";
 	}
 	
+	// 2-1. 랜선펀딩 등록 및 수정
+		@RequestMapping("/funding-edit.do")
+		public String funding3(Model model) throws Exception{
+			return "/b-funding-edit";
+		}
+	
 	// 2-2. 랜선마켓
 	@RequestMapping("/lan-market.do")
 	public String lanmarkete(Model model) throws Exception{
