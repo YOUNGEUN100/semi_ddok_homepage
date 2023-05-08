@@ -1,7 +1,18 @@
 package com.example.mini.controller;
 
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.mini.dao.SampleService;
+import com.example.mini.model.Sample;
+import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
 
@@ -12,6 +23,9 @@ public class SampleController {
 	// 1. 조장이 페이지 주소에 오타를 냈다.
 	// 2. 조장이 jsp 파일에 오타를 냈다.
 	// 오타 찾으면 알려주세요.
+	
+	@Autowired
+    private SampleService sampleService; 
 	
 	// 메인페이지
 	@RequestMapping("/main.do")
@@ -163,7 +177,15 @@ public class SampleController {
 		return "/e-community-edit";
 	}
 	
-	
+	 @RequestMapping(value = "/lanmarket/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String searchLanList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<Sample> list = sampleService.searchLanList(map);
+			resultMap.put("list", list);
+			resultMap.put("result", "success");
+			return new Gson().toJson(resultMap);
+			}
 		
 		
 	

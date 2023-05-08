@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <title>랜선마켓목록</title>
     <script src="https://kit.fontawesome.com/0012da89f1.js" crossorigin="anonymous"></script>
     <style>
@@ -43,7 +45,7 @@
         }
 
         #id {
-            width: 150px;
+            width: 100px;
         }
 
         #date {
@@ -96,7 +98,7 @@
         .purchase_list {
             border: none;
             box-sizing: border-box;
-            padding: 40px 60px;
+            padding: 40px 40px;
             width: 1200px;
             height: 420px;
             margin-top: 20px;
@@ -140,6 +142,7 @@
     <header id="header">&lt;header&gt;</header>
     <div id="subVisual">&lt;subVisual&gt;</div>
     <!-- wrap START -->
+    <div id="app">
     <div id="wrapper">
 
         <div class="container">
@@ -161,11 +164,15 @@
                 <div class="purchase_list">
                     <table>
                         <tr v-for="(item, index) in list">
-                            <td id="sale_flg">{{item.finishYn}}</td>
-                            <td id="address">{{item.addr}}</td>
-                            <td id="title">{{item.title}}</td>
-                            <td id="id">item.userId</td>
-                            <td id="date">{{item.cdatetime}}</td>
+                        	<template>
+                        		<td id="sale_flg">{{item.finishYn}}</td>
+                            	<td id="address">{{item.addr}}</td>
+                            	<td id="title">{{item.title}}</td>
+                            	<td id="id">{{item.nick}}</td>
+                            	<td id="date">{{item.cdatetime}}</td>
+                            	<td>{{item.boardKind}}</td>
+                        	</template>
+                            
                         </tr>                        
                     </table>
                 </div>
@@ -188,48 +195,17 @@
 
                 <div class="split_list">
                     <table>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddddddddddddd다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
+                        <tr v-for="(item, index) in list">
+                        	<template>
+                        		<td id="sale_flg">{{item.finishYn}}</td>
+                            	<td id="address">{{item.addr}}</td>
+                            	<td id="title">{{item.title}}</td>
+                            	<td id="id">{{item.nick}}</td>
+                            	<td id="date">{{item.cdatetime}}</td>
+                            	<td>{{item.boardKind}}</td>
+                        	</template>
+                            
+                        </tr>                        
                     </table>
                 </div>
 
@@ -239,22 +215,47 @@
 
             </div>
 
-
-
-
-
         </div>
 
     </div>
 
     </div>
+    </div>
+    
     <!-- wrap END -->
     <footer id="footer">&lt;footer&gt;</footer>
 </body>
 
 </html>
 <script>
-
+var app = new Vue({ 
+    el: '#app',
+    data: {
+    	list : []
+    }   
+    , methods: {
+        fnGetList : function(){
+            var self = this;
+            var nparmap = {};
+            $.ajax({
+                url:"/lanmarket/list.dox",
+                dataType:"json",	
+                type : "POST", 
+                data : nparmap,
+                success : function(data) {                                       
+	                self.list = data.list;
+	                
+	                console.log(data.list);
+                }
+            }); 
+        }  	
+    	
+    	
+    }   
+    , created: function () {
+		this.fnGetList();       
+	}
+});
 </script>
 
 

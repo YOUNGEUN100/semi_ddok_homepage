@@ -14,7 +14,7 @@ public class Sample {
 	private String deleteYn;
 	private String secretYn;
 	private String answerYn;
-	private String addr;
+
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -92,11 +92,5 @@ public class Sample {
 	}
 	public void setAnswerYn(String answerYn) {
 		this.answerYn = answerYn;
-	}
-	public String getAddr() {
-		return addr;
-	}
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
+	}	
 }
