@@ -177,7 +177,8 @@ public class SampleController {
 		return "/e-community-edit";
 	}
 	
-	 @RequestMapping(value = "/lanmarket/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	// 랜선마켓 게시판 리스트 
+	@RequestMapping(value = "/lanmarket/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 		@ResponseBody
 		public String searchLanList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();

@@ -100,7 +100,6 @@
             box-sizing: border-box;
             padding: 40px 40px;
             width: 1200px;
-            height: 420px;
             margin-top: 20px;
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
@@ -111,7 +110,6 @@
             box-sizing: border-box;
             padding: 40px 40px;
             width: 1200px;
-            height: 420px;
             margin-top: 20px;
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
