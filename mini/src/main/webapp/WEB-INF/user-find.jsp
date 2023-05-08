@@ -9,44 +9,44 @@
     <title>똑똑 : "메뉴명을 입력해 주세요."</title>
     <style>
         .findArea{ 
-            width: 400px; margin: auto;
-            background-color: #fff;}
+        width: 600px; margin: -10px auto;
+        background-color: #fff;}
 
-        .findArea .idBox{box-shadow: -2px 0 5px 0 #ccc; padding: 15px;   
-            border-top-left-radius: 5px; display: inline-block; width: 50%;
-            border-bottom-left-radius: 5px; font-size: 0.9em; 
-            font-weight: bold; text-align: center; 
-            background-color: #EEEEEE; color: #808080;}
-        .findArea .pwBox{box-shadow: 2px 0 5px 0 #ccc; padding: 15px;
-             border-top-right-radius: 5px; display: inline-block; width: 50%;
-            border-bottom-right-radius: 5px; font-size: 0.9em; 
-            font-weight: bold; text-align: center; 
-            background-color: #EEEEEE;  color: #808080;}
-        .findArea .idBox:hover{background-color: #fff; color: black;}
-        .findArea .pwBox:hover{background-color: #fff; color: black;}
-        .findArea .idBox:visited{background-color: #fff; color: black;}
-        .findArea .pwBox:visited{background-color: #fff; color: black;}
-        
-        .findArea .inputBox{
-            margin-top: 50px; box-shadow: 0 0 5px #ccc; border-radius: 20px;
-            padding: 30px 40px; margin-bottom: 50px; font-weight: bold;
-            }
-        .findArea .markEssential::before{content: '*'; color: #5EA152;}
-        .findArea .markEssential{font-size: 0.85em;}
-        .findArea .inputBox input{
-            border: 0;
-            border-bottom: 1px solid black;
-            margin: 5px; padding-left: 10px;
-            margin-bottom: 20px;
-        }
-        .findArea .inputBox .w100{width: 100%;}
-        .findArea .inputBox .w90{width: 90%;}
-
-        .findArea .inputBox .findIdBtn{
-            margin-top: 20px; background-color: #5EA152; color: #fff;
-            padding: 10px; border: 0; border-radius: 10px; width: 80%; margin-left: 30px;
-            font-weight: bold; font-size: 0.8em;
-        }
+	    .findArea .idBox{
+	        box-shadow: -2px 0 5px 0 #ccc; padding: 15px;   
+	        border-top-left-radius: 10px; display: inline-block; width: 49.1%;
+	        border-bottom-left-radius: 10px; font-size: 1.2em; 
+	        font-weight: bold; text-align: center; margin-left: 5px;
+	        background-color: #fff; color: black;}
+	    .findArea .pwBox{
+	        box-shadow: 2px 0 5px 0 #ccc; padding: 15px;
+	        border-top-right-radius: 10px; display: inline-block; width: 49.8%;
+	        border-bottom-right-radius: 10px; font-size: 1.2em; 
+	        font-weight: bold; text-align: center; margin-left: 1px;
+	        background-color: #fff; color: black;}
+	
+	    .findArea .markEssential::before{content: '*'; color: #5EA152;}
+	    .findArea .inputBox  .markEssential{font-size: 0.9em; padding-left: 5px;}
+	    .findArea .inputBox{
+	        margin-top: 55px; box-shadow: 0 0 5px #ccc; border-radius: 20px;
+	        padding: 50px 95px; font-weight: bold; font-size: 1.1em;
+	        } 
+	    .findArea .inputBox input{
+	        border: 0; border-bottom: 1px solid black;
+	        margin: 12px 5px; padding-left: 10px;
+	        margin-bottom: 30px; font-size: 0.88em;
+	    }
+	    .findArea .inputBox .w100{width: 100%;}
+	    .findArea .inputBox select{
+	        margin-top: 7px; font-size: 0.9em; padding: 8px; 
+	        margin-left: 8px; margin-bottom: 10px;}
+	    .findArea .inputBox input::placeholder{font-size: 1.05em;}
+	
+	    .findArea .inputBox .findIdBtn{
+	        margin-top: 20px; background-color: #5EA152; color: #fff;
+	        padding: 12px; border: 0; border-radius: 10px; width: 78%; margin-left: 50px;
+	        font-weight: bold; font-size: 1.1em; margin-bottom: 15px;
+	    }
     </style>
 </head>
 <body>

@@ -130,15 +130,15 @@ public class SampleController {
 	}
 	
 	// 4-1. 알뜰정책
-	@RequestMapping("/pocily.do")
+	@RequestMapping("/policy.do")
 	public String policy(Model model) throws Exception{
-		return "/d-pocily-list";
+		return "/d-policy-list";
 	}
 	
 	// 4-1. 알뜰정책 상세
-	@RequestMapping("/pocily-view.do")
+	@RequestMapping("/policy-view.do")
 	public String policyInfo(Model model) throws Exception{
-		return "/d-pocily-view";
+		return "/d-policy-view";
 	}
 	
 	// 4-2. 생활백서
