@@ -5,29 +5,53 @@
 	<!--랜선마켓 리스트-->
 	<mapper namespace="com.example.mini.mapper.SampleMapper">
 		<select id="selectLanList" parameterType="hashmap" resultType="com.example.mini.model.Sample">
-		SELECT      BOARD_NO,
-			A.USER_ID,
-			B.NICK,
-			TITLE,
-			CONTENT,
-			HITS,
-			BOARD_KIND,
-			FINISH_YN,
-			CATEGORY,
-			CASE
-				WHEN CURDATE() = DATE_FORMAT(CDATETIME,'%Y-%m-%d') then DATE_FORMAT(CDATETIME,'%H : %i : %s')
-                ELSE DATE_FORMAT(CDATETIME,'%Y-%m-%d') 
-			END AS CDATETIME,
-			CASE
-				WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
-                ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
-			END AS UDATETIME,
-			DELETE_YN,
-			SECRET_YN,
-			ANSWER_YN,
-            B.ADDR
-		FROM T4_BOARD A
-        LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
-        WHERE BOARD_KIND = 'T_LAN' OR BOARD_KIND = 'D_LAN';
-	</select>
+			SELECT      
+				BOARD_NO,
+				A.USER_ID,
+				B.NICK,
+				TITLE,
+				CONTENT,
+				HITS,
+				BOARD_KIND,
+				FINISH_YN,
+				CATEGORY,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(CDATETIME,'%Y-%m-%d') then DATE_FORMAT(CDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(CDATETIME,'%Y-%m-%d') 
+				END AS CDATETIME,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
+				END AS UDATETIME,
+				DELETE_YN,
+				SECRET_YN,
+				ANSWER_YN,
+            	B.ADDR
+			FROM T4_BOARD A
+        	LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
+        	WHERE BOARD_KIND = 'T_LAN' OR BOARD_KIND = 'D_LAN';
+		</select>
+		
+		<!--펀딩 리스트-->		
+		<select id="selectFundingList" parameterType="hashmap" resultType="com.example.mini.model.Sample">
+			SELECT
+				A.FUNDING_NO,
+				FUNDING_NAME,
+				FUNDING_SUMMARY,
+				FUNDING_SCRIPT,
+				FUNDING_START_DT,
+				FUNDING_END_DT,
+				FUNDING_CLOSE_YN,
+				FUNDING_GOAL_CNT,
+				FORMAT(FUNDING_PRICE , 0) AS FUNDING_PRICE,
+				CDATETIME,
+				UDATETIME,
+				CNT,
+				TIMESTAMPDIFF(day, now(), FUNDING_END_DT) AS D_DAY
+			FROM T4_FUNDING A
+			LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
+						FROM T4_FUNDING_MEMBER
+						GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO;
+				
+		</select>
 	</mapper>

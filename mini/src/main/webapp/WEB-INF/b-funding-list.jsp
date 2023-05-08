@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <title>랜선펀딩목록</title>
     <script src="https://kit.fontawesome.com/0012da89f1.js" crossorigin="anonymous"></script>
     <style>
@@ -22,7 +24,12 @@
             margin: auto;
 
         }
-
+		
+		.add_box {
+			position : absolute;
+			top : 330px;
+		}
+		
         .add_box button {
             border: none;
             width: 100px;
@@ -32,6 +39,7 @@
             color: white;
             font-size: 20px;
             font-weight: bold;
+            
         }
 
         .box1 {
@@ -169,13 +177,12 @@
     <header id="header">&lt;header&gt;</header>
     <div id="subVisual">&lt;subVisual&gt;</div>
     <!-- wrap START -->
+    <div id="app">
     <div id="wrapper">
-
-        <div class="container">
-
-            <div class="add_box">
-                <button class="add_btn">등록</button>
-            </div>
+		<div class="add_box">
+            <button class="add_btn">등록</button>
+        </div>
+        <div class="container">            
 
             <div class="fund_category">
 
@@ -201,28 +208,22 @@
 
                     <ul>
                         <li>
-                            <div class="open_list">
+                            <div class="open_list" v-for="(item, index) in list">
                                 <div class="fund_img"></div>
                                 <div class="fund_content">
-                                    <h1 class="fund_name">크리넥스 3겹 데코 앤 소프트 수딩플러스 화장지 27m 팩, 24롤</h1>
-                                    <p class="fund_summary">코튼과 알로에베라 로션으로 피부에 더 편안하고 부드러운 마무리의 도톰한 3겹 제품</p>
-                                    <span class="fund_cnt">100명 중 67명</span>
-                                    <span class="fund_cnt" style="float: right;">10일 남음</span>
+                                    <h1 class="fund_name">{{item.fundingName}}</h1>
+                                    <p class="fund_summary">{{item.fundingSummary}}</p>
+                                    <span class="fund_cnt">{{item.fundingGoalCnt}}명 중 {{item.cnt}}명</span>
+                                    <span class="fund_cnt" style="float: right;">{{item.dDay}}일 남음</span>
                                     <p></p>
-                                    <progress value="67" max="100" class="fund_progress"></progress>
+                                    <progress value="{{item.cnt}}" max="{{item.fundingGoalCnt}}" class="fund_progress"></progress>
                                     <div class="price_box">
                                         <span>공구가</span>
-                                        <span class="fund_price">19,900원</span>
+                                        <span class="fund_price">{{item.fundingPrice}}원</span>
                                     </div>
                                 </div>
                             </div>
-                        </li>
-
-                        <li>
-                            <div class="open_list">
-                                <div class="fund_img"></div>
-                            </div>
-                        </li>
+                        </li>   
 
                         <li class="open_detail">
                             <button>더보기</button>
@@ -280,7 +281,7 @@
         </div>
 
     </div>
-
+	</div>
     </div>
     <!-- wrap END -->
     <footer id="footer">&lt;footer&gt;</footer>
@@ -288,7 +289,33 @@
 
 </html>
 <script>
-
+var app = new Vue({ 
+    el: '#app',
+    data: {
+    	list : []
+    }   
+    , methods: {
+        fnGetFundingList : function(){
+            var self = this;
+            var nparmap = {};
+            $.ajax({
+                url:"/funding/list.dox",
+                dataType:"json",	
+                type : "POST", 
+                data : nparmap,
+                success : function(data) {                                       
+	                self.list = data.list;	                
+	                console.log(data.list);
+                }
+            }); 
+        }  	
+    	
+    	
+    }   
+    , created: function () {
+		this.fnGetFundingList();       
+	}
+});
 </script>
 
 

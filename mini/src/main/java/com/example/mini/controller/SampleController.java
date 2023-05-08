@@ -186,7 +186,18 @@ public class SampleController {
 			resultMap.put("list", list);
 			resultMap.put("result", "success");
 			return new Gson().toJson(resultMap);
-			}
+	}
+	
+	// 펀딩 리스트 
+		@RequestMapping(value = "/funding/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+			@ResponseBody
+			public String searchFundingList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+				HashMap<String, Object> resultMap = new HashMap<String, Object>();
+				List<Sample> list = sampleService.searchFundingList(map);
+				resultMap.put("list", list);
+				resultMap.put("result", "success");
+				return new Gson().toJson(resultMap);
+		}
 		
 		
 	
