@@ -36,7 +36,9 @@
 	        margin: 12px 5px; padding-left: 10px;
 	        margin-bottom: 30px; font-size: 0.88em;
 	    }
+	    .findArea .inputBox .calender{ width: 30px; height: 30px;}
 	    .findArea .inputBox .w100{width: 100%;}
+	    .findArea .inputBox .w90{width: 90%;}
 	    .findArea .inputBox select{
 	        margin-top: 7px; font-size: 0.9em; padding: 8px; 
 	        margin-left: 8px; margin-bottom: 10px;}
@@ -61,7 +63,7 @@
             <div class="markEssential">전화번호</div>
             <input type="tel" placeholder="가입 시 입력했던 휴대폰번호('-'제외 11자리 입력)" class="w100">
             <div class="markEssential">생년월일</div>
-            <input type="number" placeholder="생년월일" class="w90"> 
+            <input type="number" placeholder="생년월일" class="w90"><img alt="calender" src="images/calender_final.png" class="calender"> 
             <button class="findIdBtn">아이디 찾기</button>
         </div>
     </div>
