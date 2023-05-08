@@ -50,15 +50,15 @@
 <body>
     <header id="header">&lt;header&gt;</header>
     <!-- wrap START -->
-    <div class="loginArea">
+    <div id="app" class="loginArea">
 
         <div class="loginBox">
-            <input type="text" placeholder="아이디">
-            <input type="text" placeholder="비밀번호">
+            <input type="text" placeholder="아이디" v-model="id">
+            <input type="password" placeholder="비밀번호" v-model="pw">
         </div> 
 
         <div class="btnBox">
-            <button class="loginBtn">로그인</button>
+            <button class="loginBtn" @click="">로그인</button>
         </div>
         <div class="linkBox">
             <a href="javascript:;">혹시 똑똑이 처음이신가요?</a>
@@ -74,13 +74,12 @@ var app = new Vue({
     el: '#app',
     data: {
     	id : ""
-    	, pwd : ""
+    	, pw : ""
     	, user : {}
     }   
     , methods: {
     	
-   	 }
-      
+    }   
     , created: function () {
     	
 	}
