@@ -14,4 +14,7 @@ public interface UserMapper {
 	
 	//중복체크
 	int selectUserCnt(HashMap<String, Object> map);
+	
+	//회원가입
+	void insertUser(HashMap<String,Object>map);
 }

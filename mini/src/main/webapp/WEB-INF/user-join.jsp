@@ -78,25 +78,25 @@
             <div class="joinBox" >
                 <div class="captionBox">
                     <span class="markEssential">아이디</span>  <span class="captionCheck">사용할 수 없는 아이디입니다</span>
-                    <input type="text" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn">중복검사</button>
+                    <input type="text" v-model="id"class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn">중복검사</button>
                 </div> 
                 <div class="captionBox">
                     <span class="markEssential">비밀번호</span>  <span class="captionCheck">20자 이내의 비밀번호를 입력해주세요</span>
-                    <input type="password" class="w100" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
+                    <input type="password" v-model="pw" class="w100" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
                 </div>
                 <div class="captionBox">
                     <span class="markEssential">비밀번호 확인</span> <span class="captionCheck">비밀번호가 일치하지않습니다.</span>
                 </div>
-                <input type="password" class="w100" placeholder="비밀번호 재입력" >
+                <input type="password" class="w100" placeholder="비밀번호 재입력" v-model="pwck">
                 <p class="markEssential">이름</p>
-                <input type="text" class="w100" placeholder="이름을 입력해 주세요" >
+                <input type="text" class="w100" placeholder="이름을 입력해 주세요" v-model="name">
                 <p class="markEssential">닉네임</p>
-                <input type="text" class="w100" placeholder="활동할 닉네임을 입력해 주세요" >
+                <input type="text" class="w100" placeholder="활동할 닉네임을 입력해 주세요" v-model="nick">
                 <p class="markEssential">전화번호</p>
-                <input type="tel" class="w100" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" >
+                <input type="tel" class="w100" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="hp">
                 <p>이메일주소</p>
-                <input type="email" class="w50" placeholder="이메일 주소" >@ 
-                <select class="mail">
+                <input type="email" class="w50" placeholder="이메일 주소" v-model="email">@ 
+                <select class="mail" v-model="email">
                     <div>
                         <option>naver.com</option>
                         <option>gmail.com</option>
@@ -111,11 +111,11 @@
                 </select> 
                 <p class="markEssential">주소</p>
                 <input type="number" class="w60 zipCode" placeholder="우편번호" id="sample6_postcode"><button class="zipcodeBtn" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
-                <input type="text" class="w100 addr" placeholder="주소" id="sample6_address">
-                <input type="text" class="w100 addr2" placeholder="상세주소 입력"  id="sample6_detailAddress">
+                <input type="text" v-model="addr" class="w100 addr" placeholder="주소" id="sample6_address">
+                <input type="text" v-model="addr2" class="w100 addr2" placeholder="상세주소 입력"  id="sample6_detailAddress">
                 <div>
                     <span class="markEssential">생년월일</span><span class="accountFind">※계정찾기에 활용됩니다</span>
-                    <input type="text" class="w90" placeholder="생년월일" ><img src="images/calender_final.png" class="calender">
+                    <input type="text" class="w90" placeholder="생년월일" v-model="birth"><img src="images/calender_final.png" class="calender">
                 </div>
                 <div>
                     <span class="markEssential">비밀번호 질문</span><span class="accountFind">※계정찾기에 활용됩니다</span>
@@ -129,10 +129,10 @@
                         <option>자신이 두번째로 존경하는 인물은?</option>
                         <option>다시 태어나면 되고 싶은 것은?</option>
                     </select>
-                    <input type="text" class="w100" placeholder="선택한 질문에 대한 답변 입력" >
+                    <input type="text" class="w100" placeholder="선택한 질문에 대한 답변 입력" v-model="pwHint">
                 </div>
                 <p>자취경력</p>
-                <input type="text" class="w90" placeholder="자취경력 햇수 입력" > 년차
+                <input type="text" class="w90" placeholder="자취경력 햇수 입력" v-model="livingYear"> 년차
            	</div>
 	            <div class="btnBox">
 	                <button class="joinBtn">가입하기</button>

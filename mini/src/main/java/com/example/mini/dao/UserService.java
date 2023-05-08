@@ -11,4 +11,7 @@ public interface UserService {
 	
 	//중복체크
 	int searchUserCnt(HashMap<String, Object> map);
+	
+	//회원가입
+	void addUser(HashMap<String, Object>map);
 }

@@ -14,6 +14,8 @@ import com.example.mini.model.User;
 import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -57,10 +59,19 @@ public class UserController {
     }
 	
 	@RequestMapping("/join.do") 
-    public String joinUser(Model model) throws Exception{
-
+    public String add(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+    	request.setAttribute("map", map);
         return "/user-join";
     }
+	
+	@RequestMapping(value = "/signup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String addBbs(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		userService.addUser(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
 	
 	@RequestMapping("/find.do") 
     public String findAccount(Model model) throws Exception{

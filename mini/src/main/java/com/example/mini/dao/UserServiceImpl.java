@@ -47,4 +47,10 @@ public class UserServiceImpl implements UserService{
 		return userMapper.selectUserCnt(map);
 	}
 
+	@Override
+	public void addUser(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		userMapper.insertUser(map);
+	}
+
 }

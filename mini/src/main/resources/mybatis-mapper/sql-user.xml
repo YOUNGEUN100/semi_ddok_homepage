@@ -27,4 +27,23 @@
 			FROM T4_USER
 			WHERE USER_ID = #{id}
 		</select>
+		
+		<insert id="insertUser" parameterType="HashMap">
+			INSERT INTO T4_USER(
+				USER_ID,
+				PASSWORD,
+				NAME,
+				NICK,
+				EMAIL,
+				BIRTH,
+				HP,
+				LIVING_YEAR,
+				STATUS,
+				ADDR,
+				ADDR2,
+				JOINDATE,
+				PW_HINT)
+			VALUES(#{id}, #{pw}, #{name}, #{nick}, #{email}, #{birth},
+			#{hp}, #{livingYear}, #{status}, #{addr}, #{addr2}, SYSDATE, #{pwHint})
+		</insert>
 	</mapper>
