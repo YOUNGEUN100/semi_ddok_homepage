@@ -19,6 +19,12 @@
 				JOINDATE,
 				PW_HINT	
 			FROM T4_USER
-			WHERE USER_ID=USER_ID
+			WHERE USER_ID=#{id} AND PASSWORD=#{pw}
+		</select>
+		
+		<select id="selectUserCnt" parameterType="HashMap" resultType="int">
+			SELECT COUNT(*) AS CNT 
+			FROM T4_USER
+			WHERE USER_ID = #{id}
 		</select>
 	</mapper>

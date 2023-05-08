@@ -14,6 +14,7 @@ import com.example.mini.model.User;
 import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -21,25 +22,38 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	HttpSession session;
+	
 	@RequestMapping("/login.do") 
     public String main(Model model) throws Exception{
-
+    	String id = (String) session.getAttribute("sessionId");
+    	String name = (String) session.getAttribute("sessionName");
+    	String status = (String) session.getAttribute("sessionStatus");
+    	
+    	session.removeAttribute(id);
+    	session.removeAttribute(name);
+    	session.removeAttribute(status);
+    	
+    	session.invalidate();
+    	
         return "/user-login";
     }
 	
 	@RequestMapping(value = "/login.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String viewBbs(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+	public String get(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		User result = userService.searchUserInfo(map);
-		resultMap.put("result", "success");
+		resultMap = userService.searchUserInfo(map);
+		String result = (String) resultMap.get("result");
+		if(result.equals("success")) {
+			User user = (User) resultMap.get("user");
+			session.setAttribute("sessionId", user.getUserId());
+			session.setAttribute("sessionName", user.getName());
+			session.setAttribute("sessionStatus", user.getStatus());
+		}
 		return new Gson().toJson(resultMap);
-	}
-	
-	@RequestMapping("/find.do") 
-    public String findAccount(Model model) throws Exception{
-
-        return "/user-find";
+		
     }
 	
 	@RequestMapping("/join.do") 
@@ -48,6 +62,13 @@ public class UserController {
         return "/user-join";
     }
 	
+	@RequestMapping("/find.do") 
+    public String findAccount(Model model) throws Exception{
+
+        return "/user-find";
+    }
+	
+
 	@RequestMapping("/mypage.do") 
     public String mypage(Model model) throws Exception{
 
