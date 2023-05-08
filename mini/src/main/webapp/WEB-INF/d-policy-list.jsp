@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¶È¶È : "¸Þ´º¸íÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä."</title>
+    <title>ë˜‘ë˜‘ : "ë©”ë‰´ëª…ì„ ìž…ë ¥í•´ ì£¼ì„¸ìš”."</title>
     <style>
         /* style START */
 
@@ -19,7 +19,7 @@
     <!-- wrap START -->
     <div id="wrapper">
 
-        ÀÌ°÷¿¡ ³»¿ëÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä.
+        ì´ê³³ì— ë‚´ìš©ì„ ìž…ë ¥í•´ ì£¼ì„¸ìš”.
 
     </div>
     <!-- wrap END -->
