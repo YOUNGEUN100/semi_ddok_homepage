@@ -11,4 +11,7 @@ public interface UserMapper {
 	
 	//로그인
 	User selectUserInfo(HashMap<String, Object>map);
+	
+	//중복체크
+	int selectUserCnt(HashMap<String, Object> map);
 }
