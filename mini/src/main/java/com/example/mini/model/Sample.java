@@ -14,6 +14,8 @@ public class Sample {
 	private String deleteYn;
 	private String secretYn;
 	private String answerYn;
+	private String addr; //게시판용
+	private String nick; //게시판용
 
 	public int getBoardNo() {
 		return boardNo;
@@ -92,5 +94,17 @@ public class Sample {
 	}
 	public void setAnswerYn(String answerYn) {
 		this.answerYn = answerYn;
+	}
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
 	}	
 }

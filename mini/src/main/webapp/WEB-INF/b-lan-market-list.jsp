@@ -37,11 +37,11 @@
         }
 
         #address {
-            width: 150px;
+            width: 200px;
         }
 
         #title {
-            width: 530px;
+            width: 570px;
         }
 
         #id {
@@ -106,10 +106,10 @@
             box-shadow: 0px 0px 20px 5px #e7e6e6;
         }
 
-        .split_list {
+        .donate_list {
             border: none;
             box-sizing: border-box;
-            padding: 40px 60px;
+            padding: 40px 40px;
             width: 1200px;
             height: 420px;
             margin-top: 20px;
@@ -164,13 +164,13 @@
                 <div class="purchase_list">
                     <table>
                         <tr v-for="(item, index) in list">
-                        	<template>
-                        		<td id="sale_flg">{{item.finishYn}}</td>
+                        	<template v-if="item.boardKind=='T_LAN'">
+                        		<td id="sale_flg" v-if="item.finishYn=='N'" style = "color : #5ea152">{{item.finish}}</td>
+                            	<td id="sale_flg" v-else>{{item.finish}}</td>
                             	<td id="address">{{item.addr}}</td>
                             	<td id="title">{{item.title}}</td>
                             	<td id="id">{{item.nick}}</td>
                             	<td id="date">{{item.cdatetime}}</td>
-                            	<td>{{item.boardKind}}</td>
                         	</template>
                             
                         </tr>                        
@@ -193,16 +193,16 @@
                     </select>
                 </div>
 
-                <div class="split_list">
+                <div class="donate_list">
                     <table>
                         <tr v-for="(item, index) in list">
-                        	<template>
-                        		<td id="sale_flg">{{item.finishYn}}</td>
+                        	<template v-if="item.boardKind=='D_LAN'">
+                        		<td id="sale_flg" v-if="item.finishYn=='N'" style = "color : #5ea152">{{item.finish2}}</td>
+                        		<td id="sale_flg" v-else>{{item.finish2}}</td>
                             	<td id="address">{{item.addr}}</td>
                             	<td id="title">{{item.title}}</td>
                             	<td id="id">{{item.nick}}</td>
                             	<td id="date">{{item.cdatetime}}</td>
-                            	<td>{{item.boardKind}}</td>
                         	</template>
                             
                         </tr>                        
@@ -232,6 +232,8 @@ var app = new Vue({
     el: '#app',
     data: {
     	list : []
+    	, finish : ""
+    	, finish2 : ""
     }   
     , methods: {
         fnGetList : function(){
@@ -244,7 +246,15 @@ var app = new Vue({
                 data : nparmap,
                 success : function(data) {                                       
 	                self.list = data.list;
-	                
+	                for (var i = 0; i < self.list.length; i++) {
+                        if (self.list[i].finishYn == 'N') {
+                            self.list[i].finish = '판매중';
+                            self.list[i].finish2 = '나눔중';
+                        } else if (self.list[i].finishYn == 'Y') {
+                        	self.list[i].finish = '판매완료';
+                        	self.list[i].finish2 = '나눔완료';
+                        }
+                    }
 	                console.log(data.list);
                 }
             }); 
