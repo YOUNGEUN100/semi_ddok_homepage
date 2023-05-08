@@ -64,11 +64,21 @@ public class UserController {
         return "/user-join";
     }
 	
-	@RequestMapping(value = "/signup.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/join.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String addBbs(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		userService.addUser(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/user/check.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String check(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int cnt = userService.searchUserCnt(map);
+		resultMap.put("cnt", cnt);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
