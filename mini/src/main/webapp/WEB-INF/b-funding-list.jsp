@@ -5,31 +5,45 @@
 
 <head>
     <meta charset="UTF-8">
-    <script src="js/jquery.js"></script>
-	<script src="js/vue.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>랜선펀딩0</title>
+    <title>랜선펀딩목록</title>
     <script src="https://kit.fontawesome.com/0012da89f1.js" crossorigin="anonymous"></script>
     <style>
         /* style START */
         /* * {
             border: 1px dotted rgb(223, 60, 141);
         } */
+
         .container {
             width: 1200px;
             height: 100%;
             position: relative;
             margin: auto;
+
         }
+
+        .add_box button {
+            border: none;
+            width: 100px;
+            height: 40px;
+            border-radius: 15px;
+            background-color: #999999;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
         .box1 {
             width: 1200px;
             margin: auto;
             margin-top: 20px;
         }
+
         .fund_title h1 {
             display: inline-block;
         }
+
         select {
             width: 80px;            
             float: right;
@@ -39,15 +53,18 @@
             border-radius: 0px;
             appearance: none;
         }
+
         .box2 {
             width: 1200px;
             margin: auto;
             margin-top: 70px;
         }
+
         .fund_category {
             width: 1200px;
             text-align: center;
         }
+
         .category_btn {
             font-size: 20px;
             font-weight: bold;
@@ -59,6 +76,7 @@
             box-shadow: 0px 0px 20px 5px #e7e6e6;
             background-color: white;
         }
+
         .open_list {
             border: none;
             box-sizing: border-box;
@@ -69,6 +87,7 @@
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
         }
+
         .planned_list {
             border: none;
             box-sizing: border-box;
@@ -79,6 +98,7 @@
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
         }
+
         .fund_img {
             background-color: #ebebeb;
             border-radius: 50%;
@@ -86,40 +106,49 @@
             height: 300px;
             float: left;
         }
+
         .fund_content {
             margin-top: 40px;
             margin-left: 50px;
             float: left;
         }
+
         .fund_summary {
             margin-top: 30px;
             font-size: 15px;
         }
+
         .fund_cnt {
             display: inline-block;
             margin-top: 30px;
             font-size: 15px;
         }
+
         .fund_progress {
             width: 735px;
             height: 20px;
         }
+
         .price_box {
             margin-top: 15px;
             font-size: 20px;
         }
+
         .fund_price {
             font-size: 30px;
             font-weight: bold;
             color: #5ea152;
         }
+
         .planned_list_box .fund_price {
             color: #fe7167;
         }
+
         .open_detail {
             text-align: center;
             margin-top: 60px;
         }
+
         .open_detail button {
             border: none;
             width: 200px;
@@ -130,6 +159,8 @@
             font-size: 20px;
             font-weight: bold;
         }
+
+
         /* style END */
     </style>
 </head>
@@ -141,22 +172,33 @@
     <div id="wrapper">
 
         <div class="container">
+
+            <div class="add_box">
+                <button class="add_btn">등록</button>
+            </div>
+
             <div class="fund_category">
+
                 <button class="category_btn">진행중</button>
                 <button class="category_btn">오픈예정</button>
+
             </div>
 
             <div class="box1">
 
                 <div class="fund_title">
+
                     <h1>현재 진행중인 랜선펀딩</h1>
+
                     <select>
                         <option>최신순</option>
                         <option>가격순</option>
                     </select>
+
                 </div>
 
                 <div class="open_list_box">
+
                     <ul>
                         <li>
                             <div class="open_list">
@@ -175,16 +217,21 @@
                                 </div>
                             </div>
                         </li>
+
                         <li>
                             <div class="open_list">
                                 <div class="fund_img"></div>
                             </div>
                         </li>
+
                         <li class="open_detail">
                             <button>더보기</button>
                         </li>
+
                     </ul>
+
                 </div>
+
             </div>
 
             <div class="box2">
@@ -234,12 +281,15 @@
 
     </div>
 
-    
+    </div>
     <!-- wrap END -->
     <footer id="footer">&lt;footer&gt;</footer>
 </body>
 
 </html>
+<script>
+
+</script>
 
 
 <style>

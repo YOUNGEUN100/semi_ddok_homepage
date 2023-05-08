@@ -9,7 +9,7 @@
 	<script src="js/vue.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>·£¼±ÆÝµù2</title>
+    <title>¿ÀÇÂ¿¹Á¤·£¼±ÆÝµù</title>
     <script src="https://kit.fontawesome.com/0012da89f1.js" crossorigin="anonymous"></script>
     <style>
         /* style START */

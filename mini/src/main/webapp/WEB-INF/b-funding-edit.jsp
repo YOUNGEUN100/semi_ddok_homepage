@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>랜선펀딩0</title>
+        <title>랜선펀딩등록수정</title>
         <script src="https://kit.fontawesome.com/0012da89f1.js" crossorigin="anonymous"></script>
         <style>
             /* style START */
