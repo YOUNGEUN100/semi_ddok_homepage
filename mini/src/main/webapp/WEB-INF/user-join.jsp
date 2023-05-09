@@ -93,11 +93,11 @@
             <div class="joinBox" >
                 <div class="captionBox">
                     <div class="markEssential id">아이디</div><div v-if="info.id == ''"></div>  
-                    <template v-else>
+                    <template v-else><!--중복체크-->
 	                  <span class="ableId" v-if="idFlg">사용할 수 있는 아이디입니다</span>
 	                  <span class="disableId" v-else>이미 사용중인 아이디입니다</span>
 	                 </template>
-                    <input type="text" v-model="info.id"class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck()">중복체크</button>
+                    <input type="text" v-model="info.id" maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck()">중복체크</button>
                 </div> 
                 <div class="captionBox">
                     <div class="markEssential pw">비밀번호</div><div v-if="info.pw == ''"></div>
@@ -141,7 +141,7 @@
                 <input type="text" v-model="info.addr2" class="w100 addr2" placeholder="상세주소 입력" >
                 <div>
                     <span class="markEssential">생년월일</span><span class="accountFind">※계정찾기에 활용됩니다</span>
-                    <label for="birth"><input type="date" name="birth" class="date w100"></label>
+                    <input type="date" name="birth" v-model="info.birth" class="date w100">
                 </div>
                 <div>
                     <span class="markEssential">비밀번호 질문</span><span class="accountFind">※계정찾기에 활용됩니다</span>
@@ -198,9 +198,7 @@ var app = new Vue({
     	},
     	  idFlg : true
     	, roadFullAddr : ""
-    	
-    	
-    }   
+    }
     , methods : {
     	fnJoin : function(){
     		var self = this;
@@ -208,7 +206,6 @@ var app = new Vue({
     			alert("아이디를 입력해주세요");
     			return;
     		}
-    		
     		if(!self.idFlg){
     			alert("아이디 중복체크를 해주세요")
     			return;
