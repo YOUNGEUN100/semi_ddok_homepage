@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <script src="js/jquery.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -220,15 +221,17 @@
         .circle{
             
             margin: 5px;
-            background-color: #beb6b6;
+            background-color: #ccc;
             width: 100px;
             height: 100px;
             border-radius: 50%;
+            box-shadow: 1px 1px 10px 2px gray;            
+            /*그림자주기 1위치(좌우) 2.위치(상하) 3흐리기 4크기 5색깔*/
         }
         .box{
             
             margin: 5px;
-            border: 1px solid red;
+            
             background-color: #beb6b6;
             width: 210px;
             height: 220px;
@@ -238,7 +241,7 @@
         #box1{
             margin-top: 50px;
             align-items: flex-start;
-            justify-content: space-evenly;
+            justify-content: space-evenly;            
         }
 
         #box2{
@@ -265,8 +268,8 @@
         }
         .box4{
             margin: 2px;
-            border: 1px solid blue;
-            background-color: #beb6b6;
+            
+            background-color: #f1eee8;
             width: 210px;
             height: 100px;
         }
@@ -275,8 +278,9 @@
             border: 1px;
             width: 100px;
             height: 30px;
-            background-color: orange;
             text-align: center;
+            font-size: 18px;
+            
         }
         .recommend{
             margin-top: 80px;
@@ -318,28 +322,29 @@
     <!-- wrap START -->
     <div id="wrapper" >
 
-        이곳에 내용을 입력해 주세요.
+
+
         <div class="smart_market" id="box1">
-            <div ><img src="images/food1.jpg" class="circle"></div>
-            <div ><img src="images/food2.jpg" class="circle"></div>
-            <div ><img src="images/food3.jpg" class="circle"></div>
-            <div ><img src="images/food4.jpg" class="circle"></div>
-            <div ><img src="images/food5.jpg" class="circle"></div>
-            <div ><img src="images/food6.jpg" class="circle"></div>
-            <div ><img src="images/food7.jpg" class="circle"></div>
-            <div ><img src="images/food8.jpg" class="circle"></div>
-            <div ><img src="images/food9.jpg" class="circle"></div>
+            <div ><a href="javascript:;" id="ver"><img src="images/food1.jpg" class="circle"></a></div>
+            <div ><a href="javascript:;" id="fur"><img src="images/food2.jpg" class="circle"></a></div>
+            <div ><a href="javascript:;" id="mea"><img src="images/food3.jpg" class="circle"></a></div>
+            <div ><a href="javascript:;" id="sea"><img src="images/food4.jpg" class="circle"></a></div>
+            <div ><a href="javascript:;" id="dai"><img src="images/food5.jpg" class="circle"></a></div>
+            <div ><a href="javascript:;" id="wat"><img src="images/food6.jpg" class="circle"></a></div>
+            <div ><a href="javascript:;" id="sau"><img src="images/food7.jpg" class="circle"></a></div>
+            <div ><a href="javascript:;" id="pro"><img src="images/food8.jpg" class="circle"></a></div>
+            <div ><a href="javascript:;" id="sim"><img src="images/food9.jpg" class="circle"></a></div>
         </div>
         <div class="smart_market" id="box2">
-            <div class="gap1"><p>채소</p></div>
-            <div class="gap1"><p>과일</p></div>
-            <div class="gap1"><p>정육</p></div>
-            <div class="gap1"><p>수산물</p></div>
-            <div class="gap1"><p>유제품</p></div>
-            <div class="gap1"><p>생수음료</p></div>
-            <div class="gap1"><p>소스</p></div>
-            <div class="gap1"><p>가공식품</p></div>
-            <div class="gap1"><p>간편식품</p></div>
+            <div class="gap1"><p><a href="javascript:;" id="ver1">채소</a></p></div>
+            <div class="gap1"><p><a href="javascript:;" id="fur1">과일</a></p></div>
+            <div class="gap1"><p><a href="javascript:;" id="mea1">정육</a></p></div>
+            <div class="gap1"><p><a href="javascript:;" id="sea1">수산물</a></p></div>
+            <div class="gap1"><p><a href="javascript:;" id="dai1">유제품</a></p></div>
+            <div class="gap1"><p><a href="javascript:;" id="wat1">생수/음료</a></p></div>
+            <div class="gap1"><p><a href="javascript:;" id="sau1">소스</a></p></div>
+            <div class="gap1"><p><a href="javascript:;" id="pro1">가공식품</a></p></div>
+            <div class="gap1"><p><a href="javascript:;" id="sim1">간편식품</a></p></div>
         </div>
         <div class="recommend"><P>추천상품</P></div>
         <div class="smart_market" id="box3">
@@ -384,7 +389,7 @@
 
         <div class="product_list">
             <div class="product_vege">
-                <P>상품목록 : 채소</P>
+                <P>상품목록 : <span id="title_list">과일</span></P>
             </div>
             <div class="product_vege_cnt"><P id="pro_cnt">총 10개 상품</P></div>
         </div>
@@ -491,3 +496,89 @@
     #footer {margin-top:150px;}
     #wrapper_smart {max-width:1200px; min-height:calc(100vh - 500px); margin:0 auto;}
 </style>
+
+<script>
+$(function(){
+
+    //복사(clone)
+    // $("#btn").on("click", function(){
+    //     $("#c").clone().appendTo("#list");
+    // })
+
+    //대체(replace)
+    
+    //$("#ver").on("click", function(){
+//    	let str = document.getElementById("title_list")
+    	//str.innerHTML = "채소"    	
+  //  })
+    
+    
+    
+    
+    //$("#ver").click({param: "ver"}, cool_function);
+
+ 
+    $("#ver").click({param1: "ver"}, cool_function);
+    $("#fur").click({param1: "fur"}, cool_function);
+    $("#mea").click({param1: "mea"}, cool_function);
+    $("#sea").click({param1: "sea"}, cool_function);
+    $("#dai").click({param1: "dai"}, cool_function);
+    $("#wat").click({param1: "wat"}, cool_function);
+    $("#sau").click({param1: "sau"}, cool_function);
+    $("#pro").click({param1: "pro"}, cool_function);
+    $("#sim").click({param1: "sim"}, cool_function);
+    
+    $("#ver1").click({param1: "ver"}, cool_function);
+    $("#fur1").click({param1: "fur"}, cool_function);
+    $("#mea1").click({param1: "mea"}, cool_function);
+    $("#sea1").click({param1: "sea"}, cool_function);
+    $("#dai1").click({param1: "dai"}, cool_function);
+    $("#wat1").click({param1: "wat"}, cool_function);
+    $("#sau1").click({param1: "sau"}, cool_function);
+    $("#pro1").click({param1: "pro"}, cool_function);
+    $("#sim1").click({param1: "sim"}, cool_function);
+
+	 
+	 function cool_function(event){
+	    if(event.data.param1=='ver'){
+	    	let str = document.getElementById("title_list")
+	    	str.innerHTML = "채소"
+	 	}
+	    else if(event.data.param1=='fur'){
+	    	let str = document.getElementById("title_list")
+	    	str.innerHTML = "과일"
+	 	}	    
+	    else if(event.data.param1=='mea'){
+	    	let str = document.getElementById("title_list")
+	    	str.innerHTML = "정육"
+	 	}
+	    else if(event.data.param1=='sea'){
+	    	let str = document.getElementById("title_list")
+	    	str.innerHTML = "수산물"
+	 	}
+	    else if(event.data.param1=='dai'){
+	    	let str = document.getElementById("title_list")
+	    	str.innerHTML = "유제품"
+	 	}
+	    else if(event.data.param1=='wat'){
+	    	let str = document.getElementById("title_list")
+	    	str.innerHTML = "생수/음료"
+	 	}
+	    else if(event.data.param1=='sau'){
+	    	let str = document.getElementById("title_list")
+	    	str.innerHTML = "소스"
+	 	}
+	    else if(event.data.param1=='pro'){
+	    	let str = document.getElementById("title_list")
+	    	str.innerHTML = "가공식품"
+	 	}
+	    else if(event.data.param1=='sim'){
+	    	let str = document.getElementById("title_list")
+	    	str.innerHTML = "간편식품"
+	 	}
+	 }
+    
+    
+
+});
+</script>
