@@ -29,7 +29,16 @@ public class SmartMarketController {
 		return new Gson().toJson(resultMap);
 	}
 	
-	
-	
+	// 3-2. 똑똑한 마켓
+		@RequestMapping("/smart-market.do")
+		public String smartMarket(Model model) throws Exception{
+			return "/c-smart-market";
+		}
+			
+		// 3-2. 똑똑한 마켓 상세
+		@RequestMapping("/smart-market-view.do")
+		public String smartMarketInfo(Model model) throws Exception{
+			return "/c-smart-market-view";
+		}
 	
 }
