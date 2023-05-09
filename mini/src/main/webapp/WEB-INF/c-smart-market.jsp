@@ -4,6 +4,7 @@
 <html lang="ko">
 <head>
     <script src="js/jquery.js"></script>
+    <script src="js/vue.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -313,6 +314,13 @@
         }
         
         
+		.smart_market1{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));/*auto-fit, auto-fill*/
+            /*grid-gap: 10px; /*그리드의 간격을 준다*/
+            grid-gap: 1rem; /*그리드의 간격을 준다 / 1rem : 16px*/
+        }        
+        
         /* style END */
     </style>    
 </head>
@@ -322,157 +330,98 @@
     <!-- wrap START -->
     <div id="wrapper" >
 
+		<div id="app">
+	
+	
+	
+	        <div class="smart_market" id="box1">
+	            <div ><a href="javascript:;" id="veg"><img src="images/food1.jpg" class="circle"></a></div>
+	            <div ><a href="javascript:;" id="fur"><img src="images/food2.jpg" class="circle"></a></div>
+	            <div ><a href="javascript:;" id="mea"><img src="images/food3.jpg" class="circle"></a></div>
+	            <div ><a href="javascript:;" id="sea"><img src="images/food4.jpg" class="circle"></a></div>
+	            <div ><a href="javascript:;" id="dai"><img src="images/food5.jpg" class="circle"></a></div>
+	            <div ><a href="javascript:;" id="wat"><img src="images/food6.jpg" class="circle"></a></div>
+	            <div ><a href="javascript:;" id="sau"><img src="images/food7.jpg" class="circle"></a></div>
+	            <div ><a href="javascript:;" id="pro"><img src="images/food8.jpg" class="circle"></a></div>
+	            <div ><a href="javascript:;" id="sim"><img src="images/food9.jpg" class="circle"></a></div>
+	        </div>
+	        <div class="smart_market" id="box2">
+	            <div class="gap1"><p><a href="javascript:;" id="veg1">채소</a></p></div>
+	            <div class="gap1"><p><a href="javascript:;" id="fur1">과일</a></p></div>
+	            <div class="gap1"><p><a href="javascript:;" id="mea1">정육</a></p></div>
+	            <div class="gap1"><p><a href="javascript:;" id="sea1">수산물</a></p></div>
+	            <div class="gap1"><p><a href="javascript:;" id="dai1">유제품</a></p></div>
+	            <div class="gap1"><p><a href="javascript:;" id="wat1">생수/음료</a></p></div>
+	            <div class="gap1"><p><a href="javascript:;" id="sau1">소스</a></p></div>
+	            <div class="gap1"><p><a href="javascript:;" id="pro1">가공식품</a></p></div>
+	            <div class="gap1"><p><a href="javascript:;" id="sim1">간편식품</a></p></div>
+	        </div>
+	        <div class="recommend"><P>추천상품</P></div>
+	        <div class="smart_market" id="box3">
+	            <div ><img src="images/food1.jpg" class="box"></div>
+	            <div ><img src="images/food2.jpg" class="box"></div>
+	            <div ><img src="images/food3.jpg" class="box"></div>
+	            <div ><img src="images/food4.jpg" class="box"></div>
+	            <div ><img src="images/food5.jpg" class="box"></div>            
+	        </div>
+	        <div  id="box4">
+	            <div class="gap2 box4">
+	                <p>현재1개남았어요!</p>
+	                <p>서울우유1급우유, 2300ml</p>
+	                <p>6,230원 (100ml 230원)</p>
+	                <p>별 4.5</p>
+	            </div>
+	            <div class="gap2 box4"> 
+	                <p>현재1개남았어요!</p>
+	                <p>서울우유1급우유, 2300ml</p>
+	                <p>6,230원 (100ml 230원)</p>
+	                <p>별 4.5</p>
+	            </div>
+	            <div class="gap2 box4">
+	                <p>현재1개남았어요!</p>
+	                <p>서울우유1급우유, 2300ml</p>
+	                <p>6,230원 (100ml 230원)</p>
+	                <p>별 4.5</p>
+	            </div>
+	            <div class="gap2 box4">
+	                <p>현재1개남았어요!</p>
+	                <p>서울우유1급우유, 2300ml</p>
+	                <p>6,230원 (100ml 230원)</p>
+	                <p>별 4.5</p>
+	            </div>
+	            <div class="gap2 box4">
+	                <p>현재1개남았어요!</p>
+	                <p>서울우유1급우유, 2300ml</p>
+	                <p>6,230원 (100ml 230원)</p>
+	                <p>별 4.5</p>
+	            </div>
+	        </div>
+	
+	        <div class="product_list">
+	            <div class="product_vege">
+	                <P>상품목록 : <span id="title_list">과일</span></P>
+	            </div>
+	            <div class="product_vege_cnt"><P id="pro_cnt">총 10개 상품</P></div>
+	        </div>
+	        
+	        
+	        <div class="smart_market1" id="box3" >
+	            <div v-for="(item, index) in list">
+	            	<img src="images/food1.jpg" class="box">
+		            <div class="gap2 box4">
+		                <p>현재 {{item.productStock}}개 남았어요!</p>
+		                <p>{{item.productName}}</p>
+		                <p>{{item.productPrice | numberFormat()}}원 (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</p>
+		                <p>별 4.5</p>
+		            </div>
+	            </div>
+	                      
+	        </div>
+	        
+	        
+	        
 
-
-        <div class="smart_market" id="box1">
-            <div ><a href="javascript:;" id="ver"><img src="images/food1.jpg" class="circle"></a></div>
-            <div ><a href="javascript:;" id="fur"><img src="images/food2.jpg" class="circle"></a></div>
-            <div ><a href="javascript:;" id="mea"><img src="images/food3.jpg" class="circle"></a></div>
-            <div ><a href="javascript:;" id="sea"><img src="images/food4.jpg" class="circle"></a></div>
-            <div ><a href="javascript:;" id="dai"><img src="images/food5.jpg" class="circle"></a></div>
-            <div ><a href="javascript:;" id="wat"><img src="images/food6.jpg" class="circle"></a></div>
-            <div ><a href="javascript:;" id="sau"><img src="images/food7.jpg" class="circle"></a></div>
-            <div ><a href="javascript:;" id="pro"><img src="images/food8.jpg" class="circle"></a></div>
-            <div ><a href="javascript:;" id="sim"><img src="images/food9.jpg" class="circle"></a></div>
-        </div>
-        <div class="smart_market" id="box2">
-            <div class="gap1"><p><a href="javascript:;" id="ver1">채소</a></p></div>
-            <div class="gap1"><p><a href="javascript:;" id="fur1">과일</a></p></div>
-            <div class="gap1"><p><a href="javascript:;" id="mea1">정육</a></p></div>
-            <div class="gap1"><p><a href="javascript:;" id="sea1">수산물</a></p></div>
-            <div class="gap1"><p><a href="javascript:;" id="dai1">유제품</a></p></div>
-            <div class="gap1"><p><a href="javascript:;" id="wat1">생수/음료</a></p></div>
-            <div class="gap1"><p><a href="javascript:;" id="sau1">소스</a></p></div>
-            <div class="gap1"><p><a href="javascript:;" id="pro1">가공식품</a></p></div>
-            <div class="gap1"><p><a href="javascript:;" id="sim1">간편식품</a></p></div>
-        </div>
-        <div class="recommend"><P>추천상품</P></div>
-        <div class="smart_market" id="box3">
-            <div ><img src="images/food1.jpg" class="box"></div>
-            <div ><img src="images/food2.jpg" class="box"></div>
-            <div ><img src="images/food3.jpg" class="box"></div>
-            <div ><img src="images/food4.jpg" class="box"></div>
-            <div ><img src="images/food5.jpg" class="box"></div>            
-        </div>
-        <div  id="box4">
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4"> 
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-        </div>
-
-        <div class="product_list">
-            <div class="product_vege">
-                <P>상품목록 : <span id="title_list">과일</span></P>
-            </div>
-            <div class="product_vege_cnt"><P id="pro_cnt">총 10개 상품</P></div>
-        </div>
-        <div class="smart_market" id="box3">
-            <div ><img src="images/food1.jpg" class="box"></div>
-            <div ><img src="images/food2.jpg" class="box"></div>
-            <div ><img src="images/food3.jpg" class="box"></div>
-            <div ><img src="images/food4.jpg" class="box"></div>
-            <div ><img src="images/food5.jpg" class="box"></div>            
-        </div>
-        <div  id="box4">
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-        </div>
-        
-        <div class="smart_market" id="box3">
-            <div ><img src="images/food1.jpg" class="box"></div>
-            <div ><img src="images/food2.jpg" class="box"></div>
-            <div ><img src="images/food3.jpg" class="box"></div>
-            <div ><img src="images/food4.jpg" class="box"></div>
-            <div ><img src="images/food5.jpg" class="box"></div>            
-        </div>
-        <div  id="box4">
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-            <div class="gap2 box4">
-                <p>현재1개남았어요!</p>
-                <p>서울우유1급우유, 2300ml</p>
-                <p>6,230원 (100ml 230원)</p>
-                <p>별 4.5</p>
-            </div>
-        </div>
-
+		</div>
         
         
         
@@ -499,24 +448,6 @@
 
 <script>
 $(function(){
-
-    //복사(clone)
-    // $("#btn").on("click", function(){
-    //     $("#c").clone().appendTo("#list");
-    // })
-
-    //대체(replace)
-    
-    //$("#ver").on("click", function(){
-//    	let str = document.getElementById("title_list")
-    	//str.innerHTML = "채소"    	
-  //  })
-    
-    
-    
-    
-    //$("#ver").click({param: "ver"}, cool_function);
-
  
     $("#ver").click({param1: "ver"}, cool_function);
     $("#fur").click({param1: "fur"}, cool_function);
@@ -540,7 +471,7 @@ $(function(){
 
 	 
 	 function cool_function(event){
-	    if(event.data.param1=='ver'){
+	    if(event.data.param1=='veg'){
 	    	let str = document.getElementById("title_list")
 	    	str.innerHTML = "채소"
 	 	}
@@ -577,8 +508,50 @@ $(function(){
 	    	str.innerHTML = "간편식품"
 	 	}
 	 }
-    
-    
 
 });
+
+
+
+var app = new Vue({ 
+    el: '#app',
+    data: {
+		list : [],
+		product_kind : "VEG"    	
+    },
+	filters: {
+	    numberFormat: (value, numFix) => {
+	        value = parseFloat(value);
+	        if (!value) return '0';
+	        return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+	    },
+	}
+    , methods: {
+    	fnGetList : function(){
+    		var self = this;
+    		var nparmap = {product_kind : self.product_kind};
+
+    		$.ajax({
+                url:"/smartmarket-list.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                	
+                	console.log(data.list);
+                	self.list = data.list;
+                	
+                }
+            });    		
+    		
+    	}
+    	
+    }   
+    , created: function () {
+    	var self = this;
+    	self.fnGetList();
+	}
+});
+
+
 </script>
