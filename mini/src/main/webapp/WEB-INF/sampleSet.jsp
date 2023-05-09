@@ -8,11 +8,6 @@
 </style>
 
 
-<script>
-	// 여기에 [script] 입력하세요
-</script>
-
-
 <!-- pageContent -- START -->
 <div id="pageContent">
 	<div class="wrapper">
@@ -24,3 +19,8 @@
 <!-- pageContent -- END -->
 
 <jsp:include page="/layout/tail.jsp"></jsp:include>
+
+
+<script type="text/javascript">
+	// 여기에 [script] 입력하세요
+</script>
