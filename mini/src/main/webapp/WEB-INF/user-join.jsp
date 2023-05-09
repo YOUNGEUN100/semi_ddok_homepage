@@ -29,7 +29,9 @@
      .joinArea .joinBox .ableId{
 	      	font-size: 0.7em; color: #5EA152;
 	      }
-     .joinArea .joinBox .captionBox span:first-child{font-weight: bold; font-size: 0.9em;}
+     .joinArea .joinBox .captionBox .id{font-weight: bold; font-size: 0.95em; display : inline-block;}
+     .joinArea .joinBox .captionBox .pw{font-weight: bold; font-size: 0.95em; display : inline-block;}
+     .joinArea .joinBox .captionBox .pwck{font-weight: bold; font-size: 0.95em; display : inline-block;}
      .joinArea .joinBox input{
 	       border: 0; border-bottom: 1px solid black; 
 	       padding: 10px; margin-bottom: 20px; 
@@ -63,24 +65,10 @@
      .joinArea .joinBox .w80{width: 233px; margin-right: 7px;}
      .joinArea .joinBox .w50{width: 45%; margin-right: 7px;}
      .joinArea .joinBox .w60{width: 55%; margin-right: 10px;}
-     input[type=date]::-webkit-datetime-edit-text {
-	    -webkit-appearance: none; color: #888;
-	    display: none;}
-	 input[type=date]::-webkit-datetime-edit-month-field{
-	    -webkit-appearance: none; color: #888;
-	    display: none;}
-	 input[type=date]::-webkit-datetime-edit-day-field {
-	    -webkit-appearance: none; color: #888;
-	    display: none;}
-	 input[type=date]::-webkit-datetime-edit-year-field {
-	    -webkit-appearance: none; color: #888;
-	    display: none;}
-     input[type="date"].after::-webkit-calendar-picker-indicator{
-    	margin-left: 0px;}
-     input[type="date"]:not(.has-value):after{
-		color: #888; font-family:'Pretendard'; font-weight: lighter; font-size: 0.95em;
-		src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
-		content: attr(placeholder);}
+
+     input[type="date"]::placeholder{
+		color: #888; font-family:'Pretendard-bold'; font-weight: lighter; font-size: 0.95em;
+		src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');}
 	 input[type="date"]::-webkit-calendar-picker-indicator {
 		  color: rgba(0, 0, 0, 0); /*숨긴다*/
 		  opacity: 1;
@@ -88,7 +76,7 @@
 		  background: url("images/calender_final.png") no-repeat; /*대체할 아이콘*/
 		  width: 20px;
 		  height: 20px;
-		  border-width: thin; margin-right:-10px; margin-bottom:-20px; margin-left:10px;}
+		  border-width: thin; margin-right:-10px; margin-bottom:-10px; margin-left:10px;}
      .joinArea .joinBtn{
          background-color: #5EA152; color:#fff; 
          border-radius: 8px; padding: 10px; border: 0; font-weight: bold; 
@@ -105,18 +93,25 @@
             <div class="joinBox" >
                 <div class="captionBox">
                     <div class="markEssential id">아이디</div><div v-if="info.id == ''"></div>  
-                    <template v-if="info.id != ''">
-	                  <span class="ableId" v-if="idFlag">사용할 수 있는 아이디입니다</span>
+                    <template v-else>
+	                  <span class="ableId" v-if="idFlg">사용할 수 있는 아이디입니다</span>
 	                  <span class="disableId" v-else>이미 사용중인 아이디입니다</span>
 	                 </template>
                     <input type="text" v-model="info.id"class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck()">중복체크</button>
                 </div> 
                 <div class="captionBox">
-                    <span class="markEssential">비밀번호</span>  <span class="captionCheck">20자 이내의 비밀번호를 입력해주세요</span>
+                    <div class="markEssential pw">비밀번호</div><div v-if="info.pw == ''"></div>
+                    <template v-else>  
+                    	<span class="captionCheck disableId">20자 이내의 비밀번호를 입력해주세요</span>
+                    </template>
                     <input type="password" v-model="info.pw" class="w100" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
                 </div>
                 <div class="captionBox">
-                    <span class="markEssential">비밀번호 확인</span> <span class="captionCheck">비밀번호가 일치하지않습니다.</span>
+                    <div class="markEssential pwck">비밀번호 확인</div> <div v-if="info.pw == ''"></div>
+                    <template v-else>
+                    	<span class="ableId" v-if="info.pw == info.pwck">비밀번호가 일치합니다.</span>
+                    	<span class="disableId" v-else>비밀번호가 일치하지않습니다.</span>
+                	</template>
                 </div>
                 <input type="password" class="w100" placeholder="비밀번호 재입력" v-model="info.pwck">
                 <p class="markEssential">이름</p>
@@ -146,7 +141,7 @@
                 <input type="text" v-model="info.addr2" class="w100 addr2" placeholder="상세주소 입력" >
                 <div>
                     <span class="markEssential">생년월일</span><span class="accountFind">※계정찾기에 활용됩니다</span>
-                    <input type="date" class="date w100" placeholder="생년월일" >
+                    <label for="birth"><input type="date" name="birth" class="date w100"></label>
                 </div>
                 <div>
                     <span class="markEssential">비밀번호 질문</span><span class="accountFind">※계정찾기에 활용됩니다</span>
@@ -213,12 +208,18 @@ var app = new Vue({
     			alert("아이디를 입력해주세요");
     			return;
     		}
+    		
     		if(!self.idFlg){
     			alert("아이디 중복체크를 해주세요")
     			return;
     		}
+    		if(self.info.pw == ""){
+    			alert("비밀번호를 입력해주세요");
+    			return;
+    		}
     		if(self.info.pw != self.info.pwck){
     			alert("비밀번호가 일치하지 않습니다.");
+    			return;
     		}
     		if(self.info.name == ""){
     			alert("이름을 입력해주세요");
@@ -272,7 +273,8 @@ var app = new Vue({
             type : "POST", 
             data : nparmap,
             success : function(data) {  
-            	if(data.cnt>0){
+            	console.log(data);
+            	if(data.cnt > 0){
             		self.idFlg = false;
             	}
             	else{
