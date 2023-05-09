@@ -27,10 +27,16 @@ public class SampleController {
 	@Autowired
     private SampleService sampleService; 
 	
+	// 샘플세팅페이지
+	@RequestMapping("/sample.do")
+	public String sample(Model model) throws Exception{
+		return "/sampleSet";
+	}
+	
 	// 메인페이지
 	@RequestMapping("/main.do")
 	public String main(Model model) throws Exception{
-		return "/a-main";
+		return "/index";
 	}
 	
 	// 1. 투데잇 페이지
