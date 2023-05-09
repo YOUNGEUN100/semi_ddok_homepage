@@ -1,23 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>똑똑 : "똑똑한 레시피"</title>
-    <script src="https://kit.fontawesome.com/3182501c90.js" crossorigin="anonymous"></script>
-    <style>
-         /* style START */
-        body {
-            background: url("/images/sub_dept3-1_smart_Eating_view") no-repeat;
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:include page="/layout/head.jsp"></jsp:include>
+<jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+
+<style>
+	    /* style START */
+      
+        .btn {
+            cursor: pointer;
         }
-        .recipe-img {
+        .recipe-thumb-img {
             border-radius: 5px;
             width : 58%;
-            height: 500px;
             margin-right: 30px;
+        }
+        .recipe-thumb-img > img {
+            height: 500px;
+            border-radius: 10px;
+        }
+        .re-view-cnt {
+            position: relative;
+            top:60px;
+            left:20px;
+            padding: 3px 10px;
+            display: inline-block;
+            color:white;
+            font-size: x-large;
+            background-color: rgba(16, 15, 15, 0.612);
+            border-radius: 10px;
         }
         .big-box {
             width: 42%;
@@ -28,6 +38,7 @@
             box-shadow: 2px 2px 20px 0px #ece9e9;
             border-radius: 35px;
             padding: 20px 20px;
+            margin-top: 40px;
             margin-bottom: 30px;
 
             display: flex;
@@ -44,8 +55,9 @@
         }
         .recipe-info-box {
             display:flex;
-            margin: 50px 0px;
+            margin: 20px 0px 50px 0px;
             width: 100%;
+            height: auto;
         }
         @media screen and (max-width: 512px) {
             .recipe-info-box {
@@ -53,7 +65,11 @@
             margin: 50px 0px;
             width: 100%;
             }
-            .recipe-img {
+            .recipe-thumb-img {
+                width: 100%;
+                height: auto;
+            }
+            .recipe-thumb-img > img {
             width : 100%;
             height: auto;
             }
@@ -168,24 +184,57 @@
                 width: 100%;
             }
         }
+        .recipe-img {
+            border-radius: 10px;
+            width:600px;
+            height: 400px;
+            margin-bottom: 10px;
+        }
+        .search-result-s {
+            display: flex;
+            justify-content:space-between;
+            margin-bottom: 5px;
+        }
+        .search-result-d {
+            display: flex;
+        }
+        .search-result-s > div:first-child {
+            font-size: 20px;
+        }
+        .search-result-s > div:last-child {
+            font-size: 15px;
+            position: relative;
+            right:40px;
+        }
+        .r-text {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .item {
+            text-align: left;
+        }
+        .market-item {
+            margin-top: 100px;
+        }
 
        
         /* style END */
-    </style>
-</head>
-<body>
-    <header id="header">&lt;header&gt;</header>
-    <div id="subVisual">
-        &lt;subVisual&gt;
-        <div>
-            <div>똑똑한 레시피</div>
-            <div>머리는 똑똑하게, 배는 빵빵하게</div>
-        </div>
-    </div>
-    <!-- wrap START -->
-    <div id="wrapper">
+</style>
+
+
+<!-- pageContent -- START -->
+<div id="pageContent">
+	 <!-- wrap START -->
+    <div class="wrapper">
         <div class="recipe-info-box">
-            <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-10-22_1018447081[13].jpg">
+            <div class="recipe-thumb-img">
+                <div class="re-view-cnt">
+                    <i class="fa-solid fa-eye fa-lg"></i>
+                    <span>365</span>
+                </div>
+                <img  src="https://ottogi.okitchen.co.kr/pds/upfile/2020-10-22_1018447081[13].jpg">
+            </div>
+           
             <div class="big-box">
                 <div class="recipe-info">
                     <div class="recipe-name">
@@ -212,13 +261,14 @@
                     </div>
                 </div>
                 <div class="recipe-save">
-                    <button class="recipe-save-button">레시피 저장하기</button>
-                    <div class="icon-print"><i class="color-white fa-solid fa-print fa-xl"></i></div>
-                    <div class="icon-share"><i class="fa-solid fa-share-nodes fa-beat fa-xl"></i></div>
+                    <button class="btn recipe-save-button">레시피 저장하기</button>
+                    <div class="btn icon-print"><i class="color-white fa-solid fa-print fa-xl"></i></div>
+                    <div class="btn icon-share"><i class="fa-solid fa-share-nodes fa-beat fa-xl"></i></div>
                 </div>
             </div>
         </div>
         
+        <!-- 레시피 만드는 방법 시작 -->
         <div class="ingredient">
              <div class="ingre-name">
                 <img class="re-icon" src="images/icon_recipe04.png">
@@ -290,60 +340,45 @@
                     <div>빵 위에 양상추, 튀긴 패티, 양파, 토마토 순으로 쌓아 완성한다.</div>
                 </div>
             </div>
+               
         </div> 
+       <!-- 레시피 만드는 방법 끝 -->
+
+       <div class="market-item">
+        <div class="search-result-s">
+            <div><b>레시피 관련 상품</b></div>
+            <div>2개의 상품</div>
+        </div>
+        <div class="search-result-d">
+            <div class="item">
+                <img class="recipe-img" src="data:image/jpeg;base64,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">
+                <div class="r-text">하인즈 스위트 칠리 소스</div>
+                <div class="r-text">2,910원 (100g당 939원)</div>
+                <div class="r-text">★ 4.2</div>
+
+
+            </div>
+            <div class="item">
+                <img class="recipe-img" src="https://contents.lotteon.com/itemimage/_v070836/LM/88/05/99/96/01/01/4_/00/1/LM8805999601014_001_1.jpg">
+                <div class="r-text">복음자리 45도 과일잼 딸기</div>
+                <div class="r-text">8,900원 (100g당 1,271원)</div>
+                <div class="r-text">★ 4.5</div>
+            </div>
+        </div>
+    </div>
+
+
+
+        
+
     </div>
     <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-</html>
-<style>
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
-    @font-face {
-        font-family:'Pretendard-Medium';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
-        font-weight:500;
-        font-style:normal;
-    }
-    @font-face {
-        font-family:'Pretendard-SemiBold';
-        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-        font-weight:700;
-        font-style:normal;
-    }
-    @font-face {
-        font-family:'Pretendard-Bold';
-        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
-        font-weight:800;
-        font-style:normal;
-    }
-    * {margin:0; padding:0; box-sizing:border-box;}
-    html, body {font-family:'Pretendard-Regular'; font-size:16px; line-height:1.5;}
-    a {color:inherit; text-decoration:none;}
-    input {outline:0; border-radius:0; border-width:1px; padding:5px;}
-    select {outline:0; border-radius:0; border-width:1px; padding:4px;}
-    img {width:100%; max-width:100%; display:inline-block;}
-    ol, ul ,li {list-style:none;}
-    
-    b, strong {font-family:'Pretendard-Bold';}
-    :root {
-        --main-colorGreen: #bdee71;
-        --main-colorOrange: #fe6458;
-        --base-colorDeepGray: #ccc;
-        --base-colorLightGray: #f7f7f7;
-    }
-    ::-webkit-scrollbar {width:10px;}
-    ::-webkit-scrollbar-track {background-color:transparent;}
-    ::-webkit-scrollbar-thumb {background-color:var(--base-colorDeepGray); border:2px solid #fff; border-radius:5px;}
-    ::-webkit-scrollbar-button {width:0; height:0;}
-    
-    #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-    #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:60px;}
-    #footer {margin-top:150px;}
-    #wrapper {max-width:1240px; min-height:calc(100vh - 710px); margin:0 auto; padding:0 20px;}
-</style>
+</div>
+<!-- pageContent -- END -->
+
+<jsp:include page="/layout/tail.jsp"></jsp:include>
+
+
+<script type="text/javascript">
+	
+</script>

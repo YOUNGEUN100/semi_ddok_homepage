@@ -112,7 +112,7 @@ public class SampleController {
 	}
 	
 	// 3-1. 똑똑한 레시피
-	@RequestMapping("/smart-recipe.do")
+	/* @RequestMapping("/smart-recipe.do")
 	public String recipe(Model model) throws Exception{
 		return "/c-smart-recipe";
 	}
@@ -122,6 +122,7 @@ public class SampleController {
 	public String recipeInfo(Model model) throws Exception{
 		return "/c-smart-recipe-view";
 	}
+	*/
 		
 	// 3-2. 똑똑한 마켓
 	@RequestMapping("/smart-market.do")

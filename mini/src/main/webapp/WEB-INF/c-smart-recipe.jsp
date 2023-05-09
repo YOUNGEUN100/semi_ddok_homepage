@@ -1,27 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/3182501c90.js" crossorigin="anonymous"></script>
-    <title>똑똑한 레시피</title>
-    <style>
-        /* style START */
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:include page="/layout/head.jsp"></jsp:include>
+<jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+
+<style>
+	  /* style START */
         body {
             /* background: url("/images/work_img.jpg") no-repeat; */
         }
         #wrapper {
             text-align: center;
         }
-        .category-img {
+        .category-circle {
             width:100px;
             height: 100px;
             border-radius: 50%;
             background: rgba(232, 227, 227, 0.959);
             /* margin-bottom: 20px; */
+        }
+        .category-circle:hover {
+            background: #bdee71;
         }
         .r-category {
             display: flex;
@@ -31,6 +29,7 @@
         .box1 {
             text-align: center;
             margin: 0 25px;
+            cursor: pointer;
         }
 
         @media screen and (max-width: 512px) {
@@ -69,7 +68,6 @@
             }
         }
             
-        
         .c-icon {
             position:relative;
             bottom: 60px;
@@ -78,6 +76,7 @@
         .search-icon {
             position: relative;
             right:30px;
+            cursor: pointer;
         }
         .detail-category {
             border: 5px solid rgba(245, 243, 243, 0.959);
@@ -97,6 +96,9 @@
         .box2 a {
             margin-right: 20px;
             font-size: 20px;
+        }
+        .box2 a:hover {
+            background-color: #bdee71;
         }
 
         @media screen and (max-width: 512px) {
@@ -156,57 +158,73 @@
         }
         .item {
             text-align: left;
+            cursor: pointer;
         }
-        
-
+        .add_btn {
+            float: left;
+            margin-top: -220px;
+            border: none;
+            width: 100px;
+            height: 40px;
+            border-radius: 15px;
+            background-color: #999999;
+            color: white;
+            font-size: 20px;
+        }
+        .re-view-cnt {
+            display: inline-block;
+            position: relative;
+            left:285px;
+            top:270px;
+            padding: 3px 10px;
+            color:white;
+            background-color: rgba(16, 15, 15, 0.612);
+            border-radius: 10px;
+        }
+       
         /* style END */
-    </style>
-</head>
-<body>
-   <header id="header">&lt;header&gt;</header>
-    <div id="subVisual">
-        &lt;subVisual&gt;
-        <div>
-            <div>똑똑한 레시피</div>
-            <div>머리는 똑똑하게, 배는 빵빵하게</div>
-        </div>
-    </div>
-    <!-- wrap START -->
-    <div id="wrapper">
+</style>
 
+
+<!-- pageContent -- START -->
+<div id="pageContent">
+	<div class="wrapper">
+		 <!-- wrap START -->
+    <div id="wrapper">
+         <button class="add_btn">등록</button>
         <div class="r-search">
             <input type="text" placeholder="원하는 재료나 레시피를 다양하게 검색해 보세요!" class="r-input">
             <i class="search-icon fa-solid fa-magnifying-glass fa-lg"></i>
         </div>
         <div class="r-category">
-            <div class="box1">
-                <div class="category-img"></div>
+            <div class="box1" id="all-btn">
+                <div class="category-circle"></div>
                 <i class="c-icon fa-solid fa-utensils fa-2xl"></i>
                 <div>전체</div>
             </div>
-            <div class="box1">
-                <div class="category-img"></div>
-                <i class="c-icon fa-solid fa-bowl-food fa-2xl"></i>
+            <div class="box1" id="purpose-btn">
+                <div class="category-circle"></div>
+                <i  class="c-icon fa-solid fa-bowl-food fa-2xl"></i>
                 <div>목적</div>
             </div>
-            <div class="box1">
-                <div class="category-img"></div>
+            <div class="box1" id="howto-btn">
+                <div class="category-circle"></div>
                 <i class="c-icon fa-solid fa-fish-fins fa-2xl"></i>
                 <div>방법</div>
             </div>
-            <div class="box1">
-                <div class="category-img"></div>
+            <!-- <div class="box1">
+                <div id="all-btn" class="category-img"></div>
                 <i class="c-icon fa-solid fa-egg fa-2xl"></i>
                 <div>재료</div>
-            </div>
-            <div class="box1">
-                <div class="category-img"></div>
+            </div> -->
+            <div class="box1" id="tool-btn">
+                <div  class="category-circle"></div>
                 <i class="c-icon fa-solid fa-kitchen-set fa-2xl"></i>
                 <div>도구</div>
             </div>
         </div>
         <div class="detail-category">
-            <div class="box2">
+            <div id="purpose" class="box2">
                 <div><b>목적별</b></div>
                 <a href="#">냉장고털이</a>
                 <a href="#">해장</a>
@@ -214,8 +232,8 @@
                 <a href="#">야식</a>
                 <a href="#">다이어트</a>
             </div>
-            <hr>
-            <div class="box2">
+            <hr class="line">
+            <div id="howto" class="box2">
                 <div><b>방법별</b></div>
                 <a href="#">구이/부침</a>
                 <a href="#">국탕찌개</a>
@@ -223,8 +241,8 @@
                 <a href="#">무침/비빔</a>
                 <a href="#">기타</a>
             </div>
-            <hr>
-            <div class="box2">
+            <hr class="line">
+            <div id="tool" class="box2">
                 <div><b>도구별</b></div>
                 <a href="#">냄비/후라이팬</a>
                 <a href="#">전자레인지</a>
@@ -239,17 +257,35 @@
             </div>
             <div class="search-result-d">
                 <div class="item">
-                    <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-25_427865954[12].jpg">
+                    <div>
+                        <div class="re-view-cnt">
+                            <i class="fa-solid fa-eye fa-lg"></i>
+                            <span>365</span>
+                        </div>
+                        <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-25_427865954[12].jpg">
+                    </div>
                     <div>#덮밥요리 #햄 #마요네스</div>
                     <div class="r-text">햄마요덮밥</div>
                 </div>
                 <div class="item">
-                    <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-25_427863666.jpg">
-                    <div>#멕시코 #또띠아 #닭가슴살</div>
+                    <div>
+                        <div class="re-view-cnt">
+                            <i class="fa-solid fa-eye fa-lg"></i>
+                            <span>365</span>
+                        </div>
+                        <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-25_427863666.jpg">
+                    </div>
+                    <div >#멕시코 #또띠아 #닭가슴살</div>
                     <div class="r-text">치킨 카레 타코</div>
                 </div>
                 <div class="item">
-                    <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-24_427854552[10].jpg">
+                    <div>
+                        <div class="re-view-cnt">
+                            <i class="fa-solid fa-eye fa-lg"></i>
+                            <span>365</span>
+                        </div>
+                        <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-24_427854552[10].jpg">
+                    </div>
                     <div>#셰프의팁 #즉석국 #캠핑</div>
                     <div class="r-text">차돌박이 된장찌개</div>
                 </div>
@@ -258,90 +294,46 @@
 
     </div>
     <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-</html>
-<script type="text/javascript">
-var app = new Vue({ 
-    el: '#app',
-    data: {
-    	id : ""
-    	, pwd : ""
-    	, user : {}
-    }   
-    , methods: {
-    	fnRecipeList : function() {
-    		var self = this;
-    		var nparmap = "";
-    		$.ajax ({
-    			url:"/recipe/list.dox",
-    			dataType : "json",
-    			type : "POST",
-    			data : nparmap,
-    			success : function(data) {
-    				
-    			}
-    		})
-    	}
-    
-    	
-   	 }
-       
-    , created: function () {
-    	
-	}
-});
-</script>
-<style>
-   
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
-    @font-face {
-        font-family:'Pretendard-Medium';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
-        font-weight:500;
-        font-style:normal;
-    }
-    @font-face {
-        font-family:'Pretendard-SemiBold';
-        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-        font-weight:700;
-        font-style:normal;
-    }
-    @font-face {
-        font-family:'Pretendard-Bold';
-        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
-        font-weight:800;
-        font-style:normal;
-    }
-    * {margin:0; padding:0; box-sizing:border-box;}
-    html, body {font-family:'Pretendard-Regular'; font-size:16px; line-height:1.5;}
-    a {color:inherit; text-decoration:none;}
-    input {outline:0; border-radius:0; border-width:1px; padding:5px;}
-    select {outline:0; border-radius:0; border-width:1px; padding:4px;}
-    img {width:100%; max-width:100%; display:inline-block;}
-    ol, ul ,li {list-style:none;}
-    
-    b, strong {font-family:'Pretendard-Bold';}
-    :root {
-        --main-colorGreen: #bdee71;
-        --main-colorOrange: #fe6458;
-        --base-colorDeepGray: #ccc;
-        --base-colorLightGray: #f7f7f7;
-    }
-    ::-webkit-scrollbar {width:10px;}
-    ::-webkit-scrollbar-track {background-color:transparent;}
-    ::-webkit-scrollbar-thumb {background-color:var(--base-colorDeepGray); border:2px solid #fff; border-radius:5px;}
-    ::-webkit-scrollbar-button {width:0; height:0;}
-    
-    #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-    #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:60px;}
-    #footer {margin-top:150px;}
-    #wrapper {max-width:1240px; min-height:calc(100vh - 710px); margin:0 auto; padding:0 20px;}
+		
+	
+	</div>
+</div>
+<!-- pageContent -- END -->
 
-</style>
+<jsp:include page="/layout/tail.jsp"></jsp:include>
+
+
+<script type="text/javascript">
+	$(function () {
+	    $("#all-btn").on("click", function() {
+	        $("#purpose").show();
+	        $("#howto").show();
+	        $("#tool").show();
+	        $(".line").show();
+	    })
+	})
+	$(function () {
+	    $("#purpose-btn").on("click", function() {
+	        $("#purpose").show();
+	        $("#howto").hide();
+	        $("#tool").hide();
+	        $(".line").hide();
+	    })
+	})
+	$(function () {
+	    $("#howto-btn").on("click", function() {
+	        $("#purpose").hide();
+	        $("#howto").show();
+	        $("#tool").hide();
+	        $(".line").hide();
+	    })
+	})
+	$(function () {
+	    $("#tool-btn").on("click", function() {
+	        $("#purpose").hide();
+	        $("#howto").hide();
+	        $("#tool").show();
+	        $(".line").hide();
+	    })
+	})
+</script>
