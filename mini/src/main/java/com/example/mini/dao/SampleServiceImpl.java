@@ -15,17 +15,6 @@ public class SampleServiceImpl implements SampleService{
 	@Autowired //Mapper와 연결
 	private SampleMapper sampleMapper;
 	
-	@Override//랜선마켓 리스트
-	public List<Sample> searchLanList(HashMap<String, Object> map) throws Exception {
-		List<Sample> list = sampleMapper.selectLanList(map);
-		return list;
-	}
-
-	@Override//펀딩 리스트
-	public List<Sample> searchFundingList(HashMap<String, Object> map) throws Exception {
-		List<Sample> list = sampleMapper.selectFundingList(map);
-		return list;
-	}
 
 
 

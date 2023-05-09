@@ -1,14 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>·£¼±¸¶ÄÏ±Û</title>
-    <script src="https://kit.fontawesome.com/0012da89f1.js" crossorigin="anonymous"></script>
+    <jsp:include page="/layout/head.jsp"></jsp:include>
+    <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+
     <style>
         /* style START */
         /* * {
@@ -96,7 +90,7 @@
 
         .comment_list {
             margin-top: 8px;
-            border-bottom : 1px solid #999999;
+            border-bottom: 1px solid #999999;
         }
 
         .commenter {
@@ -135,61 +129,64 @@
 
         /* style END */
     </style>
-</head>
 
-<body>
-    <header id="header">&lt;header&gt;</header>
-    <div id="subVisual">&lt;subVisual&gt;</div>
-    <!-- wrap START -->
-    <div id="wrapper">
 
-        <div class="container">
-            <div class="board_title">
-                <h1>Áß°íÆÇ¸Å/Áß°í³ª´®</h1>
-            </div>
-            <div class="board_wrap">
+    <!-- pageContent -- START -->
+    <div id="pageContent">
+        <div id="app">
+            <div class="wrapper">
 
-                <div class="title_box">
-                    <h1>[³ª´®Áß/ÆÇ¸ÅÁß]</h1>
-                    <h1>·£¼±¸¶ÄÏ ±ÛÁ¦¸ñ±ÛÁ¦¸ñ±ÛÁ¦¸ñ</h1>
-                    <span>2023. 05. 04</span>
-                    <span><i class="fa-solid fa-eye fa-lg"></i> 101</span>
-                </div>
-
-                <div class="content_box">
-                    ·£¼±¸¶ÄÏ ±Û³»¿ë±Û³»¿ë
-                    <button>³ª´®¿Ï·á</button>
-                </div>
-
-                <div class="comment_header">
-                    <h1>´ñ±Û</h1>
-                </div>
-
-                <div class="comment_box">
-                    <div class="comment_list">
-                        <div class="commenter">
-                            <span>ÀÛ¼ºÀÚ</span>
-                            <span>ÀÛ¼ºÀÏÀÚ</span>
-                        </div>
-                        <div class="comment_content">
-                            <span>´ñ±Û³»¿ë´ñ±Û³»¿ë´ñ±Û³»¿ë´ñ±Û³»¿ë</span>
-                        </div>
+                <div class="container">
+                    <div class="board_title">
+                        <h1>ì¤‘ê³ íŒë§¤/ì¤‘ê³ ë‚˜ëˆ”</h1>
                     </div>
-                    <div class="comment_list">
-                        <div class="commenter">
-                            <span>ÀÛ¼ºÀÚ</span>
-                            <span>ÀÛ¼ºÀÏÀÚ</span>
+                    <div class="board_wrap">
+
+                        <div class="title_box">
+                            <h1>[ë‚˜ëˆ”ì¤‘/íŒë§¤ì¤‘]</h1>
+                            <h1>ëœì„ ë§ˆì¼“ ê¸€ì œëª©ê¸€ì œëª©ê¸€ì œëª©</h1>
+                            <span>2023. 05. 04</span>
+                            <span><i class="fa-solid fa-eye fa-lg"></i> 101</span>
                         </div>
-                        <div class="comment_content">
-                            <span>´ñ±Û³»¿ë´ñ±Û³»¿ë´ñ±Û³»¿ë´ñ±Û³»¿ë</span>
+
+                        <div class="content_box">
+                            ëœì„ ë§ˆì¼“ ê¸€ë‚´ìš©ê¸€ë‚´ìš©
+                            <button>ë‚˜ëˆ”ì™„ë£Œ</button>
                         </div>
+
+                        <div class="comment_header">
+                            <h1>ëŒ“ê¸€</h1>
+                        </div>
+
+                        <div class="comment_box">
+                            <div class="comment_list">
+                                <div class="commenter">
+                                    <span>ì‘ì„±ì</span>
+                                    <span>ì‘ì„±ì¼ì</span>
+                                </div>
+                                <div class="comment_content">
+                                    <span>ëŒ“ê¸€ë‚´ìš©ëŒ“ê¸€ë‚´ìš©ëŒ“ê¸€ë‚´ìš©ëŒ“ê¸€ë‚´ìš©</span>
+                                </div>
+                            </div>
+                            <div class="comment_list">
+                                <div class="commenter">
+                                    <span>ì‘ì„±ì</span>
+                                    <span>ì‘ì„±ì¼ì</span>
+                                </div>
+                                <div class="comment_content">
+                                    <span>ëŒ“ê¸€ë‚´ìš©ëŒ“ê¸€ë‚´ìš©ëŒ“ê¸€ë‚´ìš©ëŒ“ê¸€ë‚´ìš©</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="btn_box">
+                            <button>ìˆ˜ì •</button>
+                            <button>ì‚­ì œ</button>
+                        </div>
+
                     </div>
 
-                </div>
-
-                <div class="btn_box">
-                    <button>¼öÁ¤</button>
-                    <button>»èÁ¦</button>
                 </div>
 
             </div>
@@ -197,148 +194,11 @@
         </div>
 
     </div>
+    <!-- pageContent -- END -->
 
-    </div>
-    <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-
-</html>
-<script>
-
-</script>
+    <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 
-<style>
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Pretendard-Medium';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
-        font-weight: 500;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Pretendard-SemiBold';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-        font-weight: 700;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Pretendard-Bold';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
-        font-weight: 800;
-        font-style: normal;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html,
-    body {
-        font-family: 'Pretendard-Regular';
-        font-size: 16px;
-        line-height: 1.5;
-    }
-
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    input {
-        outline: 0;
-        border-radius: 0;
-        border-width: 1px;
-        padding: 5px;
-    }
-
-    select {
-        outline: 0;
-        border-radius: 0;
-        border-width: 1px;
-        padding: 4px;
-    }
-
-    img {
-        width: 100%;
-        max-width: 100%;
-        display: inline-block;
-    }
-
-    ol,
-    ul,
-    li {
-        list-style: none;
-    }
-
-    b,
-    strong {
-        font-family: 'Pretendard-Bold';
-    }
-
-    :root {
-        --main-colorGreen: #bdee71;
-        --main-colorOrange: #fe6458;
-        --base-colorDeepGray: #ccc;
-        --base-colorLightGray: #f7f7f7;
-    }
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background-color: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: var(--base-colorDeepGray);
-        border: 2px solid #fff;
-        border-radius: 5px;
-    }
-
-    ::-webkit-scrollbar-button {
-        width: 0;
-        height: 0;
-    }
-
-    #header,
-    #footer,
-    #subVisual {
-        width: 100%;
-        height: 100px;
-        background: #eee;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #subVisual {
-        height: 300px;
-        border-top: 1px dotted #777;
-        margin-bottom: 60px;
-    }
-
-    #footer {
-        margin-top: 150px;
-    }
-
-    #wrapper {
-        max-width: 1240px;
-        min-height: calc(100vh - 710px);
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-</style>
+    <script type="text/javascript">
+	// ì—¬ê¸°ì— [script] ì…ë ¥í•˜ì„¸ìš”
+    </script>

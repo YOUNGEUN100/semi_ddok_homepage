@@ -9,7 +9,5 @@ import com.example.mini.model.Sample;
 
 @Mapper
 public interface SampleMapper {
-	List<Sample> selectLanList(HashMap<String, Object> map);
-	
-	List<Sample> selectFundingList(HashMap<String, Object> map);
+
 }
