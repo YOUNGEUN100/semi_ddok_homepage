@@ -1,6 +1,7 @@
 package com.example.mini.model;
 
 public class Sample {
+	//---랜선마켓 게시판용 모델 시작---
 	private int boardNo;
 	private String userId;
 	private String title;
@@ -14,7 +15,24 @@ public class Sample {
 	private String deleteYn;
 	private String secretYn;
 	private String answerYn;
-	private String addr;
+	private String addr; //게시판용
+	private String nick; //게시판용
+	//---랜선마켓 게시판 모델 끝---
+	
+	//---펀딩용 모델 시작---
+	private int fundingNo;
+	private String fundingName;
+	private String fundingSummary;
+	private String fundingScript;
+	private String fundingStartDt;
+	private String fundingEndDt;
+	private String fundingCloseYn;
+	private int fundingGoalCnt;
+	private String fundingPrice; // 세자리수 마다 ,찍기 위해서 String 으로 바꿈
+	private int cnt;
+	private String dDay;
+	//---펀딩용 모델 끝---
+	
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -99,4 +117,80 @@ public class Sample {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+	
+	//---펀딩용 게터세터 시작---
+	public int getFundingNo() {
+		return fundingNo;
+	}
+	public void setFundingNo(int fundingNo) {
+		this.fundingNo = fundingNo;
+	}
+	public String getFundingName() {
+		return fundingName;
+	}
+	public void setFundingName(String fundingName) {
+		this.fundingName = fundingName;
+	}
+	public String getFundingSummary() {
+		return fundingSummary;
+	}
+	public void setFundingSummary(String fundingSummary) {
+		this.fundingSummary = fundingSummary;
+	}
+	public String getFundingScript() {
+		return fundingScript;
+	}
+	public void setFundingScript(String fundingScript) {
+		this.fundingScript = fundingScript;
+	}
+	public String getFundingStartDt() {
+		return fundingStartDt;
+	}
+	public void setFundingStartDt(String fundingStartDt) {
+		this.fundingStartDt = fundingStartDt;
+	}
+	public String getFundingEndDt() {
+		return fundingEndDt;
+	}
+	public void setFundingEndDt(String fundingEndDt) {
+		this.fundingEndDt = fundingEndDt;
+	}
+	public String getFundingCloseYn() {
+		return fundingCloseYn;
+	}
+	public void setFundingCloseYn(String fundingCloseYn) {
+		this.fundingCloseYn = fundingCloseYn;
+	}
+	public int getFundingGoalCnt() {
+		return fundingGoalCnt;
+	}
+	public void setFundingGoalCnt(int fundingGoalCnt) {
+		this.fundingGoalCnt = fundingGoalCnt;
+	}
+	public String getFundingPrice() {
+		return fundingPrice;
+	}
+	public void setFundingPrice(String fundingPrice) {
+		this.fundingPrice = fundingPrice;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	public String getdDay() {
+		return dDay;
+	}
+	public void setdDay(String dDay) {
+		this.dDay = dDay;
+	}
+	//---펀딩용 게터세터 끝---
+	
 }

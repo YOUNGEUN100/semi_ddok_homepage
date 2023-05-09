@@ -4,8 +4,11 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <script src="js/jquery.js"></script>
+    <script src="js/vue.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <title>똑똑 : "메뉴명을 입력해 주세요."</title>
     <style>
         /* style START */
@@ -25,8 +28,11 @@
         margin-bottom: 10px;
        }
 
-       .joinArea .joinBox .captionCheck{
+       .joinArea .joinBox .disableId{
         font-size: 0.8em; color: red;
+       }
+       .joinArea .joinBox .ableId{
+       	font-size: 0.8em; color: #5EA152;
        }
        .joinArea .joinBox .captionBox span:first-child{font-weight: bold; font-size: 0.9em;}
        .joinArea .joinBox input{
@@ -77,44 +83,53 @@
             <span class="captionEssential">표시는 필수입력</span>
             <div class="joinBox" >
                 <div class="captionBox">
-                    <span class="markEssential">아이디</span>  <span class="captionCheck">사용할 수 없는 아이디입니다</span>
-                    <input type="text" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)" v-model="info.id"><button class="duplicationBtn">중복검사</button>
+                    <div class="markEssential">아이디</div>  
+                    <template v-if="info.id != ''">
+	                  <span class="ableId" v-if="idFlag">사용할 수 있는 아이디입니다</span>
+	                  <span class="disableId" v-else>사용할 수 없는 아이디입니다</span>
+	                 </template>
+                    <input type="text" v-model="info.id"class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnChange">중복검사</button>
                 </div> 
                 <div class="captionBox">
                     <span class="markEssential">비밀번호</span>  <span class="captionCheck">20자 이내의 비밀번호를 입력해주세요</span>
-                    <input type="password" class="w100" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)" v-model="info.pw">
+                    <input type="password" v-model="info.pw" class="w100" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
                 </div>
                 <div class="captionBox">
                     <span class="markEssential">비밀번호 확인</span> <span class="captionCheck">비밀번호가 일치하지않습니다.</span>
                 </div>
-                <input type="password" class="w100" placeholder="비밀번호 재입력" v-model="info.pwck">
+                <input type="password" class="w100" placeholder="비밀번호 재입력" v-model="pwck">
                 <p class="markEssential">이름</p>
                 <input type="text" class="w100" placeholder="이름을 입력해 주세요" v-model="info.name">
                 <p class="markEssential">닉네임</p>
                 <input type="text" class="w100" placeholder="활동할 닉네임을 입력해 주세요" v-model="info.nick">
                 <p class="markEssential">전화번호</p>
-                <input type="tel" class="w100" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.phone">
+                <input type="tel" class="w100" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
                 <p>이메일주소</p>
-                <input type="email" class="w50" placeholder="이메일 주소" >@ 
-                <select class="mail">
+                <input type="email" class="w50" placeholder="이메일 주소" v-model="info.email">@ 
+                <select class="mail" v-model="info.email">
                     <div>
                         <option>naver.com</option>
                         <option>gmail.com</option>
                         <option>daum.net</option>
                         <option>kakao.com</option>
+					    <option>hanmail.net</option>
+					    <option>hotmail.com</option>
+					    <option>korea.com</option>
+					    <option>nate.com</option>
+					    <option>yahoo.com</option>
                     </div>
                 </select> 
-                <p class="markEssential">주소</p>
-                <input type="number" class="w60 addr" placeholder="우편번호"><button class="zipcodeBtn">우편번호 찾기</button>
-                <input type="text" class="w100 addr" placeholder="주소" v-model="info.addr">
-                <input type="text" class="w100 " placeholder="상세주소 입력" v-model="info.addr2">
+                <p class="markEssential daumMap">주소</p>
+                <input type="number" v-model="info.zipCode" class="w60 zipCode" placeholder="우편번호" id="sample6_postcode"><button class="zipcodeBtn" @click="sample6_execDaumPostcode()">우편번호 찾기</button>
+                <input type="text" v-model="info.addr" class="w100 addr" placeholder="주소" id="sample6_address">
+                <input type="text" v-model="info.addr2" class="w100 addr2" placeholder="상세주소 입력"  id="sample6_detailAddress">
                 <div>
                     <span class="markEssential">생년월일</span><span class="accountFind">※계정찾기에 활용됩니다</span>
                     <input type="text" class="w90" placeholder="생년월일" v-model="info.birth"><img src="images/calender_final.png" class="calender">
                 </div>
                 <div>
                     <span class="markEssential">비밀번호 질문</span><span class="accountFind">※계정찾기에 활용됩니다</span>
-                    <select class="hint" v-model="info.hint">
+                    <select class="hint" >
                         <option>질문선택</option>
                         <option>자신의 인생 좌우명은?</option>
                         <option>가장 기억에 남는 선생님 성함은?</option>
@@ -124,13 +139,13 @@
                         <option>자신이 두번째로 존경하는 인물은?</option>
                         <option>다시 태어나면 되고 싶은 것은?</option>
                     </select>
-                    <input type="text" class="w100" placeholder="선택한 질문에 대한 답변 입력" v-model="info.id">
+                    <input type="text" v-model="info.pwHint" class="w100" placeholder="선택한 질문에 대한 답변 입력">
                 </div>
                 <p>자취경력</p>
-                <input type="text" class="w90" placeholder="자취경력 햇수 입력" v-model="info.id"> 년차
+                <input type="text" class="w90" v-model="info.livingYear" placeholder="자취경력 햇수 입력"> 년차
            	</div>
 	            <div class="btnBox">
-	                <button class="joinBtn">가입하기</button>
+	                <button class="joinBtn" @click="fnJoin">가입하기</button>
 	            </div>
         </div>
     <!-- wrap END -->
@@ -138,19 +153,105 @@
 </body>
 </html>
 <script type="text/javascript">
-    var app = new Vue({ 
-        el: '#app',
-        data: {
-            
-        }   
-        , methods: {
-                 
-        }   
-        , created: function () {
-        
-        }
-    });
-    </script>
+var app = new Vue({
+	el: '#app',
+	data: {
+		info : {
+			joinId : "",
+			pwd1 : "",
+			pwd2 : "",
+			name : "",
+			nick : "",
+			hp : "",
+			email : "",
+			zipCode:"",
+			addr:"",
+			addr2:"",
+			birth:"",
+			pwHint:"",
+			livingYear:""
+		}
+		, idFlag : true
+		, nickFlag : true
+    },
+	  methods: {
+		  fnJoin : function(){
+	    		var self = this;
+	    		if(self.info.id == ""){
+	    			alert("아이디를 입력해주세요");
+	    			return;
+	    		}
+	    		if(!self.loginFlg){
+	    			alert("아이디 중복체크를 해주세요.");
+	    			return;
+	    		}
+	    		if(self.info.pw != self.info.pwck){
+	    			alert("비밀번호가 일치하지않아요");
+	    			return;
+	    		}
+	    		if(self.info.name == ""){
+	    			alert("이름을 입력해주세요");
+	    			return;
+	    		}
+	    		if(self.info.nick == ""){
+	    			alert("닉네임을 입력해주세요");
+	    			return;
+	    		}
+	    		if(self.info.hp == ""){
+	    			alert("핸드폰 번호를 입력해주세요");
+	    			return;
+	    		}
+	    		if(self.info.addr == ""){
+	    			alert("주소를 입력해주세요");
+	    			return;
+	    		}
+	    		if(self.info.addr2 == ""){
+	    			alert("상세주소를 입력해주세요");
+	    			return;
+	    		}
+	    		if(self.info.birth == ""){
+	    			alert("생년월일울 입력해주세요");
+	    			return;
+	    		}
+	    		if(self.info.pwHint == ""){
+	    			alert("비밀번호 힌트를 입력해주세요");
+	    			return;
+	    		}
+	    		
+	            var nparmap = self.info;
+	            $.ajax({
+	                url:"/join.dox",
+	                dataType:"json",	
+	                type : "POST", 
+	                data : nparmap,
+	                success : function(data) { 
+	                	alert("회원가입이 완료되었습니다.");
+	                	location.href="/login.do";
+	                }
+	            }); 
+	    		
+	    	}
+		    
+		    , fnChange : function(){
+		    	var self = this;
+		    	var nparmap = {id : self.info.id};
+	            $.ajax({
+	                url:"/user/check.dox",
+	                dataType:"json",	
+	                type : "POST", 
+	                data : nparmap,
+	                success : function(data) {
+	                	if(data.cnt > 0){
+	                		self.idFlag = false;
+	                	} else {
+	                		self.idFlag = true;
+	                	}
+	                }
+	            }); 
+		    }
+	    
+	});
+</script> 
 <style>
     /* setting * don't touch */
     @font-face {

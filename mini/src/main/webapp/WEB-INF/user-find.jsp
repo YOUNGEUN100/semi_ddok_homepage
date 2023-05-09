@@ -8,22 +8,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>똑똑 : "메뉴명을 입력해 주세요."</title>
     <style>
-        /* style START */
+        .findArea{ 
+        width: 600px; margin: -10px auto;
+        background-color: #fff;}
 
-        /* style END */
+	    .findArea .idBox{
+	        box-shadow: -2px 0 5px 0 #ccc; padding: 15px;   
+	        border-top-left-radius: 10px; display: inline-block; width: 49.1%;
+	        border-bottom-left-radius: 10px; font-size: 1.2em; 
+	        font-weight: bold; text-align: center; margin-left: 5px;
+	        background-color: #fff; color: black;}
+	    .findArea .pwBox{
+	        box-shadow: 2px 0 5px 0 #ccc; padding: 15px;
+	        border-top-right-radius: 10px; display: inline-block; width: 49.8%;
+	        border-bottom-right-radius: 10px; font-size: 1.2em; 
+	        font-weight: bold; text-align: center; margin-left: 1px;
+	        background-color: #fff; color: black;}
+	
+	    .findArea .markEssential::before{content: '*'; color: #5EA152;}
+	    .findArea .inputBox  .markEssential{font-size: 0.9em; padding-left: 5px;}
+	    .findArea .inputBox{
+	        margin-top: 55px; box-shadow: 0 0 5px #ccc; border-radius: 20px;
+	        padding: 50px 95px; font-weight: bold; font-size: 1.1em;
+	        } 
+	    .findArea .inputBox input{
+	        border: 0; border-bottom: 1px solid black;
+	        margin: 12px 5px; padding-left: 10px;
+	        margin-bottom: 30px; font-size: 0.88em;
+	    }
+	    .findArea .inputBox .calender{ width: 30px; height: 30px;}
+	    .findArea .inputBox .w100{width: 100%;}
+	    .findArea .inputBox .w90{width: 90%;}
+	    .findArea .inputBox select{
+	        margin-top: 7px; font-size: 0.9em; padding: 8px; 
+	        margin-left: 8px; margin-bottom: 10px;}
+	    .findArea .inputBox input::placeholder{font-size: 1.05em;}
+	
+	    .findArea .inputBox .findIdBtn{
+	        margin-top: 20px; background-color: #5EA152; color: #fff;
+	        padding: 12px; border: 0; border-radius: 10px; width: 78%; margin-left: 50px;
+	        font-weight: bold; font-size: 1.1em; margin-bottom: 15px;
+	    }
     </style>
 </head>
 <body>
     <header id="header">&lt;header&gt;</header>
     <div id="subVisual">&lt;subVisual&gt;</div>
     <!-- wrap START -->
-    <div id="wrapper">
-
-        이곳에 내용을 입력해 주세요.
-
+    <div class="findArea">
+        <div class="idBox">아이디 찾기 </div><div class="pwBox">비밀번호 찾기</div>
+        <div class="inputBox">
+            <div class="markEssential">이름</div>
+            <input type="text" placeholder="이름을 입력해주세요" class="w100">
+            <div class="markEssential">전화번호</div>
+            <input type="tel" placeholder="가입 시 입력했던 휴대폰번호('-'제외 11자리 입력)" class="w100">
+            <div class="markEssential">생년월일</div>
+            <input type="number" placeholder="생년월일" class="w90"><img alt="calender" src="images/calender_final.png" class="calender"> 
+            <button class="findIdBtn">아이디 찾기</button>
+        </div>
     </div>
-    <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
+     <!-- wrap END -->
+     <footer id="footer">&lt;footer&gt;</footer>
 </body>
 </html>
 <style>

@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <title>랜선마켓목록</title>
     <script src="https://kit.fontawesome.com/0012da89f1.js" crossorigin="anonymous"></script>
     <style>
@@ -35,15 +37,15 @@
         }
 
         #address {
-            width: 150px;
+            width: 200px;
         }
 
         #title {
-            width: 530px;
+            width: 570px;
         }
 
         #id {
-            width: 150px;
+            width: 100px;
         }
 
         #date {
@@ -96,20 +98,18 @@
         .purchase_list {
             border: none;
             box-sizing: border-box;
-            padding: 40px 60px;
+            padding: 40px 40px;
             width: 1200px;
-            height: 420px;
             margin-top: 20px;
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
         }
 
-        .split_list {
+        .donate_list {
             border: none;
             box-sizing: border-box;
-            padding: 40px 60px;
+            padding: 40px 40px;
             width: 1200px;
-            height: 420px;
             margin-top: 20px;
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
@@ -140,6 +140,7 @@
     <header id="header">&lt;header&gt;</header>
     <div id="subVisual">&lt;subVisual&gt;</div>
     <!-- wrap START -->
+    <div id="app">
     <div id="wrapper">
 
         <div class="container">
@@ -161,11 +162,15 @@
                 <div class="purchase_list">
                     <table>
                         <tr v-for="(item, index) in list">
-                            <td id="sale_flg">{{item.finishYn}}</td>
-                            <td id="address">{{item.addr}}</td>
-                            <td id="title">{{item.title}}</td>
-                            <td id="id">item.userId</td>
-                            <td id="date">{{item.cdatetime}}</td>
+                        	<template v-if="item.boardKind=='T_LAN'">
+                        		<td id="sale_flg" v-if="item.finishYn=='N'" style = "color : #5ea152">{{item.finish}}</td>
+                            	<td id="sale_flg" v-else>{{item.finish}}</td>
+                            	<td id="address">{{item.addr}}</td>
+                            	<td id="title">{{item.title}}</td>
+                            	<td id="id">{{item.nick}}</td>
+                            	<td id="date">{{item.cdatetime}}</td>
+                        	</template>
+                            
                         </tr>                        
                     </table>
                 </div>
@@ -186,50 +191,19 @@
                     </select>
                 </div>
 
-                <div class="split_list">
+                <div class="donate_list">
                     <table>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddddddddddddd다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">판매중</td>
-                            <td id="address">서울특별시 구로구</td>
-                            <td id="title">ddddddddddddddddddd팝니다</td>
-                            <td id="id">아이디</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
+                        <tr v-for="(item, index) in list">
+                        	<template v-if="item.boardKind=='D_LAN'">
+                        		<td id="sale_flg" v-if="item.finishYn=='N'" style = "color : #5ea152">{{item.finish2}}</td>
+                        		<td id="sale_flg" v-else>{{item.finish2}}</td>
+                            	<td id="address">{{item.addr}}</td>
+                            	<td id="title">{{item.title}}</td>
+                            	<td id="id">{{item.nick}}</td>
+                            	<td id="date">{{item.cdatetime}}</td>
+                        	</template>
+                            
+                        </tr>                        
                     </table>
                 </div>
 
@@ -239,22 +213,57 @@
 
             </div>
 
-
-
-
-
         </div>
 
     </div>
 
     </div>
+    </div>
+    
     <!-- wrap END -->
     <footer id="footer">&lt;footer&gt;</footer>
 </body>
 
 </html>
 <script>
-
+var app = new Vue({ 
+    el: '#app',
+    data: {
+    	list : []
+    	, finish : ""
+    	, finish2 : ""
+    }   
+    , methods: {
+        fnGetList : function(){
+            var self = this;
+            var nparmap = {};
+            $.ajax({
+                url:"/lanmarket/list.dox",
+                dataType:"json",	
+                type : "POST", 
+                data : nparmap,
+                success : function(data) {                                       
+	                self.list = data.list;
+	                for (var i = 0; i < self.list.length; i++) {
+                        if (self.list[i].finishYn == 'N') {
+                            self.list[i].finish = '판매중';
+                            self.list[i].finish2 = '나눔중';
+                        } else if (self.list[i].finishYn == 'Y') {
+                        	self.list[i].finish = '판매완료';
+                        	self.list[i].finish2 = '나눔완료';
+                        }
+                    }
+	                console.log(data.list);
+                }
+            }); 
+        }  	
+    	
+    	
+    }   
+    , created: function () {
+		this.fnGetList();       
+	}
+});
 </script>
 
 

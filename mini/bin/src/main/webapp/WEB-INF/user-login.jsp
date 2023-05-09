@@ -4,8 +4,6 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <script src="js/jquery.js"></script>
-    <script src="js/vue.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>똑똑 : "메뉴명을 입력해 주세요."</title>
@@ -52,19 +50,19 @@
 <body>
     <header id="header">&lt;header&gt;</header>
     <!-- wrap START -->
-    <div id="app" class="loginArea">
+    <div class="loginArea">
 
         <div class="loginBox">
-            <input type="text" placeholder="아이디" v-model="id">
-            <input type="password" placeholder="비밀번호" v-model="pw">
+            <input type="text" placeholder="아이디">
+            <input type="text" placeholder="비밀번호">
         </div> 
 
         <div class="btnBox">
-            <button class="loginBtn" @click="fnLogin">로그인</button>
+            <button class="loginBtn">로그인</button>
         </div>
         <div class="linkBox">
-            <a href="join.do">혹시 똑똑이 처음이신가요?</a>
-            <a href="find.do">아이디/비밀번호 찾기</a>
+            <a href="javascript:;">혹시 똑똑이 처음이신가요?</a>
+            <a href="javascript:;">아이디/비밀번호 찾기</a>
         </div>
     </div>
     <!-- wrap END -->
@@ -72,36 +70,21 @@
 </body>
 </html>
 <script type="text/javascript">
-	var app = new Vue({ 
-	    el: '#app',
-	    data: {
-	    	id : ""
-	    	, pw : ""
-	    	, user : {}
-	    }   
-	    , methods: {
-	    	fnLogin : function(){
-	            var self = this;
-	            var nparmap = {id : self.id, pw : self.pw};
-	            $.ajax({
-	                url:"/login.dox",
-	                dataType:"json",	
-	                type : "POST", 
-	                data : nparmap,
-	                success : function(data) { 
-	                	alert(data.message);
-	                	console.log(data.message);
-	                	if(data.result == "success"){
-	                		location.href = "main.do"
-	                	}
-	                }
-	            });
-	   	 }
-	    }   
-	    , created: function () {
-	    	
-		}
-	});
+var app = new Vue({ 
+    el: '#app',
+    data: {
+    	id : ""
+    	, pwd : ""
+    	, user : {}
+    }   
+    , methods: {
+    	
+   	 }
+      
+    , created: function () {
+    	
+	}
+});
 </script>
 <style>
     /* setting * don't touch */

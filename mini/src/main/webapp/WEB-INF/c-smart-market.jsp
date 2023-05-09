@@ -6,9 +6,178 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>똑똑 : "메뉴명을 입력해 주세요."</title>
+    <title>똑똑 : "똑똑한 레시피"</title>
     <style>
         /* style START */
+        body {
+            background: url("/images/sub_dept3-1_smart_Eating_view") no-repeat;
+        }
+
+        .recipe-img {
+            border-radius: 5px;
+            width : 58%;
+            height: 500px;
+            margin-right: 30px;
+        }
+        .big-box {
+            width: 42%;
+            margin-bottom: 60px;
+        }
+        
+        .recipe-info {
+            border: 5px solid rgba(245, 243, 243, 0.959);
+            box-shadow: 2px 2px 20px 0px #ece9e9;
+            border-radius: 35px;
+            padding: 20px 20px;
+            margin-bottom: 30px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 420px;
+        }
+        .recipe-info div {
+            margin-right: 10px;
+        }
+        .recipe-save {
+            display: flex;
+            justify-content: space-between;
+        }
+        .recipe-info-box {
+            display:flex;
+            margin: 50px 0px;
+            width: 100%;
+        }
+
+        @media screen and (max-width: 512px) {
+            .recipe-info-box {
+            display: block;
+            margin: 50px 0px;
+            width: 100%;
+            }
+            .recipe-img {
+            width : 100%;
+            height: auto;
+            }
+            .big-box {
+            width: 100%;
+            height: auto;
+            margin-bottom: 60px;
+            }
+
+        }
+        
+
+       .re-icon {
+            width:50px;
+            text-align: center;
+       }
+       .recipe-simple-info {
+             display: flex;
+             justify-content: center;
+             margin-top: 60px;
+       }
+      
+       .box2 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 110px;
+            margin: 0 10px;
+       }
+      
+       .box2 div {
+            font-size: large;
+       }
+       .recipe-name {
+        margin-left: 40px;
+        margin-bottom: 30px;
+       }
+       .recipe-name > div:last-child {
+            margin-top: 5px;
+          font-size:x-large;
+       }
+       .recipe-save-button {
+            width: 68%;
+            height: 55px;
+            padding : 10px;
+            font-size: large;
+            border-radius: 15px;
+            color:white;
+            background-color: green;
+            border-color: green;
+       }
+       .icon-print {
+            width: 55px;
+            height: 55px;
+            background-color: black;
+            border-radius: 10px;
+            text-align: center;
+            padding:15px 0px;
+       }
+       .icon-share {
+            width: 55px;
+            height: 55px;
+            background-color: whitesmoke;
+            border: 1px solid rgba(245, 243, 243, 0.959);
+            box-shadow: 2px 2px 5px 0px #ece9e9;
+            border-radius: 10px;
+            text-align: center;
+            padding:15px 0px;
+       }
+       .color-white {
+            color: whitesmoke;
+       }
+       .ingre-name {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: large;
+            margin-bottom: 20px;
+        }
+        .ingredient {
+            border: 5px solid rgba(245, 243, 243, 0.959);
+            box-shadow: 2px 2px 20px 0px #ece9e9;
+            border-radius: 35px;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        .ingredient .ingre-info {
+            margin-left: 50px;
+        }
+        .recipe-index {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        .img-index {
+            width: 60%;
+        }
+        .text-index {
+            width : 40%;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            font-size: large;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+        }
+
+        @media screen and (max-width: 512px) {
+            .recipe-index {
+            display: block;
+            }
+            .img-index {
+                width: 100%;
+            }
+            .text-index {
+                width: 100%;
+            }
+        }
+        
+        
     /* setting * don't touch */
         @font-face {
             font-family: 'Pretendard-Regular';

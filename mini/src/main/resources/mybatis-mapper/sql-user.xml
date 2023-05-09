@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.example.mini.mapper.UserMapper">
+		<select id="selectUserInfo" parameterType="hashmap" resultType="com.example.mini.model.User">
+			SELECT      
+				USER_ID,
+				NAME,
+				NICK,
+				EMAIL,
+				GENDER,
+				BIRTH,
+				HP,
+				LIVING_YEAR,
+				STATUS,
+				ADDR,
+				ADDR2,
+				JOINDATE,
+				PW_HINT	
+			FROM T4_USER
+			WHERE USER_ID=#{id} AND PASSWORD=#{pw}
+		</select>
+		
+		<select id="selectUserCnt" parameterType="HashMap" resultType="int">
+			SELECT COUNT(*) AS CNT 
+			FROM T4_USER
+			WHERE USER_ID = #{id}
+		</select>
+		
+		<insert id="insertUser" parameterType="HashMap">
+			INSERT INTO T4_USER(
+				USER_ID,
+				PASSWORD,
+				NAME,
+				NICK,
+				EMAIL,
+				BIRTH,
+				HP,
+				LIVING_YEAR,
+				STATUS,
+				ADDR,
+				ADDR2,
+				JOINDATE,
+				PW_HINT)
+			VALUES(#{id}, #{pw}, #{name}, #{nick}, #{email}, #{birth},
+			#{hp}, #{livingYear}, #{status}, #{addr}, #{addr2}, SYSDATE, #{pwHint})
+		</insert>
+	</mapper>
