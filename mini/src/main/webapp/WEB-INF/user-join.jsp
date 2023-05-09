@@ -1,112 +1,133 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <script src="js/jquery.js"></script>
-    <script src="js/vue.js"></script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <title>¶È¶È : "¸Ş´º¸íÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä."</title>
-    <style>
-        /* style START */
-       .joinArea{
-        background-color: #fff;
-        width: 480px; margin: 0 auto;
-        border-radius: 20px;
-        box-shadow: 0 0 10px #dddddd;
-        padding: 30px 80px; 
-       }
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-       .joinArea .captionEssential {
-        font-size: 13px; 
-        display: flex; 
-        flex-wrap: nowrap; 
-        justify-content: end;
-        margin-bottom: 10px;
-       }
+<jsp:include page="/layout/head.jsp"></jsp:include>
+<jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-       .joinArea .joinBox .disableId{
-        font-size: 0.8em; color: red;
-       }
-       .joinArea .joinBox .ableId{
-       	font-size: 0.8em; color: #5EA152;
-       }
-       .joinArea .joinBox .captionBox span:first-child{font-weight: bold; font-size: 0.9em;}
-       .joinArea .joinBox input{
-        border: 0; border-bottom: 1px solid black; 
-        padding: 10px; margin-bottom: 20px; 
-       }
-       .joinArea .joinBox .duplicationBtn{
-        border-radius: 8px; border: 0.7px solid black;
-        background-color: #fff; padding: 5px 13px; 
-        font-weight: bold; font-size: 0.8em;}
-       .joinArea .joinBox p{
-        font-weight: bold; font-size: 0.9em;
-       }
-       .joinArea .joinBox .hint{border: 1px solid #ccc; width: 100%;
-            border-radius: 5px; padding: 5px; padding-left: 10px; 
-            font-weight: bold; margin-top: 5px; margin-bottom: 10px;}
-        .joinArea .joinBox .mail{border: 1px solid #ccc;  
-            border-radius: 5px; padding: 8px; font-weight: bold; 
-            width: 45%; margin-left: 6px; padding-left: 10px;}
-        .joinArea .joinBox .addr{margin-bottom:5px;}
-        .joinArea .joinBox .zipcodeBtn{
-            border-radius: 5px; border: 0.7px solid black;
-            background-color: #fff; padding: 8px 30px; 
-            font-weight: bold; font-size: 0.7em;}
-       .captionEssential::before{content:'* '; color:#5EA152;}
-       .markEssential::before {content:'* '; color:#5EA152;}
-       .joinArea .joinBox .markEssential{margin-right: 5px;}
-       .joinArea .joinBox .accountFind{font-size: 0.8em; color: #5EA152;}
-       .joinArea .joinBox .w100{width: 100%;}
-       .joinArea .joinBox .w90{width: 85%; margin-right: 15px;}
-       .joinArea .joinBox .w80{width: 233px; margin-right: 7px;}
-       .joinArea .joinBox .w50{width: 45%; margin-right: 7px;}
-       .joinArea .joinBox .w60{width: 55%; margin-right: 10px;}
-       .joinArea .joinBox .calender{ width: 30px; height: 30px;}
-       .joinArea .joinBtn{
-            background-color: #5EA152; color:#fff; 
-            border-radius: 8px; padding: 10px; border: 0; font-weight: bold; 
-            width: 76%; margin-left: 30px;}
-        
-        /* style END */
-    </style>
-</head>
-<body>
-    <header id="header">&lt;header&gt;</header>
-    <div id="subVisual">&lt;subVisual&gt;</div>
-    <!-- wrap START -->
-        <div id="app" class="joinArea">
-            <span class="captionEssential">Ç¥½Ã´Â ÇÊ¼öÀÔ·Â</span>
+<style>
+     .joinArea{
+	      background-color: #fff;
+	      width: 480px; margin: 0 auto;
+	      border-radius: 20px;
+	      box-shadow: 0 0 10px #dddddd;
+	      padding: 30px 80px; 
+	     }
+
+     .joinArea .captionEssential {
+	       font-size: 13px; 
+	       display: flex; 
+	       flex-wrap: nowrap; 
+	       justify-content: end;
+	       margin-bottom: 10px;
+	      }
+
+  	 .joinArea .joinBox .id{display : inline-block;}	
+     .joinArea .joinBox .disableId{
+	       font-size: 0.8em; color: red;
+	      }
+     .joinArea .joinBox template{display: inline-block;}
+     .joinArea .joinBox .ableId{
+	      	font-size: 0.7em; color: #5EA152;
+	      }
+     .joinArea .joinBox .captionBox span:first-child{font-weight: bold; font-size: 0.9em;}
+     .joinArea .joinBox input{
+	       border: 0; border-bottom: 1px solid black; 
+	       padding: 10px; margin-bottom: 20px; 
+	      }
+     .joinArea .joinBox input[type:date]{border: 0; border-bottom: 1px solid black;
+     		 margin-bottom: 20px; }
+     .joinArea .joinBox .duplicationBtn{
+	       border-radius: 8px; border: 0.7px solid black;
+	       background-color: #fff; padding: 5px 13px; 
+	       font-weight: bold; font-size: 0.75em;}
+     .joinArea .joinBox p{
+	       font-weight: bold; font-size: 0.9em;
+	      }
+     .joinArea .joinBox .hint{border: 1px solid #ccc; width: 100%;
+          border-radius: 5px; padding: 5px; padding-left: 10px; 
+          font-weight: bold; margin-top: 5px; margin-bottom: 10px;}
+     .joinArea .joinBox .mail{border: 1px solid #ccc;  
+          border-radius: 5px; padding: 8px; font-weight: bold; 
+          width: 45%; margin-left: 6px; padding-left: 10px;}
+     .joinArea .joinBox .addr{margin-bottom:5px;}
+     .joinArea .joinBox .zipcodeBtn{
+          border-radius: 5px; border: 0.7px solid black;
+          background-color: #fff; padding: 8px 30px; 
+          font-weight: bold; font-size: 0.7em;}
+     .captionEssential::before{content:'* '; color:#5EA152;}
+     .markEssential::before {content:'* '; color:#5EA152;}
+     .joinArea .joinBox .markEssential{margin-right: 5px;}
+     .joinArea .joinBox .accountFind{font-size: 0.8em; color: #5EA152;}
+     .joinArea .joinBox .w100{width: 100%;}
+     .joinArea .joinBox .w90{width: 85%; margin-right: 15px; }
+     .joinArea .joinBox .w80{width: 233px; margin-right: 7px;}
+     .joinArea .joinBox .w50{width: 45%; margin-right: 7px;}
+     .joinArea .joinBox .w60{width: 55%; margin-right: 10px;}
+     input[type=date]::-webkit-datetime-edit-text {
+	    -webkit-appearance: none; color: #888;
+	    display: none;}
+	 input[type=date]::-webkit-datetime-edit-month-field{
+	    -webkit-appearance: none; color: #888;
+	    display: none;}
+	 input[type=date]::-webkit-datetime-edit-day-field {
+	    -webkit-appearance: none; color: #888;
+	    display: none;}
+	 input[type=date]::-webkit-datetime-edit-year-field {
+	    -webkit-appearance: none; color: #888;
+	    display: none;}
+     input[type="date"].after::-webkit-calendar-picker-indicator{
+    	margin-left: 0px;}
+     input[type="date"]:not(.has-value):after{
+		color: #888; font-family:'Pretendard'; font-weight: lighter; font-size: 0.95em;
+		src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+		content: attr(placeholder);}
+	 input[type="date"]::-webkit-calendar-picker-indicator {
+		  color: rgba(0, 0, 0, 0); /*ìˆ¨ê¸´ë‹¤*/
+		  opacity: 1;
+		  display: block;
+		  background: url("images/calender_final.png") no-repeat; /*ëŒ€ì²´í•  ì•„ì´ì½˜*/
+		  width: 20px;
+		  height: 20px;
+		  border-width: thin; margin-right:-10px; margin-bottom:-20px; margin-left:10px;}
+     .joinArea .joinBtn{
+         background-color: #5EA152; color:#fff; 
+         border-radius: 8px; padding: 10px; border: 0; font-weight: bold; 
+         width: 76%; margin-left: 30px;}
+</style>
+
+
+<!-- pageContent -- START -->
+<div id="pageContent">
+	<div class="wrapper">
+	
+		<div id="app" class="joinArea">
+            <span class="captionEssential">í‘œì‹œëŠ” í•„ìˆ˜ì…ë ¥</span>
             <div class="joinBox" >
                 <div class="captionBox">
-                    <div class="markEssential">¾ÆÀÌµğ</div>  
+                    <div class="markEssential id">ì•„ì´ë””</div><div v-if="info.id == ''"></div>  
                     <template v-if="info.id != ''">
-	                  <span class="ableId" v-if="idFlag">»ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌµğÀÔ´Ï´Ù</span>
-	                  <span class="disableId" v-else>»ç¿ëÇÒ ¼ö ¾ø´Â ¾ÆÀÌµğÀÔ´Ï´Ù</span>
+	                  <span class="ableId" v-if="idFlag">ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤</span>
+	                  <span class="disableId" v-else>ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ ì•„ì´ë””ì…ë‹ˆë‹¤</span>
 	                 </template>
-                    <input type="text" v-model="info.id"class="w80" placeholder="¾ÆÀÌµğ ÀÔ·Â(¿µ¹®,¼ıÀÚ Æ÷ÇÔ 6~20ÀÚ)"><button class="duplicationBtn" @click="fnChange">Áßº¹°Ë»ç</button>
+                    <input type="text" v-model="info.id"class="w80" placeholder="ì•„ì´ë”” ì…ë ¥(ì˜ë¬¸,ìˆ«ì í¬í•¨ 6~20ì)"><button class="duplicationBtn" @click="fnCheck()">ì¤‘ë³µì²´í¬</button>
                 </div> 
                 <div class="captionBox">
-                    <span class="markEssential">ºñ¹Ğ¹øÈ£</span>  <span class="captionCheck">20ÀÚ ÀÌ³»ÀÇ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä</span>
-                    <input type="password" v-model="info.pw" class="w100" placeholder="ºñ¹Ğ¹øÈ£ ÀÔ·Â(¿µ¹®,¼ıÀÚ,Æ¯¼ö¹®ÀÚ Æ÷ÇÔ 8~20ÀÚ)">
+                    <span class="markEssential">ë¹„ë°€ë²ˆí˜¸</span>  <span class="captionCheck">20ì ì´ë‚´ì˜ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”</span>
+                    <input type="password" v-model="info.pw" class="w100" placeholder="ë¹„ë°€ë²ˆí˜¸ ì…ë ¥(ì˜ë¬¸,ìˆ«ì,íŠ¹ìˆ˜ë¬¸ì í¬í•¨ 8~20ì)">
                 </div>
                 <div class="captionBox">
-                    <span class="markEssential">ºñ¹Ğ¹øÈ£ È®ÀÎ</span> <span class="captionCheck">ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö¾Ê½À´Ï´Ù.</span>
+                    <span class="markEssential">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</span> <span class="captionCheck">ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ì•ŠìŠµë‹ˆë‹¤.</span>
                 </div>
-                <input type="password" class="w100" placeholder="ºñ¹Ğ¹øÈ£ ÀçÀÔ·Â" v-model="pwck">
-                <p class="markEssential">ÀÌ¸§</p>
-                <input type="text" class="w100" placeholder="ÀÌ¸§À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä" v-model="info.name">
-                <p class="markEssential">´Ğ³×ÀÓ</p>
-                <input type="text" class="w100" placeholder="È°µ¿ÇÒ ´Ğ³×ÀÓÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä" v-model="info.nick">
-                <p class="markEssential">ÀüÈ­¹øÈ£</p>
-                <input type="tel" class="w100" placeholder="ÈŞ´ëÆù ¹øÈ£¸¦ ÀÔ·Â('-'Á¦¿Ü 11ÀÚ¸® ÀÔ·Â)" v-model="info.hp">
-                <p>ÀÌ¸ŞÀÏÁÖ¼Ò</p>
-                <input type="email" class="w50" placeholder="ÀÌ¸ŞÀÏ ÁÖ¼Ò" v-model="info.email">@ 
-                <select class="mail" v-model="info.email">
+                <input type="password" class="w100" placeholder="ë¹„ë°€ë²ˆí˜¸ ì¬ì…ë ¥" v-model="info.pwck">
+                <p class="markEssential">ì´ë¦„</p>
+                <input type="text" class="w100" placeholder="ì´ë¦„ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”" v-model="info.name">
+                <p class="markEssential">ë‹‰ë„¤ì„</p>
+                <input type="text" class="w100" placeholder="í™œë™í•  ë‹‰ë„¤ì„ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”" v-model="info.nick">
+                <p class="markEssential">ì „í™”ë²ˆí˜¸</p>
+                <input type="tel" class="w100" placeholder="íœ´ëŒ€í° ë²ˆí˜¸ë¥¼ ì…ë ¥('-'ì œì™¸ 11ìë¦¬ ì…ë ¥)" v-model="info.hp">
+                <p>ì´ë©”ì¼ì£¼ì†Œ</p>
+                <input type="email" class="w50" placeholder="ì´ë©”ì¼ ì£¼ì†Œ" v-model="info.email">@ 
+                <select class="mail" v-model="info.domain">
                     <div>
                         <option>naver.com</option>
                         <option>gmail.com</option>
@@ -119,187 +140,167 @@
 					    <option>yahoo.com</option>
                     </div>
                 </select> 
-                <p class="markEssential daumMap">ÁÖ¼Ò</p>
-                <input type="number" v-model="info.zipCode" class="w60 zipCode" placeholder="¿ìÆí¹øÈ£" id="sample6_postcode"><button class="zipcodeBtn" @click="sample6_execDaumPostcode()">¿ìÆí¹øÈ£ Ã£±â</button>
-                <input type="text" v-model="info.addr" class="w100 addr" placeholder="ÁÖ¼Ò" id="sample6_address">
-                <input type="text" v-model="info.addr2" class="w100 addr2" placeholder="»ó¼¼ÁÖ¼Ò ÀÔ·Â"  id="sample6_detailAddress">
+                <p class="markEssential daumMap">ì£¼ì†Œ</p>
+                <input type="number" v-model="info.zipCode" class="w60 zipCode" placeholder="ìš°í¸ë²ˆí˜¸" @click="fnSearchAddr" readonly="readonly"><button class="zipcodeBtn" @click="fnSearchAddr">ìš°í¸ë²ˆí˜¸ ì°¾ê¸°</button>
+                <input type="text" v-model="info.addr" class="w100 addr" placeholder="ì£¼ì†Œ" >
+                <input type="text" v-model="info.addr2" class="w100 addr2" placeholder="ìƒì„¸ì£¼ì†Œ ì…ë ¥" >
                 <div>
-                    <span class="markEssential">»ı³â¿ùÀÏ</span><span class="accountFind">¡Ø°èÁ¤Ã£±â¿¡ È°¿ëµË´Ï´Ù</span>
-                    <input type="text" class="w90" placeholder="»ı³â¿ùÀÏ" v-model="info.birth"><img src="images/calender_final.png" class="calender">
+                    <span class="markEssential">ìƒë…„ì›”ì¼</span><span class="accountFind">â€»ê³„ì •ì°¾ê¸°ì— í™œìš©ë©ë‹ˆë‹¤</span>
+                    <input type="date" class="date w100" placeholder="ìƒë…„ì›”ì¼" >
                 </div>
                 <div>
-                    <span class="markEssential">ºñ¹Ğ¹øÈ£ Áú¹®</span><span class="accountFind">¡Ø°èÁ¤Ã£±â¿¡ È°¿ëµË´Ï´Ù</span>
+                    <span class="markEssential">ë¹„ë°€ë²ˆí˜¸ ì§ˆë¬¸</span><span class="accountFind">â€»ê³„ì •ì°¾ê¸°ì— í™œìš©ë©ë‹ˆë‹¤</span>
                     <select class="hint" >
-                        <option>Áú¹®¼±ÅÃ</option>
-                        <option>ÀÚ½ÅÀÇ ÀÎ»ı ÁÂ¿ì¸íÀº?</option>
-                        <option>°¡Àå ±â¾ï¿¡ ³²´Â ¼±»ı´Ô ¼ºÇÔÀº?</option>
-                        <option>Ãß¾ïÇÏ°í ½ÍÀº ³¯Â¥°¡ ÀÖ´Ù¸é?</option>
-                        <option>À¯³â½ÃÀı °¡Àå »ı°¢³ª´Â Ä£±¸ÀÇ ÀÌ¸§Àº?</option>
-                        <option>ÀÎ»ó±í°Ô ÀĞÀº Ã¥ ÀÌ¸§Àº?</option>
-                        <option>ÀÚ½ÅÀÌ µÎ¹øÂ°·Î Á¸°æÇÏ´Â ÀÎ¹°Àº?</option>
-                        <option>´Ù½Ã ÅÂ¾î³ª¸é µÇ°í ½ÍÀº °ÍÀº?</option>
+                        <option>ì§ˆë¬¸ì„ íƒ</option>
+                        <option>ìì‹ ì˜ ì¸ìƒ ì¢Œìš°ëª…ì€?</option>
+                        <option>ê°€ì¥ ê¸°ì–µì— ë‚¨ëŠ” ì„ ìƒë‹˜ ì„±í•¨ì€?</option>
+                        <option>ì¶”ì–µí•˜ê³  ì‹¶ì€ ë‚ ì§œê°€ ìˆë‹¤ë©´?</option>
+                        <option>ìœ ë…„ì‹œì ˆ ê°€ì¥ ìƒê°ë‚˜ëŠ” ì¹œêµ¬ì˜ ì´ë¦„ì€?</option>
+                        <option>ì¸ìƒê¹Šê²Œ ì½ì€ ì±… ì´ë¦„ì€?</option>
+                        <option>ìì‹ ì´ ë‘ë²ˆì§¸ë¡œ ì¡´ê²½í•˜ëŠ” ì¸ë¬¼ì€?</option>
+                        <option>ë‹¤ì‹œ íƒœì–´ë‚˜ë©´ ë˜ê³  ì‹¶ì€ ê²ƒì€?</option>
                     </select>
-                    <input type="text" v-model="info.pwHint" class="w100" placeholder="¼±ÅÃÇÑ Áú¹®¿¡ ´ëÇÑ ´äº¯ ÀÔ·Â">
+                    <input type="text" v-model="info.pwHint" class="w100" placeholder="ì„ íƒí•œ ì§ˆë¬¸ì— ëŒ€í•œ ë‹µë³€ ì…ë ¥">
                 </div>
-                <p>ÀÚÃë°æ·Â</p>
-                <input type="text" class="w90" v-model="info.livingYear" placeholder="ÀÚÃë°æ·Â ÇŞ¼ö ÀÔ·Â"> ³âÂ÷
+                <p>ìì·¨ê²½ë ¥</p>
+                <input type="text" class="w90" v-model="info.livingYear" placeholder="ìì·¨ê²½ë ¥ í–‡ìˆ˜ ì…ë ¥"> ë…„ì°¨
            	</div>
 	            <div class="btnBox">
-	                <button class="joinBtn" @click="fnJoin">°¡ÀÔÇÏ±â</button>
+	                <button class="joinBtn" @click="fnJoin">ê°€ì…í•˜ê¸°</button>
 	            </div>
         </div>
-    <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-</html>
+	
+	</div>
+</div>
+<!-- pageContent -- END -->
+
+<jsp:include page="/layout/tail.jsp"></jsp:include>
+
+
 <script type="text/javascript">
-var app = new Vue({
-	el: '#app',
-	data: {
-		info : {
-			joinId : "",
-			pwd1 : "",
-			pwd2 : "",
-			name : "",
-			nick : "",
-			hp : "",
-			email : "",
-			zipCode:"",
-			addr:"",
-			addr2:"",
-			birth:"",
-			pwHint:"",
-			livingYear:""
-		}
-		, idFlag : true
-		, nickFlag : true
-    },
-	  methods: {
-		  fnJoin : function(){
-	    		var self = this;
-	    		if(self.info.id == ""){
-	    			alert("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
-	    			return;
-	    		}
-	    		if(!self.loginFlg){
-	    			alert("¾ÆÀÌµğ Áßº¹Ã¼Å©¸¦ ÇØÁÖ¼¼¿ä.");
-	    			return;
-	    		}
-	    		if(self.info.pw != self.info.pwck){
-	    			alert("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö¾Ê¾Æ¿ä");
-	    			return;
-	    		}
-	    		if(self.info.name == ""){
-	    			alert("ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä");
-	    			return;
-	    		}
-	    		if(self.info.nick == ""){
-	    			alert("´Ğ³×ÀÓÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
-	    			return;
-	    		}
-	    		if(self.info.hp == ""){
-	    			alert("ÇÚµåÆù ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
-	    			return;
-	    		}
-	    		if(self.info.addr == ""){
-	    			alert("ÁÖ¼Ò¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
-	    			return;
-	    		}
-	    		if(self.info.addr2 == ""){
-	    			alert("»ó¼¼ÁÖ¼Ò¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
-	    			return;
-	    		}
-	    		if(self.info.birth == ""){
-	    			alert("»ı³â¿ùÀÏ¿ï ÀÔ·ÂÇØÁÖ¼¼¿ä");
-	    			return;
-	    		}
-	    		if(self.info.pwHint == ""){
-	    			alert("ºñ¹Ğ¹øÈ£ ÈùÆ®¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
-	    			return;
-	    		}
-	    		
-	            var nparmap = self.info;
-	            $.ajax({
-	                url:"/join.dox",
-	                dataType:"json",	
-	                type : "POST", 
-	                data : nparmap,
-	                success : function(data) { 
-	                	alert("È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
-	                	location.href="/login.do";
-	                }
-	            }); 
-	    		
-	    	}
-		    
-		    , fnChange : function(){
-		    	var self = this;
-		    	var nparmap = {id : self.info.id};
-	            $.ajax({
-	                url:"/user/check.dox",
-	                dataType:"json",	
-	                type : "POST", 
-	                data : nparmap,
-	                success : function(data) {
-	                	if(data.cnt > 0){
-	                		self.idFlag = false;
-	                	} else {
-	                		self.idFlag = true;
-	                	}
-	                }
-	            }); 
-		    }
-	    
-	});
-</script> 
-<style>
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
-    @font-face {
-        font-family:'Pretendard-Medium';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
-        font-weight:500;
-        font-style:normal;
-    }
-    @font-face {
-        font-family:'Pretendard-SemiBold';
-        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-        font-weight:700;
-        font-style:normal;
-    }
-    @font-face {
-        font-family:'Pretendard-Bold';
-        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
-        font-weight:800;
-        font-style:normal;
-    }
-    * {margin:0; padding:0; box-sizing:border-box;}
-    html, body {font-family:'Pretendard-Regular'; font-size:16px; line-height:1.5;}
-    a {color:inherit; text-decoration:none;}
-    input {outline:0; border-radius:0; border-width:1px; padding:5px;}
-    select {outline:0; border-radius:0; border-width:1px; padding:4px;}
-    img {width:100%; max-width:100%; display:inline-block;}
-    ol, ul ,li {list-style:none;}
+	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+		app.fnResult(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo);
+	} 
+var app = new Vue({ 
+    el: '#app',
+    data: {
+    	info : {
+    		id : ""
+   	    	, pw : ""
+   	    	, pwck : ""
+   	    	, name : ""
+   	    	, nick : ""
+   	    	, hp : ""
+   	    	, email : ""
+   	    	, domain :"naver.com"
+   	    	, addr : ""
+   	    	, zipCode :""
+   	    	, addr :""
+   	    	, addr2 :""
+   	    	, birth :""
+   	    	, pwHint :""
+   	    	, livingYear :""
+    	},
+    	  idFlg : true
+    	, roadFullAddr : ""
+    	
+    	
+    }   
+    , methods : {
+    	fnJoin : function(){
+    		var self = this;
+    		if(self.info.id == ""){
+    			alert("ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
+    			return;
+    		}
+    		if(!self.idFlg){
+    			alert("ì•„ì´ë”” ì¤‘ë³µì²´í¬ë¥¼ í•´ì£¼ì„¸ìš”")
+    			return;
+    		}
+    		if(self.info.pw != self.info.pwck){
+    			alert("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+    		}
+    		if(self.info.name == ""){
+    			alert("ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
+    			return;
+    		}
+    		if(self.info.nick == ""){
+    			alert("ë‹‰ë„¤ì„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
+    			return;
+    		}
+    		if(self.info.hp == ""){
+    			alert("í•¸ë“œí° ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
+    			return;
+    		}
+    		if(self.info.addr == ""){
+    			alert("ì£¼ì†Œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
+    			return;
+    		}
+    		if(self.info.addr2 == ""){
+    			alert("ìƒì„¸ì£¼ì†Œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
+    			return;
+    		}
+    		if(self.info.birth == ""){
+    			alert("ìƒì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
+    			return;
+    		}
+    		if(self.info.pwHint == ""){
+    			alert("ë¹„ë°€ë²ˆí˜¸ íŒíŠ¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
+    			return;
+    		}
+    		
+	      	var nparmap = self.info;
+	      	self.info.email = self.info.email + "@" + self.info.domain;
+	        $.ajax({
+	            url:"/join.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log(data);
+	           	 	alert("íšŒì›ê°€ì…ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+	           	 	location.href="/login.do";
+	            }
+	        }); 
+   	 },
+   	 	fnCheck : function(){
+   	 		var self = this;
+   	 	var nparmap = {id : self.info.id};
+        $.ajax({
+            url:"/user/check.dox",
+            dataType:"json",	
+            type : "POST", 
+            data : nparmap,
+            success : function(data) {  
+            	if(data.cnt>0){
+            		self.idFlg = false;
+            	}
+            	else{
+            		self.idFlg = true;
+            	}
+            }
+        }); 
+   	 	
+   	 	},
+		 fnSearchAddr : function(){
+	 		var self = this;
+	 		var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+	 		window.open("addr.do", "test", option);
+	 	},
+	 	fnResult : function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+    		var self = this;
+    		self.roadFullAddr = roadFullAddr;
+    		// ì½˜ì†” í†µí•´ ê° ë³€ìˆ˜ ê°’ ì°ì–´ë³´ê³  í•„ìš”í•œê±° ê°€ì ¸ë‹¤ ì“°ë©´ ë©ë‹ˆë‹¤.
+    		self.info.zipCode = zipNo;
+    		self.info.addr = roadAddrPart1;
+    		self.info.addr2 = addrDetail;
+    		console.log(roadAddrPart1);
+    		console.log(addrDetail);
+    		console.log(engAddr);
+    	}
+    }   
+    , created: function () {
     
-    b, strong {font-family:'Pretendard-Bold';}
-    :root {
-        --main-colorGreen: #bdee71;
-        --main-colorOrange: #fe6458;
-        --base-colorDeepGray: #ccc;
-        --base-colorLightGray: #f7f7f7;
-    }
-    ::-webkit-scrollbar {width:10px;}
-    ::-webkit-scrollbar-track {background-color:transparent;}
-    ::-webkit-scrollbar-thumb {background-color:var(--base-colorDeepGray); border:2px solid #fff; border-radius:5px;}
-    ::-webkit-scrollbar-button {width:0; height:0;}
-    
-    #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-    #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:60px;}
-    #footer {margin-top:150px;}
-    #wrapper {max-width:1240px; min-height:calc(100vh - 710px); margin:0 auto; padding:0 20px;}
-</style>
+	}
+});
+</script>

@@ -83,6 +83,12 @@ public class UserController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	@RequestMapping("/addr.do") 
+    public String addr(Model model, @RequestParam HashMap<String, Object> map, HttpServletRequest request) throws Exception{
+		
+		return "/user-jusoPopup";
+    }
+	
 	@RequestMapping("/find.do") 
     public String findAccount(Model model) throws Exception{
 

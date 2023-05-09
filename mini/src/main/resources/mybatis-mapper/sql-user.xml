@@ -44,6 +44,6 @@
 				JOINDATE,
 				PW_HINT)
 			VALUES(#{id}, #{pw}, #{name}, #{nick}, #{email}, #{birth},
-			#{hp}, #{livingYear}, #{status}, #{addr}, #{addr2}, SYSDATE, #{pwHint})
+			#{hp}, #{livingYear}, #{status}, #{addr}, #{addr2}, now(), #{pwHint})
 		</insert>
 	</mapper>
