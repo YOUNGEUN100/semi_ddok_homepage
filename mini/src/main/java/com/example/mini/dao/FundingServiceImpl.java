@@ -32,6 +32,12 @@ public class FundingServiceImpl implements FundingService{
 		List<Funding> list = fundingMapper.selectPlannedFundingList(map);
 		return list;
 	}
+
+	@Override
+	public Funding searchOpenFundingInfo(HashMap<String, Object> map) {
+		Funding info = fundingMapper.selectOpenFundingInfo(map);
+		return info;
+	}
 	
 
 

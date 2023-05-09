@@ -15,4 +15,7 @@ public interface FundingService {
 	
 	// 준비중 펀딩 리스트
 	List<Funding> searchPlannedFundingList(HashMap<String, Object> map) throws Exception;
+	
+	// 오픈된 펀딩 상세정보
+	Funding searchOpenFundingInfo(HashMap<String, Object> map);
 }

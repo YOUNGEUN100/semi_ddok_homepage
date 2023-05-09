@@ -15,6 +15,8 @@ import com.example.mini.model.Funding;
 import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class FundingController {
@@ -27,19 +29,23 @@ public class FundingController {
 	@Autowired
     private FundingService fundingService;	
 	
+	@Autowired
+	HttpSession session;
+	
 	// 2-1. 랜선펀딩
 	@RequestMapping("/funding.do")
 	public String funding0(Model model) throws Exception{
 		return "/b-funding-list";
 	}
 	
-	// 2-1. 랜선펀딩 오픈 예정
+	// 2-1. 랜선펀딩 진행중 상세
 	@RequestMapping("/funding-open.do")
-	public String funding(Model model) throws Exception{
+	public String funding(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		request.setAttribute("map", map);
 		return "/b-funding-open";
 	}
 	
-	// 2-1. 랜선펀딩 진행 중
+	// 2-1. 랜선펀딩 예정 상세
 	@RequestMapping("/funding-planned.do")
 	public String funding2(Model model) throws Exception{
 		return "/b-funding-planned";
@@ -103,7 +109,17 @@ public class FundingController {
 			resultMap.put("result", "success");
 			return new Gson().toJson(resultMap);
 		}
-		
+	
+	@RequestMapping(value = "/funding/view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String searchFundingInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+																		
+    		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+    		Funding info = fundingService.searchOpenFundingInfo(map);
+    		resultMap.put("info", info);
+    		resultMap.put("result", "success");
+    		return new Gson().toJson(resultMap);
+		}
 
 	
 	

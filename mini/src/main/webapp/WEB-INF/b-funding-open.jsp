@@ -192,4 +192,36 @@
             document.getElementById('button_box1').style.display = 'block';
             document.getElementById('button_box2').style.display = 'none';
         }
+        
+        var app = new Vue({
+    		el : '#app',
+    		data : {    			
+    			info : {},
+    			boardNo : "${map.fundingNo}"
+
+    		},
+    		methods : {
+    			fnGetFunding : function() {
+    				var self = this;
+    				var nparmap = {
+    					boardNo : self.boardNo
+    				};
+    				$.ajax({
+    					url : "/funding/view.dox",
+    					dataType : "json",
+    					type : "POST",
+    					data : nparmap,
+    					success : function(data) {
+    						self.info = data.info;
+    						console.log(data.info);
+    					}
+    				});
+    			}
+    		}
+    		,
+    		created : function() {
+    			var self = this;
+    			self.fnGetFunding();
+    		}
+    	});
     </script>

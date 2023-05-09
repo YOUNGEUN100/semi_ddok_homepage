@@ -209,7 +209,7 @@
                                     <div class="open_list" v-for="(item, index) in list">
                                         <div class="fund_img"><img :src="item.imgPath"></div>
                                         <div class="fund_content">
-                                            <h1 class="fund_name">{{item.fundingName}}</h1>
+                                            <h1 class="fund_name" @click="fnViewFunding(item.fundingNo)"><a href="javascript:;">{{item.fundingName}}</a></h1>
                                             <p class="fund_summary">{{item.fundingSummary}}</p>
                                             <span class="fund_cnt">{{item.fundingGoalCnt}}명 중 {{item.cnt}}명</span>
                                             <span class="fund_cnt" style="float: right;">{{item.dDay}}일 남음</span>
@@ -366,6 +366,41 @@
                     var self = this;
                     console.log(self.orderValue2);
                     self.fnGetFundingList2();
+                }
+                
+                , pageChange : function(url, param) {
+            		var target = "_self";
+            		if(param == undefined){
+            		//	this.linkCall(url);
+            			return;
+            		}
+            		var form = document.createElement("form"); 
+            		form.name = "dataform";
+            		form.action = url;
+            		form.method = "post";
+            		form.target = target;
+            		for(var name in param){
+        				var item = name;
+        				var val = "";
+        				if(param[name] instanceof Object){
+        					val = JSON.stringify(param[name]);
+        				} else {
+        					val = param[name];
+        				}
+        				var input = document.createElement("input");
+        	    		input.type = "hidden";
+        	    		input.name = item;
+        	    		input.value = val;
+        	    		form.insertBefore(input, null);
+        			}
+            		document.body.appendChild(form);
+            		form.submit();
+            		document.body.removeChild(form);
+            	}
+                
+                , fnViewFunding: function(fundingNo) {
+                	var self = this;
+                	self.pageChange("./funding-open.do", {fundingNo : fundingNo});
                 }
 
             }
