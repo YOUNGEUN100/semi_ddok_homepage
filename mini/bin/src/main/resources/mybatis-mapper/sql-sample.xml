@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.example.mini.mapper.SampleMapper">
+		<select id="selectLanList" parameterType="hashmap" resultType="com.example.mini.model.Sample">
+		SELECT      BOARD_NO,
+			A.USER_ID,
+			TITLE,
+			CONTENT,
+			HITS,
+			BOARD_KIND,
+			FINISH_YN,
+			CATEGORY,
+			CDATETIME,
+			UDATETIME,
+			DELETE_YN,
+			SECRET_YN,
+			ANSWER_YN,
+            ADDR
+		FROM T4_BOARD A
+        left JOIN T4_USER B ON A.USER_ID = B.USER_ID;
+	</select>
+	</mapper>
