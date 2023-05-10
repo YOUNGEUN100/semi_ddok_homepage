@@ -34,7 +34,9 @@ public class SmartMarketController {
 	
 	// 3-2. 똑똑한 마켓
 		@RequestMapping("/smart-market.do")
-		public String smartMarket(Model model) throws Exception{
+		public String smartMarket(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+			request.setAttribute("map", map);
+			
 			return "/c-smart-market";
 		}
 			

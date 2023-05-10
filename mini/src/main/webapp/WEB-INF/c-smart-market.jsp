@@ -338,14 +338,14 @@
 	
 	        <div class="smart_market" id="box1">
 	            <div ><a href="javascript:;" id="veg"><img src="images/food1.jpg" class="circle" @click="fnGetList2('VEG')"></a></div>
-	            <div ><a href="javascript:;" id="fur"><img src="images/food2.jpg" class="circle" ></a></div>
-	            <div ><a href="javascript:;" id="mea"><img src="images/food3.jpg" class="circle" ></a></div>
-	            <div ><a href="javascript:;" id="sea"><img src="images/food4.jpg" class="circle" ></a></div>
-	            <div ><a href="javascript:;" id="dai"><img src="images/food5.jpg" class="circle" ></a></div>
-	            <div ><a href="javascript:;" id="wat"><img src="images/food6.jpg" class="circle" ></a></div>
-	            <div ><a href="javascript:;" id="sau"><img src="images/food7.jpg" class="circle" ></a></div>
-	            <div ><a href="javascript:;" id="pro"><img src="images/food8.jpg" class="circle" ></a></div>
-	            <div ><a href="javascript:;" id="sim"><img src="images/food9.jpg" class="circle" ></a></div>
+	            <div ><a href="javascript:;" id="fur"><img src="images/food2.jpg" class="circle" @click="fnGetList2('FUR')"></a></div>
+	            <div ><a href="javascript:;" id="mea"><img src="images/food3.jpg" class="circle" @click="fnGetList2('MEA')"></a></div>
+	            <div ><a href="javascript:;" id="sea"><img src="images/food4.jpg" class="circle" @click="fnGetList2('SEA')"></a></div>
+	            <div ><a href="javascript:;" id="dai"><img src="images/food5.jpg" class="circle" @click="fnGetList2('DAI')"></a></div>
+	            <div ><a href="javascript:;" id="wat"><img src="images/food6.jpg" class="circle" @click="fnGetList2('WAT')"></a></div>
+	            <div ><a href="javascript:;" id="sau"><img src="images/food7.jpg" class="circle" @click="fnGetList2('SAU')"></a></div>
+	            <div ><a href="javascript:;" id="pro"><img src="images/food8.jpg" class="circle" @click="fnGetList2('PRO')"></a></div>
+	            <div ><a href="javascript:;" id="sim"><img src="images/food9.jpg" class="circle" @click="fnGetList2('SIM')"></a></div>
 	        </div>
 	        <div class="smart_market" id="box2">
 	            <div class="gap1"><p><a href="javascript:;" id="veg1">채소</a></p></div>
@@ -402,7 +402,7 @@
 	        <div class="product_list">
 	            <div class="product_vege" >
 	                <P>상품목록 : <span id="title_list">과일</span></P>
-	                <input v-model="product_kind" name="product_kind" id="product_kind">
+	                <input v-model="product_kind" name="product_kind" id="product_kind" hidden>
 	            </div>
 	            <div class="product_vege_cnt"><P id="pro_cnt">총 {{cnt}}개 상품</P></div>
 	        </div>
