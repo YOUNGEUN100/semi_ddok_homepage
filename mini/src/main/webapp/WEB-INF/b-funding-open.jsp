@@ -218,8 +218,10 @@
     					success : function(data) {
     						self.info = data.info;
     						console.log(data.info);
-    						if (data.info.dDay == 0) {
-    							fund_cnt.innerText = "종료임박 금일 종료";
+    						
+    						if (data.info.dDay <= 0) {
+    							fund_cnt.innerText = "종료임박 금일 " + data.info.endTime + "시 종료";
+    							
     						}
     					}
     				});

@@ -131,10 +131,14 @@
             font-size: 15px;
         }
 
-        .fund_cnt {
+        .fund_cnt .fund_time{
             display: inline-block;
             margin-top: 30px;
             font-size: 15px;
+        }
+        
+        .fund_time {
+        	float : right;
         }
 
         .fund_progress {
@@ -202,7 +206,7 @@
                             <h1 id="fund_open_title">현재 진행중인 랜선펀딩</h1>
 
                             <select v-model="orderValue" @change="fnChangeOrder">
-                                <option value="endDate">종료일순</option>
+                                <option value="endDate" selected>종료일순</option>
                                 <option value="rowPrice">낮은가격순</option>
                                 <option value="highPrice">높은가격순</option>
                             </select>
@@ -219,7 +223,8 @@
                                             <h1 class="fund_name" @click="fnViewFunding(item.fundingNo)">{{item.fundingName}}</h1>
                                             <p class="fund_summary">{{item.fundingSummary}}</p>
                                             <span class="fund_cnt">{{item.fundingGoalCnt}}명 중 {{item.cnt}}명</span>
-                                            <span class="fund_cnt" id="fund_cnt1" style="float: right;">{{item.dDay}}일 남음</span>
+                                            <span class="fund_time" v-if="item.dDay > 0" >{{item.dDay}}일 남음</span>
+                                            <span class="fund_time" v-else style = "color:red;">금일 {{item.endTime}}시 종료</span>
                                             <p></p>
                                             <progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
                                             <div class="price_box">
@@ -246,7 +251,7 @@
                             <h1>오픈 예정 펀딩</h1>
 
                             <select v-model="orderValue2" @change="fnChangeOrder2">
-                                <option value="startDate">시작일순</option>
+                                <option value="startDate" selected>시작일순</option>
                                 <option value="rowPrice">낮은가격순</option>
                                 <option value="highPrice">높은가격순</option>
                             </select>
@@ -262,7 +267,7 @@
                                             <h1 class="fund_name" @click="fnViewFunding2(item.fundingNo)">{{item.fundingName}}</h1>
                                             <p class="fund_summary">{{item.fundingSummary}}</p>
                                             <span class="fund_cnt">최소 {{item.fundingGoalCnt}}명 중 {{item.cnt}}명 </span>
-                                            <span class="fund_cnt" style="float: right;">{{item.sDay}}{{item.dow}}
+                                            <span class="fund_time">{{item.sDay}}{{item.dow}}
                                                 {{item.sTime}}시 오픈예정</span>
                                             <p></p>
                                             <progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
@@ -305,8 +310,8 @@
                 moreBtn: "off",
                 moreBtn2: "off",
                 orderValue: "",
-                orderValue2: ""
-                
+                orderValue2: "",
+                endTime : ""
             }
             , methods: {
                 fnGetFundingList: function () {
@@ -319,9 +324,7 @@
                         data: nparmap,
                         success: function (data) {
                             self.list = data.list;
-                            console.log(data.list);                           
-                            
-                            
+                            console.log(data.list[0].endTime);                            
                         }
                     });
                 }
@@ -419,7 +422,7 @@
                 	self.pageChange("./funding-planned.do", {fundingNo : fundingNo});
                 }
                 
-                
+              
                 
             }
             , created: function () {
