@@ -52,4 +52,10 @@
 			VALUES(#{id}, #{pw}, #{name}, #{nick}, #{email}, #{birth},
 			#{hp}, #{livingYear}, #{status}, #{addr}, #{addr2}, now(), #{pwHint})
 		</insert>
+		
+		<select id="selectUserId" parameterType="HashMap" resultType="com.example.mini.model.User">
+			SELECT USER_ID 
+			FROM T4_USER
+			WHERE NAME = #{name} AND HP = #{hp} AND BIRTH = #{birth}
+		</select>
 	</mapper>

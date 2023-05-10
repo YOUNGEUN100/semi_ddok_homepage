@@ -102,12 +102,32 @@ public class UserController {
 		return "/user-jusoPopup";
     }
 	
-	@RequestMapping("/find.do") 
+	@RequestMapping("/findId.do") 
     public String findAccount(Model model) throws Exception{
 
-        return "/user-find";
+        return "/user-findId";
     }
 	
+	@RequestMapping("/findId/result.do") 
+    public String findIdResult(Model model) throws Exception{
+
+        return "/user-findId-result";
+    }
+	
+	@RequestMapping(value = "/user/findId.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String viewBbs(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("id", userService.searchUserId(map));
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping("/findPw.do") 
+    public String findPw(Model model) throws Exception{
+
+        return "/user-findPw";
+    }
 
 	@RequestMapping("/mypage.do") 
     public String mypage(Model model) throws Exception{

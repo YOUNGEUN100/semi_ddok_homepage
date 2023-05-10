@@ -58,7 +58,7 @@
 	        </div>
 	        <div class="linkBox">
 	            <a href="join.do">혹시 똑똑이 처음이신가요?</a>
-	            <a href="find.do">아이디/비밀번호 찾기</a>
+	            <a href="findId.do">아이디/비밀번호 찾기</a>
 	        </div>
 	    </div>
     

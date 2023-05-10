@@ -59,4 +59,10 @@ public class UserServiceImpl implements UserService{
 		return userMapper.selectUserNickCnt(map);
 	}
 
+	@Override
+	public User searchUserId(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return userMapper.selectUserId(map);
+	}
+
 }

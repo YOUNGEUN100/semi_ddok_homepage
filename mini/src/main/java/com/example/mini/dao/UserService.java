@@ -17,4 +17,7 @@ public interface UserService {
 	
 	//닉네임 중복체크
 	int searchUserNickCnt(HashMap<String, Object>map);
+	
+	//아이디 찾기
+	User searchUserId(HashMap<String, Object>map);
 }

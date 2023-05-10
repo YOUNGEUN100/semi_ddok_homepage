@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.mini.model.Code;
 import com.example.mini.model.SmartMarket;
-import com.example.mini.model.SmartView;
+
 
 @Mapper
 public interface SmartMarketMapper {

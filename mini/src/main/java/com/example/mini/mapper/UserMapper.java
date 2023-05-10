@@ -21,4 +21,7 @@ public interface UserMapper {
 	//닉네임 중복체크
 	int selectUserNickCnt(HashMap<String, Object>map);
 	
+	//아이디 찾기
+	User selectUserId(HashMap<String, Object>map);
+	
 }
