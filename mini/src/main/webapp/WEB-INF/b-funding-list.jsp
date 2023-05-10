@@ -101,16 +101,13 @@
         }
         
         .fund_name {
-        	cursor: pointer
-        }
-        
-        .fund_name a {
+        	cursor: pointer;
         	width : 735px;
         	overflow     : hidden;
         	text-overflow: ellipsis;
         	white-space  : nowrap;
         }
-
+        
         .fund_img {            
             float: left;
         }
@@ -260,11 +257,11 @@
                             <ul>
                                 <li>
                                     <div class="planned_list" v-for="(item, index) in list2">
-                                        <div class="fund_img"><img :src="item.imgPath" @click="fnViewFunding(item.fundingNo)"></div>
+                                        <div class="fund_img"><img :src="item.imgPath" @click="fnViewFunding2(item.fundingNo)"></div>
                                         <div class="fund_content">
                                             <h1 class="fund_name" @click="fnViewFunding2(item.fundingNo)">{{item.fundingName}}</h1>
                                             <p class="fund_summary">{{item.fundingSummary}}</p>
-                                            <span class="fund_cnt">최소 {{item.fundingGoalCnt}}명</span>
+                                            <span class="fund_cnt">최소 {{item.fundingGoalCnt}}명 중 {{item.cnt}}명 </span>
                                             <span class="fund_cnt" style="float: right;">{{item.sDay}}{{item.dow}}
                                                 {{item.sTime}}시 오픈예정</span>
                                             <p></p>
@@ -322,15 +319,9 @@
                         data: nparmap,
                         success: function (data) {
                             self.list = data.list;
-                            console.log(data.list.length);
-                            for (var i = 0 ; i < data.list.length ; i++) {
-                            	var fund_cnt = document.querySelector("#fund_cnt1");
-                            	if ( data.list[i].dDay == 0) {
-                            		console.log("종료임박");
-                            		fund_cnt.innerHTML = "종료임박";
-                            	}
-                            }
-                            console.log(data.list);
+                            console.log(data.list);                           
+                            
+                            
                         }
                     });
                 }

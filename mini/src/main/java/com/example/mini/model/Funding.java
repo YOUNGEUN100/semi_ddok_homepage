@@ -37,6 +37,7 @@ public class Funding {
 	private String sTime;
 	private String imgPath;
 	private String imgPathDetail;
+	private String startDate;
 	//---펀딩용 모델 끝---
 	
 	public int getBoardNo() {
@@ -235,6 +236,12 @@ public class Funding {
 		this.imgPathDetail = imgPathDetail;
 	}
 	//---펀딩용 게터세터 끝---
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
 	
 	
 	

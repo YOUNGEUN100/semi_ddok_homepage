@@ -208,7 +208,8 @@
             		DATE_FORMAT(FUNDING_START_DT, '%c/%e') AS S_DAY,
             		DATE_FORMAT(FUNDING_START_DT, '%H') AS S_TIME,
             		IMG_PATH,
-            		IMG_PATH_DETAIL
+            		IMG_PATH_DETAIL,
+            		DATE_FORMAT(FUNDING_START_DT,'%Y-%m-%d') AS START_DATE
             		
 				FROM T4_FUNDING A
 				

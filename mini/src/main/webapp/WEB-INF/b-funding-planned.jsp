@@ -150,7 +150,7 @@
                             <span class="fund_cnt" style="float: right;">{{info.sDay}}{{info.dow}}
                                                 {{info.sTime}}시 오픈예정</span>
                             <p></p>
-                            <progress value="50" max="200" class="fund_progress"></progress>
+                            <progress :value="info.cnt" :max="info.fundingGoalCnt" class="fund_progress"></progress>
                             <div class="price_box">
                                 <span>펀딩예정가</span>
                                 <span class="fund_price">{{info.fundingPrice2}}원</span>
@@ -158,8 +158,7 @@
                         </div>
 
                         <div>
-                            <button class="apply_button"><i class="fa-regular fa-clock"></i> 오픈까지 2일 9시간 30분 21초
-                                남음</button>
+                            <button class="apply_button"><i class="fa-regular fa-clock"></i>{{remainTime}}</button>
                             <button class="share_button" @click="fnClip"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
                         </div>
                     </div>
@@ -201,14 +200,15 @@
         document.getElementById('button_box1').style.display = 'block';
         document.getElementById('button_box2').style.display = 'none';
     }
+    
+    
     var app = new Vue({
 		el : '#app',
 		data : {    			
 			info : {},
 			fundingNo : "${map.fundingNo}",
-			fundingStartDt : "${map.fundingStartDt}",
-			price : ""
-
+			sDate : "",
+			remainTime : "2"
 		},
 		methods : {
 			fnGetFunding : function() {
@@ -223,7 +223,10 @@
 					data : nparmap,
 					success : function(data) {
 						self.info = data.info;
-						console.log(data.info);						
+						self.sDate = data.info.startDate;
+						self.fnTimeDiff();
+						self.fnCountDown();
+						
 					}
 				});
 			}
@@ -233,16 +236,32 @@
         		alert("복사되었습니다.");
         	}
 		  
-		  , fnTimediff: function() {
+		  , fnTimeDiff: function() {
 			  var self = this;
-			  console.log(self.fundingNo);
+		      var endTime = new Date(self.sDate);
+		      var todayTime = new Date();
+		      
+		      var diff = endTime - todayTime;
+		      
+		      var diffDay = Math.floor(diff / (1000*60*60*24));				
+		      var diffHour = Math.floor((diff / (1000*60*60)) % 24);
+		      var diffMin = Math.floor((diff / (1000*60)) % 60);
+		      var diffSec = Math.floor(diff / 1000 % 60);
+		      
+		      self.remainTime =  "오픈까지 " + diffDay + "일 " + diffHour + "시간 " + diffMin + "분 " + diffSec + "초 남음";  
 		  }
+		  
+		  , fnCountDown: function() {
+			  
+			  setInterval(this.fnTimeDiff, 1000);
+		  }	  
+			   
+	
 		}
 		,
 		created : function() {
 			var self = this;
 			self.fnGetFunding();
-			self.fnTimediff();
 		}
 	});
     </script>
