@@ -24,6 +24,8 @@ public class SmartMarketController {
 	@Autowired
 	SmartMarketService smartmarketService;
 	
+	
+	//상품리스트
 	@RequestMapping(value = "/smartmarket-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String searchSmartMarketList(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -34,18 +36,40 @@ public class SmartMarketController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	// 추천상품
+	@RequestMapping(value = "/smartmarket-recommend-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchSmartMarketRecommendList(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		request.setAttribute("map", map);
+		resultMap = smartmarketService.searchSmartMarketRecommendList(map);		
+		return new Gson().toJson(resultMap);
+	}
+	
+	//상품 상세정보
+	@RequestMapping(value = "/smartmarket-view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String viewSmartmarket(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = smartmarketService.searchSmartMarketInfo(map);
+		resultMap.put("message", "성공");
+		return new Gson().toJson(resultMap);
+	}
+	
+	
 	// 3-2. 똑똑한 마켓
 		@RequestMapping("/smart-market.do")
 		public String smartMarket(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 			List<Code> codeList = smartmarketService.searchSmartMarketKind(map);
-			map.put("codeList", new Gson().toJson(codeList));
+			map.put("codeList", new Gson().toJson(codeList)); //코드정보를 가져온다
 			request.setAttribute("map", map);
 			return "/c-smart-market";
 		}
 			
 		// 3-2. 똑똑한 마켓 상세
 		@RequestMapping("/smart-market-view.do")
-		public String smartMarketInfo(Model model) throws Exception{
+		public String smartMarketInfo(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+			request.setAttribute("map", map);
 			return "/c-smart-market-view";
 		}
 	

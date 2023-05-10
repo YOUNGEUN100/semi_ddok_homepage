@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="/HTML_20230427/js/jquery-3.6.4.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/vue.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -185,7 +185,7 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            border: 1px solid red;
+         
         }
 
         .product_review_title .btn_product_script{
@@ -203,7 +203,7 @@
         }
 
         .product_script{
-            border: 1px solid blue;
+            
             margin-top: 28px;
             height: 900px;
             width: 100%;
@@ -245,7 +245,7 @@
         }
 
         table, td, th {
-          border:1px solid #ccc;
+          
           border-collapse: collapse;
           background: #eee;
         }
@@ -284,23 +284,23 @@
         <div class="smart_txt">
             <div class="smart_empth1"></div>
             <div class="smart_title">
-                <span class="font_title">국내산감자(햇), 500g</span>
+                <span class="font_title">{{info.productName}}</span>
                 <div class="star_position">
                     <img class="star" src="images/star.png">
-                    <span class="font_grade"> 4.5</span>
+                    <span class="font_grade">{{(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)/3 |  numberFormat(1)}}</span>
                 </div>
-                <div class="font_script">믿을수 있는 국내산지에서 정성껏 기르고 재배한 국내산 감자</div>
+                <div class="font_script">{{info.title}}</div>
             </div>
             <div class="smart_empth2"></div>
             <div class="smart_price">
                 <span class="font_price1">판매가</span>
-                <span class="font_price2">3,750원</span>
-                <span class="font_price3">(100g당 750원)</span>
+                <span class="font_price2">{{info.productPrice | numberFormat()}}원 </span>
+                <span class="font_price3">(100{{info.productVolume}}당 {{info.productPrice*100 / info.productWeight*info.productEa | numberFormat()}}원)</span>
             </div>   
             <div class="smart_empth3"></div>
             <div class="smart_cnt">
                 <span class="font_cnt">개수 </span><input class="input_cnt" type="number" min="1" max="3">
-                <span class="font_cnt2"> 현재 3개남았어요!</span>
+                <span class="font_cnt2"> 현재 {{info.productStock}}개남았어요!</span>
             </div>
             <div class="smart_empth4"></div>
             <div class="smart_button">
@@ -317,18 +317,14 @@
         <div class="product_script"><img src="images/1_VER.jpg" class="img_rec" style="width:780px;"></div>
         <div class="btn_all_view"><button id="btn_all_view">펼쳐보기</button></div>
         <div class="product_script_detail" id="product_script_detail">
-            <pre>	
-                그런데 말입니다. 상세 설명이 표시된 뒤에도 [상세 설명 보기] 링크가 [상세 설명 닫기]로 바뀌지 않았습니다. 
-                [상세 내용 닫기] 링크를 사용하기 위해 소스를 수정해 보겠습니다.  
-                #detail 요소가 현재 화면에 표시된 상태인지 아니면 감춰진 상태인지를 저장할 새로운 병수 isOpen을 선언 합니다. 
-                그리고 변숫값은 '보기' 이거나 '닫기', 두 가지 값만 존재하므로 논리형으로 만들면 되겠습니다. 
-                기본적으로 #detail 요소는 닫기 상태이므로 초깃값을 false로 지정하겠습니다.
+            <pre>
+            
             </pre>
         </div>
         <div class="btn_all_hidden"><button id="btn_all_hidden">접어보기</button></div>
 
 
-        <div class="product_review_title" style="border: 1px solid red;">
+        <div class="product_review_title" >
             <div class="btn_product_script"><a name="product_discript">상품설명</a></div>
             <div class="btn_review_script"><a href="#product_review">후기</a></div>
         </div>
@@ -370,25 +366,61 @@
 
 <script>
 
+var app = new Vue({ 
+    el: '#app',
+    data: {
+       list : [] 
+	   , info : {}
+       , productNo : "${map.productNo}"
+       , productName : ""
+       	
+    },
+	filters: {
+	    numberFormat: (value, numFix) => {
+	        value = parseFloat(value);
+	        if (!value) return '0';
+	        return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+	    },
+	}   
+    , methods: {
+    	
+    	fnGetList : function(){
+    		var self = this;
+    		var nparmap = {productNo : self.productNo};
+    		
+    		
+    		//상품정보
+    		$.ajax({
+                url:"/smartmarket-view.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                	console.log(data);
+                	self.info = data.info;
+                	
+                }
+            });
+
+    	}
+    
+	    
+    }   
+    , created: function () {
+    	var self = this;
+    	self.fnGetList();
+    	
+	}
+});
+
+
+
 const clip2 = async () => {
 	navigator.clipboard.writeText(window.location.href);
 	alert("URL 주소가 복사되었습니다.");
 }
 
 
-    var app = new Vue({ 
-    el: '#app',
-    data: {
-        list : [
-            {date:"2023-05-04", product: "국내산 감자", star : "4.5", user : "구로구완도콩"},
-            {date:"2023-05-03", product: "국내산 애호박", star : "4.0", user : "강남구완도콩"},
-            {date:"2023-05-02", product: "국내산 가지", star : "3.5", user : "노원구완도콩"},
-            {date:"2023-05-01", product: "국내산 호두", star : "3.5", user : "영등포구완도콩"},
-            {date:"2023-05-06", product: "국내산 무", star : "5.0", user : "서초구완도콩"},
-        ]
-        
-    }, 
-});
 
     let isOpen = false;
     
@@ -423,6 +455,8 @@ const clip2 = async () => {
     });
 
 
+    
+    
 
 
 

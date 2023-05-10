@@ -340,49 +340,21 @@
 	        </div>
 	        <div class="recommend"><P>추천상품</P></div>
 	        <div class="smart_market" id="box3">
-	            <div ><img src="images/food1.jpg" class="box"></div>
-	            <div ><img src="images/food2.jpg" class="box"></div>
-	            <div ><img src="images/food3.jpg" class="box"></div>
-	            <div ><img src="images/food4.jpg" class="box"></div>
-	            <div ><img src="images/food5.jpg" class="box"></div>            
+	            <div v-for="(item2, index) in list2">
+	            	<img :src="item2.imgPath" class="box">
+		            <div class="gap2 box4">
+		                <p>현재 {{item2.productStock}}개 남았어요!</p>
+		                <p>{{item2.productName}}</p>
+		                <p>{{item2.productPrice | numberFormat()}}원 (100{{item2.productVolume}}당 {{item2.productPrice*100 / item2.productWeight*item2.productEa | numberFormat()}}원)</p>
+		                <p><img class="star" src="images/star.png"> {{(item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)/3 |  numberFormat(1)}} </p>
+		            </div>
+	            </div>            
 	        </div>
-	        <div  id="box4">
-	            <div class="gap2 box4">
-	                <p>현재1개남았어요!</p>
-	                <p>서울우유1급우유, 2300ml</p>
-	                <p>6,230원 (100ml 230원)</p>
-	                <p>별 4.5</p>
-	            </div>
-	            <div class="gap2 box4"> 
-	                <p>현재1개남았어요!</p>
-	                <p>서울우유1급우유, 2300ml</p>
-	                <p>6,230원 (100ml 230원)</p>
-	                <p>별 4.5</p>
-	            </div>
-	            <div class="gap2 box4">
-	                <p>현재1개남았어요!</p>
-	                <p>서울우유1급우유, 2300ml</p>
-	                <p>6,230원 (100ml 230원)</p>
-	                <p>별 4.5</p>
-	            </div>
-	            <div class="gap2 box4">
-	                <p>현재1개남았어요!</p>
-	                <p>서울우유1급우유, 2300ml</p>
-	                <p>6,230원 (100ml 230원)</p>
-	                <p>별 4.5</p>
-	            </div>
-	            <div class="gap2 box4">
-	                <p>현재1개남았어요!</p>
-	                <p>서울우유1급우유, 2300ml</p>
-	                <p>6,230원 (100ml 230원)</p>
-	                <p>별 4.5</p>
-	            </div>
-	        </div>
+	        
 	
 	        <div class="product_list">
 	            <div class="product_vege" >
-	                <P>상품목록 : <span id="title_list">{{pkind}}</span></P>
-	                <input v-model="product_kind" name="product_kind" id="product_kind" hidden>
+	                <P>상품목록 : <span id="title_list">{{pkind}}</span></P>	                
 	            </div>
 	            <div class="product_vege_cnt"><P id="pro_cnt">총 {{cnt}}개 상품</P></div>
 	        </div>
@@ -390,13 +362,15 @@
 	        
 	        <div class="smart_market1" id="box3" >
 	            <div v-for="(item, index) in list">
-	            	<img :src="item.imgPath" class="box">
-		            <div class="gap2 box4">
-		                <p>현재 {{item.productStock}}개 남았어요!</p>
-		                <p>{{item.productName}}</p>
-		                <p>{{item.productPrice | numberFormat()}}원 (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</p>
-		                <p><img class="star" src="images/star.png"> {{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}} </p>
-		            </div>
+	            	<a href="javascript:;" @click="fnView(item.productNo)">
+		            	<img :src="item.imgPath" class="box">
+			            <div class="gap2 box4">
+			                <p>현재 {{item.productStock}}개 남았어요!</p>
+			                <p>{{item.productName}}</p>
+			                <p>{{item.productPrice | numberFormat()}}원 (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</p>
+			                <p><img class="star" src="images/star.png"> {{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}} </p>
+			            </div>
+		            </a>
 	            </div>
 	                      
 	        </div>
@@ -427,6 +401,7 @@ var app = new Vue({
     el: '#app',
     data: {
 		list : [],
+		list2 : [],
 		codeList : ${map.codeList},
 		cnt : "",
 		pkind : "전체"
@@ -441,7 +416,9 @@ var app = new Vue({
     , methods: {
     	fnGetList : function(){
     		var self = this;
-    		var nparmap = {product_kind : self.product_kind};    		
+    		var nparmap = {product_kind : self.product_kind};
+    		
+    		//상품리스트
     		$.ajax({
                 url:"/smartmarket-list.dox",
                 dataType:"json",
@@ -452,9 +429,15 @@ var app = new Vue({
                 	self.cnt = data.list.length;
                 	self.list = data.list;
                 }
-            });        		
-    		
+            });
+
     	}
+    
+    
+	    , fnView : function(productNo){
+	    	var self = this;	    	
+	    	self.pageChange("/smart-market-view.do", {productNo : productNo});
+		}
     
 	    , fnGetList2 : function(item){
 			var self = this;
@@ -462,11 +445,61 @@ var app = new Vue({
 			self.pkind = item.name;
 			self.fnGetList();
 		}
+	    
+	    
+	    ,fnGetList3 : function(){
+    		var self = this;
+    		var nparmap = {product_kind : self.product_kind};
+    		
+    		//추천상품
+    		$.ajax({
+                url:"/smartmarket-recommend-list.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                	console.log(data.list);
+                	self.list2 = data.list;
+                }
+            });
+    		
+    	}
+	    
+	    , pageChange : function(url, param) {
+    		var target = "_self";
+    		if(param == undefined){
+    		//	this.linkCall(url);
+    			return;
+    		}
+    		var form = document.createElement("form"); 
+    		form.name = "dataform";
+    		form.action = url;
+    		form.method = "post";
+    		form.target = target;
+    		for(var name in param){
+				var item = name;
+				var val = "";
+				if(param[name] instanceof Object){
+					val = JSON.stringify(param[name]);
+				} else {
+					val = param[name];
+				}
+				var input = document.createElement("input");
+	    		input.type = "hidden";
+	    		input.name = item;
+	    		input.value = val;
+	    		form.insertBefore(input, null);
+			}
+    		document.body.appendChild(form);
+    		form.submit();
+    		document.body.removeChild(form);
+    	}
     	
     }   
     , created: function () {
     	var self = this;
     	self.fnGetList();
+    	self.fnGetList3();
 	}
 });
 
