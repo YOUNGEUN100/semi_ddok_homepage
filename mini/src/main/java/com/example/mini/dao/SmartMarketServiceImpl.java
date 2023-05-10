@@ -1,11 +1,13 @@
 package com.example.mini.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.mini.mapper.SmartMarketMapper;
+import com.example.mini.model.Code;
 
 @Service
 public class SmartMarketServiceImpl implements SmartMarketService{
@@ -22,6 +24,13 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		resultMap.put("result","success");
 		
 		return resultMap;
+	}
+
+
+	@Override
+	public List<Code> searchSmartMarketKind(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return smartmarketMapper.selectSmartMarketKind(map);
 	}	
 	
 }

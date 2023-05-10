@@ -331,32 +331,12 @@
     <div id="subVisual">&lt;subVisual&gt;</div>
     <!-- wrap START -->
     <div id="wrapper" >
-
 		<div id="app">
-	
-	
-	
 	        <div class="smart_market" id="box1">
-	            <div ><a href="javascript:;" id="veg"><img src="images/food1.jpg" class="circle" @click="fnGetList2('VEG')"></a></div>
-	            <div ><a href="javascript:;" id="fur"><img src="images/food2.jpg" class="circle" @click="fnGetList2('FUR')"></a></div>
-	            <div ><a href="javascript:;" id="mea"><img src="images/food3.jpg" class="circle" @click="fnGetList2('MEA')"></a></div>
-	            <div ><a href="javascript:;" id="sea"><img src="images/food4.jpg" class="circle" @click="fnGetList2('SEA')"></a></div>
-	            <div ><a href="javascript:;" id="dai"><img src="images/food5.jpg" class="circle" @click="fnGetList2('DAI')"></a></div>
-	            <div ><a href="javascript:;" id="wat"><img src="images/food6.jpg" class="circle" @click="fnGetList2('WAT')"></a></div>
-	            <div ><a href="javascript:;" id="sau"><img src="images/food7.jpg" class="circle" @click="fnGetList2('SAU')"></a></div>
-	            <div ><a href="javascript:;" id="pro"><img src="images/food8.jpg" class="circle" @click="fnGetList2('PRO')"></a></div>
-	            <div ><a href="javascript:;" id="sim"><img src="images/food9.jpg" class="circle" @click="fnGetList2('SIM')"></a></div>
+	        	<div v-for="(item, index) in codeList"><a href="javascript:;" id="veg"><img :src="item.img" class="circle" @click="fnGetList2(item)"></a></div>
 	        </div>
 	        <div class="smart_market" id="box2">
-	            <div class="gap1"><p><a href="javascript:;" id="veg1">채소</a></p></div>
-	            <div class="gap1"><p><a href="javascript:;" id="fur1">과일</a></p></div>
-	            <div class="gap1"><p><a href="javascript:;" id="mea1">정육</a></p></div>
-	            <div class="gap1"><p><a href="javascript:;" id="sea1">수산물</a></p></div>
-	            <div class="gap1"><p><a href="javascript:;" id="dai1">유제품</a></p></div>
-	            <div class="gap1"><p><a href="javascript:;" id="wat1">생수/음료</a></p></div>
-	            <div class="gap1"><p><a href="javascript:;" id="sau1">소스</a></p></div>
-	            <div class="gap1"><p><a href="javascript:;" id="pro1">가공식품</a></p></div>
-	            <div class="gap1"><p><a href="javascript:;" id="sim1">간편식품</a></p></div>
+	        	<div v-for="(item, index) in codeList" class="gap1"><p><a href="javascript:;" @click="fnGetList2(item)" id="veg1">{{item.name}}</a></p></div>
 	        </div>
 	        <div class="recommend"><P>추천상품</P></div>
 	        <div class="smart_market" id="box3">
@@ -401,7 +381,7 @@
 	
 	        <div class="product_list">
 	            <div class="product_vege" >
-	                <P>상품목록 : <span id="title_list">과일</span></P>
+	                <P>상품목록 : <span id="title_list">{{pkind}}</span></P>
 	                <input v-model="product_kind" name="product_kind" id="product_kind" hidden>
 	            </div>
 	            <div class="product_vege_cnt"><P id="pro_cnt">총 {{cnt}}개 상품</P></div>
@@ -420,12 +400,7 @@
 	            </div>
 	                      
 	        </div>
-	        
-
 		</div>
-        
-        
-        
     </div>
     <!-- wrap END -->
     <footer id="footer">&lt;footer&gt;</footer>
@@ -448,87 +423,13 @@
 </style>
 
 <script>
-$(function(){
- 
-    $("#veg").click({param1: "veg"}, cool_function)
-    $("#fur").click({param1: "fur"}, cool_function)
-    $("#mea").click({param1: "mea"}, cool_function)
-    $("#sea").click({param1: "sea"}, cool_function)
-    $("#dai").click({param1: "dai"}, cool_function)
-    $("#wat").click({param1: "wat"}, cool_function)
-    $("#sau").click({param1: "sau"}, cool_function)
-    $("#pro").click({param1: "pro"}, cool_function)
-    $("#sim").click({param1: "sim"}, cool_function)
-    
-    $("#veg1").click({param1: "veg"}, cool_function)
-    $("#fur1").click({param1: "fur"}, cool_function)
-    $("#mea1").click({param1: "mea"}, cool_function)
-    $("#sea1").click({param1: "sea"}, cool_function)
-    $("#dai1").click({param1: "dai"}, cool_function)
-    $("#wat1").click({param1: "wat"}, cool_function)
-    $("#sau1").click({param1: "sau"}, cool_function)
-    $("#pro1").click({param1: "pro"}, cool_function)
-    $("#sim1").click({param1: "sim"}, cool_function)
-
-	 
-	 function cool_function(event){
-		if(event.data.param1=='veg'){
-			let str = document.getElementById("title_list")
-	    	str.innerHTML = "채소"
-	    	$('#product_kind').val('VEG')
-	 	}
-	    else if(event.data.param1=='fur'){
-	    	let str = document.getElementById("title_list")
-	    	str.innerHTML = "과일"
-	    	$('#product_kind').val('FUR')
-	 	}	    
-	    else if(event.data.param1=='mea'){
-	    	let str = document.getElementById("title_list")
-	    	str.innerHTML = "정육"
-	    	$('#product_kind').val('MEA')
-	 	}
-	    else if(event.data.param1=='sea'){
-	    	let str = document.getElementById("title_list")
-	    	str.innerHTML = "수산물"
-	    	$('#product_kind').val('SEA')	    	
-	 	}
-	    else if(event.data.param1=='dai'){
-	    	let str = document.getElementById("title_list")
-	    	str.innerHTML = "유제품"
-	    	$('#product_kind').val('DAI')
-	 	}
-	    else if(event.data.param1=='wat'){
-	    	let str = document.getElementById("title_list")
-	    	str.innerHTML = "생수/음료"
-	    	$('#product_kind').val('WAT')
-	 	}
-	    else if(event.data.param1=='sau'){
-	    	let str = document.getElementById("title_list")
-	    	str.innerHTML = "소스"
-	    	$('#product_kind').val('SAU')
-	 	}
-	    else if(event.data.param1=='pro'){
-	    	let str = document.getElementById("title_list")
-	    	str.innerHTML = "가공식품"
-	    	$('#product_kind').val('PRO')
-	 	}
-	    else if(event.data.param1=='sim'){
-	    	let str = document.getElementById("title_list")
-	    	str.innerHTML = "간편식품"
-	    	$('#product_kind').val('SIM')
-	 	}
-	 }
-
-});
-
-
-
 var app = new Vue({ 
     el: '#app',
     data: {
 		list : [],
-		product_kind : "${map.product_kind}",
-		cnt : ""
+		codeList : ${map.codeList},
+		cnt : "",
+		pkind : "전체"
     },
 	filters: {
 	    numberFormat: (value, numFix) => {
@@ -541,20 +442,15 @@ var app = new Vue({
     	fnGetList : function(){
     		var self = this;
     		var nparmap = {product_kind : self.product_kind};    		
-
-    		
-    		
     		$.ajax({
                 url:"/smartmarket-list.dox",
                 dataType:"json",
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
-                	
                 	console.log(data.list);
                 	self.cnt = data.list.length;
                 	self.list = data.list;
-                	
                 }
             });        		
     		
@@ -562,8 +458,9 @@ var app = new Vue({
     
 	    , fnGetList2 : function(item){
 			var self = this;
-			console.log(item);			
-			self.pageChange("smart-market.do", {product_kind : item});
+			self.product_kind = item.code;
+			self.pkind = item.name;
+			self.fnGetList();
 		}
     
 	    , pageChange : function(url, param) {

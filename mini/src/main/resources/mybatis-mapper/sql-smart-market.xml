@@ -47,6 +47,16 @@
 			FROM T4_PRODUCT A 
 				INNER JOIN  T4_P_IMAGE B 
 				ON A.PRODUCT_NO=B.PRODUCT_NO
-            WHERE B.THUMBNAIL_YN='Y';
+            WHERE B.THUMBNAIL_YN='Y'
+		</select>
+		
+		<select id="selectSmartMarketKind" parameterType="hashmap" resultType="com.example.mini.model.Code">	
+			SELECT 
+				KIND,
+				CODE,
+				NAME,
+				IMG
+			FROM T4_CODE
+			WHERE KIND = 'PKIND'
 		</select>
 	</mapper>

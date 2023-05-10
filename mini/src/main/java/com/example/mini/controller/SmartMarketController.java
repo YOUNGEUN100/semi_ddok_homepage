@@ -1,6 +1,7 @@
 package com.example.mini.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.SmartMarketService;
+import com.example.mini.model.Code;
 import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
@@ -35,8 +37,9 @@ public class SmartMarketController {
 	// 3-2. 똑똑한 마켓
 		@RequestMapping("/smart-market.do")
 		public String smartMarket(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+			List<Code> codeList = smartmarketService.searchSmartMarketKind(map);
+			map.put("codeList", new Gson().toJson(codeList));
 			request.setAttribute("map", map);
-			
 			return "/c-smart-market";
 		}
 			

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.mini.model.Code;
 import com.example.mini.model.SmartMarket;
 import com.example.mini.model.User;
 
@@ -22,4 +23,7 @@ public interface SmartMarketMapper {
 	
 	//회원가입
 	void insertSmartMarket(HashMap<String,Object>map);
+	
+	//제품 목록
+	List<Code> selectSmartMarketKind(HashMap<String, Object> map);
 }
