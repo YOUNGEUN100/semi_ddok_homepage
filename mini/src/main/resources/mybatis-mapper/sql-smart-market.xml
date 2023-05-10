@@ -114,6 +114,33 @@
 		</if>
 		</select>
 		
+		<select id="selectSmartMarketImgList" parameterType="hashmap" resultType="com.example.mini.model.SmartMarket2">
+			SELECT 
+				A.PRODUCT_NO
+				, A.PRODUCT_NAME
+				, A.PRODUCT_KIND
+				, A.PRODUCT_WEIGHT
+				, A.PRODUCT_EA
+				, A.PRODUCT_VOLUME
+				, A.TITLE
+				, A.CONTENT
+				, A.PRODUCT_PRICE
+				, A.PRODUCT_STOCK
+				, A.PRODUCT_CNT
+				, A.DISCOUNT_YN
+				, A.DELETE_YN
+				, B.IMG_PATH
+			FROM T4_PRODUCT A 
+			INNER JOIN  T4_P_IMAGE B 
+			ON A.PRODUCT_NO=B.PRODUCT_NO
+			WHERE 1=1
+			AND B.THUMBNAIL_YN='N'
+			<if test="productNo !='' and productNo != null">
+			AND A.PRODUCT_NO = #{productNo}
+		</if>
+		</select>
+		
+		
 		
 		<select id="selectSmartMarketCnt" parameterType="hashmap" resultType="int">	
 			SELECT 

@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.mini.model.Code;
 import com.example.mini.model.SmartMarket;
-
+import com.example.mini.model.SmartMarket2;
 
 @Mapper
 public interface SmartMarketMapper {
@@ -20,6 +20,9 @@ public interface SmartMarketMapper {
 	
 	//상품상세정보
 	SmartMarket selectSmartMarketInfo(HashMap<String, Object>map);
+	
+	//상품 이미지 리스트
+	List<SmartMarket2> selectSmartMarketImgList(HashMap<String, Object> map) throws Exception;
 	
 	//상품건수
 	int selectSmartMarketCnt(HashMap<String, Object> map);

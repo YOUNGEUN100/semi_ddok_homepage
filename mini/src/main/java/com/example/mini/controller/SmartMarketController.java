@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.SmartMarketService;
 import com.example.mini.model.Code;
+import com.example.mini.model.SmartMarket2;
 import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
@@ -52,6 +53,9 @@ public class SmartMarketController {
 	public String viewSmartmarket(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = smartmarketService.searchSmartMarketInfo(map);
+		
+		HashMap<String, Object> imgList = smartmarketService.searchSmartMarketImgList(map);
+		resultMap.put("imgList", imgList);
 		resultMap.put("message", "성공");
 		return new Gson().toJson(resultMap);
 	}

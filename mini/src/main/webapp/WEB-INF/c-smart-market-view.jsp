@@ -314,7 +314,12 @@
             <div class="btn_product_script"><a id="product_discript_move" href="#product_discript">상품설명</a></div>
             <div class="btn_review_script">후기<a name="product_review"></a></div>
         </div>
-        <div class="product_script"><img src="images/1_VER.jpg" class="img_rec" style="width:780px;"></div>
+        <!--  div class="product_script"><img src="images/1_VER.jpg" class="img_rec" style="width:780px;"></div-->
+        <div class="product_script" v-for="(item, index) in imglist">
+        	<img  :src="item.imgPath" class="img_rec" style="width:780px;">
+        	{{item.imgPath}}
+        </div>
+        
         <div class="btn_all_view"><button id="btn_all_view">펼쳐보기</button></div>
         <div class="product_script_detail" id="product_script_detail">
             <pre>
@@ -371,6 +376,7 @@ var app = new Vue({
     data: {
        list : [] 
 	   , info : {}
+	   , imglist : {}
        , productNo : "${map.productNo}"
        , productName : ""
        	
@@ -396,8 +402,9 @@ var app = new Vue({
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
-                	console.log(data);
+                	console.log(data.imgList.list);
                 	self.info = data.info;
+                	self.imglist = data.imgList.list;
                 	
                 }
             });

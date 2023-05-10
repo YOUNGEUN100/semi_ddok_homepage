@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.mini.mapper.SmartMarketMapper;
 import com.example.mini.model.Code;
-import com.example.mini.model.SmartMarket;
+import com.example.mini.model.SmartMarket2;
 
 @Service
 public class SmartMarketServiceImpl implements SmartMarketService{
@@ -34,7 +34,7 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		return smartmarketMapper.selectSmartMarketKind(map);
 	}
 
-
+	//추천상품
 	@Override
 	public HashMap<String, Object> searchSmartMarketRecommendList(HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
@@ -53,7 +53,19 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		//SmartMarket info = smartmarketMapper.selectSmartMarketInfo(map);
 		resultmap.put("info", smartmarketMapper.selectSmartMarketInfo(map));
 		return resultmap;
-	}	
+	}
+
+	//상품상세 이미지 리스트
+	@Override
+	public HashMap<String, Object> searchSmartMarketImgList(HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
+		
+		resultMap.put("list",smartmarketMapper.selectSmartMarketImgList(map));
+		resultMap.put("result","success");
+		
+		return resultMap;
+	}
+	
 	
 	
 	
