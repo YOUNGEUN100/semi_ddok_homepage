@@ -31,14 +31,14 @@
             overflow: hidden;
         }
 
-        .fund_img {            
-            float: left;            
+        .fund_img {
+            float: left;
         }
-        
-        .fund_img img {        
-        	border: 1px solid #e7e6e6;
-        	border-radius: 20px;
-        	width: 500px;
+
+        .fund_img img {
+            border: 1px solid #e7e6e6;
+            border-radius: 20px;
+            width: 500px;
             height: 500px;
         }
 
@@ -92,6 +92,7 @@
             font-size: 20px;
             color: white;
             font-weight: bold;
+            cursor : pointer;
         }
 
         .share_button {
@@ -105,6 +106,7 @@
             border: none;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
             color: #5ea152;
+            cursor : pointer;
         }
 
         .show_button {
@@ -154,14 +156,14 @@
                         </div>
 
                         <div>
-                            <button class="apply_button">신청하기</button>
-                            <button class="share_button" @click="fnClip"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
+                            <button class="apply_button" @click="fnApply">신청하기</button>
+                            <button class="share_button" @click="fnClip"><i
+                                    class="fa-solid fa-share-nodes fa-2xl"></i></button>
                         </div>
                     </div>
 
                     <div class="box2" id="detail_box">
-                        <img
-                            :src="info.imgPathDetail">
+                        <img :src="info.imgPathDetail">
                     </div>
 
                     <div id="button_box1">
@@ -196,47 +198,55 @@
             document.getElementById('button_box1').style.display = 'block';
             document.getElementById('button_box2').style.display = 'none';
         }
-        
-        var app = new Vue({
-    		el : '#app',
-    		data : {    			
-    			info : {},
-    			fundingNo : "${map.fundingNo}"
 
-    		},
-    		methods : {
-    			fnGetFunding : function() {
-    				var self = this;
-    				var nparmap = {
-    					fundingNo : self.fundingNo
-    				};
-    				$.ajax({
-    					url : "/funding/view.dox",
-    					dataType : "json",
-    					type : "POST",
-    					data : nparmap,
-    					success : function(data) {
-    						self.info = data.info;
-    						console.log(data.info);
-    						
-    						if (data.info.dDay <= 0) {
-    							fund_cnt.innerText = "종료임박 금일 " + data.info.endTime + "시 종료";
-    							
-    						}
-    					}
-    				});
-    			}
-    		
-    			, fnClip: function() {
-                	navigator.clipboard.writeText(window.location.href);
-                	alert("복사되었습니다.");
+        var app = new Vue({
+            el: '#app',
+            data: {
+                info: {},
+                fundingNo: "${map.fundingNo}",
+                sessionId: "${sessionId}"
+
+            },
+            methods: {
+                fnGetFunding: function () {
+                    var self = this;
+                    var nparmap = {
+                        fundingNo: self.fundingNo
+                    };
+                    $.ajax({
+                        url: "/funding/view.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            self.info = data.info;
+                            console.log(data.info);
+
+                            if (data.info.dDay <= 0) {
+                                fund_cnt.innerText = "종료임박 금일 " + data.info.endTime + "시 종료";
+
+                            }
+                        }
+                    });
                 }
-                
-    		}
-    		,
-    		created : function() {
-    			var self = this;
-    			self.fnGetFunding();
-    		}
-    	});
+
+                , fnClip: function () {
+                    navigator.clipboard.writeText(window.location.href);
+                    alert("복사되었습니다.");
+                }
+
+                , fnApply: function () {
+                    var self = this;
+                    if (!confirm("펀딩을 신청하시겠습니까?")) {
+                        return;
+                    }
+
+                }
+            }
+                ,
+                created: function () {
+                    var self = this;
+                    self.fnGetFunding();
+                }
+            });
     </script>

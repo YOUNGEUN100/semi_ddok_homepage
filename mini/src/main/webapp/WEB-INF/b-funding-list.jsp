@@ -31,7 +31,7 @@
             color: white;
             font-size: 20px;
             font-weight: bold;
-			cursor: pointer
+			cursor: pointer;
         }
 
         .box1 {
@@ -75,7 +75,7 @@
             border-radius: 50px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
             background-color: white;
-            cursor: pointer
+            cursor: pointer;
         }
 
         .open_list {
@@ -117,7 +117,7 @@
             width: 300px;
             height: 300px;
             border-radius: 50%;
-            cursor: pointer
+            cursor: pointer;
         }
 
         .fund_content {
@@ -175,7 +175,7 @@
             color: white;
             font-size: 20px;
             font-weight: bold;
-            cursor: pointer
+            cursor: pointer;
         }
 
 
@@ -188,7 +188,7 @@
         <div id="app">
             <div class="wrapper">
                 <div class="add_box">
-                    <button class="add_btn">등록</button>
+                    <button class="add_btn" v-if="sessionStatus == 'A'" @click="fnAddFunding">등록</button>
                 </div>
                 <div class="container">
 
@@ -311,7 +311,9 @@
                 moreBtn2: "off",
                 orderValue: "",
                 orderValue2: "",
-                endTime : ""
+                endTime : "",
+                sessionId : "${sessionId}",
+                sessionStatus : "${sessionStatus}"
             }
             , methods: {
                 fnGetFundingList: function () {
@@ -422,7 +424,9 @@
                 	self.pageChange("./funding-planned.do", {fundingNo : fundingNo});
                 }
                 
-              
+              	, fnAddFunding : function(){
+            		location.href = "/funding-edit.do";
+            	}
                 
             }
             , created: function () {

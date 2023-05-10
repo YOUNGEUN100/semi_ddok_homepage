@@ -108,7 +108,7 @@
             border: none;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
             color: #fe7167;
-            cursor: pointer
+            cursor: pointer;
         }
 
         .show_button {
@@ -208,7 +208,8 @@
 			info : {},
 			fundingNo : "${map.fundingNo}",
 			sDate : "",
-			remainTime : "2"
+			remainTime : "2",
+			sessionId : "${sessionId}"
 		},
 		methods : {
 			fnGetFunding : function() {

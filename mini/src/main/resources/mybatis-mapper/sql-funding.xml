@@ -228,9 +228,15 @@
                         WHERE THUMBNAIL_YN = 'N'
 						) D ON A.FUNDING_NO = D.FUNDING_NO
 									
-				WHERE A.FUNDING_NO = #{fundingNo}
-				
+				WHERE A.FUNDING_NO = #{fundingNo}				
 			 
 		</select>
+		
+		<insert id="applyFunding" parameterType="hashmap">
+			INSERT INTO T4_FUNDING_MEMBER
+			VALUES
+				(,
+				)
+		</insert>
 		
 	</mapper>
