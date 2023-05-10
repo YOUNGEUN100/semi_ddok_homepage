@@ -25,10 +25,10 @@ function pageName(){
 		case "sample.do" : 
 			 pageTitle.innerHTML = "sampleSet Page";
 			 break;
-		case "smart-recipe.do" : 
+		case "recipe.do" : 
 			 pageTitle.innerHTML = "똑똑한 레시피";
 			 break;
-		case "smart-market.do" : 
+		case "market.do" : 
 			 pageTitle.innerHTML = "똑똑한 마켓"
 			 break;
 		case "login.do" : 
@@ -46,8 +46,8 @@ function pageName(){
 			 pageInfo.innerHTML = "샘플세팅 페이지입니다 😀";
 			 break;
 		
-		case "smart-recipe.do" : 
-		case "smart-market.do" : 
+		case "recipe.do" : 
+		case "market.do" : 
 			 pageInfo.innerHTML = "머리는 똑똑하게, 배는 빵빵하게";
 			 pageIcon.setAttribute("src", "../images/pageVisual_icon03.png");
 			 pageIconBox.appendChild(pageIcon);

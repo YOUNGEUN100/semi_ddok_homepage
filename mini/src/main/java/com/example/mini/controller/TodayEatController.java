@@ -18,34 +18,34 @@ import ch.qos.logback.core.model.Model;
 public class TodayEatController {
 
 	
-	// 1. 투데잇 페이지
-		@RequestMapping("/today-eat.do")
+		// 투데잇 페이지
+		@RequestMapping("/todayEat.do")
 		public String todayEat(Model model) throws Exception{
-			return "/a-today-eat";
+			return "/todayEat";
 		}
 		
-		// 1. 맛집 메뉴 추천 페이지
-		@RequestMapping("/recom-food.do")
+		// 맛집 메뉴 추천 페이지
+		@RequestMapping("/todayEat/store.do")
 		public String recommendFood(Model model) throws Exception{
-			return "/a-recom-food";
+			return "/todayEat_store";
 		}
 		
-		// 1. 맛집 메뉴 추천 페이지 상세
-		@RequestMapping("/recom-food-result.do")
+		// 맛집 메뉴 추천 페이지 상세
+		@RequestMapping("/todayEat/store/result.do")
 		public String recommendFoodResult(Model model) throws Exception{
-			return "/a-recom-food-result";
+			return "/todayEat_store_result";
 		}
 		
-		// 1. 레시피 추천 페이지
-		@RequestMapping("/recom-recipe.do")
+		// 레시피 추천 페이지
+		@RequestMapping("/todayEat/recipe.do")
 		public String recommendrecipe(Model model) throws Exception{
-			return "/a-recom-recipe";
+			return "/todayEat_recipe";
 		}
 		
-		// 1. 레시피 추천 페이지 상세
-		@RequestMapping("/recom-recipe-result.do")
+		// 레시피 추천 페이지 상세
+		@RequestMapping("/todayEat/recipe/result.do")
 		public String recommendrecipeResult(Model model) throws Exception{
-			return "/a-recom-recipe-result";
+			return "/todayEat_recipe_result";
 		}
 	
 	

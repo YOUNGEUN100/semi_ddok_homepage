@@ -25,6 +25,16 @@ public class SmartMarketController {
 	@Autowired
 	SmartMarketService smartmarketService;
 	
+	@RequestMapping("/cart.do") 
+    public String cart(Model model) throws Exception{
+
+        return "/cart";
+    }
+	@RequestMapping("/order.do") 
+    public String order(Model model) throws Exception{
+
+        return "/order";
+    }
 	
 	//상품리스트
 	@RequestMapping(value = "/smartmarket-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -61,20 +71,27 @@ public class SmartMarketController {
 	}
 	
 	
-	// 3-2. 똑똑한 마켓
-		@RequestMapping("/smart-market.do")
+		// 3-2. 똑똑한 마켓
+		@RequestMapping("/market.do")
 		public String smartMarket(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 			List<Code> codeList = smartmarketService.searchSmartMarketKind(map);
 			map.put("codeList", new Gson().toJson(codeList)); //코드정보를 가져온다
 			request.setAttribute("map", map);
-			return "/c-smart-market";
+			return "/market";
 		}
 			
 		// 3-2. 똑똑한 마켓 상세
-		@RequestMapping("/smart-market-view.do")
+		@RequestMapping("/market/view.do")
 		public String smartMarketInfo(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 			request.setAttribute("map", map);
-			return "/c-smart-market-view";
+			return "/market_view";
+		}
+		
+		// 3-2. 똑똑한 마켓 상세
+		@RequestMapping("/market/edit.do")
+		public String smartMarketEdit(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+			 request.setAttribute("map", map);
+			return "/market_edit";
 		}
 	
 }

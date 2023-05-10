@@ -124,6 +124,7 @@
             display: flex;
             justify-content:space-between;
             margin-bottom: 5px;
+            font-weight : bold;
         }
         .search-result-s > div:first-child {
             font-size: 20px;
@@ -232,28 +233,17 @@
         <div class="detail-category">
             <div id="purpose" class="box2">
                 <div><b>목적별</b></div>
-                <a href="#" class="each">냉장고털이</a>
-                <a href="#" class="each">해장</a>
-                <a href="#" class="each">간식</a>
-                <a href="#" class="each">야식</a>
-                <a href="#" class="each">다이어트</a>
+                <a v-for="(item, index) in codeList" v-if="item.kind=='R_PURPOSE'" href="#" class="each" @click="fnGetRecipeList(item)">{{item.name}}</a>
             </div>
             <hr class="line">
             <div id="howto" class="box2">
                 <div><b>방법별</b></div>
-                <a href="#" class="each">구이/부침</a>
-                <a href="#" class="each">국탕찌개</a>
-                <a href="#" class="each">볶음/조림</a>
-                <a href="#" class="each">무침/비빔</a>
-                <a href="#" class="each">기타</a>
+                <a v-for="(item, index) in codeList" v-if="item.kind=='HOWTO'" href="#" class="each">{{item.name}}</a>
             </div>
             <hr class="line">
             <div id="tool" class="box2">
                 <div><b>도구별</b></div>
-                <a href="#" class="each">냄비/후라이팬</a>
-                <a href="#" class="each">전자레인지</a>
-                <a href="#" class="each">에어프라이어/오븐</a>
-                <a href="#" class="each">기타</a>
+                <a v-for="(item, index) in codeList" v-if="item.kind=='TOOL'" href="#" class="each">{{item.name}}</a>
             </div>
         </div>
         <div>
@@ -261,10 +251,10 @@
             	<div>
             		<span>검색결과 : </span>
             	<!-- <span><input v-model="sResult"></span> -->	
-            		<span>전체</span>
+            		<span>{{rkind}}</span>
             	</div>
                 
-                <div>총 3개의 레시피</div>
+                <div>총 {{listCnt}}개의 레시피</div>
             </div>
             
             <div class="item-list" >
@@ -276,7 +266,7 @@
                         </div>
                         <img class="recipe-img" :src="item.imgPath">
                     </div>
-                    <div>#덮밥요리 #햄 #마요네스</div>
+                    <div>#레시피 #뭐먹지 #마시따</div>
                     <div class="r-text">{{item.recipeName}}</div>
                 </div>
             </div>
@@ -295,7 +285,70 @@
 
 
 <script type="text/javascript">
-
+	 
+	var app = new Vue({ 
+	el: '#app',
+	data: {
+		 list: [],
+		 listCnt : 0,
+		 codeList : ${map.codeList},
+		 rkind : "전체",
+		 recipe_kind : ""
+	}, methods: {
+		// 전체 레시피 리스트 가져오기
+		fnGetRecipeAll : function() {
+			var self = this;
+			var nparmap = {};
+			$.ajax({
+				url: "/recipe/all.dox",
+				dataType: "json",
+				type: "POST",
+				data : nparmap,
+				success : function(data) {
+					 self.list = data.list;
+					 self.listCnt = data.list.length;
+                     console.log(self.list);
+                     console.log(self.listCnt);
+				}
+			})
+		}
+		// 분류된 리스트 가져오기
+		,fnGetRecipeList : function(item) {
+			var self = this;
+			self.recipe_kind = item.code;
+			self.rkind = item.name;
+			
+			var nparmap = {recipe_kind : self.recipe_kind};
+			$.ajax({
+				url: "/recipe/list.dox",
+				dataType: "json",
+				type: "POST",
+				data : nparmap,
+				success : function(data) {
+					 self.list = data.list;
+					 self.listCnt = data.list.length;
+                     console.log(self.list);
+                     console.log(self.listCnt);
+				}
+			})
+		}
+	   // 레시피 등록 페이지 이동
+	   ,fnGoEdit : function() {
+			location.href = "recipe/edit.do";
+	   }
+		// 레시피 상세 페이지 이동
+		,fnView : function() {
+			location.href = "recipe/view.do";
+		}
+	} 
+	, created: function () {
+		var self = this;
+		self.fnGetRecipeAll();
+		console.log(self.codeList);
+	}
+	
+	});
+	
 	$(function () {
 	    $("#all-btn").on("click", function() {
 	        $("#purpose").show();
@@ -327,48 +380,5 @@
 	        $("#tool").show();
 	        $(".line").hide();
 	    })
-	})   
-	
-	let result = document.get
-
-	var app = new Vue({ 
-	
-	el: '#app',
-	data: {
-		 list: []
-	   
-	}, methods: {
-		// 레시피 리스트 가져오기
-		fnGetRecipeList : function() {
-			var self = this;
-			var nparmap = {};
-			$.ajax({
-				url: "recipe/list.dox",
-				dataType: "json",
-				type: "POST",
-				data : nparmap,
-				success : function(data) {
-					 self.list = data.list;
-                     console.log(self.list);
-					
-				}
-			})
-		}
-	   // 레시피 등록 페이지 이동
-	   ,fnGoEdit : function() {
-			location.href = "smart-recipe-edit.do";
-	   }
-		// 레시피 상세 페이지 이동
-		,fnView : function() {
-			location.href = "smart-recipe-view.do";
-		}
-	      
-	
-	} 
-	, created: function () {
-		var self = this;
-		self.fnGetRecipeList();
-	}
-	
-	});
+	})  
 </script>

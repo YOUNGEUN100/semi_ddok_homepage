@@ -21,32 +21,45 @@ public class LivingController {
 	// 4-1. 알뜰정책
 	@RequestMapping("/policy.do")
 	public String policy(Model model) throws Exception{
-		return "/d-policy-list";
+		return "/policy";
 	}
 	
 	// 4-1. 알뜰정책 상세
-	@RequestMapping("/policy-view.do")
+	@RequestMapping("/policy/view.do")
 	public String policyInfo(Model model) throws Exception{
-		return "/d-policy-view";
+		return "/policy_view";
 	}
 	
+	@RequestMapping("/policy/edit.do")
+	public String policyEdit(Model model) throws Exception{
+		return "/policy_edit";
+	}
+	
+	
 	// 4-2. 생활백서
-	@RequestMapping("/cardnews.do")
-	public String cardnews(Model model) throws Exception{
-		return "/d-cardnews-list";
+	@RequestMapping("/livingTip.do")
+	public String livingTip(Model model) throws Exception{
+		return "/livingTip";
 	}
 	
 	// 4-2. 생활백서 상세
-	@RequestMapping("/cardnews-view.do")
-	public String cardnewsInfo(Model model) throws Exception{
-		return "/d-cardnews-view";
+	@RequestMapping("/livingTip/view.do")
+	public String livingTipView(Model model) throws Exception{
+		return "/livingTip_view";
 	}
 	
-	// 4-3. 혼족여지도
-	@RequestMapping("/usefulmap.do")
-	public String smartMap(Model model) throws Exception{
-		return "/d-useful-map";
+	@RequestMapping("/livingTip/edit.do")
+	public String livingTipEdit(Model model) throws Exception{
+		return "/livingTip_edit";
 	}
+	
+	
+	// 4-3. 혼족여지도
+	@RequestMapping("/livingMap.do")
+	public String livingMap(Model model) throws Exception{
+		return "/livingMap";
+	}
+	
 	
 
 	

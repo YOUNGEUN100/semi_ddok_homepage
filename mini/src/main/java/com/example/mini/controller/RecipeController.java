@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.RecipeService;
+import com.example.mini.model.Code;
 import com.example.mini.model.Funding;
 import com.example.mini.model.Recipe;
 import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class RecipeController {
@@ -30,25 +32,38 @@ public class RecipeController {
 	
 	
 	// 똑똑한 레시피
-	@RequestMapping("/smart-recipe.do")
-	public String recipe(Model model) throws Exception{
-		return "/c-smart-recipe";
+	@RequestMapping("/recipe.do")
+	public String recipe(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		List<Code> codeList = recipeService.searchRecipeKind(map);
+		map.put("codeList", new Gson().toJson(codeList)); //코드정보를 가져온다
+		request.setAttribute("map", map);
+		return "/recipe";
 	}
 	
 	// 똑똑한 레시피 상세
-	@RequestMapping("/smart-recipe-view.do")
+	@RequestMapping("/recipe/view.do")
 	public String recipeInfo(Model model) throws Exception{
-		return "/c-smart-recipe-view";
+		return "/recipe_view";
 	}
 	
 	// 똑똑한 레시피 상세
-		@RequestMapping("/smart-recipe-edit.do")
+		@RequestMapping("/recipe/edit.do")
 		public String recipeEdit(Model model) throws Exception{
-			return "/c-smart-recipe-edit";
+			return "/recipe_edit";
 		}
 		
 	
 	
+	
+	@RequestMapping(value = "/recipe/all.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
+	@ResponseBody
+	public String searchRecipeListAll(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<Recipe> list = recipeService.searchRecListAll(map);
+		resultMap.put("list", list);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
 	
 	@RequestMapping(value = "/recipe/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
 	@ResponseBody

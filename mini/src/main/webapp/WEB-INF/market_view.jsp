@@ -1,40 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <script src="js/jquery.js"></script>
-    <script src="js/vue.js"></script>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¶È¶È : "¸Ş´º¸íÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä."</title>
-    
-    <style>
-        /* style START */
-    /* setting * don't touch */
-        @font-face {
-            font-family: 'Pretendard-Regular';
-            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-            font-weight: 400;
-            font-style: normal;
-        }
-        * {margin:0; padding:0; box-sizing:border-box;}
-        html, body {font-family:'Pretendard-Regular'; font-size:15px; line-height:1.5;}
-        a {color:inherit; text-decoration:none;}
-        input {outline:0; border-radius:0; border-width:1px; padding:5px;}
-        select {outline:0; border-radius:0; border-width:1px; padding:4px;}
-        img {width:100%; max-width:100%; display:inline-block;}
-        ol, ul ,li {list-style:none;}
-        
-        #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-        #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:70px;}
-        #footer {margin-top:150px;}
-        #wrapper {max-width:1200px; min-height:calc(100vh - 500px); margin:0 auto;}
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<jsp:include page="/layout/head.jsp"></jsp:include>
+<jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
-
-        #wrapper{
+<style>
+	 #wrapper{
             
             width: 1200px;
             height: 2600px;
@@ -269,69 +239,68 @@
 	        clip: rect( 0px, 780px, 900px, 0px );
         }
 
-        /* style END */
-    </style>    
-</head>
-<body>
-    <header id="header">&lt;header&gt;</header>
-    <div id="subVisual">&lt;subVisual&gt;</div>
-    <!-- wrap START -->
+        /* style END */ 
+</style>
+
+
+<!-- pageContent -- START -->
+<div id="pageContent">
+	<div class="wrapper">
+        <!-- wrap START -->
     <div id="wrapper" >
-
         <div id="app">
-
-        <div class="smart_img"><img id="smart_img" src="images/food1.jpg"></div>
+        <div class="smart_img"><img id="smart_img" src="/images/food1.jpg"></div>
         <div class="smart_txt">
             <div class="smart_empth1"></div>
             <div class="smart_title">
                 <span class="font_title">{{info.productName}}</span>
                 <div class="star_position">
-                    <img class="star" src="images/star.png">
+                    <img class="star" src="/images/star.png">
                     <span class="font_grade">{{(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)/3 |  numberFormat(1)}}</span>
                 </div>
                 <div class="font_script">{{info.title}}</div>
             </div>
             <div class="smart_empth2"></div>
             <div class="smart_price">
-                <span class="font_price1">ÆÇ¸Å°¡</span>
-                <span class="font_price2">{{info.productPrice | numberFormat()}}¿ø </span>
-                <span class="font_price3">(100{{info.productVolume}}´ç {{info.productPrice*100 / info.productWeight*info.productEa | numberFormat()}}¿ø)</span>
+                <span class="font_price1">íŒë§¤ê°€</span>
+                <span class="font_price2">{{info.productPrice | numberFormat()}}ì› </span>
+                <span class="font_price3">(100{{info.productVolume}}ë‹¹ {{info.productPrice*100 / info.productWeight*info.productEa | numberFormat()}}ì›)</span>
             </div>   
             <div class="smart_empth3"></div>
             <div class="smart_cnt">
-                <span class="font_cnt">°³¼ö </span><input class="input_cnt" type="number" min="1" max="3">
-                <span class="font_cnt2"> ÇöÀç {{info.productStock}}°³³²¾Ò¾î¿ä!</span>
+                <span class="font_cnt">ê°œìˆ˜ </span><input class="input_cnt" type="number" min="1" max="3">
+                <span class="font_cnt2"> í˜„ì¬ {{info.productStock}}ê°œë‚¨ì•˜ì–´ìš”!</span>
             </div>
             <div class="smart_empth4"></div>
             <div class="smart_button">
-                <button class="btn_buy">±¸¸ÅÇÏ±â</button>
-                <button class="btn_cart">Àå¹Ù±¸´Ï´ã±â</button>
-                <a href="javascript:clip2();"><img class="share" src="images/share.png" ></a>
+                <button class="btn_buy">êµ¬ë§¤í•˜ê¸°</button>
+                <button class="btn_cart">ì¥ë°”êµ¬ë‹ˆë‹´ê¸°</button>
+                <a href="javascript:clip2();"><img class="share" src="/images/share.png" ></a>
             </div>
         </div>
         
         <div class="product_review_title">
-            <div class="btn_product_script"><a id="product_discript_move" href="#product_discript">»óÇ°¼³¸í</a></div>
-            <div class="btn_review_script">ÈÄ±â<a name="product_review"></a></div>
+            <div class="btn_product_script"><a id="product_discript_move" href="#product_discript">ìƒí’ˆì„¤ëª…</a></div>
+            <div class="btn_review_script">í›„ê¸°<a name="product_review"></a></div>
         </div>
-        <!--  div class="product_script"><img src="images/1_VER.jpg" class="img_rec" style="width:780px;"></div-->
+        <!--  div class="product_script"><img src="/images/1_VER.jpg" class="img_rec" style="width:780px;"></div-->
         <div class="product_script" v-for="(item, index) in imglist">
         	<img  :src="item.imgPath" class="img_rec" style="width:780px;">
         	{{item.imgPath}}
         </div>
         
-        <div class="btn_all_view"><button id="btn_all_view">ÆîÃÄº¸±â</button></div>
+        <div class="btn_all_view"><button id="btn_all_view">í¼ì³ë³´ê¸°</button></div>
         <div class="product_script_detail" id="product_script_detail">
             <pre>
             
             </pre>
         </div>
-        <div class="btn_all_hidden"><button id="btn_all_hidden">Á¢¾îº¸±â</button></div>
+        <div class="btn_all_hidden"><button id="btn_all_hidden">ì ‘ì–´ë³´ê¸°</button></div>
 
 
         <div class="product_review_title" >
-            <div class="btn_product_script"><a name="product_discript">»óÇ°¼³¸í</a></div>
-            <div class="btn_review_script"><a href="#product_review">ÈÄ±â</a></div>
+            <div class="btn_product_script"><a name="product_discript">ìƒí’ˆì„¤ëª…</a></div>
+            <div class="btn_review_script"><a href="#product_review">í›„ê¸°</a></div>
         </div>
         <div class="smart_empth5"></div>
         <div class="table1">
@@ -345,87 +314,73 @@
             </table>
         </div>
     </div>
-        
-        
-        
+
     </div>
     <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-</html>
-<style>
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
+	</div>
+</div>
+<!-- pageContent -- END -->
+
+<jsp:include page="/layout/tail.jsp"></jsp:include>
+
+
+<script type="text/javascript">
+
+    var app = new Vue({ 
+        el: '#app',
+        data: {
+        list : [] 
+        , info : {}
+        , imglist : {}
+        , productNo : "${map.productNo}"
+        , productName : ""
+            
+        },
+        filters: {
+            numberFormat: (value, numFix) => {
+                value = parseFloat(value);
+                if (!value) return '0';
+                return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+            },
+        }   
+        , methods: {
+            
+            fnGetList : function(){
+                var self = this;
+                var nparmap = {productNo : self.productNo};
+                
+                
+                //ìƒí’ˆì •ë³´
+                $.ajax({
+                    url:"/smartmarket-view.dox",
+                    dataType:"json",
+                    type : "POST",
+                    data : nparmap,
+                    success : function(data) {
+                        console.log(data.imgList.list);
+                        self.info = data.info;
+                        self.imglist = data.imgList.list;
+                        
+                    }
+                });
+
+            }
+        
+            
+        }   
+        , created: function () {
+            var self = this;
+            self.fnGetList();
+            
+        }
+    });
+
+
+
+    const clip2 = async () => {
+        navigator.clipboard.writeText(window.location.href);
+        alert("URL ì£¼ì†Œê°€ ë³µì‚¬ë˜ì—ˆìŠµë‹ˆë‹¤.");
     }
-    * {margin:0; padding:0; box-sizing:border-box;}
-    html, body {font-family:'Pretendard-Regular'; font-size:15px; line-height:1.5;}
-    #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-    #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:70px;}
-    #footer {margin-top:150px;}
-    #wrapper_smart {max-width:1200px; min-height:calc(100vh - 500px); margin:0 auto;}
-</style>
-
-<script>
-
-var app = new Vue({ 
-    el: '#app',
-    data: {
-       list : [] 
-	   , info : {}
-	   , imglist : {}
-       , productNo : "${map.productNo}"
-       , productName : ""
-       	
-    },
-	filters: {
-	    numberFormat: (value, numFix) => {
-	        value = parseFloat(value);
-	        if (!value) return '0';
-	        return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-	    },
-	}   
-    , methods: {
-    	
-    	fnGetList : function(){
-    		var self = this;
-    		var nparmap = {productNo : self.productNo};
-    		
-    		
-    		//»óÇ°Á¤º¸
-    		$.ajax({
-                url:"/smartmarket-view.dox",
-                dataType:"json",
-                type : "POST",
-                data : nparmap,
-                success : function(data) {
-                	console.log(data.imgList.list);
-                	self.info = data.info;
-                	self.imglist = data.imgList.list;
-                	
-                }
-            });
-
-    	}
-    
-	    
-    }   
-    , created: function () {
-    	var self = this;
-    	self.fnGetList();
-    	
-	}
-});
-
-
-
-const clip2 = async () => {
-	navigator.clipboard.writeText(window.location.href);
-	alert("URL ÁÖ¼Ò°¡ º¹»çµÇ¾ú½À´Ï´Ù.");
-}
 
 
 
@@ -462,9 +417,5 @@ const clip2 = async () => {
     });
 
 
-    
-    
-
-
-
+   
 </script>

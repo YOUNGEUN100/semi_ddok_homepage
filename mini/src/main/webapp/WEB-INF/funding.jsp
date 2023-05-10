@@ -416,16 +416,16 @@
                 
                 , fnViewFunding: function(fundingNo) {
                 	var self = this;
-                	self.pageChange("./funding-open.do", {fundingNo : fundingNo});
+                	self.pageChange("./funding/view/open.do", {fundingNo : fundingNo});
                 }
                 
                 , fnViewFunding2: function(fundingNo) {
                 	var self = this;
-                	self.pageChange("./funding-planned.do", {fundingNo : fundingNo});
+                	self.pageChange("./funding/view/planned.do", {fundingNo : fundingNo});
                 }
                 
               	, fnAddFunding : function(){
-            		location.href = "/funding-edit.do";
+            		location.href = "/funding/edit.do";
             	}
                 
             }

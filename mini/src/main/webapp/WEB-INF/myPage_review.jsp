@@ -16,8 +16,8 @@
 </div>
 <!-- pageContent -- END -->
 
-<jsp:include page="/layout/tail.jsp"></jsp:include>
 
+<jsp:include page="/layout/tail.jsp"></jsp:include>
 
 <script type="text/javascript">
  // 자바 스크립트 입력 

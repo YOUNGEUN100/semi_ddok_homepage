@@ -20,11 +20,6 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class FundingController {
-
-	// 본인 페이지 확인하는데 뜨지 않으면 확인할 것
-	// 1. 조장이 페이지 주소에 오타를 냈다.
-	// 2. 조장이 jsp 파일에 오타를 냈다.
-	// 오타 찾으면 알려주세요.
 	
 	@Autowired
     private FundingService fundingService;	
@@ -35,45 +30,45 @@ public class FundingController {
 	// 2-1. 랜선펀딩
 	@RequestMapping("/funding.do")
 	public String funding0(Model model) throws Exception{
-		return "/b-funding-list";
+		return "/funding";
 	}
 	
 	// 2-1. 랜선펀딩 진행중 상세
-	@RequestMapping("/funding-open.do")
+	@RequestMapping("/funding/view/open.do")
 	public String funding(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 		request.setAttribute("map", map);
-		return "/b-funding-open";
+		return "/funding_view_open";
 	}
 	
 	// 2-1. 랜선펀딩 예정 상세
-	@RequestMapping("/funding-planned.do")
+	@RequestMapping("/funding/view/planned.do")
 	public String funding2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 		request.setAttribute("map", map);
-		return "/b-funding-planned";
+		return "/funding_view_planned";
 	}
 	
 	// 2-1. 랜선펀딩 등록 및 수정
-	@RequestMapping("/funding-edit.do")
+	@RequestMapping("/funding/edit.do")
 	public String funding3(Model model) throws Exception{
-		return "/b-funding-edit";
+		return "/funding_edit";
 	}
 	
 	// 2-2. 랜선마켓
-	@RequestMapping("/lan-market.do")
+	@RequestMapping("/flea.do")
 	public String lanmarkete(Model model) throws Exception{
-		return "/b-lan-market-list";
+		return "/flea";
 	}
 	
 	// 2-2. 랜선마켓 상세
-	@RequestMapping("/lan-market-view.do")
+	@RequestMapping("/flea/view.do")
 	public String lanmarketInfo(Model model) throws Exception{
-		return "/b-lan-market-view";
+		return "/flea_view";
 	}
 		
 	// 2-2. 랜선마켓 작성 및 수정
-	@RequestMapping("/lan-market-edit.do")
+	@RequestMapping("/flea/edit.do")
 	public String lanmarketEdit(Model model) throws Exception{
-		return "/b-lan-market-edit";
+		return "/flea_edit";
 	}
 	
 	

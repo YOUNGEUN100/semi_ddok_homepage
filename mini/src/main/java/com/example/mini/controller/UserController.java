@@ -41,7 +41,7 @@ public class UserController {
     	
     	session.invalidate();
     	
-        return "/user-login";
+        return "/login";
     }
 	
 	@RequestMapping(value = "/login.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -64,7 +64,7 @@ public class UserController {
 	@RequestMapping("/join.do") 
     public String add(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
     	request.setAttribute("map", map);
-        return "/user-join";
+        return "/join";
     }
 	
 	@RequestMapping(value = "/join.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -99,19 +99,19 @@ public class UserController {
 	@RequestMapping("/addr.do") 
     public String addr(Model model, @RequestParam HashMap<String, Object> map, HttpServletRequest request) throws Exception{
 		
-		return "/user-jusoPopup";
+		return "/jusoPopup";
     }
 	
 	@RequestMapping("/findId.do") 
     public String findAccount(Model model) throws Exception{
 
-        return "/user-findId";
+        return "/findId";
     }
 	
 	@RequestMapping("/findId/result.do") 
     public String findIdResult(Model model) throws Exception{
 
-        return "/user-findId-result";
+        return "/findId_result";
     }
 	
 	@RequestMapping(value = "/user/findId.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -126,44 +126,40 @@ public class UserController {
 	@RequestMapping("/findPw.do") 
     public String findPw(Model model) throws Exception{
 
-        return "/user-findPw";
+        return "/findPw";
     }
 
-	@RequestMapping("/mypage.do") 
+	@RequestMapping("/myPage.do") 
     public String mypage(Model model) throws Exception{
 
-        return "/user-mypage";
+        return "/myPage";
     }
 	
-	@RequestMapping("/mypage-order.do") 
+	@RequestMapping("/myPagee/order.do") 
     public String mypageOrder(Model model) throws Exception{
 
-        return "/user-mypage-order";
+        return "/myPage_order";
     }
 	
-	@RequestMapping("/mypage-funding.do") 
+	@RequestMapping("/mypage/funding.do") 
     public String mypageFunding(Model model) throws Exception{
 
-        return "/user-mypage-funding";
+        return "/myPage_funding";
     }
 	
-	@RequestMapping("/mypage-review.do") 
+	@RequestMapping("/mypage/review.do") 
     public String mypageReview(Model model) throws Exception{
 
-        return "/user-mypage-review";
+        return "/myPage_review";
     }
 	
 	@RequestMapping("/payment.do") 
     public String payment(Model model) throws Exception{
 
-        return "/user-payment";
+        return "/payment";
     }
 	
-	@RequestMapping("/cart.do") 
-    public String cart(Model model) throws Exception{
-
-        return "/user-cart";
-    }
+	
 	
 	
 	

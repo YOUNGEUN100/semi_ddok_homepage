@@ -244,7 +244,7 @@
         	console.log(self.cnt);
         	
             document.getElementById("recipe-step").innerHTML += 
-            `<div id="step-num"><b>Step</b></div>
+            `<div id="step-num"><b>Step ${cnt}</b></div>
                  <div>
                     <label>레시피 이미지</label>
                     <form action="">

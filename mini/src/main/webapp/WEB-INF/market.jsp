@@ -1,18 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <script src="js/jquery.js"></script>
-    <script src="js/vue.js"></script>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¶È¶È : "¶È¶ÈÇÑ ·¹½ÃÇÇ"</title>
-    <style>
-        /* style START */
-        body {
-            background: url("/images/sub_dept3-1_smart_Eating_view") no-repeat;
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:include page="/layout/head.jsp"></jsp:include>
+<jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+
+<style>
+     /* style START */
+     body {
+           /* background: url("/images/sub_dept3-1_smart_Eating_view") no-repeat;*/
         }
 
         .recipe-img {
@@ -178,67 +172,34 @@
                 width: 100%;
             }
         }
-        
-        
-    /* setting * don't touch */
-        @font-face {
-            font-family: 'Pretendard-Regular';
-            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-            font-weight: 400;
-            font-style: normal;
-        }
-        * {margin:0; padding:0; box-sizing:border-box;}
-        html, body {font-family:'Pretendard-Regular'; font-size:15px; line-height:1.5;}
-        a {color:inherit; text-decoration:none;}
-        input {outline:0; border-radius:0; border-width:1px; padding:5px;}
-        select {outline:0; border-radius:0; border-width:1px; padding:4px;}
-        img {width:100%; max-width:100%; display:inline-block;}
-        ol, ul ,li {list-style:none;}
-        
-        #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-        #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:70px;}
-        #footer {margin-top:150px;}
-        #wrapper {max-width:1200px; min-height:calc(100vh - 500px); margin:0 auto;}
-
-
-
         #wrapper{
-            
             width: 1200px;
             height: 1500px;
             border: 1px solid #ccc;
-            background-image: url(./images/smart_market.jpg);
+           /* background-image: url(/images/smart_market.jpg);*/
             
             background-position: center;
-            opacity: 1;
-            
+            opacity: 1;  
         }
-
-
         .smart_market{
             display: flex;
         }
-
         .circle{
-            
             margin: 5px;
             background-color: #ccc;
             width: 100px;
             height: 100px;
             border-radius: 50%;
             box-shadow: 1px 1px 10px 2px gray;            
-            /*±×¸²ÀÚÁÖ±â 1À§Ä¡(ÁÂ¿ì) 2.À§Ä¡(»óÇÏ) 3Èå¸®±â 4Å©±â 5»ö±ò*/
+            /*ê·¸ë¦¼ìì£¼ê¸° 1ìœ„ì¹˜(ì¢Œìš°) 2.ìœ„ì¹˜(ìƒí•˜) 3íë¦¬ê¸° 4í¬ê¸° 5ìƒ‰ê¹”*/
         }
         .box{
-            
             margin: 5px;
-            
             background-color: #beb6b6;
             width: 210px;
             height: 220px;
         }
-        
-        /*Á¤·Ä*/
+        /*ì •ë ¬*/
         #box1{
             margin-top: 50px;
             align-items: flex-start;
@@ -249,7 +210,6 @@
             align-items: flex-start;
             justify-content: space-evenly;
             gap: 10px;
-
         }
 
         #box3{
@@ -257,7 +217,6 @@
             align-items: flex-start;
             justify-content: space-evenly;
             gap: 10px;
-
         }
 
         #box4{
@@ -274,14 +233,12 @@
             width: 210px;
             height: 100px;
         }
-
         .gap1{
             border: 1px;
             width: 100px;
             height: 30px;
             text-align: center;
             font-size: 18px;
-            
         }
         .recommend{
             margin-top: 80px;
@@ -291,8 +248,7 @@
         }
         .product_list{
             display: flex;
-            position: relative;/*»óÀ§ ±âÁØÀ¸·Î »ó´ëÀû À§Ä¡¸¦ °®´Â´Ù.*/
-
+            position: relative;/*ìƒìœ„ ê¸°ì¤€ìœ¼ë¡œ ìƒëŒ€ì  ìœ„ì¹˜ë¥¼ ê°–ëŠ”ë‹¤.*/
         }
         .product_vege{
             margin-top: 50px;
@@ -300,113 +256,99 @@
             font-weight: bold;
             background-color: #777;
             width: 80%;
-            
         }
         .product_vege_cnt{
             width: 10%;
             
             padding-right: 5px;
             background-color: #ccc;
-            position: absolute; /*ºê¶ó¿ìÀú¸¦ ±âÁØÀ¸·Î °íÁ¤*/
+            position: absolute; /*ë¸Œë¼ìš°ì €ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ê³ ì •*/
             right: 2px;
             bottom: 1px;
         }
-        
-        
 		.smart_market1{
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));/*auto-fit, auto-fill*/
-            /*grid-gap: 10px; /*±×¸®µåÀÇ °£°İÀ» ÁØ´Ù*/
-            grid-gap: 1rem; /*±×¸®µåÀÇ °£°İÀ» ÁØ´Ù / 1rem : 16px*/
+            /*grid-gap: 10px; /*ê·¸ë¦¬ë“œì˜ ê°„ê²©ì„ ì¤€ë‹¤*/
+            grid-gap: 1rem; /*ê·¸ë¦¬ë“œì˜ ê°„ê²©ì„ ì¤€ë‹¤ / 1rem : 16px*/
         }
         .star{
             width: 20px;
         }
-        
-        /* style END */
-    </style>    
-</head>
-<body>
-    <header id="header">&lt;header&gt;</header>
-    <div id="subVisual">&lt;subVisual&gt;</div>
-    <!-- wrap START -->
-    <div id="wrapper" >
-		<div id="app">
-	        <div class="smart_market" id="box1">
-	        	<div v-for="(item, index) in codeList"><a href="javascript:;" id="veg"><img :src="item.img" class="circle" @click="fnGetList2(item)"></a></div>
-	        </div>
-	        <div class="smart_market" id="box2">
-	        	<div v-for="(item, index) in codeList" class="gap1"><p><a href="javascript:;" @click="fnGetList2(item)" id="veg1">{{item.name}}</a></p></div>
-	        </div>
-	        <div class="recommend"><P>ÃßÃµ»óÇ°</P></div>
-	        <div class="smart_market" id="box3">
-	            <div v-for="(item2, index) in list2">
-	            	<img :src="item2.imgPath" class="box">
-		            <div class="gap2 box4">
-		                <p>ÇöÀç {{item2.productStock}}°³ ³²¾Ò¾î¿ä!</p>
-		                <p>{{item2.productName}}</p>
-		                <p>{{item2.productPrice | numberFormat()}}¿ø (100{{item2.productVolume}}´ç {{item2.productPrice*100 / item2.productWeight*item2.productEa | numberFormat()}}¿ø)</p>
-		                <p><img class="star" src="images/star.png"> {{(item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)/3 |  numberFormat(1)}} </p>
-		            </div>
-	            </div>            
-	        </div>
-	        
-	
-	        <div class="product_list">
-	            <div class="product_vege" >
-	                <P>»óÇ°¸ñ·Ï : <span id="title_list">{{pkind}}</span></P>	                
-	            </div>
-	            <div class="product_vege_cnt"><P id="pro_cnt">ÃÑ {{cnt}}°³ »óÇ°</P></div>
-	        </div>
-	        
-	        
-	        <div class="smart_market1" id="box3" >
-	            <div v-for="(item, index) in list">
-	            	<a href="javascript:;" @click="fnView(item.productNo)">
-		            	<img :src="item.imgPath" class="box">
-			            <div class="gap2 box4">
-			                <p>ÇöÀç {{item.productStock}}°³ ³²¾Ò¾î¿ä!</p>
-			                <p>{{item.productName}}</p>
-			                <p>{{item.productPrice | numberFormat()}}¿ø (100{{item.productVolume}}´ç {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}¿ø)</p>
-			                <p><img class="star" src="images/star.png"> {{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}} </p>
-			            </div>
-		            </a>
-	            </div>
-	                      
-	        </div>
-		</div>
-    </div>
-    <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-</html>
-<style>
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
-    * {margin:0; padding:0; box-sizing:border-box;}
-    html, body {font-family:'Pretendard-Regular'; font-size:15px; line-height:1.5;}
-    #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-    #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:70px;}
-    #footer {margin-top:150px;}
-    #wrapper_smart {max-width:1200px; min-height:calc(100vh - 500px); margin:0 auto;}
 </style>
 
-<script>
-var app = new Vue({ 
+
+<!-- pageContent -- START -->
+<div id="pageContent">
+	<div class="wrapper">
+		 <!-- wrap START -->
+         <div id="wrapper" >
+            <div id="app">
+                <div class="smart_market" id="box1">
+                    <div v-for="(item, index) in codeList"><a href="javascript:;" id="veg"><img :src="item.img" class="circle" @click="fnGetList2(item)"></a></div>
+                </div>
+                <div class="smart_market" id="box2">
+                    <div v-for="(item, index) in codeList" class="gap1"><p><a href="javascript:;" @click="fnGetList2(item)" id="veg1">{{item.name}}</a></p></div>
+                </div>
+                <div class="recommend"><P>ì¶”ì²œìƒí’ˆ</P></div>
+                <div class="smart_market" id="box3">
+                    <div v-for="(item2, index) in list2">
+                        <img :src="item2.imgPath" class="box">
+                        <div class="gap2 box4">
+                            <p>í˜„ì¬ {{item2.productStock}}ê°œ ë‚¨ì•˜ì–´ìš”!</p>
+                            <p>{{item2.productName}}</p>
+                            <p>{{item2.productPrice | numberFormat()}}ì› (100{{item2.productVolume}}ë‹¹ {{item2.productPrice*100 / item2.productWeight*item2.productEa | numberFormat()}}ì›)</p>
+                            <p><img class="star" src="images/star.png"> {{(item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)/3 |  numberFormat(1)}} </p>
+                        </div>
+                    </div>            
+                </div>
+                
+        
+                <div class="product_list">
+                    <div class="product_vege" >
+                        <P>ìƒí’ˆëª©ë¡ : <span id="title_list">{{pkind}}</span></P>	                
+                    </div>
+                    <div class="product_vege_cnt"><P id="pro_cnt">ì´ {{cnt}}ê°œ ìƒí’ˆ</P></div>
+                </div>
+                
+                
+                <div class="smart_market1" id="box3" >
+                    <div v-for="(item, index) in list">
+                        <a href="javascript:;" @click="fnView(item.productNo)">
+                            <img :src="item.imgPath" class="box">
+                            <div class="gap2 box4">
+                                <p>í˜„ì¬ {{item.productStock}}ê°œ ë‚¨ì•˜ì–´ìš”!</p>
+                                <p>{{item.productName}}</p>
+                                <p>{{item.productPrice | numberFormat()}}ì› (100{{item.productVolume}}ë‹¹ {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}ì›)</p>
+                                <p><img class="star" src="images/star.png"> {{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}} </p>
+                            </div>
+                        </a>
+                    </div>
+                              
+                </div>
+            </div>
+        </div>
+        <!-- wrap END -->
+		
+	
+	</div>
+</div>
+<!-- pageContent -- END -->
+
+<jsp:include page="/layout/tail.jsp"></jsp:include>
+
+
+<script type="text/javascript">
+    var app = new Vue({ 
     el: '#app',
     data: {
 		list : [],
 		list2 : [],
 		codeList : ${map.codeList},
 		cnt : "",
-		pkind : "ÀüÃ¼"
-    },
-	filters: {
+		pkind : "ì „ì²´"
+    }
+	, filters: {
 	    numberFormat: (value, numFix) => {
 	        value = parseFloat(value);
 	        if (!value) return '0';
@@ -418,7 +360,7 @@ var app = new Vue({
     		var self = this;
     		var nparmap = {product_kind : self.product_kind};
     		
-    		//»óÇ°¸®½ºÆ®
+    		//ìƒí’ˆë¦¬ìŠ¤íŠ¸
     		$.ajax({
                 url:"/smartmarket-list.dox",
                 dataType:"json",
@@ -432,26 +374,21 @@ var app = new Vue({
             });
 
     	}
-    
-    
 	    , fnView : function(productNo){
 	    	var self = this;	    	
-	    	self.pageChange("/smart-market-view.do", {productNo : productNo});
+	    	self.pageChange("/market/view.do", {productNo : productNo});
 		}
-    
 	    , fnGetList2 : function(item){
 			var self = this;
 			self.product_kind = item.code;
 			self.pkind = item.name;
 			self.fnGetList();
 		}
-	    
-	    
 	    ,fnGetList3 : function(){
     		var self = this;
     		var nparmap = {product_kind : self.product_kind};
     		
-    		//ÃßÃµ»óÇ°
+    		//ì¶”ì²œìƒí’ˆ
     		$.ajax({
                 url:"/smartmarket-recommend-list.dox",
                 dataType:"json",
@@ -462,9 +399,7 @@ var app = new Vue({
                 	self.list2 = data.list;
                 }
             });
-    		
     	}
-	    
 	    , pageChange : function(url, param) {
     		var target = "_self";
     		if(param == undefined){
@@ -494,7 +429,6 @@ var app = new Vue({
     		form.submit();
     		document.body.removeChild(form);
     	}
-    	
     }   
     , created: function () {
     	var self = this;

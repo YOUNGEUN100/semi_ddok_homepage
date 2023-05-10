@@ -12,6 +12,7 @@ public class Recipe {
 	private String cdatetime;
 	private String udatetime;
 	private String imgPath;
+	private String code;
 	
 
 	
@@ -68,6 +69,12 @@ public class Recipe {
 	}
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 }

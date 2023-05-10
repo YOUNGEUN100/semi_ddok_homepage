@@ -244,17 +244,17 @@
                     <hr>
                     <div class="recipe-simple-info">
                         <div class="box2">
-                            <img class="re-icon" src="images/icon_recipe01.png">
+                            <img class="re-icon" src="/images/icon_recipe01.png">
                             <div>조리도구</div>
                             <div>냄비/후라이팬</div>
                         </div>
                         <div class="box2">
-                            <img class="re-icon" src="images/icon_recipe02.png">
+                            <img class="re-icon" src="/images/icon_recipe02.png">
                             <div>조리시간</div>
                             <div>20분 이내</div>
                         </div>
                         <div class="box2">
-                            <img class="re-icon" src="images/icon_recipe03.png">
+                            <img class="re-icon" src="/images/icon_recipe03.png">
                             <div>난이도</div>
                             <div>쉬움</div>
                         </div>
@@ -271,7 +271,7 @@
         <!-- 레시피 만드는 방법 시작 -->
         <div class="ingredient">
              <div class="ingre-name">
-                <img class="re-icon" src="images/icon_recipe04.png">
+                <img class="re-icon" src="/images/icon_recipe04.png">
                 <span>레시피 재료</span>
             </div>
             <div class="ingre-info">햄버거빵, 표고버섯, 빵가루, 튀김가루, 소금, 후추, 마요네즈, 케챱, 콩기름</div>
@@ -279,7 +279,7 @@
 
         <div class="ingredient">
             <div class="ingre-name">
-                <img class="re-icon" src="images/icon_recipe05.png">
+                <img class="re-icon" src="/images/icon_recipe05.png">
                 <div>만드는 방법</div>
             </div>
                 
