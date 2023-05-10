@@ -1,14 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>∑£º±∏∂ƒœ∏Ò∑œ</title>
-    <script src="https://kit.fontawesome.com/0012da89f1.js" crossorigin="anonymous"></script>
+    <jsp:include page="/layout/head.jsp"></jsp:include>
+    <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+
     <style>
         /* style START */
         /* * {
@@ -24,7 +18,7 @@
 
         table,
         td {
-        	border: 1px dotted black;
+            border: 1px dotted black;
             border-collapse: collapse;
             padding: 16px;
             table-layout: fixed;
@@ -35,15 +29,15 @@
         }
 
         #address {
-            width: 150px;
+            width: 200px;
         }
 
         #title {
-            width: 530px;
+            width: 570px;
         }
 
         #id {
-            width: 150px;
+            width: 100px;
         }
 
         #date {
@@ -96,20 +90,18 @@
         .purchase_list {
             border: none;
             box-sizing: border-box;
-            padding: 40px 60px;
+            padding: 40px 40px;
             width: 1200px;
-            height: 420px;
             margin-top: 20px;
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
         }
 
-        .split_list {
+        .donate_list {
             border: none;
             box-sizing: border-box;
-            padding: 40px 60px;
+            padding: 40px 40px;
             width: 1200px;
-            height: 420px;
             margin-top: 20px;
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
@@ -134,260 +126,134 @@
 
         /* style END */
     </style>
-</head>
 
-<body>
-    <header id="header">&lt;header&gt;</header>
-    <div id="subVisual">&lt;subVisual&gt;</div>
-    <!-- wrap START -->
-    <div id="wrapper">
 
-        <div class="container">
-            <div class="market_category">
-                <button class="category_btn">¡ﬂ∞Ì∆«∏≈</button>
-                <button class="category_btn">¡ﬂ∞Ì≥™¥Æ</button>
-            </div>
+    <!-- pageContent -- START -->
+    <div id="pageContent">
+        <div id="app">
+            <div class="wrapper">
 
-            <div class="box1">
+                <div class="container">
+                    <div class="market_category">
+                        <button class="category_btn">Ï§ëÍ≥†ÌåêÎß§</button>
+                        <button class="category_btn">Ï§ëÍ≥†ÎÇòÎàî</button>
+                    </div>
 
-                <div class="board_title">
-                    <h1>∞≈∑°«“ ∫–¿ª √£∞Ì ¿÷æÓø‰!</h1>
-                    <select>
-                        <option>√÷Ω≈º¯</option>
-                        <option>¡∂»∏ºˆ</option>
-                    </select>
-                </div>
+                    <div class="box1">
 
-                <div class="purchase_list">
-                    <table>
-                        <tr v-for="(item, index) in list">
-                            <td id="sale_flg">{{item.finishYn}}</td>
-                            <td id="address">{{item.addr}}</td>
-                            <td id="title">{{item.title}}</td>
-                            <td id="id">item.userId</td>
-                            <td id="date">{{item.cdatetime}}</td>
-                        </tr>                        
-                    </table>
-                </div>
+                        <div class="board_title">
+                            <h1>Í±∞ÎûòÌï† Î∂ÑÏùÑ Ï∞æÍ≥† ÏûàÏñ¥Ïöî!</h1>
+                            <select>
+                                <option>ÏµúÏã†Ïàú</option>
+                                <option>Ï°∞ÌöåÏàò</option>
+                            </select>
+                        </div>
 
-                <div class="open_detail">
-                    <button>¥ı∫∏±‚</button>
-                </div>
+                        <div class="purchase_list">
+                            <table>
+                                <tr v-for="(item, index) in list">
+                                    <template v-if="item.boardKind=='T_LAN'">
+                                        <td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">
+                                            {{item.finish}}</td>
+                                        <td id="sale_flg" v-else>{{item.finish}}</td>
+                                        <td id="address">{{item.addr}}</td>
+                                        <td id="title">{{item.title}}</td>
+                                        <td id="id">{{item.nick}}</td>
+                                        <td id="date">{{item.cdatetime}}</td>
+                                    </template>
 
-            </div>
+                                </tr>
+                            </table>
+                        </div>
 
-            <div class="box2">
+                        <div class="open_detail">
+                            <button>ÎçîÎ≥¥Í∏∞</button>
+                        </div>
 
-                <div class="board_title">
-                    <h1>≥™¥Æ«“ ∫–¿ª √£∞Ì ¿÷æÓø‰!</h1>
-                    <select>
-                        <option>√÷Ω≈º¯</option>
-                        <option>¡∂»∏ºˆ</option>
-                    </select>
-                </div>
+                    </div>
 
-                <div class="split_list">
-                    <table>
-                        <tr>
-                            <td id="sale_flg">∆«∏≈¡ﬂ</td>
-                            <td id="address">º≠øÔ∆Ø∫∞Ω√ ±∏∑Œ±∏</td>
-                            <td id="title">ddddddddddddddddddddddddddddd¥Ÿ</td>
-                            <td id="id">æ∆¿Ãµ</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">∆«∏≈¡ﬂ</td>
-                            <td id="address">º≠øÔ∆Ø∫∞Ω√ ±∏∑Œ±∏</td>
-                            <td id="title">ddddddddddddddddddd∆À¥œ¥Ÿ</td>
-                            <td id="id">æ∆¿Ãµ</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">∆«∏≈¡ﬂ</td>
-                            <td id="address">º≠øÔ∆Ø∫∞Ω√ ±∏∑Œ±∏</td>
-                            <td id="title">ddddddddddddddddddd∆À¥œ¥Ÿ</td>
-                            <td id="id">æ∆¿Ãµ</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">∆«∏≈¡ﬂ</td>
-                            <td id="address">º≠øÔ∆Ø∫∞Ω√ ±∏∑Œ±∏</td>
-                            <td id="title">ddddddddddddddddddd∆À¥œ¥Ÿ</td>
-                            <td id="id">æ∆¿Ãµ</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">∆«∏≈¡ﬂ</td>
-                            <td id="address">º≠øÔ∆Ø∫∞Ω√ ±∏∑Œ±∏</td>
-                            <td id="title">ddddddddddddddddddd∆À¥œ¥Ÿ</td>
-                            <td id="id">æ∆¿Ãµ</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                        <tr>
-                            <td id="sale_flg">∆«∏≈¡ﬂ</td>
-                            <td id="address">º≠øÔ∆Ø∫∞Ω√ ±∏∑Œ±∏</td>
-                            <td id="title">ddddddddddddddddddd∆À¥œ¥Ÿ</td>
-                            <td id="id">æ∆¿Ãµ</td>
-                            <td id="date">2023-05-01</td>
-                        </tr>
-                    </table>
-                </div>
+                    <div class="box2">
 
-                <div class="open_detail">
-                    <button>¥ı∫∏±‚</button>
+                        <div class="board_title">
+                            <h1>ÎÇòÎàîÌï† Î∂ÑÏùÑ Ï∞æÍ≥† ÏûàÏñ¥Ïöî!</h1>
+                            <select>
+                                <option>ÏµúÏã†Ïàú</option>
+                                <option>Ï°∞ÌöåÏàò</option>
+                            </select>
+                        </div>
+
+                        <div class="donate_list">
+                            <table>
+                                <tr v-for="(item, index) in list">
+                                    <template v-if="item.boardKind=='D_LAN'">
+                                        <td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">
+                                            {{item.finish2}}</td>
+                                        <td id="sale_flg" v-else>{{item.finish2}}</td>
+                                        <td id="address">{{item.addr}}</td>
+                                        <td id="title">{{item.title}}</td>
+                                        <td id="id">{{item.nick}}</td>
+                                        <td id="date">{{item.cdatetime}}</td>
+                                    </template>
+
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="open_detail">
+                            <button>ÎçîÎ≥¥Í∏∞</button>
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
-
-
-
-
 
         </div>
 
     </div>
+    <!-- pageContent -- END -->
 
-    </div>
-    <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-
-</html>
-<script>
-
-</script>
+    <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 
-<style>
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                list: []
+                , finish: ""
+                , finish2: ""
+            }
+            , methods: {
+                fnGetList: function () {
+                    var self = this;
+                    var nparmap = {};
+                    $.ajax({
+                        url: "/lanmarket/list.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            self.list = data.list;
+                            for (var i = 0; i < self.list.length; i++) {
+                                if (self.list[i].finishYn == 'N') {
+                                    self.list[i].finish = 'ÌåêÎß§Ï§ë';
+                                    self.list[i].finish2 = 'ÎÇòÎàîÏ§ë';
+                                } else if (self.list[i].finishYn == 'Y') {
+                                    self.list[i].finish = 'ÌåêÎß§ÏôÑÎ£å';
+                                    self.list[i].finish2 = 'ÎÇòÎàîÏôÑÎ£å';
+                                }
+                            }
+                            console.log(data.list);
+                        }
+                    });
+                }
 
-    @font-face {
-        font-family: 'Pretendard-Medium';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
-        font-weight: 500;
-        font-style: normal;
-    }
 
-    @font-face {
-        font-family: 'Pretendard-SemiBold';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-        font-weight: 700;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Pretendard-Bold';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
-        font-weight: 800;
-        font-style: normal;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html,
-    body {
-        font-family: 'Pretendard-Regular';
-        font-size: 16px;
-        line-height: 1.5;
-    }
-
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    input {
-        outline: 0;
-        border-radius: 0;
-        border-width: 1px;
-        padding: 5px;
-    }
-
-    select {
-        outline: 0;
-        border-radius: 0;
-        border-width: 1px;
-        padding: 4px;
-    }
-
-    img {
-        width: 100%;
-        max-width: 100%;
-        display: inline-block;
-    }
-
-    ol,
-    ul,
-    li {
-        list-style: none;
-    }
-
-    b,
-    strong {
-        font-family: 'Pretendard-Bold';
-    }
-
-    :root {
-        --main-colorGreen: #bdee71;
-        --main-colorOrange: #fe6458;
-        --base-colorDeepGray: #ccc;
-        --base-colorLightGray: #f7f7f7;
-    }
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background-color: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: var(--base-colorDeepGray);
-        border: 2px solid #fff;
-        border-radius: 5px;
-    }
-
-    ::-webkit-scrollbar-button {
-        width: 0;
-        height: 0;
-    }
-
-    #header,
-    #footer,
-    #subVisual {
-        width: 100%;
-        height: 100px;
-        background: #eee;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #subVisual {
-        height: 300px;
-        border-top: 1px dotted #777;
-        margin-bottom: 60px;
-    }
-
-    #footer {
-        margin-top: 150px;
-    }
-
-    #wrapper {
-        max-width: 1240px;
-        min-height: calc(100vh - 710px);
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-</style>
+            }
+            , created: function () {
+                this.fnGetList();
+            }
+        });
+    </script>

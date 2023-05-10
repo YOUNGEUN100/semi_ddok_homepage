@@ -1,19 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>∑£º±∆›µ˘∏Ò∑œ</title>
-    <script src="https://kit.fontawesome.com/0012da89f1.js" crossorigin="anonymous"></script>
+    <jsp:include page="/layout/head.jsp"></jsp:include>
+    <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+
     <style>
         /* style START */
         /* * {
-            border: 1px dotted rgb(223, 60, 141);
-        } */
+        border: 1px dotted rgb(223, 60, 141);
+    } */
 
         .container {
             width: 1200px;
@@ -21,6 +15,11 @@
             position: relative;
             margin: auto;
 
+        }
+
+        .add_box {
+            position: absolute;
+            top: 330px;
         }
 
         .add_box button {
@@ -32,6 +31,7 @@
             color: white;
             font-size: 20px;
             font-weight: bold;
+
         }
 
         .box1 {
@@ -45,7 +45,7 @@
         }
 
         select {
-            width: 80px;            
+            width: 120px;
             float: right;
             background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99761B495C84AA8716') no-repeat 95% 50%;
             padding: .8em .5em;
@@ -107,6 +107,13 @@
             float: left;
         }
 
+        .fund_img img {
+            border: 1px solid #e7e6e6;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+        }
+
         .fund_content {
             margin-top: 40px;
             margin-left: 50px;
@@ -163,183 +170,244 @@
 
         /* style END */
     </style>
-</head>
 
-<body>
-    <header id="header">&lt;header&gt;</header>
-    <div id="subVisual">&lt;subVisual&gt;</div>
-    <!-- wrap START -->
-    <div id="wrapper">
 
-        <div class="container">
-
-            <div class="add_box">
-                <button class="add_btn">µÓ∑œ</button>
-            </div>
-
-            <div class="fund_category">
-
-                <button class="category_btn">¡¯«‡¡ﬂ</button>
-                <button class="category_btn">ø¿«¬øπ¡§</button>
-
-            </div>
-
-            <div class="box1">
-
-                <div class="fund_title">
-
-                    <h1>«ˆ¿Á ¡¯«‡¡ﬂ¿Œ ∑£º±∆›µ˘</h1>
-
-                    <select>
-                        <option>√÷Ω≈º¯</option>
-                        <option>∞°∞›º¯</option>
-                    </select>
-
+    <!-- pageContent -- START -->
+    <div id="pageContent">
+        <div id="app">
+            <div class="wrapper">
+                <div class="add_box">
+                    <button class="add_btn">Îì±Î°ù</button>
                 </div>
+                <div class="container">
 
-                <div class="open_list_box">
+                    <div class="fund_category">
 
-                    <ul>
-                        <li>
-                            <div class="open_list">
-                                <div class="fund_img"></div>
-                                <div class="fund_content">
-                                    <h1 class="fund_name">≈©∏Æ≥ÿΩ∫ 3∞„ µ•ƒ⁄ æÿ º“«¡∆Æ ºˆµ˘«√∑ØΩ∫ »≠¿Â¡ˆ 27m ∆—, 24∑—</h1>
-                                    <p class="fund_summary">ƒ⁄∆∞∞˙ æÀ∑Œø°∫£∂Û ∑Œº«¿∏∑Œ ««∫Œø° ¥ı ∆Ìæ»«œ∞Ì ∫ŒµÂ∑ØøÓ ∏∂π´∏Æ¿« µµ≈Ë«— 3∞„ ¡¶«∞</p>
-                                    <span class="fund_cnt">100∏Ì ¡ﬂ 67∏Ì</span>
-                                    <span class="fund_cnt" style="float: right;">10¿œ ≥≤¿Ω</span>
-                                    <p></p>
-                                    <progress value="67" max="100" class="fund_progress"></progress>
-                                    <div class="price_box">
-                                        <span>∞¯±∏∞°</span>
-                                        <span class="fund_price">19,900ø¯</span>
+                        <button class="category_btn">ÏßÑÌñâÏ§ë</button>
+                        <button class="category_btn">Ïò§ÌîàÏòàÏ†ï</button>
+
+                    </div>
+
+                    <div class="box1">
+
+                        <div class="fund_title">
+
+                            <h1>ÌòÑÏû¨ ÏßÑÌñâÏ§ëÏù∏ ÎûúÏÑ†ÌéÄÎî©</h1>
+
+                            <select v-model="orderValue" @change="fnChangeOrder">
+                                <option value="endDate">Ï¢ÖÎ£åÏùºÏàú</option>
+                                <option value="rowPrice">ÎÇÆÏùÄÍ∞ÄÍ≤©Ïàú</option>
+                                <option value="highPrice">ÎÜíÏùÄÍ∞ÄÍ≤©Ïàú</option>
+                            </select>
+
+                        </div>
+
+                        <div class="open_list_box">
+
+                            <ul>
+                                <li>
+                                    <div class="open_list" v-for="(item, index) in list">
+                                        <div class="fund_img"><img :src="item.imgPath"></div>
+                                        <div class="fund_content">
+                                            <h1 class="fund_name" @click="fnViewFunding(item.fundingNo)"><a href="javascript:;">{{item.fundingName}}</a></h1>
+                                            <p class="fund_summary">{{item.fundingSummary}}</p>
+                                            <span class="fund_cnt">{{item.fundingGoalCnt}}Î™Ö Ï§ë {{item.cnt}}Î™Ö</span>
+                                            <span class="fund_cnt" style="float: right;">{{item.dDay}}Ïùº ÎÇ®Ïùå</span>
+                                            <p></p>
+                                            <progress value="50" max="100" class="fund_progress"></progress>
+                                            <div class="price_box">
+                                                <span>Í≥µÍµ¨Í∞Ä</span>
+                                                <span class="fund_price">{{item.fundingPrice}}Ïõê</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </li>
+                                </li>
 
-                        <li>
-                            <div class="open_list">
-                                <div class="fund_img"></div>
-                            </div>
-                        </li>
+                                <li class="open_detail">
+                                    <button v-if="moreBtn == 'off'" @click="fnShowMore">ÎçîÎ≥¥Í∏∞</button>
+                                    <button v-if="moreBtn == 'on'" @click="fnHideMore">Ï†ëÍ∏∞</button>
+                                </li>
 
-                        <li class="open_detail">
-                            <button>¥ı∫∏±‚</button>
-                        </li>
+                            </ul>
 
-                    </ul>
+                        </div>
 
-                </div>
+                    </div>
 
-            </div>
+                    <div class="box2">
 
-            <div class="box2">
+                        <div class="fund_title">
+                            <h1>Ïò§Ìîà ÏòàÏ†ï ÌéÄÎî©</h1>
 
-                <div class="fund_title">
-                    <h1>ø¿«¬ øπ¡§ ∆›µ˘</h1>
-                    <select>
-                        <option>√÷Ω≈º¯</option>
-                        <option>∞°∞›º¯</option>
-                    </select>
-                </div>
+                            <select v-model="orderValue2" @change="fnChangeOrder2">
+                                <option value="startDate">ÏãúÏûëÏùºÏàú</option>
+                                <option value="rowPrice">ÎÇÆÏùÄÍ∞ÄÍ≤©Ïàú</option>
+                                <option value="highPrice">ÎÜíÏùÄÍ∞ÄÍ≤©Ïàú</option>
+                            </select>
 
-                <div class="planned_list_box">
-                    <ul>
-                        <li>
-                            <div class="planned_list">
-                                <div class="fund_img"></div>
-                                <div class="fund_content">
-                                    <h1 class="fund_name">≈©∏Æ≥ÿΩ∫ 3∞„ µ•ƒ⁄ æÿ º“«¡∆Æ ºˆµ˘«√∑ØΩ∫ »≠¿Â¡ˆ 27m ∆—, 24∑—</h1>
-                                    <p class="fund_summary">ƒ⁄∆∞∞˙ æÀ∑Œø°∫£∂Û ∑Œº«¿∏∑Œ ««∫Œø° ¥ı ∆Ìæ»«œ∞Ì ∫ŒµÂ∑ØøÓ ∏∂π´∏Æ¿« µµ≈Ë«— 3∞„ ¡¶«∞</p>
-                                    <span class="fund_cnt">√÷º“ 200∏Ì</span>
-                                    <span class="fund_cnt" style="float: right;">5/3(ºˆ) 11Ω√ ø¿«¬øπ¡§</span>
-                                    <p></p>
-                                    <progress value="50" max="200" class="fund_progress"></progress>
-                                    <div class="price_box">
-                                        <span>∆›µ˘øπ¡§∞°</span>
-                                        <span class="fund_price">9,900ø¯</span>
+                        </div>
+
+                        <div class="planned_list_box">
+                            <ul>
+                                <li>
+                                    <div class="planned_list" v-for="(item, index) in list2">
+                                        <div class="fund_img"><img :src="item.imgPath"></div>
+                                        <div class="fund_content">
+                                            <h1 class="fund_name">{{item.fundingName}}</h1>
+                                            <p class="fund_summary">{{item.fundingSummary}}</p>
+                                            <span class="fund_cnt">ÏµúÏÜå {{item.fundingGoalCnt}}Î™Ö</span>
+                                            <span class="fund_cnt" style="float: right;">{{item.sDay}}{{item.dow}}
+                                                {{item.sTime}}Ïãú Ïò§ÌîàÏòàÏ†ï</span>
+                                            <p></p>
+                                            <progress value="50" max="200" class="fund_progress"></progress>
+                                            <div class="price_box">
+                                                <span>ÌéÄÎî©ÏòàÏ†ïÍ∞Ä</span>
+                                                <span class="fund_price">{{item.fundingPrice}}Ïõê</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="planned_list"></div>
-                        </li>
-                        <li class="open_detail">
-                            <button>¥ı∫∏±‚</button>
-                        </li>
-                    </ul>
+                                </li>
+
+                                <li class="open_detail">
+                                    <button v-if="moreBtn2 == 'off'" @click="fnShowMore2">ÎçîÎ≥¥Í∏∞</button>
+                                    <button v-if="moreBtn2 == 'on'" @click="fnHideMore2">Ï†ëÍ∏∞</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+
+
                 </div>
+
             </div>
-
-
-
-
-
         </div>
-
     </div>
+    <!-- pageContent -- END -->
 
-    </div>
-    <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-
-</html>
-<script>
-
-</script>
+    <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 
-<style>
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
-    @font-face {
-        font-family:'Pretendard-Medium';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
-        font-weight:500;
-        font-style:normal;
-    }
-    @font-face {
-        font-family:'Pretendard-SemiBold';
-        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-        font-weight:700;
-        font-style:normal;
-    }
-    @font-face {
-        font-family:'Pretendard-Bold';
-        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
-        font-weight:800;
-        font-style:normal;
-    }
-    * {margin:0; padding:0; box-sizing:border-box;}
-    html, body {font-family:'Pretendard-Regular'; font-size:16px; line-height:1.5;}
-    a {color:inherit; text-decoration:none;}
-    input {outline:0; border-radius:0; border-width:1px; padding:5px;}
-    select {outline:0; border-radius:0; border-width:1px; padding:4px;}
-    img {width:100%; max-width:100%; display:inline-block;}
-    ol, ul ,li {list-style:none;}
-    
-    b, strong {font-family:'Pretendard-Bold';}
-    :root {
-        --main-colorGreen: #bdee71;
-        --main-colorOrange: #fe6458;
-        --base-colorDeepGray: #ccc;
-        --base-colorLightGray: #f7f7f7;
-    }
-    ::-webkit-scrollbar {width:10px;}
-    ::-webkit-scrollbar-track {background-color:transparent;}
-    ::-webkit-scrollbar-thumb {background-color:var(--base-colorDeepGray); border:2px solid #fff; border-radius:5px;}
-    ::-webkit-scrollbar-button {width:0; height:0;}
-    
-    #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-    #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:60px;}
-    #footer {margin-top:150px;}
-    #wrapper {max-width:1240px; min-height:calc(100vh - 710px); margin:0 auto; padding:0 20px;}
-</style>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                list: [],
+                list2: [],
+                moreBtn: "off",
+                moreBtn2: "off",
+                orderValue: "",
+                orderValue2: ""
+            }
+            , methods: {
+                fnGetFundingList: function () {
+                    var self = this;
+                    var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue };
+                    $.ajax({
+                        url: "/funding/list.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            self.list = data.list;
+                            console.log(data.list);
+                        }
+                    });
+                }
+
+                , fnGetFundingList2: function () {
+                    var self = this;
+                    var nparmap = { moreBtn2: self.moreBtn2, orderValue2: self.orderValue2 };
+                    $.ajax({
+                        url: "/funding/list2.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            self.list2 = data.list;
+                            console.log(data.list);
+                        }
+                    });
+                }
+
+                , fnShowMore: function () {
+                    var self = this;
+                    self.moreBtn = "on"
+                    self.fnGetFundingList();
+                }
+
+                , fnHideMore: function () {
+                    var self = this;
+                    self.moreBtn = "off"
+                    self.fnGetFundingList();
+                }
+
+                , fnShowMore2: function () {
+                    var self = this;
+                    self.moreBtn2 = "on"
+                    self.fnGetFundingList2();
+                }
+
+                , fnHideMore2: function () {
+                    var self = this;
+                    self.moreBtn2 = "off"
+                    self.fnGetFundingList2();
+                }
+
+                , fnChangeOrder: function () {
+                    var self = this;
+                    console.log(self.orderValue);
+                    self.fnGetFundingList();
+                }
+
+                , fnChangeOrder2: function () {
+                    var self = this;
+                    console.log(self.orderValue2);
+                    self.fnGetFundingList2();
+                }
+                
+                , pageChange : function(url, param) {
+            		var target = "_self";
+            		if(param == undefined){
+            		//	this.linkCall(url);
+            			return;
+            		}
+            		var form = document.createElement("form"); 
+            		form.name = "dataform";
+            		form.action = url;
+            		form.method = "post";
+            		form.target = target;
+            		for(var name in param){
+        				var item = name;
+        				var val = "";
+        				if(param[name] instanceof Object){
+        					val = JSON.stringify(param[name]);
+        				} else {
+        					val = param[name];
+        				}
+        				var input = document.createElement("input");
+        	    		input.type = "hidden";
+        	    		input.name = item;
+        	    		input.value = val;
+        	    		form.insertBefore(input, null);
+        			}
+            		document.body.appendChild(form);
+            		form.submit();
+            		document.body.removeChild(form);
+            	}
+                
+                , fnViewFunding: function(fundingNo) {
+                	var self = this;
+                	self.pageChange("./funding-open.do", {fundingNo : fundingNo});
+                }
+
+            }
+            , created: function () {
+                var self = this;
+                self.fnGetFundingList();
+                self.fnGetFundingList2();
+            }
+        });
+    </script>

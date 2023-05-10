@@ -1,21 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<head>
-    <meta charset="UTF-8">
-    <script src="js/jquery.js"></script>
-	<script src="js/vue.js"></script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿ÀÇÂ¿¹Á¤·£¼±Æİµù</title>
-    <script src="https://kit.fontawesome.com/0012da89f1.js" crossorigin="anonymous"></script>
+    <jsp:include page="/layout/head.jsp"></jsp:include>
+    <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+
     <style>
         /* style START */
         /* * {
-            border: 1px dotted rgb(223, 60, 141);
-        } */
+        border: 1px dotted rgb(223, 60, 141);
+    } */
 
         .container {
             width: 1200px;
@@ -112,7 +104,7 @@
             background-color: white;
             border: none;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
-            color : #fe7167;
+            color: #fe7167;
         }
 
         .show_button {
@@ -135,127 +127,63 @@
 
         /* style END */
     </style>
-</head>
 
-<body>
-    <header id="header">&lt;header&gt;</header>
-    <div id="subVisual">&lt;subVisual&gt;</div>
-    <!-- wrap START -->
-    <div id="wrapper">
 
-        <div class="container">
+    <!-- pageContent -- START -->
+    <div id="pageContent">
+        <div id="app">
+            <div class="wrapper">
 
-            <div class="box1">
-                <div class="fund_img1">product Image</div>
+                <div class="container">
 
-                <div class="fund_content">
-                    <h1 class="fund_name">Å©¸®³Ø½º 3°ã µ¥ÄÚ ¾Ø ¼ÒÇÁÆ® ¼öµùÇÃ·¯½º È­ÀåÁö 27m ÆÑ, 24·Ñ</h1>
-                    <p class="fund_summary">ÄÚÆ°°ú ¾Ë·Î¿¡º£¶ó ·Î¼ÇÀ¸·Î ÇÇºÎ¿¡ ´õ Æí¾ÈÇÏ°í ºÎµå·¯¿î ¸¶¹«¸®ÀÇ µµÅèÇÑ 3°ã Á¦Ç°</p>
-                    <span class="fund_cnt">ÃÖ¼Ò 200¸í</span>
-                    <span class="fund_cnt" style="float: right;">5/3(¼ö) 11½Ã ¿ÀÇÂ¿¹Á¤</span>
-                    <p></p>
-                    <progress value="50" max="200" class="fund_progress"></progress>
-                    <div class="price_box">
-                        <span>Æİµù¿¹Á¤°¡</span>
-                        <span class="fund_price">9,900¿ø</span>
+                    <div class="box1">
+                        <div class="fund_img1">product Image</div>
+
+                        <div class="fund_content">
+                            <h1 class="fund_name">í¬ë¦¬ë„¥ìŠ¤ 3ê²¹ ë°ì½” ì•¤ ì†Œí”„íŠ¸ ìˆ˜ë”©í”ŒëŸ¬ìŠ¤ í™”ì¥ì§€ 27m íŒ©, 24ë¡¤</h1>
+                            <p class="fund_summary">ì½”íŠ¼ê³¼ ì•Œë¡œì—ë² ë¼ ë¡œì…˜ìœ¼ë¡œ í”¼ë¶€ì— ë” í¸ì•ˆí•˜ê³  ë¶€ë“œëŸ¬ìš´ ë§ˆë¬´ë¦¬ì˜ ë„í†°í•œ 3ê²¹ ì œí’ˆ</p>
+                            <span class="fund_cnt">ìµœì†Œ 200ëª…</span>
+                            <span class="fund_cnt" style="float: right;">5/3(ìˆ˜) 11ì‹œ ì˜¤í”ˆì˜ˆì •</span>
+                            <p></p>
+                            <progress value="50" max="200" class="fund_progress"></progress>
+                            <div class="price_box">
+                                <span>í€ë”©ì˜ˆì •ê°€</span>
+                                <span class="fund_price">9,900ì›</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button class="apply_button"><i class="fa-regular fa-clock"></i> ì˜¤í”ˆê¹Œì§€ 2ì¼ 9ì‹œê°„ 30ë¶„ 21ì´ˆ
+                                ë‚¨ìŒ</button>
+                            <button class="share_button"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
+                        </div>
                     </div>
+
+                    <div class="box2" id="detail_box">
+                        <img
+                            src="http://thumbnail7.coupangcdn.com/thumbnails/remote/q89/image/retail/images/5192348201152163-c0481b59-ca5b-41df-a8b1-2f803e7e30cf.jpg">
+                    </div>
+
+                    <div id="button_box1">
+                        <button onclick="show()" class="show_button">í¼ì³ë³´ê¸°</button>
+                    </div>
+
+                    <div id="button_box2">
+                        <button onclick="fold()" class="show_button">ì ‘ê¸°</button>
+                    </div>
+
+
+
                 </div>
-
-                <div>
-                    <button class="apply_button"><i class="fa-regular fa-clock"></i> ¿ÀÇÂ±îÁö 2ÀÏ 9½Ã°£ 30ºĞ 21ÃÊ ³²À½</button>
-                    <button class="share_button"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
-                </div>
             </div>
-
-            <div class="box2" id="detail_box">
-                <img src="http://thumbnail7.coupangcdn.com/thumbnails/remote/q89/image/retail/images/5192348201152163-c0481b59-ca5b-41df-a8b1-2f803e7e30cf.jpg">
-            </div>
-
-            <div id="button_box1">
-                <button onclick="show()" class="show_button">ÆîÃÄº¸±â</button>
-            </div>
-
-            <div id="button_box2">
-                <button onclick="fold()" class="show_button">Á¢±â</button>
-            </div>
-
-
-
         </div>
 
     </div>
+    <!-- pageContent -- END -->
 
-    </div>
-    <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-
-</html>
-<script>
-
-    function show() {
-        document.getElementById('detail_box').style.overflow = 'visible';
-        document.getElementById('button_box1').style.display = 'none';
-        document.getElementById('button_box2').style.display = 'block';
-    }
-
-    function fold() {
-        document.getElementById('detail_box').style.overflow = 'hidden';
-        document.getElementById('button_box1').style.display = 'block';
-        document.getElementById('button_box2').style.display = 'none';
-    }
-
-</script>
+    <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 
-<style>
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
-    @font-face {
-        font-family:'Pretendard-Medium';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
-        font-weight:500;
-        font-style:normal;
-    }
-    @font-face {
-        font-family:'Pretendard-SemiBold';
-        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-        font-weight:700;
-        font-style:normal;
-    }
-    @font-face {
-        font-family:'Pretendard-Bold';
-        src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
-        font-weight:800;
-        font-style:normal;
-    }
-    * {margin:0; padding:0; box-sizing:border-box;}
-    html, body {font-family:'Pretendard-Regular'; font-size:16px; line-height:1.5;}
-    a {color:inherit; text-decoration:none;}
-    input {outline:0; border-radius:0; border-width:1px; padding:5px;}
-    select {outline:0; border-radius:0; border-width:1px; padding:4px;}
-    img {width:100%; max-width:100%; display:inline-block;}
-    ol, ul ,li {list-style:none;}
-    
-    b, strong {font-family:'Pretendard-Bold';}
-    :root {
-        --main-colorGreen: #bdee71;
-        --main-colorOrange: #fe6458;
-        --base-colorDeepGray: #ccc;
-        --base-colorLightGray: #f7f7f7;
-    }
-    ::-webkit-scrollbar {width:10px;}
-    ::-webkit-scrollbar-track {background-color:transparent;}
-    ::-webkit-scrollbar-thumb {background-color:var(--base-colorDeepGray); border:2px solid #fff; border-radius:5px;}
-    ::-webkit-scrollbar-button {width:0; height:0;}
-    
-    #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-    #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:60px;}
-    #footer {margin-top:150px;}
-    #wrapper {max-width:1240px; min-height:calc(100vh - 710px); margin:0 auto; padding:0 20px;}
-</style>
+    <script type="text/javascript">
+	// ì—¬ê¸°ì— [script] ì…ë ¥í•˜ì„¸ìš”
+    </script>

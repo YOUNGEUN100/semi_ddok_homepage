@@ -303,7 +303,6 @@
             
         }
         .product_vege_cnt{
-            border: 2px solid green;
             width: 10%;
             
             padding-right: 5px;
@@ -319,7 +318,10 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));/*auto-fit, auto-fill*/
             /*grid-gap: 10px; /*그리드의 간격을 준다*/
             grid-gap: 1rem; /*그리드의 간격을 준다 / 1rem : 16px*/
-        }        
+        }
+        .star{
+            width: 20px;
+        }
         
         /* style END */
     </style>    
@@ -335,15 +337,15 @@
 	
 	
 	        <div class="smart_market" id="box1">
-	            <div ><a href="javascript:;" id="veg"><img src="images/food1.jpg" class="circle"></a></div>
-	            <div ><a href="javascript:;" id="fur"><img src="images/food2.jpg" class="circle"></a></div>
-	            <div ><a href="javascript:;" id="mea"><img src="images/food3.jpg" class="circle"></a></div>
-	            <div ><a href="javascript:;" id="sea"><img src="images/food4.jpg" class="circle"></a></div>
-	            <div ><a href="javascript:;" id="dai"><img src="images/food5.jpg" class="circle"></a></div>
-	            <div ><a href="javascript:;" id="wat"><img src="images/food6.jpg" class="circle"></a></div>
-	            <div ><a href="javascript:;" id="sau"><img src="images/food7.jpg" class="circle"></a></div>
-	            <div ><a href="javascript:;" id="pro"><img src="images/food8.jpg" class="circle"></a></div>
-	            <div ><a href="javascript:;" id="sim"><img src="images/food9.jpg" class="circle"></a></div>
+	            <div ><a href="javascript:;" id="veg"><img src="images/food1.jpg" class="circle" @click="fnGetList"></a></div>
+	            <div ><a href="javascript:;" id="fur"><img src="images/food2.jpg" class="circle" @click="fnGetList"></a></div>
+	            <div ><a href="javascript:;" id="mea"><img src="images/food3.jpg" class="circle" @click="fnGetList"></a></div>
+	            <div ><a href="javascript:;" id="sea"><img src="images/food4.jpg" class="circle" @click="fnGetList"></a></div>
+	            <div ><a href="javascript:;" id="dai"><img src="images/food5.jpg" class="circle" @click="fnGetList"></a></div>
+	            <div ><a href="javascript:;" id="wat"><img src="images/food6.jpg" class="circle" @click="fnGetList"></a></div>
+	            <div ><a href="javascript:;" id="sau"><img src="images/food7.jpg" class="circle" @click="fnGetList"></a></div>
+	            <div ><a href="javascript:;" id="pro"><img src="images/food8.jpg" class="circle" @click="fnGetList"></a></div>
+	            <div ><a href="javascript:;" id="sim"><img src="images/food9.jpg" class="circle" @click="fnGetList"></a></div>
 	        </div>
 	        <div class="smart_market" id="box2">
 	            <div class="gap1"><p><a href="javascript:;" id="veg1">채소</a></p></div>
@@ -398,27 +400,26 @@
 	        </div>
 	
 	        <div class="product_list">
-	            <div class="product_vege">
+	            <div class="product_vege" >
 	                <P>상품목록 : <span id="title_list">과일</span></P>
+	                <input v-model="product_kind" name="product_kind">
 	            </div>
-	            <div class="product_vege_cnt"><P id="pro_cnt">총 10개 상품</P></div>
+	            <div class="product_vege_cnt"><P id="pro_cnt">총 {{cnt}}개 상품</P></div>
 	        </div>
 	        
 	        
 	        <div class="smart_market1" id="box3" >
 	            <div v-for="(item, index) in list">
-	            	<img src="images/food1.jpg" class="box">
+	            	<img :src="item.imgPath" class="box">
 		            <div class="gap2 box4">
 		                <p>현재 {{item.productStock}}개 남았어요!</p>
 		                <p>{{item.productName}}</p>
 		                <p>{{item.productPrice | numberFormat()}}원 (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</p>
-		                <p>별 4.5</p>
+		                <p><img class="star" src="images/star.png"> {{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}} </p>
 		            </div>
 	            </div>
 	                      
 	        </div>
-	        
-	        
 	        
 
 		</div>
@@ -449,7 +450,7 @@
 <script>
 $(function(){
  
-    $("#ver").click({param1: "ver"}, cool_function);
+    $("#veg").click({param1: "veg"}, cool_function);
     $("#fur").click({param1: "fur"}, cool_function);
     $("#mea").click({param1: "mea"}, cool_function);
     $("#sea").click({param1: "sea"}, cool_function);
@@ -459,7 +460,7 @@ $(function(){
     $("#pro").click({param1: "pro"}, cool_function);
     $("#sim").click({param1: "sim"}, cool_function);
     
-    $("#ver1").click({param1: "ver"}, cool_function);
+    $("#veg1").click({param1: "veg"}, cool_function);
     $("#fur1").click({param1: "fur"}, cool_function);
     $("#mea1").click({param1: "mea"}, cool_function);
     $("#sea1").click({param1: "sea"}, cool_function);
@@ -474,38 +475,56 @@ $(function(){
 	    if(event.data.param1=='veg'){
 	    	let str = document.getElementById("title_list")
 	    	str.innerHTML = "채소"
+	    	let str2 = document.getElementsByName("product_kind")
+	    	str2.write("VEG")
 	 	}
 	    else if(event.data.param1=='fur'){
 	    	let str = document.getElementById("title_list")
 	    	str.innerHTML = "과일"
+    		let str2 = document.getElementsByName("product_kind")	    	
+	    	str2.innerHTML="FUR"
 	 	}	    
 	    else if(event.data.param1=='mea'){
 	    	let str = document.getElementById("title_list")
 	    	str.innerHTML = "정육"
+    		let str2 = document.getElementsByName("product_kind")	    	
+	    	str2.innerHTML="MEA"
 	 	}
 	    else if(event.data.param1=='sea'){
 	    	let str = document.getElementById("title_list")
 	    	str.innerHTML = "수산물"
+	    		let str2 = document.getElementsByName("product_kind")	    	
+		    	str2.values="FUR"	    	
 	 	}
 	    else if(event.data.param1=='dai'){
 	    	let str = document.getElementById("title_list")
 	    	str.innerHTML = "유제품"
+	    		let str2 = document.getElementsByName("product_kind")	    	
+		    	str2.values="FUR"
 	 	}
 	    else if(event.data.param1=='wat'){
 	    	let str = document.getElementById("title_list")
 	    	str.innerHTML = "생수/음료"
+	    		let str2 = document.getElementsByName("product_kind")	    	
+		    	str2.values="FUR"
 	 	}
 	    else if(event.data.param1=='sau'){
 	    	let str = document.getElementById("title_list")
 	    	str.innerHTML = "소스"
+	    		let str2 = document.getElementsByName("product_kind")	    	
+		    	str2.values="FUR"
 	 	}
 	    else if(event.data.param1=='pro'){
 	    	let str = document.getElementById("title_list")
 	    	str.innerHTML = "가공식품"
+	    		let str2 = document.getElementsByName("product_kind")	    	
+		    	str2.values="FUR"
 	 	}
 	    else if(event.data.param1=='sim'){
 	    	let str = document.getElementById("title_list")
 	    	str.innerHTML = "간편식품"
+	    		let str2 = document.getElementsByName("product_kind")	    	
+		    	str2.values="FUR"
 	 	}
 	 }
 
@@ -517,7 +536,8 @@ var app = new Vue({
     el: '#app',
     data: {
 		list : [],
-		product_kind : "VEG"    	
+		product_kind : "${map.product_kind}",
+		cnt : ""
     },
 	filters: {
 	    numberFormat: (value, numFix) => {
@@ -529,8 +549,10 @@ var app = new Vue({
     , methods: {
     	fnGetList : function(){
     		var self = this;
-    		var nparmap = {product_kind : self.product_kind};
+    		var nparmap = {product_kind : self.product_kind};    		
 
+    		
+    		
     		$.ajax({
                 url:"/smartmarket-list.dox",
                 dataType:"json",
@@ -539,12 +561,50 @@ var app = new Vue({
                 success : function(data) {
                 	
                 	console.log(data.list);
+                	self.cnt = data.list.length;
                 	self.list = data.list;
                 	
                 }
-            });    		
+            });        		
     		
     	}
+    
+	    , pageChange : function(url, param) {
+			var target = "_self";
+			if(param == undefined){
+			//	this.linkCall(url);
+				return;
+			}
+			
+			console.log(param);
+			
+			var form = document.createElement("form"); 
+			form.name = "dataform";
+			form.action = url;
+			form.method = "post";
+			form.target = target;
+			for(var name in param){
+				var item = name;
+				var val = "";
+				if(param[name] instanceof Object){
+					val = JSON.stringify(param[name]);
+				} else {
+					val = param[name];
+				}
+				var input = document.createElement("input");
+	    		input.type = "hidden";
+	    		input.name = item;
+	    		input.value = val;
+	    		form.insertBefore(input, null);
+			}
+			document.body.appendChild(form);
+			form.submit();
+			document.body.removeChild(form);
+			
+		}
+	    
+	  	
+    	
     	
     }   
     , created: function () {

@@ -13,6 +13,8 @@ import com.example.mini.dao.SmartMarketService;
 import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class SmartMarketController {
@@ -22,8 +24,9 @@ public class SmartMarketController {
 	
 	@RequestMapping(value = "/smartmarket-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String searchSmartMarketList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+	public String searchSmartMarketList(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		request.setAttribute("map", map);
 		resultMap = smartmarketService.searchSmartMarketList(map);
 		
 		return new Gson().toJson(resultMap);

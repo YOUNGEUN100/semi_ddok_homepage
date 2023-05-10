@@ -1,27 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/3182501c90.js" crossorigin="anonymous"></script>
-    <title>¶È¶ÈÇÑ ·¹½ÃÇÇ</title>
-    <style>
-        /* style START */
-     	 body {
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:include page="/layout/head.jsp"></jsp:include>
+<jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+
+<style>
+	  /* style START */
+        body {
             /* background: url("/images/work_img.jpg") no-repeat; */
         }
         #wrapper {
             text-align: center;
         }
-        .category-img {
+        .category-circle {
             width:100px;
             height: 100px;
             border-radius: 50%;
             background: rgba(232, 227, 227, 0.959);
             /* margin-bottom: 20px; */
+        }
+        .category-circle:hover {
+            background: #bdee71;
         }
         .r-category {
             display: flex;
@@ -31,13 +29,25 @@
         .box1 {
             text-align: center;
             margin: 0 25px;
+            cursor: pointer;
         }
+
+        @media screen and (max-width: 512px) {
+            .box1 {
+            text-align: center;
+            margin: 0px 18px;
+           }
+           .box1 > div:last-child {
+            margin: 0;
+           }
+        }
+
         .r-search {
             margin-top: 150px;
             margin-bottom: 70px;
         }
         .r-input {
-            width: 500px;
+            width: 40%;
             border : none;
             border-bottom: 1px solid black;
             padding-left: 30px;
@@ -45,6 +55,19 @@
             text-align: left;
             
         }
+
+        @media screen and (max-width: 512px) {
+            .r-input {
+            width: 90%;
+            padding-left: 0px;
+            }
+            .category-img {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            }
+        }
+            
         .c-icon {
             position:relative;
             bottom: 60px;
@@ -53,6 +76,7 @@
         .search-icon {
             position: relative;
             right:30px;
+            cursor: pointer;
         }
         .detail-category {
             border: 5px solid rgba(245, 243, 243, 0.959);
@@ -60,7 +84,6 @@
             border-radius: 10px;
             padding: 20px 30px;
             margin-bottom: 70px;
-            /* background-color: aquamarine; */
         }
         .box2 {
             display: flex;
@@ -74,10 +97,27 @@
             margin-right: 20px;
             font-size: 20px;
         }
+        .box2 a:hover {
+            background-color: #bdee71;
+        }
+
+        @media screen and (max-width: 512px) {
+            .box2 {
+            display: block;
+            }
+            .box2 div {
+            margin-right: 0;
+            font-size: 20px;
+            }
+            .box2 a {
+                display: flex;
+                flex-direction: column;
+                margin-right: 0px;
+            }
+        }
         .recipe-img {
             width:380px;
             height: 280px;
-            background: rgba(200, 196, 196, 0.9);
             margin-bottom: 10px;
         }
         .search-result-s {
@@ -97,6 +137,18 @@
         .search-result-d {
             display: flex;
         }
+
+        @media screen and (max-width: 512px) {
+            .search-result-d {
+            display: block;
+            }
+            .item {
+            margin-bottom: 30px;
+            }
+            .recipe-img {
+            height: auto;
+        }
+        }
         .search-result-d div {
             margin-right: 15px;
         }
@@ -106,151 +158,182 @@
         }
         .item {
             text-align: left;
+            cursor: pointer;
         }
+        .add_btn {
+            float: left;
+            margin-top: -220px;
+            border: none;
+            width: 100px;
+            height: 40px;
+            border-radius: 15px;
+            background-color: #999999;
+            color: white;
+            font-size: 20px;
+        }
+        .re-view-cnt {
+            display: inline-block;
+            position: relative;
+            left:285px;
+            top:270px;
+            padding: 3px 10px;
+            color:white;
+            background-color: rgba(16, 15, 15, 0.612);
+            border-radius: 10px;
+        }
+       
         /* style END */
-    </style>
-</head>
-<body>
-    <header id="header">&lt;header&gt;</header>
-    <!-- wrap START -->
+</style>
+
+
+<!-- pageContent -- START -->
+<div id="pageContent">
+	<div class="wrapper">
+		 <!-- wrap START -->
     <div id="wrapper">
-<div class="r-search">
-            <input type="text" placeholder="¿øÇÏ´Â Àç·á³ª ·¹½ÃÇÇ¸¦ ´Ù¾çÇÏ°Ô °Ë»öÇØ º¸¼¼¿ä!" class="r-input">
+         <button class="add_btn">ë“±ë¡</button>
+        <div class="r-search">
+            <input type="text" placeholder="ì›í•˜ëŠ” ì¬ë£Œë‚˜ ë ˆì‹œí”¼ë¥¼ ë‹¤ì–‘í•˜ê²Œ ê²€ìƒ‰í•´ ë³´ì„¸ìš”!" class="r-input">
             <i class="search-icon fa-solid fa-magnifying-glass fa-lg"></i>
         </div>
         <div class="r-category">
-            <div class="box1">
-                <div class="category-img"></div>
+            <div class="box1" id="all-btn">
+                <div class="category-circle"></div>
                 <i class="c-icon fa-solid fa-utensils fa-2xl"></i>
-                <div>ÀüÃ¼</div>
+                <div>ì „ì²´</div>
             </div>
-            <div class="box1">
-                <div class="category-img"></div>
-                <i class="c-icon fa-solid fa-bowl-food fa-2xl"></i>
-                <div>¸ñÀûº°</div>
+            <div class="box1" id="purpose-btn">
+                <div class="category-circle"></div>
+                <i  class="c-icon fa-solid fa-bowl-food fa-2xl"></i>
+                <div>ëª©ì </div>
             </div>
-            <div class="box1">
-                <div class="category-img"></div>
+            <div class="box1" id="howto-btn">
+                <div class="category-circle"></div>
                 <i class="c-icon fa-solid fa-fish-fins fa-2xl"></i>
-                <div>¹æ¹ıº°</div>
+                <div>ë°©ë²•</div>
             </div>
-            <div class="box1">
-                <div class="category-img"></div>
+            <!-- <div class="box1">
+                <div id="all-btn" class="category-img"></div>
                 <i class="c-icon fa-solid fa-egg fa-2xl"></i>
-                <div>Àç·áº°</div>
-            </div>
-            <div class="box1">
-                <div class="category-img"></div>
+                <div>ì¬ë£Œ</div>
+            </div> -->
+            <div class="box1" id="tool-btn">
+                <div  class="category-circle"></div>
                 <i class="c-icon fa-solid fa-kitchen-set fa-2xl"></i>
-                <div>µµ±¸º°</div>
+                <div>ë„êµ¬</div>
             </div>
         </div>
         <div class="detail-category">
-            <div class="box2">
-                <div><b>¸ñÀûº°</b></div>
-                <a href="#">1ÀÎºĞ</a>
-                <a href="#">³ÃÀå°íÅĞÀÌ</a>
-                <a href="#">ÇØÀå</a>
-                <a href="#">°£½Ä/¾ß½Ä</a>
-                <a href="#">´ÙÀÌ¾îÆ®</a>
+            <div id="purpose" class="box2">
+                <div><b>ëª©ì ë³„</b></div>
+                <a href="#">ëƒ‰ì¥ê³ í„¸ì´</a>
+                <a href="#">í•´ì¥</a>
+                <a href="#">ê°„ì‹</a>
+                <a href="#">ì•¼ì‹</a>
+                <a href="#">ë‹¤ì´ì–´íŠ¸</a>
             </div>
-            <hr>
-            <div class="box2">
-                <div><b>¹æ¹ıº°</b></div>
-                <a href="#">±¸ÀÌ/ºÎÄ§</a>
-                <a href="#">±¹ÅÁÂî°³</a>
-                <a href="#">ººÀ½/Á¶¸²</a>
-                <a href="#">¹«Ä§/ºñºö</a>
-                <a href="#">±âÅ¸</a>
+            <hr class="line">
+            <div id="howto" class="box2">
+                <div><b>ë°©ë²•ë³„</b></div>
+                <a href="#">êµ¬ì´/ë¶€ì¹¨</a>
+                <a href="#">êµ­íƒ•ì°Œê°œ</a>
+                <a href="#">ë³¶ìŒ/ì¡°ë¦¼</a>
+                <a href="#">ë¬´ì¹¨/ë¹„ë¹”</a>
+                <a href="#">ê¸°íƒ€</a>
             </div>
-            <hr>
-            <div class="box2">
-                <div><b>µµ±¸º°</b></div>
-                <a href="#">³¿ºñ/ÈÄ¶óÀÌÆÒ</a>
-                <a href="#">ÀüÀÚ·¹ÀÎÁö</a>
-                <a href="#">¿¡¾îÇÁ¶óÀÌ¾î/¿Àºì</a>
-                <a href="#">±âÅ¸</a>
+            <hr class="line">
+            <div id="tool" class="box2">
+                <div><b>ë„êµ¬ë³„</b></div>
+                <a href="#">ëƒ„ë¹„/í›„ë¼ì´íŒ¬</a>
+                <a href="#">ì „ìë ˆì¸ì§€</a>
+                <a href="#">ì—ì–´í”„ë¼ì´ì–´/ì˜¤ë¸</a>
+                <a href="#">ê¸°íƒ€</a>
             </div>
         </div>
         <div>
             <div class="search-result-s">
-                <div><b>°Ë»ö°á°ú : "°í±â"</b></div>
-                <div>ÃÑ 3°³ÀÇ ·¹½ÃÇÇ</div>
+                <div><b>ê²€ìƒ‰ê²°ê³¼ : "ê³ ê¸°"</b></div>
+                <div>ì´ 3ê°œì˜ ë ˆì‹œí”¼</div>
             </div>
             <div class="search-result-d">
                 <div class="item">
-                    <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-25_427865954[12].jpg">
-                    <div>#µ¤¹ä¿ä¸® #ÇÜ #¸¶¿ä³×½º</div>
-                    <div class="r-text">ÇÜ¸¶¿äµ¤¹ä</div>
+                    <div>
+                        <div class="re-view-cnt">
+                            <i class="fa-solid fa-eye fa-lg"></i>
+                            <span>365</span>
+                        </div>
+                        <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-25_427865954[12].jpg">
+                    </div>
+                    <div>#ë®ë°¥ìš”ë¦¬ #í–„ #ë§ˆìš”ë„¤ìŠ¤</div>
+                    <div class="r-text">í–„ë§ˆìš”ë®ë°¥</div>
                 </div>
                 <div class="item">
-                    <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-25_427863666.jpg">
-                    <div>#¸ß½ÃÄÚ #¶Ç¶ì¾Æ #´ß°¡½¿»ì</div>
-                    <div class="r-text">Ä¡Å² Ä«·¹ Å¸ÄÚ</div>
+                    <div>
+                        <div class="re-view-cnt">
+                            <i class="fa-solid fa-eye fa-lg"></i>
+                            <span>365</span>
+                        </div>
+                        <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-25_427863666.jpg">
+                    </div>
+                    <div >#ë©•ì‹œì½” #ë˜ë ì•„ #ë‹­ê°€ìŠ´ì‚´</div>
+                    <div class="r-text">ì¹˜í‚¨ ì¹´ë ˆ íƒ€ì½”</div>
                 </div>
                 <div class="item">
-                    <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-24_427854552[10].jpg">
-                    <div>#¼ÎÇÁÀÇÆÁ #Áï¼®±¹ #Ä·ÇÎ</div>
-                    <div class="r-text">Â÷µ¹¹ÚÀÌ µÈÀåÂî°³</div>
+                    <div>
+                        <div class="re-view-cnt">
+                            <i class="fa-solid fa-eye fa-lg"></i>
+                            <span>365</span>
+                        </div>
+                        <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-24_427854552[10].jpg">
+                    </div>
+                    <div>#ì…°í”„ì˜íŒ #ì¦‰ì„êµ­ #ìº í•‘</div>
+                    <div class="r-text">ì°¨ëŒë°•ì´ ëœì¥ì°Œê°œ</div>
                 </div>
             </div>
         </div>
-    .
 
     </div>
     <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-</html>
+		
+	
+	</div>
+</div>
+<!-- pageContent -- END -->
+
+<jsp:include page="/layout/tail.jsp"></jsp:include>
+
+
 <script type="text/javascript">
-var app = new Vue({ 
-    el: '#app',
-    data: {
-    	id : ""
-    	, pwd : ""
-    	, user : {}
-    }   
-    , methods: {
-    	fnRecipeList : function() {
-    		var self = this;
-    		var nparmap = "";
-    		$.ajax ({
-    			url:"/recipe/list.dox",
-    			dataType : "json",
-    			type : "POST",
-    			data : nparmap,
-    			success : function(data) {
-    				
-    			}
-    		})
-    	}
-    
-    	
-   	 }
-       
-    , created: function () {
-    	
-	}
-});
+	$(function () {
+	    $("#all-btn").on("click", function() {
+	        $("#purpose").show();
+	        $("#howto").show();
+	        $("#tool").show();
+	        $(".line").show();
+	    })
+	})
+	$(function () {
+	    $("#purpose-btn").on("click", function() {
+	        $("#purpose").show();
+	        $("#howto").hide();
+	        $("#tool").hide();
+	        $(".line").hide();
+	    })
+	})
+	$(function () {
+	    $("#howto-btn").on("click", function() {
+	        $("#purpose").hide();
+	        $("#howto").show();
+	        $("#tool").hide();
+	        $(".line").hide();
+	    })
+	})
+	$(function () {
+	    $("#tool-btn").on("click", function() {
+	        $("#purpose").hide();
+	        $("#howto").hide();
+	        $("#tool").show();
+	        $(".line").hide();
+	    })
+	})
 </script>
-<style>
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
-    * {margin:0; padding:0; box-sizing:border-box;}
-    html, body {font-family:'Pretendard-Regular'; font-size:15px; line-height:1.5;}
-    a {color:inherit; text-decoration:none;}
-    input {outline:0; border-radius:0; border-width:1px; padding:5px;}
-    select {outline:0; border-radius:0; border-width:1px; padding:4px;}
-    img {width:100%; max-width:100%; display:inline-block;}
-    ol, ul ,li {list-style:none;}
-    
-    #header, #footer {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-    #header {margin-bottom:70px;}
-    #footer {margin-top:150px;}
-    #wrapper {max-width:1200px; min-height:calc(100vh - 420px); margin:0 auto;}
-</style>

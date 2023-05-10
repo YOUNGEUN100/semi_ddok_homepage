@@ -14,6 +14,13 @@ public class SmartMarket {
 	private Integer productCnt; 
 	private String discountYN; 
 	private String deleteYN;
+	private String imgPath;
+	private String imgName;
+	private Float satisfactionGrade;
+	private Float repurchaseGrade;
+	private Float deliveryGrade;
+	
+	
 	
 	public Integer getProductNo() {
 		return productNo;
@@ -45,12 +52,7 @@ public class SmartMarket {
 	public void setProductEa(Integer productEa) {
 		this.productEa = productEa;
 	}
-	public String getProductVolume() {
-		return productVolume;
-	}
-	public void setProductVolue(String productVolume) {
-		this.productVolume = productVolume;
-	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -93,4 +95,43 @@ public class SmartMarket {
 	public void setDeleteYN(String deleteYN) {
 		this.deleteYN = deleteYN;
 	}
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+	public String getProductVolume() {
+		return productVolume;
+	}
+	public void setProductVolume(String productVolume) {
+		this.productVolume = productVolume;
+	}
+	public String getImgName() {
+		return imgName;
+	}
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+	public Float getSatisfactionGrade() {
+		return satisfactionGrade;
+	}
+	public void setSatisfactionGrade(Float satisfactionGrade) {
+		this.satisfactionGrade = satisfactionGrade;
+	}
+	public Float getRepurchaseGrade() {
+		return repurchaseGrade;
+	}
+	public void setRepurchaseGrade(Float repurchaseGrade) {
+		this.repurchaseGrade = repurchaseGrade;
+	}
+	public Float getDeliveryGrade() {
+		return deliveryGrade;
+	}
+	public void setDeliveryGrade(Float deliveryGrade) {
+		this.deliveryGrade = deliveryGrade;
+	}
+	
+
+
 }

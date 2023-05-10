@@ -124,10 +124,9 @@
             font-size: 20px;
             font-weight: bold;
         }
-        .input_cnt{
-            width: 90px;
-            height: 35px;
+        .input_cnt{            
             padding-left: 130px;
+            font-size: 30px;                        
         }
         .font_cnt2{
             font-size: 20px;
@@ -194,7 +193,6 @@
             font-weight: bold;
             background-color: #ccc;
             width: 100px;
-            
             
         }
         .product_review_title .btn_review_script{
@@ -265,6 +263,11 @@
             padding-top: 20px;
             
         }
+        
+        .img_rec{        	
+	        position: absolute;
+	        clip: rect( 0px, 780px, 900px, 0px );
+        }
 
         /* style END */
     </style>    
@@ -275,7 +278,6 @@
     <!-- wrap START -->
     <div id="wrapper" >
 
-        이곳에 내용을 입력해 주세요.
         <div id="app">
 
         <div class="smart_img"><img id="smart_img" src="images/food1.jpg"></div>
@@ -297,25 +299,25 @@
             </div>   
             <div class="smart_empth3"></div>
             <div class="smart_cnt">
-                <span class="font_cnt">개수 </span><input class="input_cnt" type="number" min="0" max="10">
+                <span class="font_cnt">개수 </span><input class="input_cnt" type="number" min="1" max="3">
                 <span class="font_cnt2"> 현재 3개남았어요!</span>
             </div>
             <div class="smart_empth4"></div>
             <div class="smart_button">
                 <button class="btn_buy">구매하기</button>
                 <button class="btn_cart">장바구니담기</button>
-                <img class="share" src="images/share.png">
+                <a href="javascript:clip2();"><img class="share" src="images/share.png" ></a>
             </div>
         </div>
         
         <div class="product_review_title">
-            <div class="btn_product_script"><a href="#product_discript">상품설명</a></div>
+            <div class="btn_product_script"><a id="product_discript_move" href="#product_discript">상품설명</a></div>
             <div class="btn_review_script">후기<a name="product_review"></a></div>
         </div>
-        <div class="product_script">adfasd</div>
+        <div class="product_script"><img src="images/1_VER.jpg" class="img_rec" style="width:780px;"></div>
         <div class="btn_all_view"><button id="btn_all_view">펼쳐보기</button></div>
         <div class="product_script_detail" id="product_script_detail">
-            <pre>
+            <pre>	
                 그런데 말입니다. 상세 설명이 표시된 뒤에도 [상세 설명 보기] 링크가 [상세 설명 닫기]로 바뀌지 않았습니다. 
                 [상세 내용 닫기] 링크를 사용하기 위해 소스를 수정해 보겠습니다.  
                 #detail 요소가 현재 화면에 표시된 상태인지 아니면 감춰진 상태인지를 저장할 새로운 병수 isOpen을 선언 합니다. 
@@ -342,11 +344,6 @@
             </table>
         </div>
     </div>
-
-        
-        
-        
-
         
         
         
@@ -372,6 +369,13 @@
 </style>
 
 <script>
+
+const clip2 = async () => {
+	navigator.clipboard.writeText(window.location.href);
+	alert("URL 주소가 복사되었습니다.");
+}
+
+
     var app = new Vue({ 
     el: '#app',
     data: {
@@ -391,7 +395,10 @@
     let view  = document.querySelector("#btn_all_view");    
     view.addEventListener("click", function(){
         if(isOpen ==false){
-            document.querySelector("#product_script_detail").style.display="block";
+            //document.querySelector("#product_script_detail").style.display="block";
+            document.querySelector(".img_rec").style.clip="auto";
+            document.querySelector(".product_script").style.height="3570px";            
+            
             document.querySelector("#btn_all_hidden").style.display = "block";
             document.querySelector("#btn_all_view").style.display="none";
             isOpen = true;
@@ -401,9 +408,16 @@
     let hidden  = document.querySelector("#btn_all_hidden");
     hidden.addEventListener("click", function(){
         if(isOpen ==true){
-            document.querySelector("#product_script_detail").style.display = "none";
+            //document.querySelector("#product_script_detail").style.display = "none";
+            document.querySelector(".img_rec").style.clip="rect( 0px, 780px, 900px, 0px )";            
+            document.querySelector(".product_script").style.height="900px";
+            
             document.querySelector("#btn_all_hidden").style.display = "none";
             document.querySelector("#btn_all_view").style.display="block";
+            
+            
+            document.querySelector("#product_discript_move").href="#product_discript"
+            
             isOpen = false; 
         }
     });
