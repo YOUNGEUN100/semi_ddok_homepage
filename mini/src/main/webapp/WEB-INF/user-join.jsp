@@ -32,6 +32,7 @@
      .joinArea .joinBox .captionBox .id{font-weight: bold; font-size: 0.95em; display : inline-block;}
      .joinArea .joinBox .captionBox .pw{font-weight: bold; font-size: 0.95em; display : inline-block;}
      .joinArea .joinBox .captionBox .pwck{font-weight: bold; font-size: 0.95em; display : inline-block;}
+     .joinArea .joinBox .nick{font-weight: bold; font-size: 0.95em; display : inline-block;}
      .joinArea .joinBox input{
 	       border: 0; border-bottom: 1px solid black; 
 	       padding: 10px; margin-bottom: 20px; 
@@ -92,19 +93,24 @@
             <span class="captionEssential">표시는 필수입력</span>
             <div class="joinBox" >
                 <div class="captionBox">
-                    <div class="markEssential id">아이디</div><div v-if="info.id == ''"></div>  
-                    <template v-else><!--중복체크-->
-	                  <span class="ableId" v-if="idFlg">사용할 수 있는 아이디입니다</span>
-	                  <span class="disableId" v-else>이미 사용중인 아이디입니다</span>
-	                 </template>
-                    <input type="text" v-model="info.id" maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck()">중복체크</button>
+                    <div class="markEssential id">아이디</div><div v-if="info.id == ''"></div>
+	                    <template v-else-if="info.id != '' && info.id.length >= 20"> <!-- 20자 초과시 -->
+	                    	<span class="disableId" >20자를 초과하였습니다.</span> 
+	                    </template>
+	                    <template v-else-if="info.id != '' && idCk" ><!--중복체크-->
+	                      <span class="ableId" v-if="idFlg">사용할 수 있는 아이디입니다</span>
+	                      <span class="disableId" v-else>이미 사용중인 아이디입니다</span> 
+	                    </template>
+	                 <div v-else></div>
+                    <input type="text" v-model="info.id" maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
                 </div> 
                 <div class="captionBox">
                     <div class="markEssential pw">비밀번호</div><div v-if="info.pw == ''"></div>
-                    <template v-else>  
+                    <template v-else-if="info.pw != '' && info.pw.length >= 20">  
                     	<span class="captionCheck disableId">20자 이내의 비밀번호를 입력해주세요</span>
                     </template>
-                    <input type="password" v-model="info.pw" class="w100" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
+                    <div v-else></div>
+                    <input type="password" v-model="info.pw" class="w100" maxlength="20" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
                 </div>
                 <div class="captionBox">
                     <div class="markEssential pwck">비밀번호 확인</div> <div v-if="info.pw == ''"></div>
@@ -116,8 +122,12 @@
                 <input type="password" class="w100" placeholder="비밀번호 재입력" v-model="info.pwck">
                 <p class="markEssential">이름</p>
                 <input type="text" class="w100" placeholder="이름을 입력해 주세요" v-model="info.name">
-                <p class="markEssential">닉네임</p>
-                <input type="text" class="w100" placeholder="활동할 닉네임을 입력해 주세요" v-model="info.nick">
+                <div class="markEssential nick">닉네임</div><div v-if="info.nick == ''"></div>
+                <template v-else>
+                	<span class="ableId" v-if="nickFlg">사용 가능한 닉네임입니다.</span>
+                	<span class="disableId" v-else>이미 사용중인 닉네임입니다.</span>
+                </template>
+                <input type="text" @keypress="fnNickCheck" class="w100" placeholder="활동할 닉네임을 입력해 주세요" v-model="info.nick">
                 <p class="markEssential">전화번호</p>
                 <input type="tel" class="w100" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
                 <p>이메일주소</p>
@@ -195,9 +205,13 @@ var app = new Vue({
    	    	, birth :""
    	    	, pwHint :""
    	    	, livingYear :""
+   	    	
     	},
     	  idFlg : true
     	, roadFullAddr : ""
+    	, idCk : false
+    	, nickFlg : true
+   		
     }
     , methods : {
     	fnJoin : function(){
@@ -224,6 +238,10 @@ var app = new Vue({
     		}
     		if(self.info.nick == ""){
     			alert("닉네임을 입력해주세요");
+    			return;
+    		}
+    		if(!self.nickFlg){
+    			alert("닉네임 중복체크를 해주세요.")
     			return;
     		}
     		if(self.info.hp == ""){
@@ -262,25 +280,47 @@ var app = new Vue({
 	        }); 
    	 },
    	 	fnCheck : function(){
-   	 		var self = this;
-   	 	var nparmap = {id : self.info.id};
-        $.ajax({
-            url:"/user/check.dox",
-            dataType:"json",	
-            type : "POST", 
-            data : nparmap,
-            success : function(data) {  
-            	console.log(data);
-            	if(data.cnt > 0){
-            		self.idFlg = false;
-            	}
-            	else{
-            		self.idFlg = true;
-            	}
-            }
+	   	 	var self = this;
+	   	 	var nparmap = {id : self.info.id};
+	        $.ajax({
+	            url:"/user/check.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	if(data.cnt > 0){
+	            		self.idFlg = false;
+	            		self.idCk = true;	
+	            	}
+	            	else{
+	            		self.idCk = true;
+	            		self.idFlg = true;
+	            	}
+	            }
         }); 
    	 	
    	 	},
+		   	 fnNickCheck : function(data){
+		 		var self = this;
+		 		var nparmap ={nick : self.info.nick};
+		 		$.ajax({
+		            url:"/user/nickCheck.dox",
+		            dataType:"json",	
+		            type : "POST", 
+		            data : nparmap,
+		            success : function(data) {  
+		            	console.log(data);
+		            	if(data.cnt > 0){
+		            		console.log(data.cnt);
+		            		self.nickFlg = false;
+		            	}
+		            	else{
+		            		self.nickFlg = true;
+		            	}
+		            }
+	        }); 
+	 	},
+	 	
 		 fnSearchAddr : function(){
 	 		var self = this;
 	 		var option = "width = 500, height = 500, top = 100, left = 200, location = no"

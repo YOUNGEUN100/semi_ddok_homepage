@@ -28,6 +28,12 @@
 			WHERE USER_ID = #{id}
 		</select>
 		
+		<select id="selectUserNickCnt" parameterType="HashMap" resultType="int">
+			SELECT COUNT(*) AS CNT 
+			FROM T4_USER
+			WHERE NICK = #{nick}
+		</select>
+		
 		<insert id="insertUser" parameterType="HashMap">
 			INSERT INTO T4_USER(
 				USER_ID,

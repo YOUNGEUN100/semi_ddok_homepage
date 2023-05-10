@@ -12,9 +12,13 @@ public interface UserMapper {
 	//로그인
 	User selectUserInfo(HashMap<String, Object>map);
 	
-	//중복체크
+	//아이디 중복체크
 	int selectUserCnt(HashMap<String, Object> map);
 	
 	//회원가입
 	void insertUser(HashMap<String,Object>map);
+	
+	//닉네임 중복체크
+	int selectUserNickCnt(HashMap<String, Object>map);
+	
 }

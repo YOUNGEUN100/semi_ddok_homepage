@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
 			resultMap.put("result", "fail");
 			resultMap.put("message", "아이디가 존재하지않습니다.");
 		}
-		
+
 		return resultMap;
 		
 	}
@@ -51,6 +51,12 @@ public class UserServiceImpl implements UserService{
 	public void addUser(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		userMapper.insertUser(map);
+	}
+
+	@Override
+	public int searchUserNickCnt(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return userMapper.selectUserNickCnt(map);
 	}
 
 }

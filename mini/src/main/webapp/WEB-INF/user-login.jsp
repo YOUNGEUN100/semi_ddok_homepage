@@ -50,7 +50,7 @@
 	
 	        <div class="loginBox">
 	            <input type="text" placeholder="아이디" v-model="id">
-	            <input type="password" placeholder="비밀번호" v-model="pw">
+	            <input type="password" placeholder="비밀번호" v-model="pw" @keyup.enter="fnLogin()">
 	        </div> 
 	
 	        <div class="btnBox">

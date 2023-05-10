@@ -31,10 +31,12 @@ public class UserController {
     public String main(Model model) throws Exception{
     	String id = (String) session.getAttribute("sessionId");
     	String name = (String) session.getAttribute("sessionName");
+    	String nick = (String) session.getAttribute("sessionNick");
     	String status = (String) session.getAttribute("sessionStatus");
     	
     	session.removeAttribute(id);
     	session.removeAttribute(name);
+    	session.removeAttribute(nick);
     	session.removeAttribute(status);
     	
     	session.invalidate();
@@ -52,6 +54,7 @@ public class UserController {
 			User user = (User) resultMap.get("user");
 			session.setAttribute("sessionId", user.getUserId());
 			session.setAttribute("sessionName", user.getName());
+			session.setAttribute("sessionNick", user.getNick());
 			session.setAttribute("sessionStatus", user.getStatus());
 		}
 		return new Gson().toJson(resultMap);
@@ -78,6 +81,16 @@ public class UserController {
 	public String check(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int cnt = userService.searchUserCnt(map);
+		resultMap.put("cnt", cnt);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/user/nickCheck.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String nickCheck(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int cnt = userService.searchUserNickCnt(map);
 		resultMap.put("cnt", cnt);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
