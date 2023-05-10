@@ -36,6 +36,7 @@ public class Funding {
 	private String sDay;
 	private String sTime;
 	private String imgPath;
+	private String imgPathDetail;
 	//---펀딩용 모델 끝---
 	
 	public int getBoardNo() {
@@ -227,7 +228,14 @@ public class Funding {
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
 	}
+	public String getImgPathDetail() {
+		return imgPathDetail;
+	}
+	public void setImgPathDetail(String imgPathDetail) {
+		this.imgPathDetail = imgPathDetail;
+	}
 	//---펀딩용 게터세터 끝---
+	
 	
 	
 

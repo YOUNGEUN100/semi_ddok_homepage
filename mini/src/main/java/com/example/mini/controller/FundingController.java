@@ -47,7 +47,8 @@ public class FundingController {
 	
 	// 2-1. 랜선펀딩 예정 상세
 	@RequestMapping("/funding-planned.do")
-	public String funding2(Model model) throws Exception{
+	public String funding2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		request.setAttribute("map", map);
 		return "/b-funding-planned";
 	}
 	
@@ -121,7 +122,16 @@ public class FundingController {
     		return new Gson().toJson(resultMap);
 		}
 
-	
+	@RequestMapping(value = "/funding/view2.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String searchFundingInfo2(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+																	
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			Funding info = fundingService.searchPlannedFundingInfo(map);
+			resultMap.put("info", info);
+			resultMap.put("result", "success");
+			return new Gson().toJson(resultMap);
+		}
 	
 }
 		

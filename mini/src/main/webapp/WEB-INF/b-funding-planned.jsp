@@ -32,12 +32,15 @@
             overflow: hidden;
         }
 
-        .fund_img1 {
-            width: 500px;
+        .fund_img {            
+            float: left;            
+        }
+        
+        .fund_img img {        
+        	border: 1px solid #e7e6e6;
+        	border-radius: 20px;
+        	width: 500px;
             height: 500px;
-
-            float: left;
-            background-color: #ebebeb;
         }
 
         .fund_content {
@@ -105,6 +108,7 @@
             border: none;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
             color: #fe7167;
+            cursor: pointer
         }
 
         .show_button {
@@ -137,31 +141,32 @@
                 <div class="container">
 
                     <div class="box1">
-                        <div class="fund_img1">product Image</div>
+                        <div class="fund_img"><img :src="info.imgPath"></div>
 
-                        <div class="fund_content">
-                            <h1 class="fund_name">크리넥스 3겹 데코 앤 소프트 수딩플러스 화장지 27m 팩, 24롤</h1>
-                            <p class="fund_summary">코튼과 알로에베라 로션으로 피부에 더 편안하고 부드러운 마무리의 도톰한 3겹 제품</p>
-                            <span class="fund_cnt">최소 200명</span>
-                            <span class="fund_cnt" style="float: right;">5/3(수) 11시 오픈예정</span>
+                        <div class="fund_content" v-for>
+                            <h1 class="fund_name">{{info.fundingName}}</h1>
+                            <p class="fund_summary">{{info.fundingSummary}}</p>
+                            <span class="fund_cnt">최소 {{info.fundingGoalCnt}}명</span>
+                            <span class="fund_cnt" style="float: right;">{{info.sDay}}{{info.dow}}
+                                                {{info.sTime}}시 오픈예정</span>
                             <p></p>
                             <progress value="50" max="200" class="fund_progress"></progress>
                             <div class="price_box">
                                 <span>펀딩예정가</span>
-                                <span class="fund_price">9,900원</span>
+                                <span class="fund_price">{{info.fundingPrice2}}원</span>
                             </div>
                         </div>
 
                         <div>
                             <button class="apply_button"><i class="fa-regular fa-clock"></i> 오픈까지 2일 9시간 30분 21초
                                 남음</button>
-                            <button class="share_button"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
+                            <button class="share_button" @click="fnClip"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
                         </div>
                     </div>
 
                     <div class="box2" id="detail_box">
                         <img
-                            src="http://thumbnail7.coupangcdn.com/thumbnails/remote/q89/image/retail/images/5192348201152163-c0481b59-ca5b-41df-a8b1-2f803e7e30cf.jpg">
+                            :src="info.imgPathDetail">
                     </div>
 
                     <div id="button_box1">
@@ -185,5 +190,59 @@
 
 
     <script type="text/javascript">
-	// 여기에 [script] 입력하세요
+    function show() {
+        document.getElementById('detail_box').style.overflow = 'visible';
+        document.getElementById('button_box1').style.display = 'none';
+        document.getElementById('button_box2').style.display = 'block';
+    }
+
+    function fold() {
+        document.getElementById('detail_box').style.overflow = 'hidden';
+        document.getElementById('button_box1').style.display = 'block';
+        document.getElementById('button_box2').style.display = 'none';
+    }
+    var app = new Vue({
+		el : '#app',
+		data : {    			
+			info : {},
+			fundingNo : "${map.fundingNo}",
+			fundingStartDt : "${map.fundingStartDt}",
+			price : ""
+
+		},
+		methods : {
+			fnGetFunding : function() {
+				var self = this;
+				var nparmap = {
+					fundingNo : self.fundingNo
+				};
+				$.ajax({
+					url : "/funding/view2.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.info = data.info;
+						console.log(data.info);						
+					}
+				});
+			}
+		
+		  , fnClip: function() {
+         		navigator.clipboard.writeText(window.location.href);
+        		alert("복사되었습니다.");
+        	}
+		  
+		  , fnTimediff: function() {
+			  var self = this;
+			  console.log(self.fundingNo);
+		  }
+		}
+		,
+		created : function() {
+			var self = this;
+			self.fnGetFunding();
+			self.fnTimediff();
+		}
+	});
     </script>

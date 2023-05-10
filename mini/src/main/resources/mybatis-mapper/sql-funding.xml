@@ -142,6 +142,7 @@
 			 
 		</select>
 		
+		<!--오픈된 펀딩 상세-->
 		<select id="selectOpenFundingInfo" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			SELECT
 					A.FUNDING_NO,
@@ -158,7 +159,8 @@
 					UDATETIME,
 					CNT,
 					TIMESTAMPDIFF(DAY, NOW(), FUNDING_END_DT) AS D_DAY,
-					IMG_PATH
+					IMG_PATH,
+					IMG_PATH_DETAIL
 					
 			FROM T4_FUNDING A
 			LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
@@ -168,9 +170,64 @@
 						FROM T4_F_IMAGE
 						WHERE THUMBNAIL_YN = 'Y'
 						GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
+			LEFT JOIN ( SELECT FUNDING_NO, IMG_PATH AS IMG_PATH_DETAIL
+						FROM T4_F_IMAGE
+                        WHERE THUMBNAIL_YN = 'N'
+						) D ON A.FUNDING_NO = D.FUNDING_NO
 			WHERE A.FUNDING_NO = #{fundingNo}
 			 
 		</select>
 		
+		<!--준비중 펀딩 상세-->		
+		<select id="selectPlannedFundingInfo" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+			
+				SELECT
+					A.FUNDING_NO,
+					FUNDING_NAME,
+					FUNDING_SUMMARY,
+					FUNDING_SCRIPT,
+					FUNDING_START_DT,
+					FUNDING_END_DT,
+					FUNDING_CLOSE_YN,
+					FUNDING_GOAL_CNT,
+					FUNDING_PRICE,
+					FORMAT(FUNDING_PRICE , 0) AS FUNDING_PRICE2,
+					CDATETIME,
+					UDATETIME,
+					CNT,
+					TIMESTAMPDIFF(day, now(), FUNDING_END_DT) AS D_DAY,
+					CASE 
+						WHEN DAYOFWEEK(FUNDING_START_DT) = 1 THEN '(일)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 2 THEN '(월)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 3 THEN '(화)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 4 THEN '(수)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 5 THEN '(목)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 6 THEN '(금)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 7 THEN '(토)'
+            		END AS DOW,
+            		DATE_FORMAT(FUNDING_START_DT, '%c/%e') AS S_DAY,
+            		DATE_FORMAT(FUNDING_START_DT, '%H') AS S_TIME,
+            		IMG_PATH,
+            		IMG_PATH_DETAIL
+            		
+				FROM T4_FUNDING A
+				
+				LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
+							FROM T4_FUNDING_MEMBER
+							GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
+							
+				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH
+							FROM T4_F_IMAGE
+							WHERE THUMBNAIL_YN = 'Y'
+							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
+				LEFT JOIN ( SELECT FUNDING_NO, IMG_PATH AS IMG_PATH_DETAIL
+						FROM T4_F_IMAGE
+                        WHERE THUMBNAIL_YN = 'N'
+						) D ON A.FUNDING_NO = D.FUNDING_NO
+									
+				WHERE A.FUNDING_NO = #{fundingNo}
+				
+			 
+		</select>
 		
 	</mapper>

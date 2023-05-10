@@ -31,7 +31,7 @@
             color: white;
             font-size: 20px;
             font-weight: bold;
-
+			cursor: pointer
         }
 
         .box1 {
@@ -75,6 +75,7 @@
             border-radius: 50px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
             background-color: white;
+            cursor: pointer
         }
 
         .open_list {
@@ -98,12 +99,19 @@
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
         }
+        
+        .fund_name {
+        	cursor: pointer
+        }
+        
+        .fund_name a {
+        	width : 735px;
+        	overflow     : hidden;
+        	text-overflow: ellipsis;
+        	white-space  : nowrap;
+        }
 
-        .fund_img {
-            background-color: #ebebeb;
-            border-radius: 50%;
-            width: 300px;
-            height: 300px;
+        .fund_img {            
             float: left;
         }
 
@@ -112,6 +120,7 @@
             width: 300px;
             height: 300px;
             border-radius: 50%;
+            cursor: pointer
         }
 
         .fund_content {
@@ -151,12 +160,12 @@
             color: #fe7167;
         }
 
-        .open_detail {
+        .open_more {
             text-align: center;
             margin-top: 60px;
         }
 
-        .open_detail button {
+        .open_more button {
             border: none;
             width: 200px;
             height: 60px;
@@ -165,6 +174,7 @@
             color: white;
             font-size: 20px;
             font-weight: bold;
+            cursor: pointer
         }
 
 
@@ -192,7 +202,7 @@
 
                         <div class="fund_title">
 
-                            <h1>현재 진행중인 랜선펀딩</h1>
+                            <h1 id="fund_open_title">현재 진행중인 랜선펀딩</h1>
 
                             <select v-model="orderValue" @change="fnChangeOrder">
                                 <option value="endDate">종료일순</option>
@@ -207,14 +217,14 @@
                             <ul>
                                 <li>
                                     <div class="open_list" v-for="(item, index) in list">
-                                        <div class="fund_img"><img :src="item.imgPath"></div>
+                                        <div class="fund_img"><img :src="item.imgPath" @click="fnViewFunding(item.fundingNo)"></div>
                                         <div class="fund_content">
-                                            <h1 class="fund_name" @click="fnViewFunding(item.fundingNo)"><a href="javascript:;">{{item.fundingName}}</a></h1>
+                                            <h1 class="fund_name" @click="fnViewFunding(item.fundingNo)">{{item.fundingName}}</h1>
                                             <p class="fund_summary">{{item.fundingSummary}}</p>
                                             <span class="fund_cnt">{{item.fundingGoalCnt}}명 중 {{item.cnt}}명</span>
-                                            <span class="fund_cnt" style="float: right;">{{item.dDay}}일 남음</span>
+                                            <span class="fund_cnt" id="fund_cnt1" style="float: right;">{{item.dDay}}일 남음</span>
                                             <p></p>
-                                            <progress value="50" max="100" class="fund_progress"></progress>
+                                            <progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
                                             <div class="price_box">
                                                 <span>공구가</span>
                                                 <span class="fund_price">{{item.fundingPrice}}원</span>
@@ -223,9 +233,8 @@
                                     </div>
                                 </li>
 
-                                <li class="open_detail">
-                                    <button v-if="moreBtn == 'off'" @click="fnShowMore">더보기</button>
-                                    <button v-if="moreBtn == 'on'" @click="fnHideMore">접기</button>
+                                <li class="open_more">
+                                    <button id="moreBtn" @click="fnShowMore">더보기</button>
                                 </li>
 
                             </ul>
@@ -251,15 +260,15 @@
                             <ul>
                                 <li>
                                     <div class="planned_list" v-for="(item, index) in list2">
-                                        <div class="fund_img"><img :src="item.imgPath"></div>
+                                        <div class="fund_img"><img :src="item.imgPath" @click="fnViewFunding(item.fundingNo)"></div>
                                         <div class="fund_content">
-                                            <h1 class="fund_name">{{item.fundingName}}</h1>
+                                            <h1 class="fund_name" @click="fnViewFunding2(item.fundingNo)">{{item.fundingName}}</h1>
                                             <p class="fund_summary">{{item.fundingSummary}}</p>
                                             <span class="fund_cnt">최소 {{item.fundingGoalCnt}}명</span>
                                             <span class="fund_cnt" style="float: right;">{{item.sDay}}{{item.dow}}
                                                 {{item.sTime}}시 오픈예정</span>
                                             <p></p>
-                                            <progress value="50" max="200" class="fund_progress"></progress>
+                                            <progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
                                             <div class="price_box">
                                                 <span>펀딩예정가</span>
                                                 <span class="fund_price">{{item.fundingPrice}}원</span>
@@ -268,9 +277,8 @@
                                     </div>
                                 </li>
 
-                                <li class="open_detail">
-                                    <button v-if="moreBtn2 == 'off'" @click="fnShowMore2">더보기</button>
-                                    <button v-if="moreBtn2 == 'on'" @click="fnHideMore2">접기</button>
+                                <li class="open_more">
+                                    <button id="moreBtn2" @click="fnShowMore2">더보기</button>
                                 </li>
                             </ul>
                         </div>
@@ -291,6 +299,7 @@
 
 
     <script type="text/javascript">
+    
         var app = new Vue({
             el: '#app',
             data: {
@@ -300,6 +309,7 @@
                 moreBtn2: "off",
                 orderValue: "",
                 orderValue2: ""
+                
             }
             , methods: {
                 fnGetFundingList: function () {
@@ -312,6 +322,14 @@
                         data: nparmap,
                         success: function (data) {
                             self.list = data.list;
+                            console.log(data.list.length);
+                            for (var i = 0 ; i < data.list.length ; i++) {
+                            	var fund_cnt = document.querySelector("#fund_cnt1");
+                            	if ( data.list[i].dDay == 0) {
+                            		console.log("종료임박");
+                            		fund_cnt.innerHTML = "종료임박";
+                            	}
+                            }
                             console.log(data.list);
                         }
                     });
@@ -334,26 +352,28 @@
 
                 , fnShowMore: function () {
                     var self = this;
-                    self.moreBtn = "on"
-                    self.fnGetFundingList();
+                    if (self.moreBtn == "off") {
+                    	self.moreBtn = "on"
+                    	self.fnGetFundingList();
+                    	moreBtn.innerHTML = "접기";
+                    } else if (self.moreBtn == "on") {
+                    	self.moreBtn = "off"
+                    	self.fnGetFundingList();
+                    	moreBtn.innerHTML = "더보기";
+                    }
                 }
-
-                , fnHideMore: function () {
-                    var self = this;
-                    self.moreBtn = "off"
-                    self.fnGetFundingList();
-                }
-
+               
                 , fnShowMore2: function () {
                     var self = this;
-                    self.moreBtn2 = "on"
-                    self.fnGetFundingList2();
-                }
-
-                , fnHideMore2: function () {
-                    var self = this;
-                    self.moreBtn2 = "off"
-                    self.fnGetFundingList2();
+                    if (self.moreBtn2 == "off") {
+                    	self.moreBtn2 = "on"
+                    	self.fnGetFundingList2();
+                    	moreBtn2.innerHTML = "접기";
+                    } else if (self.moreBtn2 == "on") {
+                    	self.moreBtn2 = "off"
+                    	self.fnGetFundingList2();
+                    	moreBtn2.innerHTML = "더보기";
+                    }
                 }
 
                 , fnChangeOrder: function () {
@@ -402,7 +422,14 @@
                 	var self = this;
                 	self.pageChange("./funding-open.do", {fundingNo : fundingNo});
                 }
-
+                
+                , fnViewFunding2: function(fundingNo) {
+                	var self = this;
+                	self.pageChange("./funding-planned.do", {fundingNo : fundingNo});
+                }
+                
+                
+                
             }
             , created: function () {
                 var self = this;

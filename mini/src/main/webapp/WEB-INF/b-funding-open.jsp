@@ -31,11 +31,15 @@
             overflow: hidden;
         }
 
-        .fund_img1 {
-            width: 500px;
+        .fund_img {            
+            float: left;            
+        }
+        
+        .fund_img img {        
+        	border: 1px solid #e7e6e6;
+        	border-radius: 20px;
+        	width: 500px;
             height: 500px;
-            float: left;
-            background-color: #ebebeb;
         }
 
         .fund_content {
@@ -134,30 +138,30 @@
                 <div class="container">
 
                     <div class="box1">
-                        <div class="fund_img1">product Image</div>
+                        <div class="fund_img"><img :src="info.imgPath"></div>
 
                         <div class="fund_content">
-                            <h1 class="fund_name">크리넥스 3겹 데코 앤 소프트 수딩플러스 화장지 27m 팩, 24롤</h1>
-                            <p class="fund_summary">코튼과 알로에베라 로션으로 피부에 더 편안하고 부드러운 마무리의 도톰한 3겹 제품</p>
-                            <span class="fund_cnt">100명 중 67명</span>
-                            <span class="fund_cnt" style="float: right;">10일 남음</span>
+                            <h1 class="fund_name">{{info.fundingName}}</h1>
+                            <p class="fund_summary">{{info.fundingSummary}}</p>
+                            <span class="fund_cnt">{{info.fundingGoalCnt}}명 중 {{info.cnt}}명</span>
+                            <span class="fund_cnt" id="fund_cnt" style="float: right;">{{info.dDay}}일 남음</span>
                             <p></p>
-                            <progress value="67" max="100" class="fund_progress"></progress>
+                            <progress :value="info.cnt" :max="info.fundingGoalCnt" class="fund_progress"></progress>
                             <div class="price_box">
                                 <span>공구가</span>
-                                <span class="fund_price">19,900원</span>
+                                <span class="fund_price">{{info.fundingPrice2}}원</span>
                             </div>
                         </div>
 
                         <div>
                             <button class="apply_button">신청하기</button>
-                            <button class="share_button"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
+                            <button class="share_button" @click="fnClip"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
                         </div>
                     </div>
 
                     <div class="box2" id="detail_box">
                         <img
-                            src="//thumbnail7.coupangcdn.com/thumbnails/remote/q89/image/retail/images/5192348201152163-c0481b59-ca5b-41df-a8b1-2f803e7e30cf.jpg">
+                            :src="info.imgPathDetail">
                     </div>
 
                     <div id="button_box1">
@@ -197,14 +201,14 @@
     		el : '#app',
     		data : {    			
     			info : {},
-    			boardNo : "${map.fundingNo}"
+    			fundingNo : "${map.fundingNo}"
 
     		},
     		methods : {
     			fnGetFunding : function() {
     				var self = this;
     				var nparmap = {
-    					boardNo : self.boardNo
+    					fundingNo : self.fundingNo
     				};
     				$.ajax({
     					url : "/funding/view.dox",
@@ -214,9 +218,18 @@
     					success : function(data) {
     						self.info = data.info;
     						console.log(data.info);
+    						if (data.info.dDay == 0) {
+    							fund_cnt.innerText = "종료임박 금일 종료";
+    						}
     					}
     				});
     			}
+    		
+    			, fnClip: function() {
+                	navigator.clipboard.writeText(window.location.href);
+                	alert("복사되었습니다.");
+                }
+                
     		}
     		,
     		created : function() {

@@ -18,10 +18,11 @@ public interface FundingMapper {
 	// 준비중 펀딩 리스트
 	List<Funding> selectPlannedFundingList(HashMap<String, Object> map);
 	
-	//오픈된 펀딩 상세정보
+	// 오픈된 펀딩 상세정보
 	Funding selectOpenFundingInfo(HashMap<String, Object> map);
 	
-	
+	// 준비중 펀딩 상세정보
+	Funding selectPlannedFundingInfo(HashMap<String, Object> map);
 
 
 }

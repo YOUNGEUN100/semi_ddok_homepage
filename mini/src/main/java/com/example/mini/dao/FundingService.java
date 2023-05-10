@@ -18,4 +18,7 @@ public interface FundingService {
 	
 	// 오픈된 펀딩 상세정보
 	Funding searchOpenFundingInfo(HashMap<String, Object> map);
+	
+	// 준비중 펀딩 상세정보
+	Funding searchPlannedFundingInfo(HashMap<String, Object> map);
 }
