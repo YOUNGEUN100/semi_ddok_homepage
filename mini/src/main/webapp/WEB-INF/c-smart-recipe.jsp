@@ -133,13 +133,12 @@
             position: relative;
             right:40px;
         }
-        
-        .search-result-d {
-            display: flex;
+         .r-text {
+            font-size: 20px;
+            font-weight: bold;
         }
-
         @media screen and (max-width: 512px) {
-            .search-result-d {
+            .item-list {
             display: block;
             }
             .item {
@@ -147,15 +146,17 @@
             }
             .recipe-img {
             height: auto;
+        	}
         }
+        .item-list {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-template-rows: repeat(3,400px);
         }
-        .search-result-d div {
+        .item-list div {
             margin-right: 15px;
         }
-        .r-text {
-            font-size: 20px;
-            font-weight: bold;
-        }
+       
         .item {
             text-align: left;
             cursor: pointer;
@@ -170,6 +171,9 @@
             background-color: #999999;
             color: white;
             font-size: 20px;
+        }
+        .add_btn:hover {
+        	cursor: pointer;
         }
         .re-view-cnt {
             display: inline-block;
@@ -191,7 +195,9 @@
 	<div class="wrapper">
 		 <!-- wrap START -->
     <div id="wrapper">
-         <button class="add_btn">등록</button>
+    	<div id="app">
+    	
+         <button class="add_btn" @click="fnGoEdit()">등록</button>
         <div class="r-search">
             <input type="text" placeholder="원하는 재료나 레시피를 다양하게 검색해 보세요!" class="r-input">
             <i class="search-icon fa-solid fa-magnifying-glass fa-lg"></i>
@@ -226,76 +232,61 @@
         <div class="detail-category">
             <div id="purpose" class="box2">
                 <div><b>목적별</b></div>
-                <a href="#">냉장고털이</a>
-                <a href="#">해장</a>
-                <a href="#">간식</a>
-                <a href="#">야식</a>
-                <a href="#">다이어트</a>
+                <a href="#" class="each">냉장고털이</a>
+                <a href="#" class="each">해장</a>
+                <a href="#" class="each">간식</a>
+                <a href="#" class="each">야식</a>
+                <a href="#" class="each">다이어트</a>
             </div>
             <hr class="line">
             <div id="howto" class="box2">
                 <div><b>방법별</b></div>
-                <a href="#">구이/부침</a>
-                <a href="#">국탕찌개</a>
-                <a href="#">볶음/조림</a>
-                <a href="#">무침/비빔</a>
-                <a href="#">기타</a>
+                <a href="#" class="each">구이/부침</a>
+                <a href="#" class="each">국탕찌개</a>
+                <a href="#" class="each">볶음/조림</a>
+                <a href="#" class="each">무침/비빔</a>
+                <a href="#" class="each">기타</a>
             </div>
             <hr class="line">
             <div id="tool" class="box2">
                 <div><b>도구별</b></div>
-                <a href="#">냄비/후라이팬</a>
-                <a href="#">전자레인지</a>
-                <a href="#">에어프라이어/오븐</a>
-                <a href="#">기타</a>
+                <a href="#" class="each">냄비/후라이팬</a>
+                <a href="#" class="each">전자레인지</a>
+                <a href="#" class="each">에어프라이어/오븐</a>
+                <a href="#" class="each">기타</a>
             </div>
         </div>
         <div>
             <div class="search-result-s">
-                <div><b>검색결과 : "고기"</b></div>
+            	<div>
+            		<span>검색결과 : </span>
+            	<!-- <span><input v-model="sResult"></span> -->	
+            		<span>전체</span>
+            	</div>
+                
                 <div>총 3개의 레시피</div>
             </div>
-            <div class="search-result-d">
-                <div class="item">
+            
+            <div class="item-list" >
+                <div class="item" @click="fnView()" v-for="(item, index) in list">
                     <div>
                         <div class="re-view-cnt">
                             <i class="fa-solid fa-eye fa-lg"></i>
                             <span>365</span>
                         </div>
-                        <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-25_427865954[12].jpg">
+                        <img class="recipe-img" :src="item.imgPath">
                     </div>
                     <div>#덮밥요리 #햄 #마요네스</div>
-                    <div class="r-text">햄마요덮밥</div>
-                </div>
-                <div class="item">
-                    <div>
-                        <div class="re-view-cnt">
-                            <i class="fa-solid fa-eye fa-lg"></i>
-                            <span>365</span>
-                        </div>
-                        <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-25_427863666.jpg">
-                    </div>
-                    <div >#멕시코 #또띠아 #닭가슴살</div>
-                    <div class="r-text">치킨 카레 타코</div>
-                </div>
-                <div class="item">
-                    <div>
-                        <div class="re-view-cnt">
-                            <i class="fa-solid fa-eye fa-lg"></i>
-                            <span>365</span>
-                        </div>
-                        <img class="recipe-img" src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-24_427854552[10].jpg">
-                    </div>
-                    <div>#셰프의팁 #즉석국 #캠핑</div>
-                    <div class="r-text">차돌박이 된장찌개</div>
+                    <div class="r-text">{{item.recipeName}}</div>
                 </div>
             </div>
+            
         </div>
 
-    </div>
+   		</div>
     <!-- wrap END -->
 		
-	
+		</div>
 	</div>
 </div>
 <!-- pageContent -- END -->
@@ -304,6 +295,7 @@
 
 
 <script type="text/javascript">
+
 	$(function () {
 	    $("#all-btn").on("click", function() {
 	        $("#purpose").show();
@@ -335,5 +327,48 @@
 	        $("#tool").show();
 	        $(".line").hide();
 	    })
-	})
+	})   
+	
+	let result = document.get
+
+	var app = new Vue({ 
+	
+	el: '#app',
+	data: {
+		 list: []
+	   
+	}, methods: {
+		// 레시피 리스트 가져오기
+		fnGetRecipeList : function() {
+			var self = this;
+			var nparmap = {};
+			$.ajax({
+				url: "recipe/list.dox",
+				dataType: "json",
+				type: "POST",
+				data : nparmap,
+				success : function(data) {
+					 self.list = data.list;
+                     console.log(self.list);
+					
+				}
+			})
+		}
+	   // 레시피 등록 페이지 이동
+	   ,fnGoEdit : function() {
+			location.href = "smart-recipe-edit.do";
+	   }
+		// 레시피 상세 페이지 이동
+		,fnView : function() {
+			location.href = "smart-recipe-view.do";
+		}
+	      
+	
+	} 
+	, created: function () {
+		var self = this;
+		self.fnGetRecipeList();
+	}
+	
+	});
 </script>

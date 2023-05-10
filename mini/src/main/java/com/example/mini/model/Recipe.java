@@ -11,6 +11,9 @@ public class Recipe {
 	private String deleteYn;
 	private String cdatetime;
 	private String udatetime;
+	private String imgPath;
+	
+
 	
 	public int getRecipeNo() {
 		return recipeNo;
@@ -59,6 +62,12 @@ public class Recipe {
 	}
 	public void setUdatetime(String udatetime) {
 		this.udatetime = udatetime;
+	}
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 	
 }

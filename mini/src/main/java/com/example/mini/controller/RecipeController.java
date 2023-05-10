@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.RecipeService;
+import com.example.mini.model.Funding;
 import com.example.mini.model.Recipe;
 import com.google.gson.Gson;
 
@@ -49,13 +50,16 @@ public class RecipeController {
 	
 	
 	
-//	@RequestMapping(value = "/recipe/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
-//	@ResponseBody
-//	public String searchRecipeList(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
-//		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-//		resultMap.put("result", "success");
-//		return new Gson().toJson(resultMap);
-//	}
+	@RequestMapping(value = "/recipe/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
+	@ResponseBody
+	public String searchRecipeList(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<Recipe> list = recipeService.searchRecList(map);
+		resultMap.put("list", list);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
 	
 	
 }

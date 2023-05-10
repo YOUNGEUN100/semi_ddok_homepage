@@ -10,4 +10,7 @@ import com.example.mini.model.Recipe;
 @Mapper
 public interface RecipeMapper {
 	
+	// 레시피 게시판 리스트
+		List<Recipe> selectRecList(HashMap<String, Object> map);
+	
 }
