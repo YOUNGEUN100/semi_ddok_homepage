@@ -52,8 +52,10 @@
 
 
 /*** pageVisual --- START ***/
-#pageVisual {width:100%; height:320px; background:var(--base-colorWhite);}
-#pageVisual .wrapper {display:flex; flex-flow:column nowrap; justify-content:center; align-items:center;}
+#pageVisual {width:100%; height:320px; background:var(--base-colorWhite); margin-bottom:3em;}
+#pageVisual .wrapper {height:100%; display:flex; flex-flow:column nowrap; justify-content:center; align-items:center; padding-bottom:2em;}
+#pageVisual #pageTitle {font-size:1.875em; margin:0.25em 0 0.75em;}
+#pageVisual #pageInfo {font-size:1.125em; font-weight:400;}
 /*** pageVisual --- END ***/
 
 

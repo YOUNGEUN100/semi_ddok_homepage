@@ -40,7 +40,7 @@
 	                <a href="/community.do">커뮤니티</a>
 	                <ul class="depth2">
 	                    <li><a href="/community.do">커뮤니티</a></li>
-	                    <li><a href="javaScript:;" onclick="javascript:alert('준비중입니다.');return false;">QnA</a></li>
+	                    <li><a href="/qna.do">QnA</a></li>
 	                </ul>
 	            </li>
 	        </ul>
