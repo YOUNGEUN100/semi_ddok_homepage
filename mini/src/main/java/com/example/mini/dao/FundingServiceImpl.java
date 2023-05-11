@@ -21,10 +21,27 @@ public class FundingServiceImpl implements FundingService {
 		return list;
 	}
 	
-	@Override // 랜선장터 거래 리스트
+	@Override // 랜선장터 나눔 리스트
 	public List<Funding> searchDonateFleaList(HashMap<String, Object> map) throws Exception {
 		List<Funding> list = fundingMapper.selectDonateFleaList(map);
 		return list;
+	}
+	
+	@Override // 랜선장터 글보기
+	public Funding searchFleaInfo(HashMap<String, Object>map) {
+		Funding info  = fundingMapper.selectFleaInfo(map);
+		return info;
+	}
+	
+	@Override // 랜선장터 댓글 리스트
+	public List<Funding> searchFleaComment(HashMap<String, Object> map) throws Exception {
+		List<Funding> list = fundingMapper.selectFleaComment(map);
+		return list;
+	}
+	
+	@Override // 랜선장터 댓글 입력
+	public void addFleaComment(HashMap<String, Object> map) {
+		fundingMapper.insertFleaComment(map);		
 	}
 
 	@Override // 오픈중 펀딩 리스트

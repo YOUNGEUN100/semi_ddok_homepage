@@ -95,6 +95,86 @@
 			</if>
 		</select>
 		
+		
+		<!-- 랜선장터 글보기  -->
+		<select id="selectFleaInfo" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+			SELECT      
+				BOARD_NO,
+				A.USER_ID,
+				B.NICK,
+				TITLE,
+				CONTENT,
+				HITS,
+				BOARD_KIND,
+				FINISH_YN,
+				CATEGORY,
+				CDATETIME,
+				UDATETIME,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(CDATETIME,'%Y-%m-%d') then DATE_FORMAT(CDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(CDATETIME,'%Y-%m-%d') 
+				END AS CDATETIME2,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
+				END AS UDATETIME2,
+				DELETE_YN,
+				SECRET_YN,
+				ANSWER_YN,
+            	B.ADDR
+            	
+			FROM T4_BOARD A
+			
+        	LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
+        	
+        	WHERE BOARD_NO = #{boardNo}
+		</select>
+		
+		<!-- 랜선장터 댓글 리스트 -->
+		<select id="selectFleaComment" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+			SELECT 
+				COMMENT_NO,
+				BOARD_NO,
+    			A.USER_ID,
+    			NICK,
+    			CONTENT,
+   			 	COMMENT_RENO,
+    			CDATETIME,
+    			UDATETIME,
+    			CASE
+					WHEN CURDATE() = DATE_FORMAT(CDATETIME,'%Y-%m-%d') then DATE_FORMAT(CDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(CDATETIME,'%Y-%m-%d') 
+				END AS CDATETIME2,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
+				END AS UDATETIME2  
+    
+			FROM T4_COMMENT A
+
+			LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
+			
+			WHERE BOARD_NO = #{boardNo};
+		</select>
+		
+		<!-- 랜선장터 댓글 입력 -->
+		<insert id="insertFleaComment" parameterType="hashmap">
+			INSERT INTO T4_COMMENT (
+				COMMENT_NO,
+				BOARD_NO,
+				USER_ID,
+				CONTENT,
+				CDATETIME,
+				UDATETIME)
+			VALUES (
+				NULL,
+				#{boardNo},
+				#{sessionId},
+				#{content},
+				NOW(),
+				NOW())
+		</insert>
+		
 		<!--오픈된 펀딩 리스트-->		
 		<select id="selectOpenFundingList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			<![CDATA[
@@ -311,6 +391,8 @@
 			SELECT COUNT(*) AS CNT
 			FROM T4_FUNDING_MEMBER
 			WHERE FUNDING_NO = #{fundingNo} AND USER_ID = #{sessionId}
-		</select>		
+		</select>
+		
+		
 		
 	</mapper>

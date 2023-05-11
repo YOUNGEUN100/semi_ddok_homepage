@@ -324,8 +324,7 @@
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
-                            self.list = data.list;
-                            console.log(data.list[0].endTime);                            
+                            self.list = data.list;                         
                         }
                     });
                 }

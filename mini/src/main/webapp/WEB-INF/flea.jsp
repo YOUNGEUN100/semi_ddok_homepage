@@ -340,15 +340,13 @@
             	
             	// 거래글 카테고리 변경
             	, fnChangeOrder: function () {
-                    var self = this;
-                    console.log(self.orderValue);
+                    var self = this;                    
                     self.fnGetFleaList();
                 }
             	
             	// 나눔글 카테고리 변경
             	, fnChangeOrder2: function () {
-                    var self = this;
-                    console.log(self.orderValue2);
+                    var self = this;                    
                     self.fnGetFleaList2();
                 }
             	

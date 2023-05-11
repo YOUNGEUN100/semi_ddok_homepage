@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.FundingService;
+import com.example.mini.mapper.FundingMapper;
 import com.example.mini.model.Funding;
 import com.google.gson.Gson;
 
@@ -81,8 +82,8 @@ public class FundingController {
 		resultMap.put("list", list);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
-	}
-
+	}	
+	
 	// 랜선장터 나눔 리스트
 	@RequestMapping(value = "/fleamarket/list2.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -90,6 +91,38 @@ public class FundingController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<Funding> list = fundingService.searchDonateFleaList(map);
 		resultMap.put("list", list);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 랜선장터 글보기
+	@RequestMapping(value = "/fleamarket/view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchFleaInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		Funding info = fundingService.searchFleaInfo(map);
+		resultMap.put("info", info);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);		
+	}
+	
+	// 랜선장터 댓글 리스트
+	@RequestMapping(value = "/fleamarket/comment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchFleaComment(Model model, @RequestParam HashMap<String, Object>map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<Funding> list = fundingService.searchFleaComment(map);
+		resultMap.put("list", list);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 랜선장터 댓글 등록
+	@RequestMapping(value = "/fleamarket/addcomment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String addFleaComment(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.addFleaComment(map);		
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
