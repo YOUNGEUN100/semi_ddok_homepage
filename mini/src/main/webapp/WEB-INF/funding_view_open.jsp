@@ -229,19 +229,56 @@
                         }
                     });
                 }
-
+				
+         		// 주소 복사
                 , fnClip: function () {
                     navigator.clipboard.writeText(window.location.href);
                     alert("복사되었습니다.");
                 }
 
+            	// 펀딩 신청
                 , fnApply: function () {
                     var self = this;
                     if (!confirm("펀딩을 신청하시겠습니까?")) {
                         return;
                     }
+                    var nparmap = {
+                            fundingNo: self.fundingNo
+                            , sessionId: self.sessionId
+                        };
+                        $.ajax({
+                            url: "/funding/apply.dox",
+                            dataType: "json",
+                            type: "POST",
+                            data: nparmap,
+                            success: function (data) {  
+                            	console.log(data.result);
+                            	alert(data.message);
+                            }
+                        });
 
                 }
+            	
+             	// 펀딩신청 중복검사용 카운트
+                , cnt: function () {
+                    var self = this;
+                    var nparmap = {
+                            fundingNo: self.fundingNo
+                            , sessionId: self.sessionId
+                        };
+                        $.ajax({
+                            url: "/funding/cnt.dox",
+                            dataType: "json",
+                            type: "POST",
+                            data: nparmap,
+                            success: function (data) {  
+                            	console.log(data);
+                            	
+                            }
+                        });
+
+                }
+             	
             }
                 ,
                 created: function () {

@@ -229,7 +229,7 @@
                                             <progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
                                             <div class="price_box">
                                                 <span>공구가</span>
-                                                <span class="fund_price">{{item.fundingPrice}}원</span>
+                                                <span class="fund_price">{{item.fundingPrice2}}원</span>
                                             </div>
                                         </div>
                                     </div>
@@ -273,7 +273,7 @@
                                             <progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
                                             <div class="price_box">
                                                 <span>펀딩예정가</span>
-                                                <span class="fund_price">{{item.fundingPrice}}원</span>
+                                                <span class="fund_price">{{item.fundingPrice2}}원</span>
                                             </div>
                                         </div>
                                     </div>
