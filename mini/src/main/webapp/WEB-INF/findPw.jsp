@@ -187,7 +187,11 @@ var app = new Vue({
     }
     , methods : {
 		   	 fnFindPw : function(data){
-		 		var self = this;
+		 		var self = this;		 		
+		 		console.log(self.id);
+		 		console.log(self.name);
+		 		console.log(self.pwQ);
+		 		console.log(self.pwA);
 		 		var nparmap ={id : self.id, name : self.name, pwQ:self.pwQ, pwA : self.pwA};
 		 		$.ajax({
 		            url:"/user/findPw.dox",
@@ -203,8 +207,12 @@ var app = new Vue({
 	 	
 	 	fnUpdatePw : function(){
     		var self = this;
-	      	var nparmap = self.pw;
-	      	nparmap.pw = self.pw;
+    		console.log(self.pw);
+	 		console.log(self.id);
+	 		console.log(self.name);
+	 		console.log(self.pwQ);
+	 		console.log(self.pwA);
+	      	var nparmap = {id : self.id, pw : self.pw, name : self.name, pwQ:self.pwQ, pwA : self.pwA};     	
 	        $.ajax({
 	            url:"/pwUpdate.dox",
 	            dataType:"json",	
