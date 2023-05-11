@@ -173,8 +173,8 @@
                             	<tbody>
 	                            	<tr v-for="(item, index) in list">
     	                                <template v-if="item.boardKind=='T_LAN'">
-        	                                <td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.finish}}</td>                                            
-            	                            <td id="sale_flg" v-else>{{item.finish}}</td>
+        	                                <td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.boardKind2}}</td>                                            
+            	                            <td id="sale_flg" v-else>{{item.boardKind2}}</td>
                 	                        <td id="address">{{item.addr}}</td>
                     	                    <td id="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
                         	                <td id="id">{{item.nick}}</td>
@@ -218,8 +218,8 @@
                             	<tbody>
                             		<tr v-for="(item, index) in list2">
                                     	<template v-if="item.boardKind=='D_LAN'">
-                                        	<td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.finish2}}</td>                                            
-                                        	<td id="sale_flg" v-else>{{item.finish2}}</td>
+                                        	<td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.boardKind2}}</td>                                            
+                                        	<td id="sale_flg" v-else>{{item.boardKind2}}</td>
                                         	<td id="address">{{item.addr}}</td>
                                         	<td id="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
                                         	<td id="id">{{item.nick}}</td>
@@ -273,15 +273,7 @@
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
-                            self.list = data.list;
-                            
-                            for (var i = 0; i < self.list.length; i++) {
-                                if (self.list[i].finishYn == 'N') {
-                                    self.list[i].finish = '판매중';                                    
-                                } else if (self.list[i].finishYn == 'Y') {
-                                    self.list[i].finish = '판매완료';                                    
-                                }
-                            }
+                            self.list = data.list;                            
                             console.log(data.list);
                         }
                     });
@@ -296,15 +288,7 @@
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
-                            self.list2 = data.list;
-                            
-                            for (var i = 0; i < self.list2.length; i++) {
-                                if (self.list2[i].finishYn == 'N') {                                    
-                                    self.list2[i].finish2 = '나눔중';
-                                } else if (self.list2[i].finishYn == 'Y') {                                    
-                                    self.list2[i].finish2 = '나눔완료';
-                                }
-                            }
+                            self.list2 = data.list;                            
                             console.log(data.list);
                         }
                     });

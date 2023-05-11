@@ -21,6 +21,9 @@ public interface FundingService {
 	
 	// 랜선장터 댓글 입력
 	void addFleaComment(HashMap<String, Object> map);
+	
+	// 랜선장터 거래완료
+	void endTrade(HashMap<String, Object> map);
 
 	// 오픈중 펀딩 리스트
 	List<Funding> searchOpenFundingList(HashMap<String, Object> map) throws Exception;

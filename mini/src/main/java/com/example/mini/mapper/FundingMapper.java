@@ -23,6 +23,9 @@ public interface FundingMapper {
 	
 	// 랜선장터 댓글 입력
 	void insertFleaComment(HashMap<String, Object> map);
+	
+	// 랜선장터 거래완료
+	void finishTrade(HashMap<String, Object> map);
 
 	// 오픈중 펀딩 리스트
 	List<Funding> selectOpenFundingList(HashMap<String, Object> map);

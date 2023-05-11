@@ -8,6 +8,7 @@ public class Funding {
 	private String content;
 	private int hits;
 	private String boardKind;
+	private String boardKind2;
 	private String finishYn;
 	private int category;
 	private String cdatetime;
@@ -78,6 +79,12 @@ public class Funding {
 	}
 	public void setBoardKind(String boardKind) {
 		this.boardKind = boardKind;
+	}
+	public String getBoardKind2() {
+		return boardKind2;
+	}
+	public void setBoardKind2(String boardKind2) {
+		this.boardKind2 = boardKind2;
 	}
 	public String getFinishYn() {
 		return finishYn;
@@ -256,13 +263,14 @@ public class Funding {
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	//---펀딩용 게터세터 끝---
 	public String getEndTime() {
 		return endTime;
 	}
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+	//---펀딩용 게터세터 끝---
+	
 	
 	
 	

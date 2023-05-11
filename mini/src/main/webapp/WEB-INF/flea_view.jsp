@@ -165,14 +165,14 @@
             <div class="wrapper">
 
                 <div class="board_title">
-                    <h1 id="board_title">중고판매/중고나눔</h1>
+                    <h1 id="board_title"></h1>
                 </div>
 
                 <div class="container">
                     
                         <div class="board_wrap">
                             <div class="title_box">
-                                <h1 class="sale_flg" id="sale_flg">{{info.finishYn}}</h1>                               
+                                <h1 class="sale_flg" id="sale_flg">[{{info.boardKind2}}]</h1>                               
                                 <h1 class="title">{{info.title}}</h1>
                                 <span>{{info.cdatetime2}}</span>
                                 <span><i class="fa-solid fa-eye fa-lg"></i> {{info.hits}}</span>
@@ -210,9 +210,9 @@
                         
 
                         <div class="btn_box">
-                        	<button>거래완료</button>
-                            <button>수정</button>
-                            <button>삭제</button>
+                        	<button @click="fnFinishTrade" v-if="sessionId != ''&& sessionId==info.userId">거래완료</button>
+                            <button v-if="sessionId != ''&& sessionId==info.userId">수정</button>
+                            <button v-if="sessionId != ''&& sessionId==info.userId">삭제</button>
                         </div>
 
                     
@@ -255,26 +255,6 @@
                         success: function (data) {
                             self.info = data.info;
                             console.log(data.info);
-                            if (data.info.boardKind == "T_LAN") {
-                            	if (data.info.finishYn == 'N') {
-                            		sale_flg.innerHTML = "[판매중]"
-                            	} else {
-                            		sale_flg.innerHTML = "[판매완료]"
-                            	}
-                            } else {
-                            	if (data.info.finishYn == 'N') {
-                            		sale_flg.innerHTML = "[나눔중]"
-                            	} else {
-                            		sale_flg.innerHTML = "[나눔완료]"
-                            	}
-                            }
-                            
-                            if (data.info.boardKind == "T_LAN") {
-                            	board_title.innerHTML = "중고판매"
-                            } else {
-                            	board_title.innerHTML = "중고나눔"
-                            }
-						
                         }
                     });
                 }
@@ -292,8 +272,7 @@
                         data: nparmap,
                         success: function (data) {
                             self.list = data.list;
-                            console.log(data.list);                            
-						
+                            console.log(data.list);
                         }
                     });
                 }
@@ -305,6 +284,16 @@
             			alert("글을 입력하세요");
             			return;
             		}
+            		
+            		if (self.sessionId == "") {
+            			if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")) {            				
+            				location.href="/login.do"
+            				return;
+            			} else {
+            				return;
+            			}            			
+            		}
+            		
             		var nparmap = {
                         boardNo : self.boardNo,
                         sessionId : self.sessionId,
@@ -322,6 +311,27 @@
                     	}
                 });
             	}
+            	
+            	, fnFinishTrade: function () {
+            		var self = this;
+            		if (!confirm("거래를 완료하시겠습니까?")) {
+            			return;
+            		};
+            		var nparmap = {
+                            boardNo : self.boardNo
+                        };
+            		$.ajax({
+                    	url: "/fleamarket/finishFlea.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("거래완료");
+                    		self.fnGetFlea();
+                    	}
+                });
+            	}
+            	
 
 
             }

@@ -43,6 +43,11 @@ public class FundingServiceImpl implements FundingService {
 	public void addFleaComment(HashMap<String, Object> map) {
 		fundingMapper.insertFleaComment(map);		
 	}
+	
+	@Override // 랜선장터 거래완료
+	public void endTrade(HashMap<String, Object> map) {
+		fundingMapper.finishTrade(map);		
+	}
 
 	@Override // 오픈중 펀딩 리스트
 	public List<Funding> searchOpenFundingList(HashMap<String, Object> map) throws Exception {
@@ -91,5 +96,7 @@ public class FundingServiceImpl implements FundingService {
 		int cnt = fundingMapper.checkFundingMember(map);
 		return cnt;
 	}
+
+	
 
 }

@@ -126,6 +126,15 @@ public class FundingController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
+	
+	@RequestMapping(value = "/fleamarket/finishFlea.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String endTrade(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.endTrade(map);		
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
 
 	// 오픈중 펀딩 리스트
 	@RequestMapping(value = "/funding/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
