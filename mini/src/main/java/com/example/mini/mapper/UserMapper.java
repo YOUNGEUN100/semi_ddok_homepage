@@ -24,4 +24,12 @@ public interface UserMapper {
 	//아이디 찾기
 	User selectUserId(HashMap<String, Object>map);
 	
+	//아이디 없을때
+	int selectUserIdCnt(HashMap<String, Object>map);
+	
+	//비밀번호 찾기
+	User selectUserPw(HashMap<String, Object>map);
+	
+	//비밀번호를 잊어 비밀번호 업데이트
+	void updatePw(HashMap<String, Object>map);
 }

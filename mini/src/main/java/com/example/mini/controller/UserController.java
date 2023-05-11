@@ -26,7 +26,7 @@ public class UserController {
 	
 	@Autowired
 	HttpSession session;
-	
+	//로그인
 	@RequestMapping("/login.do") 
     public String main(Model model) throws Exception{
     	String id = (String) session.getAttribute("sessionId");
@@ -66,7 +66,7 @@ public class UserController {
     	request.setAttribute("map", map);
         return "/join";
     }
-	
+	//회원가입
 	@RequestMapping(value = "/join.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String addBbs(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
@@ -75,7 +75,7 @@ public class UserController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
-	
+	//아이디중복체크
 	@RequestMapping(value = "/user/check.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String check(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -85,7 +85,7 @@ public class UserController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
-	
+	//닉네임중복체크
 	@RequestMapping(value = "/user/nickCheck.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String nickCheck(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -95,30 +95,26 @@ public class UserController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
-	
+	//주소
 	@RequestMapping("/addr.do") 
     public String addr(Model model, @RequestParam HashMap<String, Object> map, HttpServletRequest request) throws Exception{
 		
 		return "/jusoPopup";
     }
-	
+	//id찾기
 	@RequestMapping("/findId.do") 
     public String findAccount(Model model) throws Exception{
 
         return "/findId";
     }
-	
-	@RequestMapping("/findId/result.do") 
-    public String findIdResult(Model model) throws Exception{
-
-        return "/findId_result";
-    }
-	
+	//id찾기 결과	
 	@RequestMapping(value = "/user/findId.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String viewBbs(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+	public String findId(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int cnt = userService.searchUserIdCnt(map);
 		resultMap.put("id", userService.searchUserId(map));
+		resultMap.put("cnt", cnt);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
@@ -128,6 +124,26 @@ public class UserController {
 
         return "/findPw";
     }
+	
+	@RequestMapping(value = "/user/findPw.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String findPw(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int cnt = userService.searchUserCnt(map);
+		resultMap.put("pw", userService.searchUserPw(map));
+		resultMap.put("cnt", cnt);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/pwUpdate.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String updateBbs(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		userService.editPw(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
 
 	@RequestMapping("/myPage.do") 
     public String mypage(Model model) throws Exception{

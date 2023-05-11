@@ -13,7 +13,8 @@ public class User {
 	private String addr;
 	private String addr2;
 	private String joindate;
-	private String pwHint;
+	private String pwQ;
+	private String pwA;
 	
 	public String getUserId() {
 		return userId;
@@ -87,10 +88,17 @@ public class User {
 	public void setJoindate(String joindate) {
 		this.joindate = joindate;
 	}
-	public String getPwHint() {
-		return pwHint;
+	public String getPwQ() {
+		return pwQ;
 	}
-	public void setPwHint(String pwHint) {
-		this.pwHint = pwHint;
+	public void setPwQ(String pwQ) {
+		this.pwQ = pwQ;
 	}
+	public String getPwA() {
+		return pwA;
+	}
+	public void setPwA(String pwA) {
+		this.pwA = pwA;
+	}
+	
 }

@@ -43,7 +43,7 @@
     input[type="date"]::placeholder{
 		color: #888; font-family:'Pretendard-bold'; font-weight: lighter; font-size: 0.95em;
 		src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');}
-	 input[type="date"]::-webkit-calendar-picker-indicator {
+	input[type="date"]::-webkit-calendar-picker-indicator {
 		  color: rgba(0, 0, 0, 0); /*숨긴다*/
 		  opacity: 1;
 		  display: block;
@@ -56,7 +56,40 @@
         margin-top: 20px; background-color: #5EA152; color: #fff;
         padding: 12px; border: 0; border-radius: 10px; width: 78%; margin-left: 50px;
         font-weight: bold; font-size: 1.1em; margin-bottom: 15px;
-    } 
+    	}
+    
+     .findArea .reultBox{
+        margin-top: 55px; box-shadow: 0 0 5px #ccc; border-radius: 20px;
+        padding: 50px 95px; font-weight: bold; font-size: 1.1em;
+        } 
+      .findArea .reultBox .guideBox{
+          text-align: center; font-size: 1.1em; margin-bottom: 40px;
+          margin-top: -10px;
+          }
+      .findArea .reultBox .titleId{
+          display: inline-block; width: 50%; text-align: end; 
+          font-size: 0.9em; padding-right: 30px;
+          }
+      .findArea .reultBox .findId{
+        display: inline-block; width: 50%; text-align: start; 
+        font-size: 0.9em; color: #5EA152;
+        }
+
+      .findArea .reultBox .findLoginBtn{
+        margin-top: 40px; background-color: #5EA152; color: #fff;
+        padding: 12px; border: 0; border-radius: 10px; width: 78%; margin-left: 50px;
+        font-weight: bold; font-size: 1.1em; margin-bottom: 5px; text-align: center; 
+    	} 
+    
+      .findArea .reultBox .guideNullBox{
+          text-align: center; font-size: 1.1em;
+          margin-top: 10px;
+          }
+      .findArea .reultBox .findJoinBtn{
+        margin-top: 40px; background-color: #5EA152; color: #fff;
+        padding: 12px; border: 0; border-radius: 10px; width: 78%; margin-left: 50px;
+        font-weight: bold; font-size: 1.1em; margin-bottom: 5px; text-align: center; 
+    	} 
 </style>
 
 
@@ -64,9 +97,9 @@
 <div id="pageContent">
 	<div class="wrapper">
 		<!-- wrap START -->
-    	<div id="app" class="findArea">
+    	<div id="app" class="findArea" >
 	        <a href="/findId.do" class="idBox">아이디 찾기 </a><a href="/findPw.do" class="pwBox">비밀번호 찾기</a>
-	        <div class="inputBox">
+	        <div class="inputBox" v-if="!findBtn">
 	            <div class="markEssential" >이름</div>
 	            <input type="text" v-model="name" placeholder="이름을 입력해주세요" class="w100">
 	            <div class="markEssential">전화번호</div>
@@ -75,6 +108,21 @@
 	            <input type="date" v-model="birth" class="date w100"> 
 	            <button class="findIdBtn" @click="fnFindId">아이디 찾기</button>
 	        </div>
+	        	<template v-else>
+				<div class="reultBox" v-if="findResult">
+		            <div class="guideBox">고객님의 아이디는 아래와 같습니다.</div>
+		            <div class="titleId">아이디</div><div class="findId">{{id}}</div>
+		            <a class="findLoginBtn" href="/login.do">로그인 하기</a>
+	        	</div>
+	        	
+	        	<div class="reultBox" v-else>
+		            <div class="guideNullBox">
+		                <div>입력하신 내용과 일치한</div>
+		                <div>고객님의 가입정보가 없습니다.</div>
+		            </div>
+		            <a class="findJoinBtn" href="/join.do">회원가입 하기</a>
+	        	</div>
+        		</template>
     	</div>
     	
     	<!-- wrap END -->
@@ -92,7 +140,10 @@ var app = new Vue({
     data: {
     		name :"",
     		hp : "",
-    		birth: ""
+    		birth: "",
+    		id:"",
+    		findBtn : false,
+    		findResult : true
     }
     , methods : {
 		   	 fnFindId : function(data){
@@ -104,8 +155,17 @@ var app = new Vue({
 		            type : "POST", 
 		            data : nparmap,
 		            success : function(data) {  
-		            	console.log(data);
-		            	location.href="/findId/result.do"
+		            	if(data.cnt > 0){
+		            		console.log(data);
+		            		self.findBtn = true;
+		            		self.findResult = true;
+		            		self.id = data.id.userId;
+		            	}
+		            	else{
+		            		self.findBtn = true;
+		            		self.findResult = false;
+		            	}
+		            	
 		            }
 	        }); 
 	 	}

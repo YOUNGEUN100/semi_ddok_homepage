@@ -20,4 +20,13 @@ public interface UserService {
 	
 	//아이디 찾기
 	User searchUserId(HashMap<String, Object>map);
+	
+	//아이디 없을때
+	int searchUserIdCnt(HashMap<String, Object> map);
+	
+	//비밀번호 찾기
+	User searchUserPw(HashMap<String, Object>map);
+	
+	//비번 잊어 비번 업데이트
+	void editPw(HashMap<String, Object>map);
 }

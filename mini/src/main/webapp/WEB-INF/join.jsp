@@ -155,8 +155,8 @@
                 </div>
                 <div>
                     <span class="markEssential">비밀번호 질문</span><span class="accountFind">※계정찾기에 활용됩니다</span>
-                    <select class="hint" >
-                        <option>질문선택</option>
+                    <select class="hint" v-model="info.pwQ">
+                        <option >질문선택</option>
                         <option>자신의 인생 좌우명은?</option>
                         <option>가장 기억에 남는 선생님 성함은?</option>
                         <option>추억하고 싶은 날짜가 있다면?</option>
@@ -165,7 +165,7 @@
                         <option>자신이 두번째로 존경하는 인물은?</option>
                         <option>다시 태어나면 되고 싶은 것은?</option>
                     </select>
-                    <input type="text" v-model="info.pwHint" class="w100" placeholder="선택한 질문에 대한 답변 입력">
+                    <input type="text" v-model="info.pwA" class="w100" placeholder="선택한 질문에 대한 답변 입력">
                 </div>
                 <p>자취경력</p>
                 <input type="text" class="w90" v-model="info.livingYear" placeholder="자취경력 햇수 입력"> 년차
@@ -203,8 +203,9 @@ var app = new Vue({
    	    	, addr :""
    	    	, addr2 :""
    	    	, birth :""
-   	    	, pwHint :""
    	    	, livingYear :""
+   	    	, pwQ : "질문선택"
+   	    	, pwA : ""
    	    	
     	},
     	  idFlg : true
@@ -260,7 +261,11 @@ var app = new Vue({
     			alert("생일을 입력해주세요");
     			return;
     		}
-    		if(self.info.pwHint == ""){
+    		if(self.info.pwQ == ""){
+    			alert("비밀번호 질문을 선택해주세요");
+    			return;
+    		}
+    		if(self.info.pwA == ""){
     			alert("비밀번호 힌트를 입력해주세요");
     			return;
     		}
