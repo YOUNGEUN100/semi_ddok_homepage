@@ -103,7 +103,7 @@
         .fund_name {
         	cursor: pointer;
         	width : 735px;
-        	overflow     : hidden;
+        	overflow : hidden;
         	text-overflow: ellipsis;
         	white-space  : nowrap;
         }
@@ -267,8 +267,7 @@
                                             <h1 class="fund_name" @click="fnViewFunding2(item.fundingNo)">{{item.fundingName}}</h1>
                                             <p class="fund_summary">{{item.fundingSummary}}</p>
                                             <span class="fund_cnt">최소 {{item.fundingGoalCnt}}명 중 {{item.cnt}}명 </span>
-                                            <span class="fund_time">{{item.sDay}}{{item.dow}}
-                                                {{item.sTime}}시 오픈예정</span>
+                                            <span class="fund_time">{{item.sDay}}{{item.dow}}{{item.sTime}}시 오픈예정</span>
                                             <p></p>
                                             <progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
                                             <div class="price_box">
@@ -345,7 +344,8 @@
                         }
                     });
                 }
-
+				
+                // 오픈중 펀딩 더보기 버튼
                 , fnShowMore: function () {
                     var self = this;
                     if (self.moreBtn == "off") {
@@ -358,7 +358,8 @@
                     	moreBtn.innerHTML = "더보기";
                     }
                 }
-               
+               	
+                // 준비중 펀딩 더보기 버튼
                 , fnShowMore2: function () {
                     var self = this;
                     if (self.moreBtn2 == "off") {
@@ -371,13 +372,15 @@
                     	moreBtn2.innerHTML = "더보기";
                     }
                 }
-
+				
+                // 오픈중 펀딩 카테고리 변경
                 , fnChangeOrder: function () {
                     var self = this;
                     console.log(self.orderValue);
                     self.fnGetFundingList();
                 }
-
+				
+                // 준비중 펀딩 카테고리 변경
                 , fnChangeOrder2: function () {
                     var self = this;
                     console.log(self.orderValue2);
@@ -414,16 +417,19 @@
             		document.body.removeChild(form);
             	}
                 
+                // 오픈중 펀딩 상세페이지로
                 , fnViewFunding: function(fundingNo) {
                 	var self = this;
                 	self.pageChange("./funding/view/open.do", {fundingNo : fundingNo});
                 }
                 
+                // 준비중 펀딩 상세페이지로
                 , fnViewFunding2: function(fundingNo) {
                 	var self = this;
                 	self.pageChange("./funding/view/planned.do", {fundingNo : fundingNo});
                 }
                 
+                // 펀딩 상품 등록
               	, fnAddFunding : function(){
             		location.href = "/funding/edit.do";
             	}

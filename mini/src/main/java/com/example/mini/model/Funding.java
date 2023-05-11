@@ -12,6 +12,8 @@ public class Funding {
 	private int category;
 	private String cdatetime;
 	private String udatetime;
+	private String cdatetime2;
+	private String udatetime2;
 	private String deleteYn;
 	private String secretYn;
 	private String answerYn;
@@ -100,6 +102,18 @@ public class Funding {
 	}
 	public void setUdatetime(String udatetime) {
 		this.udatetime = udatetime;
+	}
+	public String getCdatetime2() {
+		return cdatetime2;
+	}
+	public void setCdatetime2(String cdatetime2) {
+		this.cdatetime2 = cdatetime2;
+	}
+	public String getUdatetime2() {
+		return udatetime2;
+	}
+	public void setUdatetime2(String udatetime2) {
+		this.udatetime2 = udatetime2;
 	}
 	public String getDeleteYn() {
 		return deleteYn;

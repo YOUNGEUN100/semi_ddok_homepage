@@ -15,9 +15,15 @@ public class FundingServiceImpl implements FundingService {
 	@Autowired // Mapper와 연결
 	private FundingMapper fundingMapper;
 
-	@Override // 랜선마켓 게시판 리스트
-	public List<Funding> searchLanList(HashMap<String, Object> map) throws Exception {
-		List<Funding> list = fundingMapper.selectLanList(map);
+	@Override // 랜선장터 거래 리스트
+	public List<Funding> searchTradeFleaList(HashMap<String, Object> map) throws Exception {
+		List<Funding> list = fundingMapper.selectTradeFleaList(map);
+		return list;
+	}
+	
+	@Override // 랜선장터 거래 리스트
+	public List<Funding> searchDonateFleaList(HashMap<String, Object> map) throws Exception {
+		List<Funding> list = fundingMapper.selectDonateFleaList(map);
 		return list;
 	}
 

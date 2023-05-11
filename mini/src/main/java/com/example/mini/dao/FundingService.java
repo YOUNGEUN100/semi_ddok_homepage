@@ -8,7 +8,10 @@ import com.example.mini.model.Funding;
 public interface FundingService {
 
 	// 랜선마켓 게시판 리스트
-	List<Funding> searchLanList(HashMap<String, Object> map) throws Exception;
+	List<Funding> searchTradeFleaList(HashMap<String, Object> map) throws Exception;
+	
+	// 랜선마켓 게시판 리스트
+	List<Funding> searchDonateFleaList(HashMap<String, Object> map) throws Exception;
 
 	// 오픈중 펀딩 리스트
 	List<Funding> searchOpenFundingList(HashMap<String, Object> map) throws Exception;

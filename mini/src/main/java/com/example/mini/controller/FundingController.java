@@ -35,16 +35,14 @@ public class FundingController {
 
 	// 2-1. 랜선펀딩 진행중 상세
 	@RequestMapping("/funding/view/open.do")
-	public String funding(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
+	public String funding(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
 		return "/funding_view_open";
 	}
 
 	// 2-1. 랜선펀딩 예정 상세
 	@RequestMapping("/funding/view/planned.do")
-	public String funding2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
-			throws Exception {
+	public String funding2(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		request.setAttribute("map", map);
 		return "/funding_view_planned";
 	}
@@ -61,24 +59,36 @@ public class FundingController {
 		return "/flea";
 	}
 
-	// 2-2. 랜선마켓 상세
+	// 2-2. 랜선장터 상세
 	@RequestMapping("/flea/view.do")
-	public String lanmarketInfo(Model model) throws Exception {
+	public String lanmarketInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/flea_view";
 	}
 
-	// 2-2. 랜선마켓 작성 및 수정
+	// 2-2. 랜선장터 작성 및 수정
 	@RequestMapping("/flea/edit.do")
 	public String lanmarketEdit(Model model) throws Exception {
 		return "/flea_edit";
 	}
 
-	// 랜선마켓 게시판 리스트
-	@RequestMapping(value = "/lanmarket/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	// 랜선장터 거래 리스트
+	@RequestMapping(value = "/fleamarket/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String searchLanList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+	public String searchFleaList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Funding> list = fundingService.searchLanList(map);
+		List<Funding> list = fundingService.searchTradeFleaList(map);
+		resultMap.put("list", list);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+
+	// 랜선장터 나눔 리스트
+	@RequestMapping(value = "/fleamarket/list2.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchFleaList2(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<Funding> list = fundingService.searchDonateFleaList(map);
 		resultMap.put("list", list);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);

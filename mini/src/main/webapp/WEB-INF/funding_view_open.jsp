@@ -239,6 +239,10 @@
             	// 펀딩 신청
                 , fnApply: function () {
                     var self = this;
+                    if (self.sessionId == "") {
+                    	alert("로그인을 해주세요");
+                    	return;
+                    }
                     if (!confirm("펀딩을 신청하시겠습니까?")) {
                         return;
                     }

@@ -199,6 +199,41 @@
     <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 
-    <script type="text/javascript">
-	// 여기에 [script] 입력하세요
+    <script type="text/javascript">       
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                info: {},
+                boardNo: "${map.boardNo}",
+                sessionId: "${sessionId}"
+
+            },
+            methods: {
+                fnGetFlea: function () {
+                    var self = this;
+                    var nparmap = {
+                    	boardNo: self.boardNo
+                    };
+                    $.ajax({
+                        url: "/flea/view.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            self.info = data.info;
+                            console.log(data.info);
+
+                        }
+                    });
+                }            	
+            	
+             	
+            }
+                ,
+                created: function () {
+                    var self = this;
+                    self.fnGetFlea();
+                }
+            });
     </script>

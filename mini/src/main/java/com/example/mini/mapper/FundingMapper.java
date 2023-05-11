@@ -9,8 +9,11 @@ import com.example.mini.model.Funding;
 
 @Mapper
 public interface FundingMapper {
-	// 랜선마켓 게시판 리스트
-	List<Funding> selectLanList(HashMap<String, Object> map);
+	// 랜선장터 거래 리스트
+	List<Funding> selectTradeFleaList(HashMap<String, Object> map);
+	
+	// 랜선장터 나눔 리스트
+	List<Funding> selectDonateFleaList(HashMap<String, Object> map);
 
 	// 오픈중 펀딩 리스트
 	List<Funding> selectOpenFundingList(HashMap<String, Object> map);

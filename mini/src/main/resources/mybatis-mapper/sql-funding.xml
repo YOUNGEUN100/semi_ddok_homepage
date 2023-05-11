@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-	<!--랜선마켓 리스트-->
+	<!--랜선장터 거래 리스트-->
 	<mapper namespace="com.example.mini.mapper.FundingMapper">
-		<select id="selectLanList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+		<select id="selectTradeFleaList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			SELECT      
 				BOARD_NO,
 				A.USER_ID,
@@ -15,14 +15,16 @@
 				BOARD_KIND,
 				FINISH_YN,
 				CATEGORY,
+				CDATETIME,
+				UDATETIME,
 				CASE
 					WHEN CURDATE() = DATE_FORMAT(CDATETIME,'%Y-%m-%d') then DATE_FORMAT(CDATETIME,'%H : %i : %s')
             	    ELSE DATE_FORMAT(CDATETIME,'%Y-%m-%d') 
-				END AS CDATETIME,
+				END AS CDATETIME2,
 				CASE
 					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
             	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
-				END AS UDATETIME,
+				END AS UDATETIME2,
 				DELETE_YN,
 				SECRET_YN,
 				ANSWER_YN,
@@ -32,9 +34,65 @@
 			
         	LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
         	
-        	WHERE BOARD_KIND = 'T_LAN' OR BOARD_KIND = 'D_LAN'
+        	WHERE BOARD_KIND = 'T_LAN'
         	
-        	LIMIT 5
+        	<if test = "orderValue == 'recent'">
+        	ORDER BY CDATETIME DESC
+        	</if>
+        	
+        	<if test = "orderValue == 'viewCnt'">
+        	ORDER BY HITS DESC
+        	</if>
+        	
+        	<if test = "moreBtn == 'off'">
+			LIMIT 5
+			</if>
+		</select>
+		
+		<!--랜선장터 나눔 리스트-->
+		<select id="selectDonateFleaList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+			SELECT      
+				BOARD_NO,
+				A.USER_ID,
+				B.NICK,
+				TITLE,
+				CONTENT,
+				HITS,
+				BOARD_KIND,
+				FINISH_YN,
+				CATEGORY,
+				CDATETIME,
+				UDATETIME,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(CDATETIME,'%Y-%m-%d') then DATE_FORMAT(CDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(CDATETIME,'%Y-%m-%d') 
+				END AS CDATETIME2,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
+				END AS UDATETIME2,
+				DELETE_YN,
+				SECRET_YN,
+				ANSWER_YN,
+            	B.ADDR
+            	
+			FROM T4_BOARD A
+			
+        	LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
+        	
+        	WHERE BOARD_KIND = 'D_LAN'
+        	
+        	<if test = "orderValue2 == 'recent'">
+        	ORDER BY CDATETIME DESC
+        	</if>
+        	
+        	<if test = "orderValue2 == 'viewCnt'">
+        	ORDER BY HITS DESC
+        	</if>
+        	
+        	<if test = "moreBtn2 == 'off'">
+			LIMIT 5
+			</if>
 		</select>
 		
 		<!--오픈된 펀딩 리스트-->		
