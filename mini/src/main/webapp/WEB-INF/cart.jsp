@@ -5,6 +5,16 @@
 
 <style>
 	<!--스타일 입력 --> 
+	#wrapper{
+            width: 1200px;
+            height: 2600px;
+            border: 1px solid #ccc;
+            /*background-image: url(./images/smart_market_view.jpg);*/
+            background-position: center;
+            opacity: 1;
+            clear:both;
+            
+        }	
 </style>
 
 
@@ -12,6 +22,9 @@
 <div id="pageContent">
 	<div class="wrapper">
 		 <!-- 작업한 본문 입력 -->
+		 <div >
+
+		</div>
 	</div>
 </div>
 <!-- pageContent -- END -->

@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="index.css">
+        <script src="js/jquery.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        
+        <style>
+            #wrapper{
+                width: 1200px;
+                height: 2600px;
+                border: 1px solid #ccc;
+                background-image: url("../images/cart.png");
+                background-position: center;
+                opacity: 1;
+                clear:both;
+                
+            }
+            
+        </style>
+    </head>
+    <body>      
+        <div id="app">
+
+
+            <!-- pageContent -- START -->
+            <div id="pageContent">
+                <div id="wrapper">
+                    <!-- 작업한 본문 입력 -->
+                    <div >
+                        <img src="../../images/cart.png">
+                    </div>
+                </div>
+            </div>
+            <!-- pageContent -- END -->            
+
+
+        </div>      
+    </body>
+</html>
+<script>
+    var app = new Vue({ 
+    el: '#app',
+    data: {
+        seen: true
+        , list : []  
+        ,gender : ""
+        ,genderFlg : ""
+    }, methods: {
+            fnTest : function(){
+                var self = this;
+                
+                $.ajax({
+                    url:"js/MOCK_DATA.json",
+                    dataType:"json",
+                    success:function(data) {
+                        self.list = data;
+                        
+                }
+            });
+        },
+
+        fnSearch : function(){
+                this.genderFlg=this.gender;
+            }
+        
+    }
+    , created: function () {
+		this.fnTest();
+	}
+});
+</script>

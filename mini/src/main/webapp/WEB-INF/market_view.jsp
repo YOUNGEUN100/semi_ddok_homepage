@@ -252,7 +252,7 @@
             margin-top: 28px;
             height: 900px;
             width: 100%;
-            float: left;
+            clear:both;            
         }
         
         .btn_all_view{
@@ -332,7 +332,7 @@
         <!-- wrap START -->
     <div id="wrapper" >
         <div id="app">
-        <div class="smart_img"><img id="smart_img" src="/images/food1.jpg"></div>
+        <div class="smart_img"><img id="smart_img" :src="info.imgPath"></div>
         <div class="smart_txt">
             <div class="smart_empth1"></div>
             <div class="smart_title">
@@ -363,14 +363,18 @@
         </div>
         
         <div class="product_review_title">
-            <div class="btn_product_script_top"><a id="product_discript_move" href="#product_discript">상품설명</a></div>
-            <div class="btn_review_script_top">후기<a name="product_review"></a></div>
+            <div class="btn_product_script_top">상품설명</div>
+            <div class="btn_review_script_top"><a id="product_discript_move" href="#product_discript" name="product_review">후기</a></div>
         </div>
         <!--  div class="product_script"><img src="/images/1_VER.jpg" class="img_rec" style="width:780px;"></div-->
-        <div class="product_script" v-for="(item, index) in imglist">
+        
+        	
+        	
+        <div class="product_script" v-for="(item, index) in imglist" >
         	<img  :src="item.imgPath" class="img_rec" style="width:780px;">
-        	{{item.imgPath}}
         </div>
+        
+        
         
         <div class="btn_all_view"><button id="btn_all_view">펼쳐보기</button></div>
         <div class="product_script_detail" id="product_script_detail">            
@@ -379,14 +383,14 @@
 
 
         <div class="product_review_title" >
-            <div class="btn_product_script_bottom"><a name="product_discript">상품설명</a></div>
-            <div class="btn_review_script_bottom"><a href="#product_review">후기</a></div>
+            <div class="btn_product_script_bottom"><a href="#product_review" name="product_discript">상품설명</a></div>
+            <div class="btn_review_script_bottom">후기</div>
         </div>
         
         <div class="table1" >
             <table class="table2"> 
                 <tr v-for="(item, index) in list" >
-                    <td>{{item.rId}} </td>
+                    <td>{{item.cdatetime}} </td>
                     <td>{{item.productName}}</td>
                     <td>
 	                    <img class="star" src="/images/star.png">
@@ -441,6 +445,7 @@ Vue.component('paginate', VuejsPaginate)
         , reviewlist : {}
         , productNo : "${map.productNo}"
         , productName : ""
+        , isOpen : false
         
         	<!-- 페이징 추가 5-->
 		, selectPage: 1
@@ -470,7 +475,7 @@ Vue.component('paginate', VuejsPaginate)
                     type : "POST",
                     data : nparmap,
                     success : function(data) {
-                        //console.log(data.imgList.list);
+                        console.log(data);
                         //console.log(data.reviewList.list);
                         self.info = data.info;
                         self.imglist = data.imgList.list;
