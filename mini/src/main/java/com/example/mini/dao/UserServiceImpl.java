@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void editPw(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		userMapper.updatePw(map);
+		userMapper.updatePw(map);;
 	}
 	//비밀번호 찾기
 	@Override

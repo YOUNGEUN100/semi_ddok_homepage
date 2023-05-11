@@ -131,7 +131,6 @@ public class UserController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int cnt = userService.searchUserCnt(map);
 		resultMap.put("pw", userService.searchUserPw(map));
-		resultMap.put("cnt", cnt);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}

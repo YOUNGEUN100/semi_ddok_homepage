@@ -57,11 +57,24 @@
         font-size: 1.1em; text-align: center;
         margin-top: -10px; margin-bottom: 15px;
         }
+   .findArea .resultBox .pw{
+       display : inline-block; margin-right:5px
+       }
+    .findArea .resultBox .pwck{
+    display : inline-block; margin-right:5px
+    }
+       
     .findArea .resultBox input{
         border: 0; border-bottom: 1px solid black;
         margin: 13px 5px; padding-left: 10px;
         margin-bottom: 30px; font-size: 0.88em;
     	}
+   	.findArea .resultBox .ableId{
+	      	font-size: 0.7em; color: #5EA152;
+	      }
+    .findArea .resultBox .disableId{
+	       font-size: 0.7em; color: red;
+	      }
     .findArea .resultBox .w100{width: 100%;}
 
     .findArea .resultBox .findPwBtn{
@@ -69,6 +82,25 @@
 	     padding: 12px; border: 0; border-radius: 10px; width: 78%; margin-left: 50px;
 	     font-weight: bold; font-size: 1.1em; margin-bottom: 15px;
 	    }
+    .findArea .resultBox .w100{width: 100%;}
+    .findArea .resultBox .titleId {
+	      display: inline-block; width: 50%; text-align: end; 
+	      font-size: 0.9em; padding-right: 40px; margin-top: 25px;
+	      }
+    .findArea .resultBox .titlePw {
+	    display: inline-block; width: 50%; text-align: end; 
+	    font-size: 0.9em; padding-right: 30px;
+	    }
+    .findArea .resultBox .findId{
+        display: inline-block; width: 50%; text-align: start; 
+        font-size: 0.9em; color: #5EA152;
+        }
+
+    .findArea .resultBox .loginBtn{
+        margin-top: 40px; background-color: #5EA152; color: #fff;
+        padding: 12px; border: 0; border-radius: 10px; width: 78%; margin-left: 50px;
+        font-size: 1.1em; margin-bottom: 5px; text-align: center; font-weight: 550;
+        }
 </style>
 
 
@@ -78,7 +110,7 @@
 		<!-- wrap START -->
     	<div id="app" class="findArea">
         <a href="/findId.do" class="idBox">아이디 찾기</a><a href="/findPw.do" class="pwBox">비밀번호 찾기</a>
-        <div class="inputBox" v-model="!findPw">
+        <div class="inputBox" v-if="!findPw">
             <div class="markEssential">아이디</div>
             <input type="text" v-model="id" placeholder="아이디 입력(영문, 숫자포함 6~20자)" class="w100">
             <div class="markEssential">이름</div>
@@ -98,22 +130,29 @@
             <button class="findIdBtn" @click="fnFindPw()">비밀번호 찾기</button>
         </div>
         	<template v-else>
-	         	<div class="resultBox">
-		            <div class="markEssential">새로운 비밀번호</div>
+	         	<div class="resultBox" v-if="!changePw">
+		            <div class="markEssential pw">새로운 비밀번호</div><div v-if="pw == ''"></div>
+		            <template v-else-if="pw != '' && pw.length >= 20">  
+                    	<span class="captionCheck disableId">20자 이내의 비밀번호를 입력해주세요</span>
+                    </template>
 		            <input type="password" v-model="pw" class="w100" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8-20자)" maxlength="20">
-		            <div class="markEssential">새로운 비밀번호 확인</div>
-		            <input type="password" v-model="pwck" class="w100" placeholder="비밀번호 재입력" maxlength="20">
-		            <button class="findPwBtn">비밀번호 변경하기</button>
+		            <div class="markEssential pwck">새로운 비밀번호 확인</div><div v-if="pw == ''"></div>
+		            <template v-else-if="pw != '' && pwCheck">
+		            	<span class="ableId" v-if="pw == pwck">비밀번호가 일치합니다.</span>
+                    	<span class="disableId" v-else>비밀번호가 일치하지않습니다.</span>
+		            </template>
+		            <input type="password" v-model="pwck"class="w100" placeholder="비밀번호 재입력" maxlength="20">
+		            <button class="findPwBtn" @click="fnUpdatePw">비밀번호 변경하기</button>
 		        </div>
 		        
-		        <div class="resultBox" >
+		        <div class="resultBox" v-else>
 		            <div class="guideChangeBox">
 		                <div>고객님의 비밀번호가</div>
 		                <div>아래와 같이 변경되었습니다.</div>
 		            </div>
 		            <div class="titleId">아이디</div><div class="findId">{{id}}</div>
 		            <div class="titlePw">비밀번호</div><div class="findId">{{pw}}</div>
-		            <button class="loginBtn">로그인 하기</button>
+		            <a href="javascript:;" class="loginBtn">로그인 하기</a>
 		        </div>
 	        </template>
 
@@ -136,12 +175,13 @@ var app = new Vue({
     		info : {},
     		id :"",
     		name : "",
-    		pwQ: "",
+    		pwQ: "질문 선택",
     		pwA:"",
     		pw: "",
     		pwck:"",
     		findPw : false,
-    		changePw : true
+    		changePw : false,
+    		pwCheck : false
     		
     		
     }
@@ -163,17 +203,23 @@ var app = new Vue({
 	 	
 	 	fnUpdatePw : function(){
     		var self = this;
-	      	var nparmap = self.info;
+	      	var nparmap = self.pw;
+	      	nparmap.pw = self.pw;
 	        $.ajax({
 	            url:"/pwUpdate.dox",
 	            dataType:"json",	
 	            type : "POST", 
 	            data : nparmap,
 	            success : function(data) {  
-	            	console.log(data);
+	            	self.changePw = true;
 					
 	            }
 	        }); 
+    	},
+    	
+    	fnPwCheck : function(){
+    		var self = this;
+    		self.pwCheck = true;
     	}
     }	
     , created: function () {
