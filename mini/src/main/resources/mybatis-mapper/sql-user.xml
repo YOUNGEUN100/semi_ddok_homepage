@@ -17,7 +17,8 @@
 				ADDR,
 				ADDR2,
 				JOINDATE,
-				PW_HINT	
+				PW_Q,
+				PW_A
 			FROM T4_USER
 			WHERE USER_ID=#{id} AND PASSWORD=#{pw}
 		</select>
