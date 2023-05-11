@@ -226,20 +226,21 @@
 <div id="pageContent">
 	 <!-- wrap START -->
     <div class="wrapper">
+    	<div id="app">
         <div class="recipe-info-box">
             <div class="recipe-thumb-img">
                 <div class="re-view-cnt">
                     <i class="fa-solid fa-eye fa-lg"></i>
                     <span>365</span>
                 </div>
-                <img  src="https://ottogi.okitchen.co.kr/pds/upfile/2020-10-22_1018447081[13].jpg">
+                <img  :src="info.imgPath">
             </div>
            
             <div class="big-box">
                 <div class="recipe-info">
                     <div class="recipe-name">
                         <div>#1인분 #냉장고털이 #빵</div>
-                        <div><strong>채식 버거</strong></div>
+                        <div><strong>{{info.recipeName}}</strong></div>
                     </div>
                     <hr>
                     <div class="recipe-simple-info">
@@ -251,12 +252,12 @@
                         <div class="box2">
                             <img class="re-icon" src="/images/icon_recipe02.png">
                             <div>조리시간</div>
-                            <div>20분 이내</div>
+                            <div>{{info.time}}</div>
                         </div>
                         <div class="box2">
                             <img class="re-icon" src="/images/icon_recipe03.png">
                             <div>난이도</div>
-                            <div>쉬움</div>
+                            <div>{{info.difficulty}}</div>
                         </div>
                     </div>
                 </div>
@@ -274,7 +275,7 @@
                 <img class="re-icon" src="/images/icon_recipe04.png">
                 <span>레시피 재료</span>
             </div>
-            <div class="ingre-info">햄버거빵, 표고버섯, 빵가루, 튀김가루, 소금, 후추, 마요네즈, 케챱, 콩기름</div>
+            <div class="ingre-info">{{info.cookIngre}}</div>
         </div>
 
         <div class="ingredient">
@@ -365,12 +366,10 @@
                 <div class="r-text">★ 4.5</div>
             </div>
         </div>
-    </div>
-
-
-
         
-
+    	</div>
+    	
+		</div>
     </div>
     <!-- wrap END -->
 </div>
@@ -380,5 +379,43 @@
 
 
 <script type="text/javascript">
+	var app = new Vue({ 
+	    el: '#app',
+	    data: {
+	    list : [] 
+	    , info : {}
+	    , recipeNo : "${map.recipeNo}"
+	        
+	    } 
+	    , methods: {
+	        fnGetInfo : function(){
+	            var self = this;
+	            var nparmap = {recipeNo : self.recipeNo};
+	            // 레시피 설명
+	            $.ajax({
+	                url:"/recipe/view.dox",
+	                dataType:"json",
+	                type : "POST",
+	                data : nparmap,
+	                success : function(data) {
+	                    self.info = data.info;
+	                    console.log(self.recipeNo);
+	                    console.log(data.info);
+	                }
+	            });
 	
+	        }
+	    // 도구별 리스트 가져오기
+		,fnGetRecipeTool : function() {
+			
+		}
+	    
+	        
+	    }   
+	    , created: function () {
+	        var self = this;
+	        self.fnGetInfo();
+	        
+	    }
+	});
 </script>

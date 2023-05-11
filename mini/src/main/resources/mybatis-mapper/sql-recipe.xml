@@ -2,11 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-	
 	<!--레시피 리스트-->
 	<mapper namespace="com.example.mini.mapper.RecipeMapper">
 		<select id="selectRecListAll" parameterType="hashmap" resultType="com.example.mini.model.Recipe">
-	  SELECT  
+	      SELECT  
 				R.RECIPE_NO,
 				RECIPE_NAME,
 				TIME,
@@ -22,10 +21,15 @@
 				FROM T4_R_IMAGE
 				WHERE THUMBNAIL_YN = 'Y') I 
 			ON I.RECIPE_NO = R.RECIPE_NO 
+			LIMIT 0, 20
 		</select>
 		
-		<select id="selectRecList" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
-			SELECT P.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, CODE
+		<!-- 레시피 조회수  -->
+		<update id="updateRecipeHits"></update>
+		
+		<!--목적별 레시피 리스트-->
+		<select id="selectRecListPur" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
+			SELECT P.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, P.CODE AS PCODE
 			FROM 
 			(	SELECT  
 					R.RECIPE_NO AS RECIPE_NO,
@@ -45,11 +49,66 @@
 					ON I.RECIPE_NO = R.RECIPE_NO
 				) R
 			LEFT JOIN T4_R_PURPOSE P ON P.RECIPE_NO = R.RECIPE_NO
-			<if test="recipe_kind !='' and recipe_kind != null">
-			WHERE CODE = #{recipe_kind}
+			<if test="recipe_code !='' and recipe_code != null">
+			WHERE P.CODE = #{recipe_code}
 			</if>
 		</select>
 		
+		<!--방법별 레시피 리스트-->
+		<select id="selectRecListHow" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
+			SELECT H.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, H.CODE AS HCODE
+			FROM 
+			(	SELECT  
+					R.RECIPE_NO AS RECIPE_NO,
+					RECIPE_NAME,
+					TIME,
+					DIFFICULTY,
+					RECIPE_HITS,
+					DELETE_YN,
+					CDATETIME,
+					UDATETIME,
+					IMG_PATH
+					FROM T4_RECIPE R
+					INNER JOIN 
+						(SELECT RECIPE_NO, IMG_PATH
+						FROM T4_R_IMAGE
+						WHERE THUMBNAIL_YN = 'Y') I 
+					ON I.RECIPE_NO = R.RECIPE_NO
+				) R
+			LEFT JOIN T4_HOWTO H ON H.RECIPE_NO = R.RECIPE_NO
+			<if test="recipe_code !='' and recipe_code != null">
+			WHERE H.CODE = #{recipe_code}
+			</if>
+		</select>
+		
+		<!--도구별 레시피 리스트-->
+		<select id="selectRecListTool" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
+			SELECT T.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, T.CODE AS TCODE
+			FROM 
+			(	SELECT  
+					R.RECIPE_NO AS RECIPE_NO,
+					RECIPE_NAME,
+					TIME,
+					DIFFICULTY,
+					RECIPE_HITS,
+					DELETE_YN,
+					CDATETIME,
+					UDATETIME,
+					IMG_PATH
+					FROM T4_RECIPE R
+					INNER JOIN 
+						(SELECT RECIPE_NO, IMG_PATH
+						FROM T4_R_IMAGE
+						WHERE THUMBNAIL_YN = 'Y') I 
+					ON I.RECIPE_NO = R.RECIPE_NO
+				) R
+            LEFT JOIN T4_TOOL T ON T.RECIPE_NO = R.RECIPE_NO
+			<if test="recipe_code !='' and recipe_code != null">
+			WHERE T.CODE = #{recipe_code}
+			</if>
+		</select>
+		
+		<!--레시피 코드-->
 		<select id="selectRecipeKind" parameterType="hashmap" resultType="com.example.mini.model.Code">	
 			SELECT 
 				KIND,
@@ -58,6 +117,34 @@
 			FROM T4_CODE
 			WHERE KIND = 'R_PURPOSE' || KIND = 'HOWTO' || KIND = 'TOOL'
 		</select>
+		
+		<!--레시피 글보기-->
+		<select id="selectRecipeInfo" parameterType="hashmap" resultType="com.example.mini.model.Recipe">
+			SELECT  
+				R.RECIPE_NO AS RECIPE_NO,
+				RECIPE_NAME,
+				TIME,
+				DIFFICULTY,
+				RECIPE_HITS,
+				DELETE_YN,
+				CDATETIME,
+				UDATETIME,
+                COOK_INGRE,
+				IMG_PATH,
+                T.CODE AS TCODE
+			FROM T4_RECIPE R
+			INNER JOIN 
+				(SELECT RECIPE_NO, IMG_PATH
+				FROM T4_R_IMAGE
+				WHERE THUMBNAIL_YN = 'Y') I
+				ON I.RECIPE_NO = R.RECIPE_NO
+			LEFT JOIN T4_TOOL T 
+                ON T.RECIPE_NO = R.RECIPE_NO
+		<if test="recipeNo !='' and recipeNo != null">
+			WHERE R.RECIPE_NO = #{recipeNo}
+		</if>
+		</select>
+	
 	
 	
 		

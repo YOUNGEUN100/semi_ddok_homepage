@@ -5,14 +5,17 @@ public class Recipe {
 	
 	private int recipeNo;
 	private String recipeName;
-	private int time;
+	private String time;
 	private String difficulty;
 	private int recipeHits;
 	private String deleteYn;
 	private String cdatetime;
 	private String udatetime;
+	private String cookIngre;
 	private String imgPath;
-	private String code;
+	private String pcode;
+	private String hcode;
+	private String tcode;
 	
 
 	
@@ -28,10 +31,11 @@ public class Recipe {
 	public void setRecipeName(String recipeName) {
 		this.recipeName = recipeName;
 	}
-	public int getTime() {
+	
+	public String getTime() {
 		return time;
 	}
-	public void setTime(int time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	public String getDifficulty() {
@@ -64,17 +68,36 @@ public class Recipe {
 	public void setUdatetime(String udatetime) {
 		this.udatetime = udatetime;
 	}
+	public String getCookIngre() {
+		return cookIngre;
+	}
+	public void setCookIngre(String cookIngre) {
+		this.cookIngre = cookIngre;
+	}
 	public String getImgPath() {
 		return imgPath;
 	}
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
 	}
-	public String getCode() {
-		return code;
+	public String getPcode() {
+		return pcode;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setPcode(String pcode) {
+		this.pcode = pcode;
 	}
+	public String getHcode() {
+		return hcode;
+	}
+	public void setHcode(String hcode) {
+		this.hcode = hcode;
+	}
+	public String getTcode() {
+		return tcode;
+	}
+	public void setTcode(String tcode) {
+		this.tcode = tcode;
+	}
+
 	
 }

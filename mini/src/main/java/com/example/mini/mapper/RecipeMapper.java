@@ -14,10 +14,20 @@ public interface RecipeMapper {
 	// 레시피 게시판 리스트(전체)
 	List<Recipe> selectRecListAll(HashMap<String, Object> map);
 		
-	// 레시피 게시판 리스트
-	List<Recipe> selectRecList(HashMap<String, Object> map);
+	// 목적별 레시피 게시판 리스트
+	List<Recipe> selectRecListPur(HashMap<String, Object> map);
+	
+	// 방법별 레시피 게시판 리스트
+	List<Recipe> selectRecListHow(HashMap<String, Object> map);
+		
+	// 도구별 레시피 게시판 리스트
+	List<Recipe> selectRecListTool(HashMap<String, Object> map);
 		
 	// 레시피 분류
 	List<Code> selectRecipeKind(HashMap<String, Object> map);
+	
+	// 레시피 상세정보
+	Recipe selectRecipeInfo(HashMap<String, Object>map);
+	
 	
 }

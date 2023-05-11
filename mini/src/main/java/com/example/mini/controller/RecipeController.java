@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.RecipeService;
 import com.example.mini.model.Code;
-import com.example.mini.model.Funding;
 import com.example.mini.model.Recipe;
 import com.google.gson.Gson;
 
@@ -22,16 +21,10 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class RecipeController {
 
-	// 본인 페이지 확인하는데 뜨지 않으면 확인할 것
-	// 1. 조장이 페이지 주소에 오타를 냈다.
-	// 2. 조장이 jsp 파일에 오타를 냈다.
-	// 오타 찾으면 알려주세요.
-	
 	@Autowired
     private RecipeService recipeService; 
 	
-	
-	// 똑똑한 레시피
+	// 페이지 - 똑똑한 레시피
 	@RequestMapping("/recipe.do")
 	public String recipe(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 		List<Code> codeList = recipeService.searchRecipeKind(map);
@@ -39,43 +32,72 @@ public class RecipeController {
 		request.setAttribute("map", map);
 		return "/recipe";
 	}
-	
-	// 똑똑한 레시피 상세
-	@RequestMapping("/recipe/view.do")
-	public String recipeInfo(Model model) throws Exception{
-		return "/recipe_view";
-	}
-	
-	// 똑똑한 레시피 상세
-		@RequestMapping("/recipe/edit.do")
-		public String recipeEdit(Model model) throws Exception{
-			return "/recipe_edit";
-		}
-		
-	
-	
-	
+
 	@RequestMapping(value = "/recipe/all.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
 	@ResponseBody
 	public String searchRecipeListAll(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<Recipe> list = recipeService.searchRecListAll(map);
+	
 		resultMap.put("list", list);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
 	
-	@RequestMapping(value = "/recipe/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
+	@RequestMapping(value = "/recipe/list/purpose.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
 	@ResponseBody
-	public String searchRecipeList(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
-		
+	public String searchRecipeListPur(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Recipe> list = recipeService.searchRecList(map);
+		List<Recipe> list = recipeService.searchRecListPur(map);
 		resultMap.put("list", list);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
+	@RequestMapping(value = "/recipe/list/howto.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
+	@ResponseBody
+	public String searchRecipeListHow(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<Recipe> list = recipeService.searchRecListHow(map);
+		resultMap.put("list", list);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	@RequestMapping(value = "/recipe/list/tool.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
+	@ResponseBody
+	public String searchRecipeListTool(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<Recipe> list = recipeService.searchRecListTool(map);
+		resultMap.put("list", list);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+		
 	
+	// 페이지 - 똑똑한 레시피 상세
+	@RequestMapping("/recipe/view.do")
+	public String recipeInfo(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		request.setAttribute("map", map);
+		return "/recipe_view";
+	}
+	
+	// 레시피 상세정보
+	@RequestMapping(value = "/recipe/view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String recipeInfoView(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		Recipe info = recipeService.searchRecipeInfo(map);
+		resultMap.put("info", info);
+		resultMap.put("message", "성공");
+		return new Gson().toJson(resultMap);
+	}
+	
+	
+	// 페이지 - 똑똑한 레시피 등록 및 수정
+	@RequestMapping("/recipe/edit.do")
+	public String recipeEdit(Model model) throws Exception{
+			return "/recipe_edit";
+	}
+				
 	
 }
 		

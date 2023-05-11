@@ -3,11 +3,45 @@
 <jsp:include page="/layout/head.jsp"></jsp:include>
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
+
+
 <style>
 	  /* style START */
-        body {
-            /* background: url("/images/work_img.jpg") no-repeat; */
-        }
+        
+        /* 페이징 추가2 */
+		.pagination {
+	        margin:24px;
+	        display: inline-flex;
+	        
+	    }
+	    ul {
+	        text-align: center;
+	    }
+		.pagination li {
+		    min-width:32px;
+		    padding:2px 6px;
+		    text-align:center;
+		    margin:0 3px;
+		    border-radius: 6px;
+		    border:1px solid #eee;
+		    color:#666;
+		    display : inline;
+		}
+		.pagination li:hover {
+		    background: #E4DBD6;
+		}
+		.page-item a {
+		    color:#666;
+		    text-decoration: none;
+		}
+		.pagination li.active {
+		    background-color : #E7AA8D;
+		    color:#fff;
+		}
+		.pagination li.active a {
+		    color:#fff;
+		}
+	    /* 페이징 추가 끝 */
         #wrapper {
             text-align: center;
         }
@@ -203,7 +237,7 @@
             <input type="text" placeholder="원하는 재료나 레시피를 다양하게 검색해 보세요!" class="r-input">
             <i class="search-icon fa-solid fa-magnifying-glass fa-lg"></i>
         </div>
-        <div class="r-category">
+        <div class="r-category" @click="fnGetRecipeAll()">
             <div class="box1" id="all-btn">
                 <div class="category-circle"></div>
                 <i class="c-icon fa-solid fa-utensils fa-2xl"></i>
@@ -233,17 +267,17 @@
         <div class="detail-category">
             <div id="purpose" class="box2">
                 <div><b>목적별</b></div>
-                <a v-for="(item, index) in codeList" v-if="item.kind=='R_PURPOSE'" href="#" class="each" @click="fnGetRecipeList(item)">{{item.name}}</a>
+                <a v-for="(item, index) in codeList" v-if="item.kind=='R_PURPOSE'" href="#" class="each" @click="fnGetRecipeListPur(item)">{{item.name}}</a>
             </div>
             <hr class="line">
             <div id="howto" class="box2">
                 <div><b>방법별</b></div>
-                <a v-for="(item, index) in codeList" v-if="item.kind=='HOWTO'" href="#" class="each">{{item.name}}</a>
+                <a v-for="(item, index) in codeList" v-if="item.kind=='HOWTO'" href="#" class="each" @click="fnGetRecipeListHow(item)">{{item.name}}</a>
             </div>
             <hr class="line">
             <div id="tool" class="box2">
                 <div><b>도구별</b></div>
-                <a v-for="(item, index) in codeList" v-if="item.kind=='TOOL'" href="#" class="each">{{item.name}}</a>
+                <a v-for="(item, index) in codeList" v-if="item.kind=='TOOL'" href="#" class="each" @click="fnGetRecipeListTool(item)">{{item.name}}</a>
             </div>
         </div>
         <div>
@@ -254,11 +288,11 @@
             		<span>{{rkind}}</span>
             	</div>
                 
-                <div>총 {{listCnt}}개의 레시피</div>
+                <div>총 {{cnt}}개의 레시피</div>
             </div>
             
             <div class="item-list" >
-                <div class="item" @click="fnView()" v-for="(item, index) in list">
+                <div class="item" v-for="(item, index) in list" @click="fnView(item.recipeNo)" >
                     <div>
                         <div class="re-view-cnt">
                             <i class="fa-solid fa-eye fa-lg"></i>
@@ -270,6 +304,21 @@
                     <div class="r-text">{{item.recipeName}}</div>
                 </div>
             </div>
+            
+            <!-- 페이징 추가3 -->
+            <template>
+				  <paginate
+				    :page-count="pageCount"
+				    :page-range="3"
+				    :margin-pages="2"
+				    :click-handler="fnSearch"
+				    :prev-text="'<'"
+				    :next-text="'>'"
+				    :container-class="'pagination'"
+				    :page-class="'page-item'">
+				  </paginate>
+				</template>
+​
             
         </div>
 
@@ -285,20 +334,27 @@
 
 
 <script type="text/javascript">
+	Vue.component('paginate', VuejsPaginate)
 	 
 	var app = new Vue({ 
 	el: '#app',
 	data: {
 		 list: [],
-		 listCnt : 0,
+		 cnt : 0,
 		 codeList : ${map.codeList},
 		 rkind : "전체",
-		 recipe_kind : ""
+		 recipe_code : "",
+		 // 페이징 추가5
+		 selectPage : 1,
+		 pageCount : 1
 	}, methods: {
 		// 전체 레시피 리스트 가져오기
 		fnGetRecipeAll : function() {
 			var self = this;
-			var nparmap = {};
+			self.rkind = "전체";
+			// 페이징 추가6
+			var startNum = ((self.selectPage-1) * 12);
+			var nparmap = {startNum : startNum};
 			$.ajax({
 				url: "/recipe/all.dox",
 				dataType: "json",
@@ -306,29 +362,85 @@
 				data : nparmap,
 				success : function(data) {
 					 self.list = data.list;
-					 self.listCnt = data.list.length;
-                     console.log(self.list);
-                     console.log(self.listCnt);
+					 self.cnt = data.list.length;
+					 console.log(self.list);
+					 self.pageCount = Math.ceil(self.cnt / 12);
 				}
 			})
 		}
-		// 분류된 리스트 가져오기
-		,fnGetRecipeList : function(item) {
+		// 페이징 추가7
+		,fnSearch : function(pageNum) {
 			var self = this;
-			self.recipe_kind = item.code;
-			self.rkind = item.name;
-			
-			var nparmap = {recipe_kind : self.recipe_kind};
+			self.selectPage = pageNum;
+			var startNum = ((self.selectPage-1) * 12);
+			var nparmap = {startNum : startNum};
 			$.ajax({
-				url: "/recipe/list.dox",
+				url: "/recipe/all.dox",
 				dataType: "json",
 				type: "POST",
 				data : nparmap,
 				success : function(data) {
 					 self.list = data.list;
-					 self.listCnt = data.list.length;
+					 self.cnt = data.list.length;;
+					 self.pageCount = Math.ceil(self.cnt / 12);
+				}
+			})
+			
+		} 
+		// 목적별 리스트 가져오기
+		,fnGetRecipeListPur : function(item) {
+			var self = this;
+			self.recipe_code = item.code;
+			self.rkind = item.name;
+			
+			var nparmap = {recipe_code : self.recipe_code};
+			$.ajax({
+				url: "/recipe/list/purpose.dox",
+				dataType: "json",
+				type: "POST",
+				data : nparmap,
+				success : function(data) {
+					 self.list = data.list;
+					 self.cnt = data.list.length;
+				}
+			})
+		}
+		// 방법별 리스트 가져오기
+		,fnGetRecipeListHow : function(item) {
+			var self = this;
+			self.recipe_code = item.code;
+			self.rkind = item.name;
+			console.log(self.recipe_code);
+			console.log(self.rkind);
+			
+			var nparmap = {recipe_code : self.recipe_code};
+			$.ajax({
+				url: "/recipe/list/howto.dox",
+				dataType: "json",
+				type: "POST",
+				data : nparmap,
+				success : function(data) {
+					 self.list = data.list;
+					 self.cnt = data.list.length;
+				}
+			})
+		}
+		// 도구별 리스트 가져오기
+		,fnGetRecipeListTool : function(item) {
+			var self = this;
+			self.recipe_code = item.code;
+			self.rkind = item.name;
+			
+			var nparmap = {recipe_code : self.recipe_code};
+			$.ajax({
+				url: "/recipe/list/tool.dox",
+				dataType: "json",
+				type: "POST",
+				data : nparmap,
+				success : function(data) {
+					 self.list = data.list;
+					 self.cnt = data.list.length;
                      console.log(self.list);
-                     console.log(self.listCnt);
 				}
 			})
 		}
@@ -337,9 +449,41 @@
 			location.href = "recipe/edit.do";
 	   }
 		// 레시피 상세 페이지 이동
-		,fnView : function() {
-			location.href = "recipe/view.do";
+		,fnView : function(recipeNo) {
+			var self = this;	
+			console.log(recipeNo);
+	    	self.pageChange("/recipe/view.do", {recipeNo : recipeNo});
 		}
+		// 페이지 전환
+		, pageChange : function(url, param) {
+    		var target = "_self";
+    		if(param == undefined){
+    		//	this.linkCall(url);
+    			return;
+    		}
+    		var form = document.createElement("form"); 
+    		form.name = "dataform";
+    		form.action = url;
+    		form.method = "post";
+    		form.target = target;
+    		for(var name in param){
+				var item = name;
+				var val = "";
+				if(param[name] instanceof Object){
+					val = JSON.stringify(param[name]);
+				} else {
+					val = param[name];
+				}
+				var input = document.createElement("input");
+	    		input.type = "hidden";
+	    		input.name = item;
+	    		input.value = val;
+	    		form.insertBefore(input, null);
+			}
+    		document.body.appendChild(form);
+    		form.submit();
+    		document.body.removeChild(form);
+    	}
 	} 
 	, created: function () {
 		var self = this;
