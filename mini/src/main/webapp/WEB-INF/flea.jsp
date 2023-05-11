@@ -184,7 +184,7 @@
 
                         <div class="donate_list">
                             <table>
-                                <tr v-for="(item, index) in list">
+                                <tr v-for="(item, index) in list2">
                                     <template v-if="item.boardKind=='D_LAN'">
                                         <td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">
                                             {{item.finish2}}</td>
@@ -226,7 +226,31 @@
                 , finish2: ""
             }
             , methods: {
-                fnGetList: function () {
+                fnGetFleaList: function () {
+                    var self = this;
+                    var nparmap = {};
+                    $.ajax({
+                        url: "/lanmarket/list.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            self.list = data.list;
+                            for (var i = 0; i < self.list.length; i++) {
+                                if (self.list[i].finishYn == 'N') {
+                                    self.list[i].finish = '판매중';
+                                    self.list[i].finish2 = '나눔중';
+                                } else if (self.list[i].finishYn == 'Y') {
+                                    self.list[i].finish = '판매완료';
+                                    self.list[i].finish2 = '나눔완료';
+                                }
+                            }
+                            console.log(data.list);
+                        }
+                    });
+                }
+            
+            	, fnGetFleaList2: function () {
                     var self = this;
                     var nparmap = {};
                     $.ajax({
@@ -253,7 +277,8 @@
 
             }
             , created: function () {
-                this.fnGetList();
+            	
+                this.fnGetFleaList();
             }
         });
     </script>

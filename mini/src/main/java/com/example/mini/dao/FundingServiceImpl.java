@@ -54,7 +54,7 @@ public class FundingServiceImpl implements FundingService {
 			resultMap.put("result", "fail");
 			resultMap.put("message", "이미 신청한 펀딩입니다.");
 
-		} else {
+		} else {			
 			fundingMapper.applyFunding(map);			
 			resultMap.put("result", "success");
 			resultMap.put("message", "펀딩이 신청되었습니다.");
