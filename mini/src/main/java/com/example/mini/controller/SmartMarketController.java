@@ -64,11 +64,32 @@ public class SmartMarketController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = smartmarketService.searchSmartMarketInfo(map);
 		
-		HashMap<String, Object> imgList = smartmarketService.searchSmartMarketImgList(map);
+		HashMap<String, Object> imgList = smartmarketService.searchSmartMarketImgList(map); //상품 상세 이미지리스트
+		//HashMap<String, Object> reviewList = smartmarketService.searchSmartMarketReviewList(map); //리뷰 리스트
+		
 		resultMap.put("imgList", imgList);
+		//resultMap.put("reviewList", reviewList);
 		resultMap.put("message", "성공");
 		return new Gson().toJson(resultMap);
 	}
+	
+	
+	//리뷰 페이징
+	@RequestMapping(value = "/reviewlist.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchReviewList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		String startNum = (String) map.get("startNum");
+		String lastNum = (String) map.get("lastNum");
+		
+		map.put("startNum", Integer.parseInt(startNum));
+		map.put("lastNum", Integer.parseInt(lastNum));
+		
+		resultMap = smartmarketService.searchSmartMarketReviewList(map);		
+		return new Gson().toJson(resultMap);
+	}
+	
+	
 	
 	
 		// 3-2. 똑똑한 마켓

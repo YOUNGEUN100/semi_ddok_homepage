@@ -141,6 +141,43 @@
 		</select>
 		
 		
+		<select id="selectSmartMarketReviewList" parameterType="hashmap" resultType="com.example.mini.model.SmartReview">
+			SELECT 
+				A.PRODUCT_NO
+				, B.NICK 
+				, A.SATISFACTION_GRADE 
+				, A.REPURCHASE_GRADE
+				, A.DELIVERY_GRADE 
+				, DATE_FORMAT(A.CDATETIME, '%Y-%m-%d') as CDATETIME
+			    , C.PRODUCT_NAME
+			    , A.R_ID
+			FROM T4_REVIEW A
+			INNER JOIN T4_USER B
+			ON A.USER_ID=B.USER_ID
+			INNER JOIN T4_PRODUCT C
+			ON A.PRODUCT_NO=C.PRODUCT_NO
+			WHERE 1=1
+			<if test="productNo !='' and productNo != null">
+			AND A.PRODUCT_NO = #{productNo}
+			</if>
+			ORDER BY R_ID DESC
+			LIMIT #{startNum}, 5
+		</select>
+		
+		<select id="selectSmartMarketReviewCnt" parameterType="hashmap" resultType="int">	
+		SELECT 
+			COUNT(*) AS CNT
+		FROM T4_REVIEW A
+			INNER JOIN T4_USER B
+			ON A.USER_ID=B.USER_ID
+			INNER JOIN T4_PRODUCT C
+			ON A.PRODUCT_NO=C.PRODUCT_NO
+			WHERE 1=1
+		<if test="productNo !='' and productNo != null">
+			AND A.PRODUCT_NO = #{productNo}
+		</if>
+		</select>
+		
 		
 		<select id="selectSmartMarketCnt" parameterType="hashmap" resultType="int">	
 			SELECT 

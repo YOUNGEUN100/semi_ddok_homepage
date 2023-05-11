@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.mini.mapper.SmartMarketMapper;
 import com.example.mini.model.Code;
-import com.example.mini.model.SmartMarket2;
 
 @Service
 public class SmartMarketServiceImpl implements SmartMarketService{
@@ -17,6 +16,7 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 	SmartMarketMapper smartmarketMapper; //mapper 객체생성
 	
 	
+	//상품리스트
 	@Override
 	public HashMap<String, Object> searchSmartMarketList(HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
@@ -27,7 +27,7 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		return resultMap;
 	}
 
-
+	//상품 코드 리스트
 	@Override
 	public List<Code> searchSmartMarketKind(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -61,6 +61,19 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
 		
 		resultMap.put("list",smartmarketMapper.selectSmartMarketImgList(map));
+		resultMap.put("result","success");
+		
+		return resultMap;
+	}
+	
+	
+	//상품 리뷰 리스트
+	@Override
+	public HashMap<String, Object> searchSmartMarketReviewList(HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
+		
+		resultMap.put("cnt", smartmarketMapper.selectSmartMarketReviewCnt(map));
+		resultMap.put("list",smartmarketMapper.selectSmartMarketReviewList(map));		
 		resultMap.put("result","success");
 		
 		return resultMap;

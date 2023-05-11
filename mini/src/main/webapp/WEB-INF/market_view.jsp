@@ -2,8 +2,53 @@
 
 <jsp:include page="/layout/head.jsp"></jsp:include>
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+<script src="https://unpkg.com/vuejs-paginate@latest"></script>
+<script src="https://unpkg.com/vuejs-paginate@0.9.0"></script>
 
 <style>
+<!-- 페이징 추가 2-->
+	.pagination {
+        margin:24px;
+        display: inline-flex;
+        
+    }
+    ul {
+        text-align: center;
+    }
+	.pagination li {
+	    min-width:32px;
+	    padding:2px 6px;
+	    text-align:center;
+	    margin:0 3px;
+	    border-radius: 6px;
+	    border:1px solid #eee;
+	    color:#666;
+	    display : inline;
+	}
+	.pagination li:hover {
+	    background: #E4DBD6;
+	}
+	.page-item a {
+	    color:#666;
+	    text-decoration: none;
+	}
+	.pagination li.active {
+	    background-color : #E7AA8D;
+	    color:#fff;
+	}
+	.pagination li.active a {
+	    color:#fff;
+	}
+	.style_inline{
+		display: inline;
+	}
+	.mypage{
+		
+	}
+	
+	
+	
+	
 	 #wrapper{
             
             width: 1200px;
@@ -12,6 +57,7 @@
             /*background-image: url(./images/smart_market_view.jpg);*/
             background-position: center;
             opacity: 1;
+            clear:both;
             
         }
 
@@ -155,21 +201,50 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
+            
          
         }
 
-        .product_review_title .btn_product_script{
+        .product_review_title .btn_product_script_top{
             font-size: 20px;
             font-weight: bold;
-            background-color: #ccc;
-            width: 100px;
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            line-height : 55px;
+            border-top: 1px solid #ccc;
             
         }
-        .product_review_title .btn_review_script{
+        .product_review_title .btn_review_script_top{
             font-size: 20px;
             font-weight: bold;
             background-color: #ccc;
-            width: 100px;
+            width : 50%;
+            height: 100%;
+            text-align: center;
+            line-height : 55px;
+            background-color: #ccc;
+        }
+
+        .product_review_title .btn_product_script_bottom{
+            font-size: 20px;
+            font-weight: bold;
+            background-color: #ccc;
+            width : 50%;
+            height: 100%;
+            text-align: center;
+            line-height : 55px;
+            background-color: #ccc;
+        }        
+        
+        .product_review_title .btn_review_script_bottom{
+            font-size: 20px;
+            font-weight: bold;
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            line-height : 55px;
+            border-top: 1px solid #ccc;
         }
 
         .product_script{
@@ -209,6 +284,11 @@
             display: none;
         }
         .smart_empth5{
+            height: 5px;
+            width: 100%;            
+            float: left;
+        }
+        .smart_empth6{
             height: 50px;
             width: 100%;            
             float: left;
@@ -218,6 +298,8 @@
           
           border-collapse: collapse;
           background: #eee;
+          border : 1px solid #ccc;
+          
         }
         td, th {
           padding:10px 20px;
@@ -230,8 +312,9 @@
         }
 
         .table1{
-            padding-top: 20px;
-            
+        	float: left;
+            padding-top: 20px;            
+                        
         }
         
         .img_rec{        	
@@ -280,8 +363,8 @@
         </div>
         
         <div class="product_review_title">
-            <div class="btn_product_script"><a id="product_discript_move" href="#product_discript">상품설명</a></div>
-            <div class="btn_review_script">후기<a name="product_review"></a></div>
+            <div class="btn_product_script_top"><a id="product_discript_move" href="#product_discript">상품설명</a></div>
+            <div class="btn_review_script_top">후기<a name="product_review"></a></div>
         </div>
         <!--  div class="product_script"><img src="/images/1_VER.jpg" class="img_rec" style="width:780px;"></div-->
         <div class="product_script" v-for="(item, index) in imglist">
@@ -290,29 +373,49 @@
         </div>
         
         <div class="btn_all_view"><button id="btn_all_view">펼쳐보기</button></div>
-        <div class="product_script_detail" id="product_script_detail">
-            <pre>
-            
-            </pre>
+        <div class="product_script_detail" id="product_script_detail">            
         </div>
         <div class="btn_all_hidden"><button id="btn_all_hidden">접어보기</button></div>
 
 
         <div class="product_review_title" >
-            <div class="btn_product_script"><a name="product_discript">상품설명</a></div>
-            <div class="btn_review_script"><a href="#product_review">후기</a></div>
+            <div class="btn_product_script_bottom"><a name="product_discript">상품설명</a></div>
+            <div class="btn_review_script_bottom"><a href="#product_review">후기</a></div>
         </div>
-        <div class="smart_empth5"></div>
-        <div class="table1">
-            <table> 
+        
+        <div class="table1" >
+            <table class="table2"> 
                 <tr v-for="(item, index) in list" >
-                    <td>{{item.date}}</td>
-                    <td>{{item.product}}</td>
-                    <td>{{item.star}}</td>
-                    <td>{{item.user}}</td>                    
-                </tr>
+                    <td>{{item.rId}} </td>
+                    <td>{{item.productName}}</td>
+                    <td>
+	                    <img class="star" src="/images/star.png">
+	                    <span class="font_grade">{{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}}</span>
+	                    <br>상품만족도 <img class="star" src="/images/star.png"> {{item.satisfactionGrade}} 
+	                    <br>상품만족도 <img class="star" src="/images/star.png"> {{item.repurchaseGrade}}
+	                    <br>상품만족도 <img class="star" src="/images/star.png"> {{item.deliveryGrade}}
+                    </td>
+                    <td>{{item.nick}}</td>                    
+                </tr>                
             </table>
+            
+            <!-- 페이징 추가 3-->
+				<template>
+				  <paginate
+				    :page-count="pageCount"
+				    :page-range="3"
+				    :margin-pages="2"
+				    :click-handler="fnSearch"
+				    :prev-text="'<'"
+				    :next-text="'>'"
+				    :container-class="'pagination'"
+				    :page-class="'page-item'">
+				  </paginate>
+				</template>
+				
+				
         </div>
+        
     </div>
 
     </div>
@@ -325,6 +428,9 @@
 
 
 <script type="text/javascript">
+<!-- 페이징 추가 4-->
+Vue.component('paginate', VuejsPaginate)
+
 
     var app = new Vue({ 
         el: '#app',
@@ -332,11 +438,18 @@
         list : [] 
         , info : {}
         , imglist : {}
+        , reviewlist : {}
         , productNo : "${map.productNo}"
         , productName : ""
+        
+        	<!-- 페이징 추가 5-->
+		, selectPage: 1
+		, pageCount: 1
+		, cnt : 0
             
-        },
-        filters: {
+        }
+    
+    	,filters: {
             numberFormat: (value, numFix) => {
                 value = parseFloat(value);
                 if (!value) return '0';
@@ -357,14 +470,69 @@
                     type : "POST",
                     data : nparmap,
                     success : function(data) {
-                        console.log(data.imgList.list);
+                        //console.log(data.imgList.list);
+                        //console.log(data.reviewList.list);
                         self.info = data.info;
                         self.imglist = data.imgList.list;
+                        //self.reviewlist = data.reviewList.list;
                         
+                    }
+                });
+                
+                
+                <!-- 페이징 추가 6-->
+    			var startNum = ((self.selectPage-1) * 5);
+        		var lastNum = (self.selectPage * 5)
+        		var nparmap = {keyword : self.keyword
+        						, kind : self.selectItem
+        						, startNum : startNum
+        						, lastNum : lastNum
+        						, productNo : self.productNo};
+        		
+        		console.log(nparmap);
+                
+        		$.ajax({
+                    url:"/reviewlist.dox",
+                    dataType:"json",	
+                    type : "POST", 
+                    data : nparmap,
+                    success : function(data) { 
+                    	console.log(data);
+    	                self.list = data.list;
+    	                self.cnt = data.cnt;
+    	                self.pageCount = Math.ceil(self.cnt / 5);
                     }
                 });
 
             }
+        
+        
+        
+	      
+        
+	        <!-- 페이징 추가 7-->
+			, fnSearch : function(pageNum){
+				var self = this;
+				self.selectPage = pageNum;
+				var startNum = ((pageNum-1) * 5);
+				var lastNum = (pageNum * 5) + 1;
+				var nparmap = {startNum : startNum, lastNum : lastNum, productNo : self.productNo};
+				
+				console.log(nparmap);
+				
+				$.ajax({
+					url : "/reviewlist.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						
+						self.list = data.list;
+						self.cnt = data.cnt;
+						self.pageCount = Math.ceil(self.cnt / 5);
+					}
+				});
+			}
         
             
         }   

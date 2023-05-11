@@ -22,4 +22,7 @@ public interface SmartMarketService {
 	
 	// 제품 종류 목록
 	List<Code> searchSmartMarketKind(HashMap<String, Object> map);
+	
+	// 상품리뷰 리스트
+	HashMap<String, Object> searchSmartMarketReviewList(HashMap<String, Object> map) throws Exception;
 }
