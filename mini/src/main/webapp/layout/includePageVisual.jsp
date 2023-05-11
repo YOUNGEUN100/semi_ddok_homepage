@@ -17,15 +17,15 @@ function pageName(){
 	let urlList = window.location.href.split('/');
 	const pageList = urlList[3].split('.');
 	const pageId = pageList[0];
-	const pageSubList = urlList[urlList.length - 1].split('.');
-	const pageSubId = pageSubList[pageSubList.length - 2];
+	const pageNameList = urlList[urlList.length - 1].split('.');
+	const pageName = pageNameList[0];
 	console.log(pageId);
-	console.log(pageSubId);
+	console.log(pageName);
 	
 	switch(pageId){
 	case "todayEat" : 
 		pageInfo.innerHTML = "오늘도 무엇을 어떻게 먹을지 고민중이신가요?";
-		pageIcon.setAttribute("src", "../images/pageVisual_icon01.png");
+		pageIcon.setAttribute("src", "/images/pageVisual_icon01.png");
 		pageIconBox.appendChild(pageIcon);
 		break;
 	case "funding" : 
@@ -69,7 +69,7 @@ function pageName(){
 		 pageInfo.innerHTML = "설정되지 않은 페이지입니다 😥";
 	};
 	
-	switch(pageSubId){
+	switch(pageName){
 	case "todayEat" : 
 		pageTitle.innerHTML = "투데잇 : Today-Eat";
 		break;
@@ -79,6 +79,18 @@ function pageName(){
 	case "recipe" : 
 		pageTitle.innerHTML = "투데잇 : 레시피 추천";
 		break;
+	case "result" : 
+		const pageMidName = urlList[urlList.length - 2];
+		if(pageMidName === "store"){
+			pageTitle.innerHTML = "투데잇 : 맛집메뉴 추천";
+			break;
+		} else if(pageMidName === "recipe"){
+			pageTitle.innerHTML = "투데잇 : 레시피 추천";
+			break;
+		} else{
+			pageTitle.innerHTML = "noneSet Page";
+			break;
+		};
 	case "funding" : 
 		pageTitle.innerHTML = "랜선펀딩";
 		break;

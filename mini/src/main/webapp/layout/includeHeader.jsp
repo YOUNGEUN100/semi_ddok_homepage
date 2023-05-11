@@ -11,7 +11,7 @@
 	                <a href="/todayEat.do">‘투데잇’ <small>Today-Eat</small></a>
 	                <ul class="depth2">
 	                    <li><a href="/todayEat/store.do">맛집메뉴 추천받기</a></li>
-	                    <li><a href="/todayEat/store/result.do">레시피 추천받기</a></li>
+	                    <li><a href="/todayEat/recipe.do">레시피 추천받기</a></li>
 	                </ul>
 	            </li>
 	            <li class="menu02">
