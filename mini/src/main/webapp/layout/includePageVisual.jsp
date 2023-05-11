@@ -7,8 +7,6 @@
 	    <p id="pageInfo"></p>
 	</div>
 </div>
-<style>
-</style>
 <script type="text/javascript">
 function pageName(){
 	var pageTitle = document.getElementById("pageTitle");

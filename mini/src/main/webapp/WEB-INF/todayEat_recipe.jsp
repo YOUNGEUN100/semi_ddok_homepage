@@ -11,7 +11,9 @@
 <!-- pageContent -- START -->
 <div id="pageContent">
 	<div class="wrapper">
-		 <!-- 작업한 본문 입력 -->
+		<div class="selectArea">
+			
+		</div>
 	</div>
 </div>
 <!-- pageContent -- END -->

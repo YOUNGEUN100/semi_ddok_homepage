@@ -26,7 +26,7 @@
 
 
 /*** footer --- START ***/
-#footer {width:100%; height:400px; background:var(--base-colorLightGray); margin-top:7.5em; padding:2.5em 0;}
+#footer {width:100%; height:400px; background:var(--base-colorLightGray); margin-top:7.5em; padding:2.5em 0; clear:both;}
 #footer .wrapper {min-height:auto; display:flex; flex-flow:column nowrap;}
 
 #footer .topArea {width:100%; border-bottom:1px solid var(--base-colorDeepGray); margin-bottom:1.75em; padding-bottom:1.75em; display:flex; flex-flow:row nowrap; justify-content:space-between; align-items:center;}
