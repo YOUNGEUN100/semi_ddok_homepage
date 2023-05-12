@@ -51,7 +51,7 @@
 	        <li><a href="/join.do">회원가입</a></li>
 			</template>
 	        <template v-if="sessionId != ''">
-	        <li><a href="/main.do" @click="fnLogout">로그아웃</a></li>
+	        <li><a href="/login.do" @click="fnLogout">로그아웃</a></li>
 	        <li><a href="javascript:;" >마이페이지</a></li>
 	        </template>
 	        <li><a href="/cart.do">장바구니</a></li>
@@ -134,8 +134,7 @@ var app = new Vue({
     	 
   	}   
     , created: function () {
-    	var self = this;
-    	self.fnMain();
+    	
 	}
 });
 </script>

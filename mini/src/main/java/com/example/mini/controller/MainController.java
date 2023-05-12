@@ -31,6 +31,7 @@ public class MainController {
 	public String main(HttpServletRequest request, Model model) throws Exception{
 		request.setAttribute("sessionId", session.getAttribute("ssessionId"));
     	request.setAttribute("sessionStatus", session.getAttribute("ssessionStatus"));
+    	
 
 		return "/index";
 	}

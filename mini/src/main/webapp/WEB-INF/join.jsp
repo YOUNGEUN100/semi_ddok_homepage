@@ -132,7 +132,7 @@
                 </template>
                 <input type="text" @keypress="fnNickCheck" class="w100" placeholder="활동할 닉네임을 입력해 주세요" v-model="info.nick">
                 <p class="markEssential">전화번호</p>
-                <input type="tel" class="w100" maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
+                <input type="tel" @keyup="fnPhone" id="tel" class="w100" maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
                 <p>이메일주소</p>
                 <input type="email" class="w50" placeholder="이메일 주소" v-model="info.email">@ 
                 <select class="mail" v-model="info.domain">
@@ -349,9 +349,28 @@ var app = new Vue({
     		console.log(roadAddrPart1);
     		console.log(addrDetail);
     		console.log(engAddr);
-    	},
+    	}
+    
+    	,
     	//핸드폰번호 자동 '-'
-    	/*"전화-번호".replaceAll("-","")*/
+    	fnHypen : function(){
+    		var self = this;
+    		var num = self.info.hp;
+    		var phoneNum = "";
+    		if(!num){
+    			return num;
+    		}
+    		else{
+    			num = num.replace(/[^0-9]/g, '');
+    			var phoneNum = "";
+    			if(num.length > 10){
+        			phoneNum = num.substr(0,3) + '-'+ num.substr(3,4) + '-' + num.substr(7);
+        		}	
+        		console.log(phoneNum);
+        		return phoneNum;
+    		}
+    		
+    	}
     	
     	//아이디 유효성
     	
