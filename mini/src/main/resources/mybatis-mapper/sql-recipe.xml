@@ -2,8 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-	<!--레시피 리스트-->
+
 	<mapper namespace="com.example.mini.mapper.RecipeMapper">
+	
+	<!--레시피 리스트-->
 		<select id="selectRecListAll" parameterType="hashmap" resultType="com.example.mini.model.Recipe">
 	      SELECT  
 				R.RECIPE_NO,
@@ -22,13 +24,23 @@
 				WHERE THUMBNAIL_YN = 'Y') I 
 			ON I.RECIPE_NO = R.RECIPE_NO 
 			<if test="keyword != '' and keyword != null">
-			WHERE RECIPE_NAME LIKE '%'||#{keyword}||'%'
+			WHERE RECIPE_NAME LIKE CONCAT('%', #{keyword}, '%')
 			</if>
-			LIMIT 0, 20
+			LIMIT #{startNum}, 12
 		</select>
 		
-		<!-- 레시피 조회수  -->
-		<update id="updateRecipeHits"></update>
+		<!--레시피 리스트 개수 -->
+		<select id="selectRecListCnt" parameterType="hashmap" resultType="int">
+	      SELECT  
+				COUNT(*) AS CNT
+			FROM T4_RECIPE R
+			INNER JOIN 
+				(SELECT RECIPE_NO, IMG_PATH
+				FROM T4_R_IMAGE
+				WHERE THUMBNAIL_YN = 'Y') I 
+			ON I.RECIPE_NO = R.RECIPE_NO 
+		</select>
+		
 		
 		<!--목적별 레시피 리스트-->
 		<select id="selectRecListPur" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
@@ -168,6 +180,49 @@
 			RECIPE_HITS = RECIPE_HITS + 1
 		WHERE RECIPE_NO = #{recipeNo}
 		</update>
+		
+		
+		<!-- 레시피 등록 -->
+		<insert id="insertRecipe" parameterType="HashMap">
+			INSERT INTO T4_RECIPE(
+				RECIPE_NO,
+				RECIPE_NAME,
+				TIME,
+				DIFFICULTY,
+				COOK_INGRE)
+			VALUES(#{recipeNo}, #{recipeName}, #{time}, #{difficulty}, #{cookIngre})
+		</insert>
+		
+		<!-- 레시피 목적 코드 INSERT -->
+		<insert id="insertPurposeCode" parameterType="HashMap">
+			INSERT INTO T4_R_PURPOSE(
+				RECIPE_NO,
+				CODE)
+			VALUES(#{recipeNo}, #{pcode})
+		</insert>
+		<!-- 레시피 방법 코드 INSERT -->
+		<insert id="insertHowtoCode" parameterType="HashMap">
+			INSERT INTO T4_HOWTO(
+				RECIPE_NO,
+				CODE)
+			VALUES(#{recipeNo}, #{hcode})
+		</insert>
+		<!-- 레시피 도구 코드 INSERT -->
+		<insert id="insertToolCode" parameterType="HashMap">
+			INSERT INTO T4_TOOL(
+				RECIPE_NO,
+				CODE)
+			VALUES(#{recipeNo}, #{tcode})
+		</insert>
+		<!-- 레시피 사진 INSERT -->
+		<insert id="insertRecipeImg" parameterType="HashMap">
+			INSERT INTO T4_R_IMAGE(
+				IMG_NO,
+				RECIPE_NO,
+				IMG_PATH,
+				THUMBNAIL_YN)
+			VALUES(NULL, #{recipeNo}, "../images/recipe_5.jpg", "Y")
+		</insert>
 	
 		
 		

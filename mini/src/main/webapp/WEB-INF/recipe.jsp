@@ -151,7 +151,7 @@
         }
         .recipe-img {
             width:380px;
-            height: 280px;
+            height: 250px;
             margin-bottom: 10px;
         }
         .search-result-s {
@@ -186,7 +186,7 @@
         .item-list {
             display: grid;
             grid-template-columns: repeat(3,1fr);
-            grid-template-rows: repeat(3,400px);
+            grid-template-rows: repeat(3,350px);
         }
         .item-list div {
             margin-right: 15px;
@@ -213,8 +213,8 @@
         .re-view-cnt {
             display: inline-block;
             position: relative;
-            left:300px;
-            top:270px;
+            left:290px;
+            top:235px;
             padding: 3px 10px;
             color:white;
             background-color: rgba(16, 15, 15, 0.612);
@@ -234,8 +234,8 @@
     	
          <button class="add_btn" @click="fnGoEdit()">등록</button>
         <div class="r-search">
-            <input type="text" v-model="keyword" placeholder="원하는 재료나 레시피를 다양하게 검색해 보세요!" class="r-input">
-            <i @click="fnGetRecipeAll()" class="search-icon fa-solid fa-magnifying-glass fa-lg"></i>
+            <input type="text" v-model="keyword" placeholder="원하는 레시피를 검색해 보세요!" class="r-input"  @keyup.enter="fnGetRecipeAll()">
+            <i class="search-icon fa-solid fa-magnifying-glass fa-lg" @click="fnGetRecipeAll()"></i>
         </div>
         <div class="r-category" @click="fnGetRecipeAll()">
             <div class="box1" id="all-btn">
@@ -267,28 +267,29 @@
         <div class="detail-category">
             <div id="purpose" class="box2">
                 <div><b>목적별</b></div>
-                <a v-for="(item, index) in codeList" v-if="item.kind=='R_PURPOSE'" href="#" class="each" @click="fnGetRecipeListPur(item)">{{item.name}}</a>
+                <a v-for="(item, index) in codeList" v-if="item.kind=='R_PURPOSE'" href="#tool" class="each" @click="fnGetRecipeListPur(item)">{{item.name}}</a>
             </div>
             <hr class="line">
             <div id="howto" class="box2">
                 <div><b>방법별</b></div>
-                <a v-for="(item, index) in codeList" v-if="item.kind=='HOWTO'" href="#" class="each" @click="fnGetRecipeListHow(item)">{{item.name}}</a>
+                <a v-for="(item, index) in codeList" v-if="item.kind=='HOWTO'" href="#tool" class="each" @click="fnGetRecipeListHow(item)">{{item.name}}</a>
             </div>
             <hr class="line">
             <div id="tool" class="box2">
                 <div><b>도구별</b></div>
-                <a v-for="(item, index) in codeList" v-if="item.kind=='TOOL'" href="#" class="each" @click="fnGetRecipeListTool(item)">{{item.name}}</a>
+                <a v-for="(item, index) in codeList" v-if="item.kind=='TOOL'" href="#tool" class="each" @click="fnGetRecipeListTool(item)">{{item.name}}</a>
             </div>
         </div>
         <div>
-            <div class="search-result-s">
+            <div class="search-result-s" id="tag1">
             	<div>
             		<span>검색결과 : </span>
-            	<!-- <span><input v-model="sResult"></span> -->	
-            		<span>{{rkind}}</span>
+            	<!-- <span><input v-model="sResult"></span> -->
+            		<span v-if="keyword != ''">{{keyword}}</span>	
+            		<span v-else>{{rkind}}</span>
             	</div>
-                
-                <div>총 {{cnt}}개의 레시피</div>
+                <div v-if="keyword != ''">총 {{keycnt}}개의 레시피</div>
+                <div v-else>총 {{cnt}}개의 레시피</div>
             </div>
             
             <div class="item-list" >
@@ -342,6 +343,7 @@
 		 keyword : "",
 		 list: [],
 		 cnt : 0,
+		 keycnt : 0,
 		 codeList : ${map.codeList},
 		 rkind : "전체",
 		 recipe_code : "",
@@ -355,6 +357,7 @@
 			self.rkind = "전체";
 			// 페이징 추가6
 			var startNum = ((self.selectPage-1) * 12);
+			console.log(self.keyword);
 			var nparmap = {keyword : self.keyword, startNum : startNum};
 			$.ajax({
 				url: "/recipe/all.dox",
@@ -363,7 +366,8 @@
 				data : nparmap,
 				success : function(data) {
 					 self.list = data.list;
-					 self.cnt = data.list.length;
+					 self.cnt = data.cnt;
+					 self.keycnt = data.list.length;
 					 console.log(self.list);
 					 self.pageCount = Math.ceil(self.cnt / 12);
 				}
@@ -382,7 +386,7 @@
 				data : nparmap,
 				success : function(data) {
 					 self.list = data.list;
-					 self.cnt = data.list.length;;
+					 self.cnt = data.cnt;
 					 self.pageCount = Math.ceil(self.cnt / 12);
 				}
 			})
@@ -441,7 +445,6 @@
 				success : function(data) {
 					 self.list = data.list;
 					 self.cnt = data.list.length;
-                     console.log(self.list);
 				}
 			})
 		}
@@ -489,7 +492,6 @@
 	, created: function () {
 		var self = this;
 		self.fnGetRecipeAll();
-		console.log(self.codeList);
 	}
 	
 	});

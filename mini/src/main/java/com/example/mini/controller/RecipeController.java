@@ -24,6 +24,10 @@ public class RecipeController {
 	@Autowired
     private RecipeService recipeService; 
 	
+	
+	
+	
+	
 	// 페이지 - 똑똑한 레시피
 	@RequestMapping("/recipe.do")
 	public String recipe(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
@@ -37,10 +41,11 @@ public class RecipeController {
 	@ResponseBody
 	public String searchRecipeListAll(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Recipe> list = recipeService.searchRecListAll(map);
-	
-		resultMap.put("list", list);
-		resultMap.put("result", "success");
+		
+		String startNum = (String) map.get("startNum");
+		map.put("startNum", Integer.parseInt(startNum));
+		
+		resultMap = recipeService.searchRecListAll(map);
 		return new Gson().toJson(resultMap);
 	}
 	// 목적별 레시피
@@ -107,6 +112,18 @@ public class RecipeController {
 	@RequestMapping("/recipe/edit.do")
 	public String recipeEdit(Model model) throws Exception{
 			return "/recipe_edit";
+	}
+	
+	
+	
+	// 레시피 등록
+	@RequestMapping(value = "/recipe/save.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String recipeSave(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		recipeService.addRecipe(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
 	}
 				
 	

@@ -17,9 +17,12 @@ public class RecipeServiceImpl implements RecipeService{
 	private RecipeMapper recipeMapper;
 
 	@Override
-	public List<Recipe> searchRecListAll(HashMap<String, Object> map) throws Exception {
-		List<Recipe> list = recipeMapper.selectRecListAll(map);
-		return list;
+	public HashMap<String, Object> searchRecListAll(HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();	
+		resultMap.put("cnt", recipeMapper.selectRecListCnt(map));
+		resultMap.put("list", recipeMapper.selectRecListAll(map));
+		resultMap.put("result","success");
+		return resultMap;
 	}
 	
 	@Override
@@ -58,6 +61,16 @@ public class RecipeServiceImpl implements RecipeService{
 	public List<Recipe> searchCookList(HashMap<String, Object> map) throws Exception {
 		List<Recipe> list = recipeMapper.selectCookList(map);
 		return list;
+	}
+
+	// 레시피 등록
+	@Override
+	public void addRecipe(HashMap<String, Object> map) {
+		recipeMapper.insertRecipe(map);
+		recipeMapper.insertPurposeCode(map);
+		recipeMapper.insertHowtoCode(map);
+		recipeMapper.insertToolCode(map);
+		recipeMapper.insertRecipeImg(map);
 	}
 	
 	

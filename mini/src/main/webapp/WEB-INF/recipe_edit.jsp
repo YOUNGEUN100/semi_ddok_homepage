@@ -21,6 +21,7 @@
             margin: 40px 0;
         }
         fieldset li {
+        	display: flex;
             margin: 20px 5px;
         }
         fieldset .enrol-re {
@@ -32,9 +33,21 @@
         .recipe-file {
             display: flex;
         }
-        fieldset li input[type=text] {
+        fieldset > li > #recipe_name,#recipe-ingre {
             border-radius: 5px;
-            width: 80%;
+            width: 100%;
+        }
+        fieldset > li > #no_btn {
+            border-radius: 5px;
+            width: 22%;
+        }
+        fieldset > li > #recipe_no {
+            border-radius: 5px;
+            width: 78%;
+        }
+        .enrol-no {
+	        border-radius: 5px;
+	        width : 30%;
         }
         select {
             width: 100px;
@@ -93,24 +106,30 @@
             <h1>레시피 등록</h1>
             <fieldset>
                 <legend>레시피 정보</legend>
+                	<li>
+                    <label for="recipe_no" class="enrol-re"  >레시피 번호</label>
+                    <input id="recipe_no" name="recipe_no" type="text" placeholder=" 레시피 번호를 입력하세요" required>
+                  	<button id="no_btn">레시피번호 중복 확인</button>
+                  </li>
                   <li>
                     <label for="recipe_name" class="enrol-re">레시피 제목</label>
                     <input id="recipe_name" name="recipe_name" type="text" required>
                   </li>
-                  <li class="recipe-file">
-                  	<!--
+                  <li>
                     <label for="recipe_img" class="enrol-re">대표 사진</label>
                     <div>
-                        <vue-editor v-model="content"></vue-editor></div>  2. 화면 에디터 추가 -->
-                   <label for="recipe_img" class="enrol-re">대표 사진</label>
+                        <vue-editor v-model="content"></vue-editor>
+                    </div> 
+                  <!--  <label for="recipe_img" class="enrol-re">대표 사진</label>
                    <form action="">
                         <input type="file">
                         <input type="submit">
-                    </form> 
+                    </form> --> 
+                 
                  </li>
                   <li>
                     <label class="enrol-re">카테고리</label>
-                        <select class="sel" name="purpose" id="purpose">
+                        <select class="sel" name="purpose" id="purpose" v-model="info.pcode">
                             <option value="0">목적별</option>
                             <option value="REF">냉장고털이</option>
                             <option value="HAN">해장</option>
@@ -118,7 +137,7 @@
                             <option value="NIG">야식</option>
                             <option value="DIE">다이어트</option>
                         </select>
-                        <select class="sel" name="howto" id="howto">
+                        <select class="sel" name="howto" id="howto" v-model="info.hcode">
                             <option value="0">방법별</option>
                             <option value="ROA">구이/부침</option>
                             <option value="SOU">국탕찌개</option>
@@ -126,7 +145,7 @@
                             <option value="MIX">무침/비빔</option>
                             <option value="ETC">기타</option>
                         </select>
-                        <select class="sel" name="tool" id="tool">
+                        <select class="sel" name="tool" id="tool" v-model="info.tcode">
                             <option value="0">도구별</option>
                             <option value="POT">냄비/후라이팬</option>
                             <option value="MIC">전자레인지</option>
@@ -138,33 +157,33 @@
                     <label class="enrol-re">요리정보</label>
                     <span>
                         <span>시간</span>
-                        <select class="sel" name="time" id="time">
+                        <select class="sel" name="time" id="time" v-model="info.time">
                             <option value="0">시간</option>
-                            <option value="5">5분이내</option>
-                            <option value="10">10분이내</option>
-                            <option value="15">15분이내</option>
-                            <option value="20">20분이내</option>
-                            <option value="30">30분이내</option>
-                            <option value="60">60분이내</option>
-                            <option value="90">90분이내</option>
-                            <option value="120">2시간이내</option>
-                            <option value="121">2시간이상</option>
+                            <option value="5분이내">5분이내</option>
+                            <option value="10분이내">10분이내</option>
+                            <option value="15분이내">15분이내</option>
+                            <option value="20분이내">20분이내</option>
+                            <option value="30분이내">30분이내</option>
+                            <option value="60분이내">60분이내</option>
+                            <option value="90분이내">90분이내</option>
+                            <option value="2시간이내">2시간이내</option>
+                            <option value="2시간이상">2시간이상</option>
                         </select>
                     </span>
                     <span>
                         <span>난이도</span>
-                        <select class="sel" name="difficult" id="difficult">
+                        <select class="sel" name="difficult" id="difficult" v-model="info.difficult">
                             <option value="0">난이도</option>
-                            <option value="1">핵쉬움</option>
-                            <option value="2">쉬움</option>
-                            <option value="3">보통</option>
-                            <option value="4">어려움</option>
-                            <option value="5">핵어려움</option>
+                            <option value="핵쉬움">핵쉬움</option>
+                            <option value="쉬움">쉬움</option>
+                            <option value="보통">보통</option>
+                            <option value="어려움">어려움</option>
+                            <option value="핵어려움">핵어려움</option>
                         </select>
                     </span>
                   </li>  
                   <li>
-                    <label class="enrol-re">요리재료</label>
+                    <label class="enrol-re">재료분류</label>
                     <label class="ingre-ch"><input type="checkbox" value="POT"> 감자/고구마</label>
                     <label class="ingre-ch"><input type="checkbox" value="VEG"> 채소</label>
                     <label class="ingre-ch"><input type="checkbox" value="TOP"> 두부</label>
@@ -177,8 +196,8 @@
                     <label class="ingre-ch"><input type="checkbox" value="RAM"> 라면</label>
                   </li>
                   <li>
-                    <label for="recipe-ingre" class="enrol-re">그 외 재료</label> 
-                    <input id="recipe-ingre" name="recipe-ingre" type="text">
+                    <label for="recipe-ingre" class="enrol-re">재료상세</label> 
+                    <input id="recipe-ingre" name="recipe-ingre" type="text" v-model="info.cookIngre">
                   </li>
               </fieldset>
     
@@ -195,7 +214,7 @@
                      </div>
                      <div id="re-info">
                         <label class="recipe-info">레시피 단계 설명</label>
-                        <textarea id="memo" cols="80" rows="5"></textarea>
+                        <textarea id="memo" cols="140" rows="5"></textarea>
                      </div>   
                </div>
                <div id="add-area" class="btn" @click="fnAddIndex()">
@@ -205,9 +224,9 @@
               </fieldset>
     
               <div class="btn_box">
-                <button class="btn" @click="fnEnrollRe()">등록</button>
-                <button class="btn" @click="fnEditRe()">수정</button>
-                <button class="btn" @click="fnDelRe()">삭제</button>
+                <button class="btn" @click="fnEnroll()">등록</button>
+                <button class="btn" @click="fnEdit()">수정</button>
+                <button class="btn" @click="fnDelete()">삭제</button>
             </div>
     
        
@@ -221,21 +240,49 @@
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 
-<script>
-
+<script type="text/javascript">
+	//3. 뷰에 vue2editor 추가
+	console.log(Vue);
+	Vue.use(Vue2Editor);
+	const VueEditor = Vue2Editor.VueEditor;
     var app = new Vue({ 
     el: '#app',
     data: {
+    	info : {
+    		recipeName : ""
+   	    	, rPurpose : ""
+   	    	, howto : ""
+   	    	, tool : ""
+   	    	, time : ""
+   	    	, difficulty : ""
+   	    	, ingredient : ""
+   	    	, cookIngre :""
+    	},
         cnt : 1,
         content : ""
-    }, methods: {
-        fnEnrollRe : function() {
-            alert("등록되었습니다!");
+    }
+    // 4. 컴포넌트 추가
+    , components: {VueEditor}
+    , methods: {
+        fnEnroll : function() {
+            var self = this;
+            var nparmap = self.info;
+	        $.ajax({
+	            url:"/recipe/save.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log(data);
+	            	alert("등록되었습니다!");
+	           	 	location.href="/recipe.do";
+	            }
+	        }); 
         },
-        fnEditRe : function() {
+        fnEdit : function() {
             alert("수정되었습니다!");
         },
-        fnDelRe : function() {
+        fnDelete : function() {
             alert("삭제되었습니다!");
         },
         fnAddIndex : function() {
@@ -277,7 +324,7 @@
        
     } // 메소드 end
     , created: function () {
-
+		var self = this;
 	}
 });
 

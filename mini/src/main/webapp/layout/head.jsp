@@ -24,6 +24,9 @@
     <!-- 페이징 추가1 -->
     <script src="https://unpkg.com/vuejs-paginate@latest"></script>
 	<script src="https://unpkg.com/vuejs-paginate@0.9.0"></script>
+	<!-- 1. vue2editor 에디터 cdn -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+	<script src="https://unpkg.com/vue2-editor@2.3.11/dist/index.js"></script>
     
 </head>
 <body id="viewBd">

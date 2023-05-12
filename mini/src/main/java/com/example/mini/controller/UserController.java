@@ -69,7 +69,7 @@ public class UserController {
 	//회원가입
 	@RequestMapping(value = "/join.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String addBbs(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+	public String addUser(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		userService.addUser(map);
 		resultMap.put("result", "success");

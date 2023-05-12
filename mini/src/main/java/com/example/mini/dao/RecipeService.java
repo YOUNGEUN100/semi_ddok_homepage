@@ -9,7 +9,7 @@ import com.example.mini.model.Recipe;
 public interface RecipeService {
 	
 	// 레시피 게시판 리스트(전체)
-	List<Recipe> searchRecListAll(HashMap<String, Object> map) throws Exception;
+	HashMap<String, Object> searchRecListAll(HashMap<String, Object> map) throws Exception;
 		
 	// 목적별 레시피 게시판 리스트
 	List<Recipe> searchRecListPur(HashMap<String, Object> map) throws Exception;
@@ -26,5 +26,9 @@ public interface RecipeService {
 	
 	// 만드는 방법 리스트
 	List<Recipe> searchCookList(HashMap<String, Object> map) throws Exception;
+	
+	//레시피 등록
+	void addRecipe(HashMap<String, Object>map);
+	
 	
 }

@@ -13,6 +13,9 @@ public interface RecipeMapper {
 	
 	// 레시피 게시판 리스트(전체)
 	List<Recipe> selectRecListAll(HashMap<String, Object> map);
+	
+	// 레시피 전체 갯수
+	int selectRecListCnt(HashMap<String, Object> map);
 		
 	// 목적별 레시피 게시판 리스트
 	List<Recipe> selectRecListPur(HashMap<String, Object> map);
@@ -34,5 +37,13 @@ public interface RecipeMapper {
 	
 	// 조회수 증가
 	void updateRecipeCnt(HashMap<String, Object> map);
+	
+	// 레시피 등록!!!
+	void insertRecipe(HashMap<String,Object>map);
+	void insertPurposeCode(HashMap<String,Object>map);
+	void insertHowtoCode(HashMap<String,Object>map);
+	void insertToolCode(HashMap<String,Object>map);
+	void insertRecipeImg(HashMap<String,Object>map);
+		
 	
 }
