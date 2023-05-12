@@ -3,10 +3,12 @@ package com.example.mini.model;
 public class TodayEat {
 	private int recipeNo;
 	private String recipeName;
+	private String r_purpose;
 	private String purpose;
-	private String howTo;
-	private String ingredient;
+	private String howto;
+	private String[] ingredient;
 	private String tool;
+	private String cookIngre;
 	
 	public int getRecipeNo() {
 		return recipeNo;
@@ -20,22 +22,28 @@ public class TodayEat {
 	public void setRecipeName(String recipeName) {
 		this.recipeName = recipeName;
 	}
+	public String getR_purpose() {
+		return r_purpose;
+	}
+	public void setR_purpose(String r_purpose) {
+		this.r_purpose = r_purpose;
+	}
 	public String getPurpose() {
 		return purpose;
 	}
 	public void setPurpose(String purpose) {
 		this.purpose = purpose;
 	}
-	public String getHowTo() {
-		return howTo;
+	public String getHowto() {
+		return howto;
 	}
-	public void setHowTo(String howTo) {
-		this.howTo = howTo;
+	public void setHowto(String howto) {
+		this.howto = howto;
 	}
-	public String getIngredient() {
+	public String[] getIngredient() {
 		return ingredient;
 	}
-	public void setIngredient(String ingredient) {
+	public void setIngredient(String[] ingredient) {
 		this.ingredient = ingredient;
 	}
 	public String getTool() {
@@ -44,19 +52,10 @@ public class TodayEat {
 	public void setTool(String tool) {
 		this.tool = tool;
 	}
-	
+	public String getCookIngre() {
+		return cookIngre;
+	}
+	public void setCookIngre(String cookIngre) {
+		this.cookIngre = cookIngre;
+	}
 }
-
-
-/*
-SELECT R.RECIPE_NO, RECIPE_NAME, COOK_INGRE
-FROM mini_db2.T4_RECIPE AS R
-INNER JOIN mini_db2.T4_R_PURPOSE AS P ON R.RECIPE_NO = P.RECIPE_NO
-INNER JOIN mini_db2.T4_HOWTO AS H ON R.RECIPE_NO = H.RECIPE_NO
-INNER JOIN mini_db2.T4_INGREDIENT AS I ON R.RECIPE_NO = I.RECIPE_NO
-INNER JOIN mini_db2.T4_TOOL AS T ON R.RECIPE_NO = T.RECIPE_NO
-WHERE P.CODE = 'SNA' AND
-	  H.CODE = 'ETC' AND
-	  I.CODE = 'VEG' AND
-	  T.CODE = 'OVE';
-*/
