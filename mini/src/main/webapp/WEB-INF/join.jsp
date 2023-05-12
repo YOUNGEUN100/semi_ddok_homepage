@@ -34,10 +34,10 @@
      .joinArea .joinBox .captionBox .pwck{font-weight: bold; font-size: 0.95em; display : inline-block;}
      .joinArea .joinBox .nick{font-weight: bold; font-size: 0.95em; display : inline-block;}
      .joinArea .joinBox input{
-	       border: 0; border-bottom: 1px solid black; 
-	       padding: 10px; margin-bottom: 20px; 
+	       border: 0; border-bottom: 1px solid black;
+	       padding: 10px; margin-bottom: 20px; border-radius: 0%;
 	      }
-     .joinArea .joinBox input[type:date]{border: 0; border-bottom: 1px solid black;
+     .joinArea .joinBox input[type=date]{border: 0; border-bottom: 1px solid black;
      		 margin-bottom: 20px; }
      .joinArea .joinBox .duplicationBtn{
 	       border-radius: 8px; border: 0.7px solid black;
@@ -63,7 +63,7 @@
      .joinArea .joinBox .accountFind{font-size: 0.8em; color: #5EA152;}
      .joinArea .joinBox .w100{width: 100%;}
      .joinArea .joinBox .w90{width: 85%; margin-right: 15px; }
-     .joinArea .joinBox .w80{width: 233px; margin-right: 7px;}
+     .joinArea .joinBox .w80{width: 76%; margin-right: 8px;}
      .joinArea .joinBox .w50{width: 45%; margin-right: 7px;}
      .joinArea .joinBox .w60{width: 55%; margin-right: 10px;}
 
@@ -97,12 +97,15 @@
 	                    <template v-else-if="info.id != '' && info.id.length >= 20"> <!-- 20자 초과시 -->
 	                    	<span class="disableId" >20자를 초과하였습니다.</span> 
 	                    </template>
-	                    <template v-else-if="info.id != '' && idCk" ><!--중복체크-->
+	                    <template v-else-if="info.id != '' && !idValid"> <!-- 한글로 아이디 칠때 -->
+	                    	<span class="disableId" >올바른 형식의 아이디가 아닙니다.</span> 
+	                    </template>
+	                    <template v-else-if="info.id != '' && idCk " ><!--중복체크-->
 	                      <span class="ableId" v-if="idFlg">사용할 수 있는 아이디입니다</span>
 	                      <span class="disableId" v-else>이미 사용중인 아이디입니다</span> 
 	                    </template>
 	                 <div v-else></div>
-                    <input type="text" v-model="info.id" maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
+                    <input type="text" v-model="info.id"maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
                 </div> 
                 <div class="captionBox">
                     <div class="markEssential pw">비밀번호</div><div v-if="info.pw == ''"></div>
@@ -129,7 +132,7 @@
                 </template>
                 <input type="text" @keypress="fnNickCheck" class="w100" placeholder="활동할 닉네임을 입력해 주세요" v-model="info.nick">
                 <p class="markEssential">전화번호</p>
-                <input type="tel" class="w100" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
+                <input type="tel" class="w100" maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
                 <p>이메일주소</p>
                 <input type="email" class="w50" placeholder="이메일 주소" v-model="info.email">@ 
                 <select class="mail" v-model="info.domain">
@@ -212,9 +215,12 @@ var app = new Vue({
     	, roadFullAddr : ""
     	, idCk : false
     	, nickFlg : true
+    	
    		
     }
+    
     , methods : {
+    	//회원가입
     	fnJoin : function(){
     		var self = this;
     		if(self.info.id == ""){
@@ -284,6 +290,7 @@ var app = new Vue({
 	            }
 	        }); 
    	 },
+   	 //아이디 중복체크
    	 	fnCheck : function(){
 	   	 	var self = this;
 	   	 	var nparmap = {id : self.info.id};
@@ -305,6 +312,7 @@ var app = new Vue({
         }); 
    	 	
    	 	},
+   	 	//닉네임 중복체크
 		   	 fnNickCheck : function(data){
 		 		var self = this;
 		 		var nparmap ={nick : self.info.nick};
@@ -325,7 +333,7 @@ var app = new Vue({
 		            }
 	        }); 
 	 	},
-	 	
+	 	//주소
 		 fnSearchAddr : function(){
 	 		var self = this;
 	 		var option = "width = 500, height = 500, top = 100, left = 200, location = no"
@@ -341,7 +349,14 @@ var app = new Vue({
     		console.log(roadAddrPart1);
     		console.log(addrDetail);
     		console.log(engAddr);
-    	}
+    	},
+    	//핸드폰번호 자동 '-'
+    	/*"전화-번호".replaceAll("-","")*/
+    	
+    	//아이디 유효성
+    	
+    		
+    		
     }   
     , created: function () {
     

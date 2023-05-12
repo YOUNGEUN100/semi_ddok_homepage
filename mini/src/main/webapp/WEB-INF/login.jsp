@@ -17,7 +17,7 @@
 	.loginArea .loginBox input{
 		 border: none; border-bottom: 1px solid black;
 		 width: 100%; padding: 5px; margin-bottom: 20px; 
-		 padding-left: 10px;
+		 padding-left: 10px; border-radius: 0%;
 	} 
 	.loginArea .loginBox input:last-child{
 	 	margin-bottom: 40px;
@@ -75,6 +75,7 @@
 	    	, user : {}
 	    }   
 	    , methods: {
+	    	//로그인
 	    	fnLogin : function(){
 	            var self = this;
 	            var nparmap = {id : self.id, pw : self.pw};
@@ -91,7 +92,36 @@
 	                	}
 	                }
 	            });
-	   	 }
+	   	 },
+		    pageChange : function(url, param) {
+	     		var target = "_self";
+	     		if(param == undefined){
+	     		//	this.linkCall(url);
+	     			return;
+	     		}
+	     		var form = document.createElement("form"); 
+	     		form.name = "dataform";
+	     		form.action = url;
+	     		form.method = "post";
+	     		form.target = target;
+	     		for(var name in param){
+	 				var item = name;
+	 				var val = "";
+	 				if(param[name] instanceof Object){
+	 					val = JSON.stringify(param[name]);
+	 				} else {
+	 					val = param[name];
+	 				}
+	 				var input = document.createElement("input");
+	 	    		input.type = "hidden";
+	 	    		input.name = item;
+	 	    		input.value = val;
+	 	    		form.insertBefore(input, null);
+	 			}
+	     		document.body.appendChild(form);
+	     		form.submit();
+	     		document.body.removeChild(form);
+	     	}
 	    }   
 	    , created: function () {
 	    	

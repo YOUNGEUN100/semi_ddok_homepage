@@ -141,7 +141,7 @@
 		            	<span class="ableId" v-if="pw == pwck">비밀번호가 일치합니다.</span>
                     	<span class="disableId" v-else>비밀번호가 일치하지않습니다.</span>
 		            </template>
-		            <input type="password" v-model="pwck"class="w100" placeholder="비밀번호 재입력" maxlength="20">
+		            <input type="password" v-model="pwck" @keypress="fnPwCheck" class="w100" placeholder="비밀번호 재입력" maxlength="20">
 		            <button class="findPwBtn" @click="fnUpdatePw">비밀번호 변경하기</button>
 		        </div>
 		        
@@ -152,7 +152,7 @@
 		            </div>
 		            <div class="titleId">아이디</div><div class="findId">{{id}}</div>
 		            <div class="titlePw">비밀번호</div><div class="findId">{{pw}}</div>
-		            <a href="javascript:;" class="loginBtn">로그인 하기</a>
+		            <a href="/login.do" class="loginBtn">로그인 하기</a>
 		        </div>
 	        </template>
 
@@ -186,12 +186,9 @@ var app = new Vue({
     		
     }
     , methods : {
+    		//비밀번호찾기
 		   	 fnFindPw : function(data){
 		 		var self = this;		 		
-		 		console.log(self.id);
-		 		console.log(self.name);
-		 		console.log(self.pwQ);
-		 		console.log(self.pwA);
 		 		var nparmap ={id : self.id, name : self.name, pwQ:self.pwQ, pwA : self.pwA};
 		 		$.ajax({
 		            url:"/user/findPw.dox",
@@ -204,14 +201,9 @@ var app = new Vue({
 		            }
 	        }); 
 	 	},
-	 	
+	 	//비밀번호 업데이트
 	 	fnUpdatePw : function(){
     		var self = this;
-    		console.log(self.pw);
-	 		console.log(self.id);
-	 		console.log(self.name);
-	 		console.log(self.pwQ);
-	 		console.log(self.pwA);
 	      	var nparmap = {id : self.id, pw : self.pw, name : self.name, pwQ:self.pwQ, pwA : self.pwA};     	
 	        $.ajax({
 	            url:"/pwUpdate.dox",
@@ -224,7 +216,7 @@ var app = new Vue({
 	            }
 	        }); 
     	},
-    	
+    	//비밀번호 일치여부
     	fnPwCheck : function(){
     		var self = this;
     		self.pwCheck = true;

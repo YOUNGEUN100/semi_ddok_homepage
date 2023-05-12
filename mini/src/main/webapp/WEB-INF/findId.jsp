@@ -146,6 +146,7 @@ var app = new Vue({
     		findResult : true
     }
     , methods : {
+    		//아이디 찾기
 		   	 fnFindId : function(data){
 		 		var self = this;
 		 		var nparmap ={name : self.name, hp : self.hp, birth:self.birth};
