@@ -63,8 +63,6 @@ public class TodayEatController {
 	@ResponseBody
 	public String selectRecipeInfo(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		Array arr = (Array) map.get("ingredient");
-		System.out.println(map);
 		String json = map.get("ingredient").toString();
 		ObjectMapper mapper = new ObjectMapper();
 	    List<String> list = mapper.readValue(json, new TypeReference<List<String>>(){});

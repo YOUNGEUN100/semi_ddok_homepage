@@ -42,13 +42,14 @@ var app = new Vue({
 		param : {
 			r_purpose : "${map.r_purpose}",
 			howto : "${map.howto}",
-			ingredient : ["test", "test2"],
+			ingredient : ${map.ingredient},
 			tool : "${map.tool}"
 		}
 	}, methods: {
 		fnGetRecipeResult : function() {
             var self = this;
             var nparmap = self.param;
+            nparmap.ingredient = JSON.stringify(self.param.ingredient);
             $.ajax({
                 url:"/todayEat/recipe/result.dox",
                 dataType:"json",
