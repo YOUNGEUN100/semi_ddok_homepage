@@ -231,7 +231,7 @@
             <div class="recipe-thumb-img">
                 <div class="re-view-cnt">
                     <i class="fa-solid fa-eye fa-lg"></i>
-                    <span>365</span>
+                    <span>{{info.recipeHits}}</span>
                 </div>
                 <img  :src="info.imgPath">
             </div>
@@ -247,7 +247,7 @@
                         <div class="box2">
                             <img class="re-icon" src="/images/icon_recipe01.png">
                             <div>조리도구</div>
-                            <div>냄비/후라이팬</div>
+                            <div>{{info.tname}}</div>
                         </div>
                         <div class="box2">
                             <img class="re-icon" src="/images/icon_recipe02.png">
@@ -262,9 +262,9 @@
                     </div>
                 </div>
                 <div class="recipe-save">
-                    <button class="btn recipe-save-button">레시피 저장하기</button>
-                    <div class="btn icon-print"><i class="color-white fa-solid fa-print fa-xl"></i></div>
-                    <div class="btn icon-share"><i class="fa-solid fa-share-nodes fa-beat fa-xl"></i></div>
+                    <button class="btn recipe-save-button" @click="fnSave()">레시피 저장하기</button>
+                    <div class="btn icon-print" @click="fnPrint()"><i class="color-white fa-solid fa-print fa-xl"></i></div>
+                    <div class="btn icon-share" @click="fnClip()"><i class="fa-solid fa-share-nodes fa-beat fa-xl"></i></div>
                 </div>
             </div>
         </div>
@@ -284,64 +284,13 @@
                 <div>만드는 방법</div>
             </div>
                 
-            <div class="recipe-index">
-                <img class="img-index" src="https://ottogi.okitchen.co.kr/pds/editor/117_1.jpg">
+            <div class="recipe-index" v-for="(item, index) in list" >
+                <img class="img-index" :src="item.imgPath">
                 <div class="text-index">
-                    <div><strong>Step 1</strong></div>
-                    <div>두부는 곱게 으깨고 물기를 뺀다</div>
+                    <div><strong>Step {{item.cookIndex}}</strong></div>
+                    <div>{{item.cookContent}}</div>
                 </div>
             </div>
-            <div class="recipe-index">
-                <img class="img-index" src="https://ottogi.okitchen.co.kr/pds/editor/117_2.jpg">
-                <div class="text-index">
-                    <div><strong>Step 2</strong></div>
-                    <div>표고버섯은 밑동을 제거하고 스트링치즈는 작게 찢는다.</div>
-                </div>
-            </div>
-            <div class="recipe-index">
-                <img class="img-index" src="https://ottogi.okitchen.co.kr/pds/editor/117_3.jpg">
-                <div class="text-index">
-                    <div><strong>Step 3</strong></div>
-                    <div>양파와 토마토는 편 썬다.</div>
-                </div>
-            </div>
-            <div class="recipe-index">
-                <img class="img-index" src="https://ottogi.okitchen.co.kr/pds/editor/117_4.jpg">
-                <div class="text-index">
-                    <div><strong>Step 4</strong></div>
-                    <div>물기 뺀 두부에 소금과 후추로 간을 한다.
-                        *두부의 수분을 최대한 많이 제거해야 패티를 만들기가 쉽다.</div>
-                </div>
-            </div>
-            <div class="recipe-index">
-                <img class="img-index" src="https://ottogi.okitchen.co.kr/pds/editor/117_5.jpg">
-                <div class="text-index">
-                    <div><strong>Step 5</strong></div>
-                    <div>표고버섯 사이에 스트링치즈를 넣고 두부로 감싸 두부패티를 만든다.</div>
-                </div>
-            </div>
-            <div class="recipe-index">
-                <img class="img-index" src="https://ottogi.okitchen.co.kr/pds/editor/117_6.jpg">
-                <div class="text-index">
-                    <div><strong>Step 6</strong></div>
-                    <div>두부패티를 튀김가루, 계란, 빵가루 순으로 묻혀 180도 기름에 4분간 튀긴다.</div>
-                </div>
-            </div>
-            <div class="recipe-index">
-                <img class="img-index" src="https://ottogi.okitchen.co.kr/pds/editor/117_7.jpg">
-                <div class="text-index">
-                    <div><strong>Step 7</strong></div>
-                    <div>햄버거 빵은 후라이팬에 굽고 소이마요와 케챂을 한 면씩 바른다.</div>
-                </div>
-            </div>
-            <div class="recipe-index">
-                <img class="img-index" src="https://ottogi.okitchen.co.kr/pds/editor/117_8.jpg">
-                <div class="text-index">
-                    <div><strong>Step 8</strong></div>
-                    <div>빵 위에 양상추, 튀긴 패티, 양파, 토마토 순으로 쌓아 완성한다.</div>
-                </div>
-            </div>
-               
         </div> 
        <!-- 레시피 만드는 방법 끝 -->
 
@@ -399,23 +348,46 @@
 	                data : nparmap,
 	                success : function(data) {
 	                    self.info = data.info;
-	                    console.log(self.recipeNo);
 	                    console.log(data.info);
 	                }
 	            });
 	
 	        }
-	    // 도구별 리스트 가져오기
-		,fnGetRecipeTool : function() {
-			
-		}
+		    // 만드는 방법 리스트 가져오기
+			,fnGetCookMethod : function() {
+				var self = this;
+				var nparmap = {recipeNo : self.recipeNo};
+				$.ajax({
+					url: "/recipe/cook.dox",
+					dataType: "json",
+					type: "POST",
+					data : nparmap,
+					success : function(data) {
+						 self.list = data.list;
+						 console.log(self.list);
+					}
+				})
+			}
+			// 주소 복사
+            , fnClip: function () {
+                navigator.clipboard.writeText(window.location.href);
+                alert("복사되었습니다.");
+            }
+			// 레시피 저장
+			, fnSave : function() {
+				alert("저장되었습니다.");
+			}
+			// 레시피 인쇄
+			, fnPrint : function() {
+				window.print();
+			}
 	    
 	        
 	    }   
 	    , created: function () {
 	        var self = this;
 	        self.fnGetInfo();
-	        
+	        self.fnGetCookMethod();
 	    }
 	});
 </script>

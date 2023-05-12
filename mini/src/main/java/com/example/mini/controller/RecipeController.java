@@ -32,7 +32,7 @@ public class RecipeController {
 		request.setAttribute("map", map);
 		return "/recipe";
 	}
-
+	// 레시피 전체 리스트
 	@RequestMapping(value = "/recipe/all.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
 	@ResponseBody
 	public String searchRecipeListAll(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
@@ -43,7 +43,7 @@ public class RecipeController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
-	
+	// 목적별 레시피
 	@RequestMapping(value = "/recipe/list/purpose.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
 	@ResponseBody
 	public String searchRecipeListPur(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
@@ -53,6 +53,7 @@ public class RecipeController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
+	// 방법별 레시피
 	@RequestMapping(value = "/recipe/list/howto.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
 	@ResponseBody
 	public String searchRecipeListHow(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
@@ -62,6 +63,7 @@ public class RecipeController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
+	// 도구별 레시피
 	@RequestMapping(value = "/recipe/list/tool.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
 	@ResponseBody
 	public String searchRecipeListTool(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
@@ -79,7 +81,6 @@ public class RecipeController {
 		request.setAttribute("map", map);
 		return "/recipe_view";
 	}
-	
 	// 레시피 상세정보
 	@RequestMapping(value = "/recipe/view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -88,6 +89,16 @@ public class RecipeController {
 		Recipe info = recipeService.searchRecipeInfo(map);
 		resultMap.put("info", info);
 		resultMap.put("message", "성공");
+		return new Gson().toJson(resultMap);
+	}
+	// 만드는 방법 리스트
+	@RequestMapping(value = "/recipe/cook.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
+	@ResponseBody
+	public String searchCookList(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<Recipe> list = recipeService.searchCookList(map);
+		resultMap.put("list", list);
+		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
 	

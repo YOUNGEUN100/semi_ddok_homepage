@@ -29,5 +29,10 @@ public interface RecipeMapper {
 	// 레시피 상세정보
 	Recipe selectRecipeInfo(HashMap<String, Object>map);
 	
+	// 만드는 방법 리스트
+	List<Recipe> selectCookList(HashMap<String, Object> map);
+	
+	// 조회수 증가
+	void updateRecipeCnt(HashMap<String, Object> map);
 	
 }

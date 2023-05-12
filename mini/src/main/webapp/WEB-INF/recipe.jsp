@@ -173,9 +173,9 @@
             font-weight: bold;
         }
         @media screen and (max-width: 512px) {
-            .item-list {
-            display: block;
-            }
+             .item-list {
+             
+       		 }
             .item {
             margin-bottom: 30px;
             }
@@ -213,7 +213,7 @@
         .re-view-cnt {
             display: inline-block;
             position: relative;
-            left:285px;
+            left:300px;
             top:270px;
             padding: 3px 10px;
             color:white;
@@ -234,8 +234,8 @@
     	
          <button class="add_btn" @click="fnGoEdit()">등록</button>
         <div class="r-search">
-            <input type="text" placeholder="원하는 재료나 레시피를 다양하게 검색해 보세요!" class="r-input">
-            <i class="search-icon fa-solid fa-magnifying-glass fa-lg"></i>
+            <input type="text" v-model="keyword" placeholder="원하는 재료나 레시피를 다양하게 검색해 보세요!" class="r-input">
+            <i @click="fnGetRecipeAll()" class="search-icon fa-solid fa-magnifying-glass fa-lg"></i>
         </div>
         <div class="r-category" @click="fnGetRecipeAll()">
             <div class="box1" id="all-btn">
@@ -296,7 +296,7 @@
                     <div>
                         <div class="re-view-cnt">
                             <i class="fa-solid fa-eye fa-lg"></i>
-                            <span>365</span>
+                            <span> {{item.recipeHits}}</span>
                         </div>
                         <img class="recipe-img" :src="item.imgPath">
                     </div>
@@ -339,6 +339,7 @@
 	var app = new Vue({ 
 	el: '#app',
 	data: {
+		 keyword : "",
 		 list: [],
 		 cnt : 0,
 		 codeList : ${map.codeList},
@@ -354,7 +355,7 @@
 			self.rkind = "전체";
 			// 페이징 추가6
 			var startNum = ((self.selectPage-1) * 12);
-			var nparmap = {startNum : startNum};
+			var nparmap = {keyword : self.keyword, startNum : startNum};
 			$.ajax({
 				url: "/recipe/all.dox",
 				dataType: "json",

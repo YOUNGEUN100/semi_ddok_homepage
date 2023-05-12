@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 	<!--레시피 리스트-->
 	<mapper namespace="com.example.mini.mapper.RecipeMapper">
@@ -21,6 +21,9 @@
 				FROM T4_R_IMAGE
 				WHERE THUMBNAIL_YN = 'Y') I 
 			ON I.RECIPE_NO = R.RECIPE_NO 
+			<if test="keyword != '' and keyword != null">
+			WHERE RECIPE_NAME LIKE '%'||#{keyword}||'%'
+			</if>
 			LIMIT 0, 20
 		</select>
 		
@@ -120,7 +123,7 @@
 		
 		<!--레시피 글보기-->
 		<select id="selectRecipeInfo" parameterType="hashmap" resultType="com.example.mini.model.Recipe">
-			SELECT  
+			  SELECT  
 				R.RECIPE_NO AS RECIPE_NO,
 				RECIPE_NAME,
 				TIME,
@@ -131,21 +134,40 @@
 				UDATETIME,
                 COOK_INGRE,
 				IMG_PATH,
-                T.CODE AS TCODE
+                T.CODE AS TCODE,
+                TNAME
 			FROM T4_RECIPE R
 			INNER JOIN 
 				(SELECT RECIPE_NO, IMG_PATH
 				FROM T4_R_IMAGE
 				WHERE THUMBNAIL_YN = 'Y') I
-				ON I.RECIPE_NO = R.RECIPE_NO
-			LEFT JOIN T4_TOOL T 
-                ON T.RECIPE_NO = R.RECIPE_NO
+					ON I.RECIPE_NO = R.RECIPE_NO
+			LEFT JOIN (
+				SELECT RECIPE_NO, T.CODE, C.NAME AS TNAME
+				FROM T4_TOOL T
+				LEFT JOIN T4_CODE C ON C.CODE = T.CODE
+				WHERE C.KIND = 'TOOL') T
+                	ON T.RECIPE_NO = R.RECIPE_NO
 		<if test="recipeNo !='' and recipeNo != null">
 			WHERE R.RECIPE_NO = #{recipeNo}
 		</if>
 		</select>
 	
+		<!--레시피 과정 보기-->
+		<select id="selectCookList" parameterType="hashmap" resultType="com.example.mini.model.Recipe">
+			SELECT RECIPE_NO, IMG_PATH, COOK_INDEX, COOK_CONTENT
+			FROM T4_R_IMAGE 
+			WHERE THUMBNAIL_YN = 'N'
+			AND RECIPE_NO = #{recipeNo}
+		</select>
 	
+		<!--레시피 조회수-->
+		<update id="updateRecipeCnt" parameterType="hashmap">
+		UPDATE T4_RECIPE
+		SET
+			RECIPE_HITS = RECIPE_HITS + 1
+		WHERE RECIPE_NO = #{recipeNo}
+		</update>
 	
 		
 		

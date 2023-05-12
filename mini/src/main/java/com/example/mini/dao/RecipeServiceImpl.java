@@ -47,7 +47,17 @@ public class RecipeServiceImpl implements RecipeService{
 	@Override
 	public Recipe searchRecipeInfo(HashMap<String, Object> map) {
 		Recipe info = recipeMapper.selectRecipeInfo(map);
+		if(info != null) {
+			recipeMapper.updateRecipeCnt(map);
+		}
 		return info;
+	}
+	
+	// 만드는 방법 리스트
+	@Override
+	public List<Recipe> searchCookList(HashMap<String, Object> map) throws Exception {
+		List<Recipe> list = recipeMapper.selectCookList(map);
+		return list;
 	}
 	
 	
