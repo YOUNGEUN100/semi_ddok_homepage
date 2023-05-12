@@ -25,4 +25,14 @@ public interface SmartMarketService {
 	
 	// 상품리뷰 리스트
 	HashMap<String, Object> searchSmartMarketReviewList(HashMap<String, Object> map) throws Exception;
+	
+	// 카트 리스트
+	HashMap<String, Object> searchCartList(HashMap<String, Object> map) throws Exception;
+	
+	//카트 등록
+	void addCart(HashMap<String, Object> map);
+	
+	//카트 삭제
+	void removeCart(HashMap<String, Object> map);
+	
 }

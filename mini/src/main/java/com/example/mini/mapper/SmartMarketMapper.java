@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.mini.model.Cart;
 import com.example.mini.model.Code;
 import com.example.mini.model.SmartMarket;
 import com.example.mini.model.SmartMarket2;
@@ -39,4 +40,12 @@ public interface SmartMarketMapper {
 	
 	//제품 목록
 	List<Code> selectSmartMarketKind(HashMap<String, Object> map);
+	
+	//카트 등록
+	void insertCart(HashMap<String, Object> map);
+	
+	// 리스트
+	List<Cart> selectCartList(HashMap<String, Object> map) throws Exception;
+	// 댓글 삭제
+	void deleteCart(HashMap<String, Object> map);
 }
