@@ -8,7 +8,7 @@ import com.example.mini.model.Funding;
 public interface FundingService {
 
 	// 랜선마켓 거래 리스트
-	List<Funding> searchTradeFleaList(HashMap<String, Object> map) throws Exception;
+	HashMap<String, Object> searchTradeFleaList(HashMap<String, Object> map) throws Exception;
 	
 	// 랜선마켓 나눔 리스트
 	List<Funding> searchDonateFleaList(HashMap<String, Object> map) throws Exception;
@@ -22,8 +22,14 @@ public interface FundingService {
 	// 랜선장터 댓글 입력
 	void addFleaComment(HashMap<String, Object> map);
 	
+	// 랜선장터 댓글 삭제
+	void removeComment(HashMap<String, Object> map);
+	
 	// 랜선장터 거래완료
 	void endTrade(HashMap<String, Object> map);
+	
+	// 랜선장터 게시글 삭제
+	void removePost(HashMap<String, Object> map);
 
 	// 오픈중 펀딩 리스트
 	List<Funding> searchOpenFundingList(HashMap<String, Object> map) throws Exception;
@@ -42,5 +48,9 @@ public interface FundingService {
 
 	// 중복신청 필터링용 카운트 잘 넘어가는지 확인용
 	int checkFundingMember2(HashMap<String, Object> map);
+	
+	// 펀딩 등록
+	
+	void addFunding(HashMap<String, Object> map);
 
 }

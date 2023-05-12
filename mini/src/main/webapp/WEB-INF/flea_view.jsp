@@ -101,6 +101,10 @@
         .commenter span {
             margin-right: 15px;
         }
+        
+        .commenter button {
+        	height : 40px;
+        }
 
         .comment_content {
             font-size: 15px;            
@@ -194,6 +198,7 @@
                                     <div class="commenter">
                                         <span>{{item.nick}}</span>
                                         <span>{{item.cdatetime2}}</span>
+                                        <button @click="fnDeleteComment(item.commentNo)" v-if="sessionId == item.userId || sessionStatus == 'A'">삭제</button>
                                     </div>
                                     <div class="comment_content">
                                         <span>{{item.content}}</span>
@@ -210,9 +215,9 @@
                         
 
                         <div class="btn_box">
-                        	<button @click="fnFinishTrade" v-if="sessionId != ''&& sessionId==info.userId">거래완료</button>
-                            <button v-if="sessionId != ''&& sessionId==info.userId">수정</button>
-                            <button v-if="sessionId != ''&& sessionId==info.userId">삭제</button>
+                        	<button @click="fnFinishTrade" v-if="sessionId == info.userId || sessionStatus == 'A'">거래완료</button>
+                            <button v-if="sessionId==info.userId">수정</button>
+                            <button @click="fnDeletePost" v-if="sessionId == info.userId || sessionStatus == 'A'">삭제</button>
                         </div>
 
                     
@@ -238,6 +243,7 @@
                 list:[],
                 boardNo: "${map.boardNo}",
                 sessionId: "${sessionId}",
+                sessionStatus: "${sessionStatus}",
                 content : ""
 
             },
@@ -254,7 +260,7 @@
                         data: nparmap,
                         success: function (data) {
                             self.info = data.info;
-                            console.log(data.info);
+                            console.log(data.info + "gg");
                         }
                     });
                 }
@@ -312,8 +318,34 @@
                 });
             	}
             	
+            	// 랜선장터 댓글 삭제
+            	, fnDeleteComment: function(commentNo) {
+            		var self = this;
+            		if (!confirm("댓글을 삭제하시겠습니까?")) {
+            			return
+            		}
+            		var nparmap = {commentNo : commentNo};
+            		$.ajax({
+                    	url: "/fleamarket/removecomment.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("댓글 삭제 완료");
+                    		self.fnGetFleaComment();
+                    	}
+                });
+            		
+            	}
+            	
+            	// 거래완료 버튼
             	, fnFinishTrade: function () {
             		var self = this;
+            		if (self.info.finishYn == "Y") {
+            			alert("이미 종료된 거래입니다");
+            			return;
+            		}
+            		console.log(self.info.hits);
             		if (!confirm("거래를 완료하시겠습니까?")) {
             			return;
             		};
@@ -328,6 +360,27 @@
                     	success: function (data) {
                     		alert("거래완료");
                     		self.fnGetFlea();
+                    	}
+                });
+            	}
+            	
+            	// 게시글 삭제            	
+            	, fnDeletePost: function() {
+            		var self = this;
+            		if (!confirm("게시글을 삭제하시겠습니까?")) {
+            			return;
+            		};
+            		var nparmap = {
+                            boardNo : self.boardNo
+                        };
+            		$.ajax({
+                    	url: "/fleamarket/deleteFlea.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("삭제완료");
+                    		location.href="/flea.do"
                     	}
                 });
             	}

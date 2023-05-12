@@ -73,6 +73,7 @@
             width: 100%;
             border: 1px solid #999999;
             border-radius: 10px;
+            padding : 16px;
         }
 
         .btn_box button {
@@ -106,27 +107,27 @@
                         <div class="input_box">
 
                             <div class="title_box">
-                                <span>제목</span> <input class="title" type="text">
+                                <span>제목</span> <input class="title" type="text" v-model="info.title">
                             </div>
 
                             <div class="summmary_box">
-                                <span>요약설명</span> <input class="summary" type="text">
+                                <span>요약설명</span> <input class="summary" type="text" v-model="info.summary">
                             </div>
 
                             <div class="goal_box">
-                                <span>펀딩목표수</span> <input class="goal" type="number" min="0">
+                                <span>펀딩목표수</span> <input class="goal" type="number" min="0" v-model="info.goal">
                             </div>
 
                             <div class="open_date_box">
-                                <span>펀딩시작일</span> <input class="open_date" type="date">
+                                <span>펀딩시작일</span> <input class="open_date" type="date" v-model="info.openDate">
                             </div>
 
                             <div class="end_date_box">
-                                <span>펀딩종료일</span> <input class="end_date" type="date">
+                                <span>펀딩종료일</span> <input class="end_date" type="date" v-model="info.endDate">
                             </div>
 
                             <div class="price_box">
-                                <span>가격</span> <input class="price" type="number" min="0">
+                                <span>가격</span> <input class="price" type="number" min="0" v-model="info.price">
                             </div>
 
                         </div>
@@ -154,11 +155,11 @@
 
 
                         <div class="content_box">
-                            <p>내용</p> <textarea class="content" rows="15"></textarea>
+                            <p>내용</p> <textarea class="content" rows="15" v-model="info.content"></textarea>
                         </div>
 
                         <div class="btn_box">
-                            <button>등록</button>
+                            <button @click="fnAddFunding">등록</button>
                             <button>수정</button>
                         </div>
 
@@ -176,6 +177,53 @@
     <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 
-    <script type="text/javascript">
-	// 여기에 [script] 입력하세요
+    <script type="text/javascript">     
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                info: {
+                		title: "",
+                		summary: "",
+                		goal: "",
+                		openDate: "",
+                		endDate: "",
+                		price: "",
+                		content:""
+                	
+                },                
+                sessionId: "${sessionId}"
+
+            },
+            methods: {
+                fnAddFunding: function () {
+                    var self = this;
+                    if(!confirm("등록 하시겟습니까?")) {
+                    	return;
+                    }
+                    console.log(self.info);
+                    console.log(typeof self.info.openDate);
+                    var nparmap = self.info
+                    $.ajax({
+                        url: "/funding/add.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            alert("등록되었습니다.");
+                            location.href = "funding.do";
+                            
+                        }
+                    });
+                }
+				
+         		
+             	
+            }
+                ,
+                created: function () {
+                    var self = this;
+                    
+                }
+            });
     </script>

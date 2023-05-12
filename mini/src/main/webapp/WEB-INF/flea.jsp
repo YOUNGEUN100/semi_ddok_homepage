@@ -3,12 +3,44 @@
     <jsp:include page="/layout/head.jsp"></jsp:include>
     <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
+
     <style>
         /* style START */
-        /* * {
-            border: 1px dotted rgb(223, 60, 141);
-        } */
-
+		/* 페이징 추가 2 */
+		.pagination {
+        margin:24px;
+        display: inline-flex;
+        
+    }
+	
+    ul {
+        text-align: center;
+    }
+	.pagination li {
+	    min-width:32px;
+	    padding:2px 6px;
+	    text-align:center;
+	    margin:0 3px;
+	    border-radius: 6px;
+	    border:1px solid #eee;
+	    color:#666;
+	    display : inline;
+	}
+	.pagination li:hover {
+	    background: #E4DBD6;
+	}
+	.page-item a {
+	    color:#666;
+	    text-decoration: none;
+	}
+	.pagination li.active {
+	    background-color : #E7AA8D;
+	    color:#fff;
+	}
+	.pagination li.active a {
+	    color:#fff;
+	}
+		/* 2끝 */
         .container {
             width: 1200px;
             height: 100%;
@@ -71,6 +103,7 @@
             border-radius: 50px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
             background-color: white;
+            
         }
 
         .purchase_list {
@@ -128,9 +161,9 @@
             color: white;
             font-size: 20px;
             font-weight: bold;
-            cursor : pointer;
+            cursor : pointer;            
         }
-
+		
 
         /* style END */
     </style>
@@ -184,6 +217,20 @@
 	                                </tr>                                 
     	                        </tbody>        	                       
                             </table>
+                             <!-- 페이징 추가 3-->
+				<template>
+				  <paginate
+				    :page-count="pageCount"
+				    :page-range="3"
+				    :margin-pages="2"
+				    :click-handler="fnSearch"
+				    :prev-text="'<'"
+				    :next-text="'>'"
+				    :container-class="'pagination'"
+				    :page-class="'page-item'" style="display:none;" id="paging">
+				  </paginate>
+				</template>
+							<!-- 3끝 -->
                             <div class="writeBtn"><button>글쓰기</button></div>
                         </div>
 
@@ -251,6 +298,9 @@
 
 
     <script type="text/javascript">
+    
+    	<!-- 페이징 추가 4-->
+    	Vue.component('paginate', VuejsPaginate)
         var app = new Vue({
             el: '#app',
             data: {
@@ -259,22 +309,42 @@
                 finish: "",
                 finish2: "",
                 moreBtn: "off",
-                moreBtn2: "off",
+                moreBtn2: "off",               
                 orderValue: "recent",
-                orderValue2: "recent"
+                orderValue2: "recent",
+            	//<!-- 페이징 추가 5-->
+        		selectPage: 1,
+        		pageCount: 1,
+        		cnt : 0
+        		//<!-- 5-->
             }
             , methods: {
                 fnGetFleaList: function () {
                     var self = this;
-                    var nparmap = {moreBtn : self.moreBtn, orderValue : self.orderValue};
+                 	// <!-- 페이징 추가 6-->     		
+            		var startNum = ((self.selectPage-1) * 10);
+            		var lastNum = (self.selectPage * 10);
+            		var nparmap = {moreBtn : self.moreBtn, orderValue : self.orderValue, startNum : startNum, lastNum : lastNum};
+            		// <!--  6-->
                     $.ajax({
                         url: "/fleamarket/list.dox",
                         dataType: "json",
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
-                            self.list = data.list;                            
-                            console.log(data.list);
+                            if(self.moreBtn == "off") {
+                            	self.list = [];
+                            	for(var i = 0; 5 > i; i++) {
+                            		self.list[i]=data.list[i];
+                            	}                           	
+                            }
+                            if(self.moreBtn == "on") {
+                            	self.list = data.list;                     	 
+                            }
+
+                            self.cnt = data.cnt;
+                            self.pageCount = Math.ceil(self.cnt / 10);  
+
                         }
                     });
                 }
@@ -294,29 +364,54 @@
                     });
                 }
             	
+            		<!-- 페이징 추가 7-->
+        		, fnSearch : function(pageNum){
+        			var self = this;
+        			self.selectPage = pageNum;
+        			var startNum = ((pageNum-1) * 10);
+        			var lastNum = ((self.selectPage/pageNum) * 10);
+        			console.log(pageNum);
+        			console.log(startNum);
+            		console.log(lastNum); 
+        			var nparmap = {startNum : startNum, lastNum : lastNum};
+        			$.ajax({
+        				url : "/fleamarket/list.dox",
+        				dataType : "json",
+        				type : "POST",
+        				data : nparmap,
+        				success : function(data) {
+        					self.list = data.list;
+        					self.cnt = data.cnt;
+        					self.pageCount = Math.ceil(self.cnt / 10);
+        				}
+        			});
+        		}
+        		<!--  7-->
             	// 거래글 더보기 버튼
             	, fnShowMore: function() {
-            		var self = this;
-                    if (self.moreBtn == "off") {
-                    	self.moreBtn = "on"
-                    	self.fnGetFleaList();
-                    	moreBtn.innerHTML = "접기";
-                    } else if (self.moreBtn == "on") {
-                    	self.moreBtn = "off"
-                        self.fnGetFleaList();
-                        moreBtn.innerHTML = "더보기";
-                    }
+            	    var self = this;
+            	    if (self.moreBtn == "off") {
+            	        document.getElementById('paging').style.display = 'block';  
+            	        self.moreBtn = "on"
+            	        self.fnGetFleaList();
+            	        moreBtn.innerHTML = "접기";
+            	    } else if (self.moreBtn == "on") {
+            	        document.getElementById('paging').style.display = 'none';    
+            	        self.moreBtn = "off"
+            	        self.fnGetFleaList();
+            	        moreBtn.innerHTML = "더보기";
+            	    }
             	}
             	
             	// 나눔글 더보기 버튼
             	, fnShowMore2: function() {
             		var self = this;
                     if (self.moreBtn2 == "off") {
-                    	self.moreBtn2 = "on"
+                    	self.moreBtn2 = "on";
                     	self.fnGetFleaList2();
                     	moreBtn2.innerHTML = "접기";
                     } else if (self.moreBtn2 == "on") {
-                    	self.moreBtn2 = "off"
+                    	self.moreBtn2 = "off";
                         self.fnGetFleaList2();
                         moreBtn2.innerHTML = "더보기";
                     }

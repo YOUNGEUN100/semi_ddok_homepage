@@ -16,9 +16,11 @@ public class FundingServiceImpl implements FundingService {
 	private FundingMapper fundingMapper;
 
 	@Override // 랜선장터 거래 리스트
-	public List<Funding> searchTradeFleaList(HashMap<String, Object> map) throws Exception {
-		List<Funding> list = fundingMapper.selectTradeFleaList(map);
-		return list;
+	public HashMap<String, Object> searchTradeFleaList(HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("cnt", fundingMapper.fleaPagingCnt(map));
+		resultMap.put("list",fundingMapper.selectTradeFleaList(map));
+		return resultMap;
 	}
 	
 	@Override // 랜선장터 나눔 리스트
@@ -44,9 +46,21 @@ public class FundingServiceImpl implements FundingService {
 		fundingMapper.insertFleaComment(map);		
 	}
 	
+	@Override // 랜선장터 댓글 삭제
+	public void removeComment(HashMap<String, Object> map) {
+		fundingMapper.deleteComment(map);
+		
+	}
+	
 	@Override // 랜선장터 거래완료
 	public void endTrade(HashMap<String, Object> map) {
 		fundingMapper.finishTrade(map);		
+	}
+	
+	@Override // 랜선장터 게시글 삭제
+	public void removePost(HashMap<String, Object> map) {
+		fundingMapper.deletePost(map);
+		
 	}
 
 	@Override // 오픈중 펀딩 리스트
@@ -95,6 +109,11 @@ public class FundingServiceImpl implements FundingService {
 	public int checkFundingMember2(HashMap<String, Object> map) {
 		int cnt = fundingMapper.checkFundingMember(map);
 		return cnt;
+	}
+
+	@Override // 펀딩 등록
+	public void addFunding(HashMap<String, Object> map) {
+	fundingMapper.insertFunding(map);		
 	}
 
 	

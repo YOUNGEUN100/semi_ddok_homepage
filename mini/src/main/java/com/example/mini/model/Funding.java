@@ -20,6 +20,7 @@ public class Funding {
 	private String answerYn;
 	private String addr; //게시판용
 	private String nick; //게시판용
+	private int commentNo;
 	//---랜선마켓 게시판 모델 끝---
 	
 	//---펀딩용 모델 시작---
@@ -153,6 +154,12 @@ public class Funding {
 		this.nick = nick;
 	}
 	
+	public int getCommentNo() {
+		return commentNo;
+	}
+	public void setCommentNo(int commentNo) {
+		this.commentNo = commentNo;
+	}
 	//---펀딩용 게터세터 시작---
 	public int getFundingNo() {
 		return fundingNo;

@@ -158,7 +158,7 @@
                         </div>
 
                         <div>
-                            <button class="apply_button"><i class="fa-regular fa-clock"></i>{{remainTime}}</button>
+                            <button class="apply_button"><i class="fa-regular fa-clock"></i> {{remainTime}}</button>
                             <button class="share_button" @click="fnClip"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
 			info : {},
 			fundingNo : "${map.fundingNo}",
 			sDate : "",
-			remainTime : "2",
+			remainTime : "",
 			sessionId : "${sessionId}"
 		},
 		methods : {
@@ -224,7 +224,9 @@
 					data : nparmap,
 					success : function(data) {
 						self.info = data.info;
-						self.sDate = data.info.startDate;
+						console.log(data.info);
+						console.log(data.info.startDate);
+						self.sDate = data.info.fundingStartDt;
 						self.fnTimeDiff();
 						self.fnCountDown();
 						

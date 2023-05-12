@@ -78,8 +78,15 @@ public class FundingController {
 	@ResponseBody
 	public String searchFleaList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Funding> list = fundingService.searchTradeFleaList(map);
-		resultMap.put("list", list);
+		
+		String startNum = (String) map.get("startNum");
+		String lastNum = (String) map.get("lastNum");
+		
+		map.put("startNum", Integer.parseInt(startNum));
+		map.put("lastNum", Integer.parseInt(lastNum));
+		
+		resultMap = fundingService.searchTradeFleaList(map);
+		
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}	
@@ -127,11 +134,32 @@ public class FundingController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	// 랜선장터 댓글 삭제
+	@RequestMapping(value = "/fleamarket/removecomment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String removeComment(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.removeComment(map);		
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 랜선장터 거래 종료
 	@RequestMapping(value = "/fleamarket/finishFlea.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String endTrade(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		fundingService.endTrade(map);		
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 랜선장터 게시글 삭제
+	@RequestMapping(value = "/fleamarket/deleteFlea.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String removePost(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.removePost(map);		
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
@@ -200,6 +228,17 @@ public class FundingController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int info = fundingService.checkFundingMember2(map);
 		resultMap.put("info", info);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 펀딩 등록
+	// 랜선장터 게시글 삭제
+	@RequestMapping(value = "/funding/edit.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String addFunding(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.addFunding(map);		
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}

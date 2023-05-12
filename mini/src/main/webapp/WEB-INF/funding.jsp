@@ -18,8 +18,7 @@
         }
 
         .add_box {
-            position: absolute;
-            top: 330px;
+           
         }
 
         .add_box button {

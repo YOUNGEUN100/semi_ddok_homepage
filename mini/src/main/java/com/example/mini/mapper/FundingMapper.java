@@ -15,6 +15,9 @@ public interface FundingMapper {
 	// 랜선장터 나눔 리스트
 	List<Funding> selectDonateFleaList(HashMap<String, Object> map);
 	
+	// 랜선장터 페이징용 카운트
+	int fleaPagingCnt(HashMap<String, Object> map);
+	
 	// 랜선장터 글보기
 	Funding selectFleaInfo(HashMap<String, Object> map);
 	
@@ -24,8 +27,14 @@ public interface FundingMapper {
 	// 랜선장터 댓글 입력
 	void insertFleaComment(HashMap<String, Object> map);
 	
+	// 랜선장터 댓글 삭제
+	void deleteComment(HashMap<String, Object> map);
+	
 	// 랜선장터 거래완료
 	void finishTrade(HashMap<String, Object> map);
+	
+	// 랜선장터 게시글 삭제
+	void deletePost(HashMap<String, Object> map);
 
 	// 오픈중 펀딩 리스트
 	List<Funding> selectOpenFundingList(HashMap<String, Object> map);
@@ -44,5 +53,9 @@ public interface FundingMapper {
 
 	// 중복신청 필터링용 카운트
 	int checkFundingMember(HashMap<String, Object> map);
+	
+	// 펀딩 등록
+	void insertFunding(HashMap<String, Object> map);
+
 
 }
