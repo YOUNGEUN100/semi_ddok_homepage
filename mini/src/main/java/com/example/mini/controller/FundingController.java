@@ -233,8 +233,7 @@ public class FundingController {
 	}
 	
 	// 펀딩 등록
-	// 랜선장터 게시글 삭제
-	@RequestMapping(value = "/funding/edit.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/funding/add.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String addFunding(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
