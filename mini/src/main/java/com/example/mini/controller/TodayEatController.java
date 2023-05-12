@@ -65,7 +65,7 @@ public class TodayEatController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		String json = map.get("ingredient").toString();
 		ObjectMapper mapper = new ObjectMapper();
-	    List<String> list = mapper.readValue(json, new TypeReference<List<String>>(){});
+	    List<Object> list = mapper.readValue(json, new TypeReference<List<Object>>(){});
 		map.put("ingredient", list);
 		TodayEat info = todayEatService.searchRecipeInfo(map);
 		resultMap.put("info", info);
