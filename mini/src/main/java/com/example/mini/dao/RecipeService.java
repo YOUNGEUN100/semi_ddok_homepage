@@ -30,5 +30,6 @@ public interface RecipeService {
 	//레시피 등록
 	void addRecipe(HashMap<String, Object>map);
 	
-	
+	// 중복 레시피 번호 확인
+	int searchRecipeNoCnt(HashMap<String, Object> map);
 }

@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class RecipeController {
@@ -24,9 +25,8 @@ public class RecipeController {
 	@Autowired
     private RecipeService recipeService; 
 	
-	
-	
-	
+	@Autowired
+	HttpSession session;
 	
 	// 페이지 - 똑똑한 레시피
 	@RequestMapping("/recipe.do")
@@ -125,7 +125,17 @@ public class RecipeController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
-				
+	
+	// 레시피 번호 중복 체크
+	@RequestMapping(value = "/recipe/check.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String check(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int cnt = recipeService.searchRecipeNoCnt(map);
+		resultMap.put("cnt", cnt);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}	
 	
 }
 		
