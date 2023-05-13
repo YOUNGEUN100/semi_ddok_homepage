@@ -70,6 +70,7 @@
             width: 100%;
             border: 1px solid #999999;
             border-radius: 10px;
+            padding : 16px;
         }
 
         .btn_box button {
@@ -103,9 +104,10 @@
 
                         <div class="category">
 
-                            <select>
-                                <option>거래</option>
-                                <option>나눔</option>
+                            <select v-model="info.boardKind">
+                            	<option value="" selected>글종류</option>
+                                <option value="T_LAN">거래</option>
+                                <option value="D_LAN">나눔</option>
                             </select>
 
                         </div>
@@ -113,7 +115,7 @@
                         <div class="input_box">
 
                             <div class="title_box">
-                                <span>제목</span> <input class="title" type="text">
+                                <span>제목</span> <input class="title" type="text" v-model="info.title">
                             </div>
 
                         </div>
@@ -131,13 +133,14 @@
                         </div>
 
                         <div class="content_box">
-                            <p>내용</p> <textarea class="content" rows="15"></textarea>
+                            <p>내용</p> <textarea class="content" rows="15" v-model="info.content"></textarea>
                         </div>
 
                         <div class="btn_box">
-                            <button>등록</button>
-                            <button>수정</button>
-                            <button>삭제</button>
+                            <button @click="fnAddPost" v-if="boardNo==''">등록</button>
+                            <button @click="fnDeletePost" v-if="boardNo!=''">삭제</button>
+                            <button @click="fnEditPost" v-if="boardNo!=''">수정</button>
+                            
                         </div>
 
 
@@ -156,6 +159,134 @@
     <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 
-    <script type="text/javascript">
-	// 여기에 [script] 입력하세요
+    <script type="text/javascript">     
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                info: {
+                		boardKind: "",
+                		title: "",
+                		content: ""              		
+                		
+                }, 
+                sessionId: "${sessionId}",
+                boardNo: "${map.boardNo}"
+
+            },
+            methods: {
+            	
+            	//게시글 수정용 데이터 불러오기
+            	fnGetFlea: function () {
+                    var self = this;
+                    if (self.boardNo == "") {
+                    	return;
+                    }
+                    var nparmap = {
+                        boardNo: self.boardNo
+                    };
+                    $.ajax({
+                        url: "/fleamarket/view.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            self.info = data.info;
+                            console.log(data.info);
+                        }
+                    });
+                }
+            
+            	// 게시글 등록
+            	, fnAddPost: function () {
+                    var self = this;
+                    if(!confirm("등록 하시겟습니까?")) {
+                    	return;
+                    }
+                    if(self.info.boardKind == "") {
+                    	alert("마켓글 종류를 선택하세요.");
+                    	return;
+                    }
+                    if(self.info.title == "") {
+                    	alert("글 제목을 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.content == "") {
+                    	alert("글 내용을 입력하세요.");
+                    	return;
+                    }
+                    console.log(self.info);
+                    var nparmap = {
+                    		sessionId : self.sessionId,
+                            boardKind : self.info.boardKind,
+                            title : self.info.title,
+                            content : self.info.content
+                        };
+                    $.ajax({
+                        url: "/fleamarket/addFlea.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            alert("등록되었습니다.");
+                            location.href = "/flea.do";
+                            
+                        }
+                    });
+                }
+            	
+            	// 게시글 삭제            	
+            	, fnDeletePost: function() {
+            		var self = this;
+            		if (!confirm("게시글을 삭제하시겠습니까?")) {
+            			return;
+            		};
+            		var nparmap = {
+                            boardNo : self.boardNo
+                        };
+            		$.ajax({
+                    	url: "/fleamarket/deleteFlea.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("삭제완료");
+                    		location.href="/flea.do"
+                    	}
+                	});
+            	}
+            	
+            	// 게시글 수정
+            	, fnEditPost: function() {
+            		var self = this;
+            		if (!confirm("게시글을 수정하시겠습니까?")) {
+            			return;
+            		};
+            		var nparmap = {
+                            boardNo : self.boardNo,
+                            boardKind : self.info.boardKind,
+                            title : self.info.title,
+                            content : self.info.content
+                        };
+            		$.ajax({
+                    	url: "/fleamarket/editFlea.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("수정완료");
+                    		location.href="/flea.do"
+                    	}
+                	});
+            	}
+				
+         		
+             	
+            }
+                ,
+                created: function () {
+                    var self = this;
+                    self.fnGetFlea();
+                }
+            });
     </script>

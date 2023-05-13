@@ -205,6 +205,7 @@
                             <h1 id="fund_open_title">현재 진행중인 랜선펀딩</h1>
 
                             <select v-model="orderValue" @change="fnChangeOrder">
+                            	<option value="" selected>정렬순</option>
                                 <option value="endDate" selected>종료일순</option>
                                 <option value="rowPrice">낮은가격순</option>
                                 <option value="highPrice">높은가격순</option>
@@ -250,6 +251,7 @@
                             <h1>오픈 예정 펀딩</h1>
 
                             <select v-model="orderValue2" @change="fnChangeOrder2">
+                            	<option value="" selected>정렬순</option>
                                 <option value="startDate" selected>시작일순</option>
                                 <option value="rowPrice">낮은가격순</option>
                                 <option value="highPrice">높은가격순</option>

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.FundingService;
-import com.example.mini.mapper.FundingMapper;
 import com.example.mini.model.Funding;
 import com.google.gson.Gson;
 
@@ -69,7 +68,8 @@ public class FundingController {
 
 	// 2-2. 랜선장터 작성 및 수정
 	@RequestMapping("/flea/edit.do")
-	public String lanmarketEdit(Model model) throws Exception {
+	public String lanmarketEdit(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/flea_edit";
 	}
 
@@ -107,8 +107,17 @@ public class FundingController {
 	@ResponseBody
 	public String searchFleaInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		Funding info = fundingService.searchFleaInfo(map);
-		resultMap.put("info", info);
+		resultMap = fundingService.searchFleaInfo(map);		
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);		
+	}
+	
+	// 랜선장터 게시글 등록
+	@RequestMapping(value = "/fleamarket/addFlea.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String addFlea(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.addFlea(map);		
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);		
 	}
@@ -157,9 +166,19 @@ public class FundingController {
 	// 랜선장터 게시글 삭제
 	@RequestMapping(value = "/fleamarket/deleteFlea.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String removePost(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+	public String removeFlea(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		fundingService.removePost(map);		
+		fundingService.removeFlea(map);		
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 랜선장터 게시글 삭제
+	@RequestMapping(value = "/fleamarket/editFlea.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String modifyFlea(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.modifyFlea(map);		
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}

@@ -231,7 +231,7 @@
 				  </paginate>
 				</template>
 							<!-- 3끝 -->
-                            <div class="writeBtn"><button>글쓰기</button></div>
+                            <div class="writeBtn"><button @click="fnAddFlea">글쓰기</button></div>
                         </div>
 
                         <div class="open_detail">
@@ -276,7 +276,7 @@
                                 	</tr>
                             	</tbody>                                
                             </table>                            
-                            <div class="writeBtn"><button>글쓰기</button></div>
+                            <div class="writeBtn"><button @click="fnAddFlea">글쓰기</button></div>
                         </div>
 
                         <div class="open_detail">
@@ -312,6 +312,7 @@
                 moreBtn2: "off",               
                 orderValue: "recent",
                 orderValue2: "recent",
+                sessionId: "${sessionId}",
             	//<!-- 페이징 추가 5-->
         		selectPage: 1,
         		pageCount: 1,
@@ -332,6 +333,7 @@
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
+                        	console.log(data.list);
                             if(self.moreBtn == "off") {
                             	self.list = [];
                             	for(var i = 0; 5 > i; i++) {
@@ -459,10 +461,24 @@
             		document.body.removeChild(form);
             	}
             	
-            	// 랜선장터글 보기
+            	// 랜선장터 글 보기
             	, fnViewFlea: function(boardNo) {
             		var self = this;
             		self.pageChange("./flea/view.do", {boardNo : boardNo});            		
+            	}
+            	
+            	// 랜선장터 글 쓰기
+            	, fnAddFlea: function() {
+            		var self = this;
+            		if (self.sessionId == "") {
+            			if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")) {            				
+            				location.href="/login.do"
+            				return;
+            			} else {
+            				return;
+            			}            			
+            		}
+            		location.href = "/flea/edit.do";
             	}
 
 

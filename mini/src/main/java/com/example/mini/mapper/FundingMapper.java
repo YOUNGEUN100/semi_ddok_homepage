@@ -21,6 +21,12 @@ public interface FundingMapper {
 	// 랜선장터 글보기
 	Funding selectFleaInfo(HashMap<String, Object> map);
 	
+	// 랜선장터 게시글 조회수 증가
+	void updateCnt(HashMap<String, Object> map);
+	
+	// 랜선장터 게시글 등록
+	void insertFlea(HashMap<String, Object> map);
+	
 	// 랜선장터 댓글 리스트
 	List<Funding> selectFleaComment(HashMap<String, Object> map);
 	
@@ -34,7 +40,10 @@ public interface FundingMapper {
 	void finishTrade(HashMap<String, Object> map);
 	
 	// 랜선장터 게시글 삭제
-	void deletePost(HashMap<String, Object> map);
+	void deleteFlea(HashMap<String, Object> map);
+	
+	// 랜선장터 게시글 수정
+	void editFlea(HashMap<String, Object> map);
 
 	// 오픈중 펀딩 리스트
 	List<Funding> selectOpenFundingList(HashMap<String, Object> map);
