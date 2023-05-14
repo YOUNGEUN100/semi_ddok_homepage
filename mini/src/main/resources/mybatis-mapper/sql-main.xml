@@ -42,5 +42,25 @@
 		<!--진행중 펀딩 리스트 끝-->
 		
 		
+		<!--레시피 리스트-->		
+		<select id="selectRandRecipeList" parameterType="hashmap" resultType="com.example.mini.model.Recipe">
+			<![CDATA[
+					SELECT  
+					R.RECIPE_NO,
+					RECIPE_NAME,
+					RECIPE_HITS,
+					DELETE_YN,
+					IMG_PATH
+				FROM T4_RECIPE R
+				INNER JOIN 
+					(SELECT RECIPE_NO, IMG_PATH
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'Y') I 
+				ON I.RECIPE_NO = R.RECIPE_NO 
+				ORDER BY RAND() LIMIT 3]]>	
+		</select>
+		<!--레시피 리스트 끝-->
+		
+		
 		
 	</mapper>

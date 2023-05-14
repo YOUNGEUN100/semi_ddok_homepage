@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.mini.mapper.MainMapper;
 import com.example.mini.model.Main;
+import com.example.mini.model.Recipe;
 
 @Service
 public class MainServiceImpl implements MainService{
@@ -19,6 +20,12 @@ public class MainServiceImpl implements MainService{
 	@Override
 	public List<Main> searchFundingList(HashMap<String, Object> map) throws Exception {
 		List<Main> list = mainMapper.selectFundingList(map);
+		return list;
+	}
+	
+	@Override
+	public List<Recipe> searchRandRecipeList(HashMap<String, Object> map) throws Exception {
+		List<Recipe> list = mainMapper.selectRandRecipeList(map);
 		return list;
 	}
 

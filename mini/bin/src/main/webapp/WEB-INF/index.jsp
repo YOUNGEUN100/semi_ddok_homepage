@@ -16,44 +16,29 @@
 </section>
 
 <!-- mainContent -->
+<div id="app">
 <section id="mainContent" class="nth1">
     <div class="wrapper">
         <h2 class="mctTitle">현재 진행중인 랜선펀딩</h2>
-        <div class="mctArea type2">
-            <a href="javaScript:;" class="mctThumb typeRow">
+        <div class="mctArea type2" v-for="(item, index) in fundingList">
+            <a @click="fnViewFunding(item.fundingNo)" href="javaScript:;" class="mctThumb typeRow">
 				<div class="imgBox">
-				    <!-- <img src="" alt=""> -->
+				    <img :src="item.imgPath" alt="펀딩이미지">
 				</div>
 				<div class="txtBox">
-				    <h4 class="title">크리넥스 3겹 데코 앤 소프트 수딩플러스 화장지 27m 1팩, 24롤</h4>
-				    <p class="text">코튼과 알로에베라 로션으로 피부에 더 편안하고 부드러운 마무리의 도톰한 3겹 제품</p>
+				    <h4 class="title">{{item.fundingName}}</h4>
+				    <p class="text">{{item.fundingSummary}}</p>
 				</div>
 				<div class="txtBox graph">
 				    <div class="count">
-				        <div class="apply">100명 중 <span class="now">67명</span></div>
-				        <div class="date">10일 남음</div>
-				        <div class="graph"><div class="now" style="width:67%;"></div></div>
+				        <div class="apply">{{item.fundingGoalCnt}}명 중 <span class="now">{{item.cnt}}명</span></div>
+				        <div class="date" v-if="item.dDay > 0">{{item.dDay}}일 남음</div>
+				        <div class="date" v-else style = "color:red;">금일 {{item.endTime}}시 종료</div>
+				        <div class="graph"><progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress></div>
 				    </div>
-				    <div class="price">공구가 <span class="amount">19,900원</span></div>
+				    <div class="price">공구가 <span class="amount">{{item.fundingPrice2}}원</span></div>
 				</div>
-          	</a>
-            <a href="javaScript:;" class="mctThumb typeRow">
-				<div class="imgBox">
-				    <!-- <img src="" alt=""> -->
-				</div>
-				<div class="txtBox">
-					<h4 class="title">베베숲 저자극 센시티브 엠보싱 물티슈 캡형 80매 1팩, 10개</h4>
-					<p class="text">아기 피부에 부드럽게 닿는 4겹 프리미엄 엠보싱 원단과 마실 수 있는 음용수로 만든 물로 만든 물티슈</p>
-				</div>
-				<div class="txtBox graph">
-					<div class="count">
-					    <div class="apply">100명 중 <span class="now">67명</span></div>
-					    <div class="date">10일 남음</div>
-					    <div class="graph"><div class="now" style="width:67%;"></div></div>
-					</div>
-					<div class="price">공구가 <strong class="amount">19,900원</strong></div>
-                </div>
-            </a>
+          	</a>          	            
         </div>
     </div>
 </section>
@@ -214,6 +199,81 @@
         </div>
     </div>
 </section>
+</div>
 
 <!-- pageContent -- END -->
 <jsp:include page="/layout/tail.jsp"></jsp:include>
+
+<script type="text/javascript">
+
+var app = new Vue({ 
+    el: '#app',
+    data: {
+    	fundingList : []
+   	    	
+
+    }
+    
+    , methods : {
+    	// 펀딩 리스트
+    	fnGetFunding : function() {
+    		var self = this;    		
+	      	var nparmap = {};
+	        $.ajax({
+	            url:"/index/funding.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log(data);
+					self.fundingList = data.list;
+	            }
+	        }); 
+   	 	}
+   	 	
+    	, pageChange : function(url, param) {
+			var target = "_self";
+			if(param == undefined){
+			//	this.linkCall(url);
+				return;
+			}
+			var form = document.createElement("form"); 
+			form.name = "dataform";
+			form.action = url;
+			form.method = "post";
+			form.target = target;
+			for(var name in param){
+				var item = name;
+				var val = "";
+				if(param[name] instanceof Object){
+					val = JSON.stringify(param[name]);
+				} else {
+					val = param[name];
+				}
+				var input = document.createElement("input");
+    			input.type = "hidden";
+    			input.name = item;
+    			input.value = val;
+    			form.insertBefore(input, null);
+			}
+			document.body.appendChild(form);
+			form.submit();
+			document.body.removeChild(form);
+		}
+    	
+   	 	// 펀딩 상세보기
+   	 	, fnViewFunding: function(fundingNo) {
+                	var self = this;
+                	self.pageChange("./funding/view/open.do", {fundingNo : fundingNo});
+        }
+   	 
+    	
+    		
+    		
+    }   
+    , created: function () {
+    	var self = this;
+    	self.fnGetFunding();
+	}
+});
+</script>

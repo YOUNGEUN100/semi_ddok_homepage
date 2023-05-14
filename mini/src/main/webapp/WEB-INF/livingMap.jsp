@@ -42,14 +42,20 @@
 		#pagination a {display:inline-block;margin-right:10px;}
 		#pagination .on {font-weight: bold; cursor: default;color:#777;}
 		
-		#keyBox {
-			display : flex;
-			justify-content: center;
-		}
-		#keyBox > div {
-			margin : 20px 20px;
-			font-weight : bold;
-		}
+		.inputbox {display:none;}
+		
+		.r-category { display: flex; justify-content: center; margin-bottom: 40px;)}
+		.r-category .box1 {text-align: center; margin: 0 25px; cursor: pointer;}
+		.r-category .box1 .category-circle {
+            width:100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(232, 227, 227, 0.959);
+        }
+		 .r-category .box1 .category-circle:hover {background: #bdee71;}
+		 .r-category .box1 .category-circle:hover {background: #bdee71;}
+		 .box1 .c-icon { position:relative; bottom: 60px; }
+		 .clicked {background: black;}
 </style>
 
 
@@ -58,26 +64,44 @@
 	<div class="wrapper">
         <div id="app">
             <div id="container">
-            	<div id="keyBox">
-            		<div>약국</div>
-            		<div>코인세탁</div>
-            		<div>다이소</div>
-            		<div>편의점</div>
-            		<div>공원</div>
-            	</div>
+		        <div class="r-category">
+		            <div class="box1" id="pharmacy" @click="inputKey($event)">
+		                <div class="category-circle"></div>
+		                <i class="c-icon fa-solid fa-prescription-bottle-medical fa-2xl"></i>
+		                <div>약국</div>
+		            </div>
+		            <div class="box1" id="laundry" @click="inputKey($event)">
+		                <div class="category-circle"></div>
+		                <i class="c-icon fa-solid fa-shirt fa-2xl"></i>
+		                <div>코인세탁</div>
+		            </div>
+		            <div class="box1" id="daiso" @click="inputKey($event)">
+		                <div class="category-circle"></div>
+		                <i class="c-icon fa-solid fa-bag-shopping fa-2xl"></i>
+		                <div>다이소</div>
+		            </div>
+		            <div class="box1" id="mart" @click="inputKey($event)">
+		                <div class="category-circle"></div>
+		                <i class="c-icon fa-solid fa-shop fa-2xl"></i>
+		                <div>편의점</div>
+		            </div>
+		            <div class="box1" id="park" @click="inputKey($event)">
+		                <div  class="category-circle"></div>
+		                <i class="c-icon fa-solid fa-tree fa-2xl"></i>
+		                <div>공원</div>
+		            </div>
+		        </div>
                 <div class="map_wrap">
                     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
                 
                     <div id="menu_wrap" class="bg_white">
                         <div class="option">
-                            <div>
+                            <div class="inputbox">
                                 <template>
-                                    키워드 : <input type="text" value="다이소" id="keyword" size="15"> 
-                                    <button @click="searchPlaces">검색하기</button> 
+                                    키워드 : <input type="text" value="더조은컴퓨터학원" id="keyword" size="15">
                                 </template>
                             </div>
                         </div>
-                        <hr>
                         <ul id="placesList"></ul>
                         <div id="pagination"></div>
                     </div>
@@ -92,6 +116,7 @@
 
 
 <script type="text/javascript">
+	
     var app = new Vue({ 
     el: '#app',
     data: {
@@ -101,6 +126,19 @@
     	markers : []
     }   
     , methods: {
+    	inputKey : function (event) {
+    		var self = this;
+    		const targetId = event.currentTarget.id;
+    		if (targetId=="pharmacy") {$("#keyword").val("약국"); self.searchPlaces();}
+    		else if (targetId=="laundry") {$("#keyword").val("코인세탁"); self.searchPlaces();}
+    		else if (targetId=="daiso") {$("#keyword").val("다이소"); self.searchPlaces();}
+    		else if (targetId=="mart") {$("#keyword").val("편의점"); self.searchPlaces();}
+    		else if (targetId=="park") {$("#keyword").val("공원"); self.searchPlaces();}
+    		
+    		
+
+    	},
+    	
     	initMap() {
     		var container = document.getElementById('map');
     	       var options = {
