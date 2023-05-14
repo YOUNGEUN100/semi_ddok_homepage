@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+
+	<mapper namespace="com.example.mini.mapper.CommunityMapper">
+	
+	<!--레시피 리스트-->
+		<select id="selectComList" parameterType="hashmap" resultType="com.example.mini.model.Community">
+			SELECT 
+				BOARD_NO, 
+				USER_ID, 
+				TITLE, 
+				CONTENT, 
+				HITS, 
+				CATEGORY, 
+				CDATETIME, 
+				UDATETIME, 
+				DELETE_YN
+			FROM T4_BOARD
+			WHERE BOARD_KIND = 'COM'
+		</select>
+		
+		<!--레시피 리스트 개수 -->
+		<select id="selectComCnt" parameterType="hashmap" resultType="int">
+	        SELECT COUNT(*) AS CNT
+			FROM T4_BOARD
+			WHERE BOARD_KIND = 'COM'
+		</select>
+		
+	
+		<!--레시피 글보기-->
+		<select id="selectComInfo" parameterType="hashmap" resultType="com.example.mini.model.Community">
+			  SELECT 
+				BOARD_NO, 
+				USER_ID, 
+				TITLE, 
+				CONTENT, 
+				HITS, 
+				CATEGORY, 
+				CDATETIME, 
+				UDATETIME, 
+				DELETE_YN
+			FROM T4_BOARD
+			WHERE BOARD_KIND = 'COM'
+			<if test="boardNo != '' and boardNo != null">
+			AND BOARD_NO = #{boardNo}
+			</if>
+		</select>
+	
+		
+		<!--레시피 조회수-->
+		<update id="updateComCnt" parameterType="hashmap">
+			UPDATE T4_BOARD
+			SET HITS = HITS + 1
+			WHERE BOARD_NO = #{boardNo}
+		</update>
+		
+		
+		<!-- 레시피 등록 -->
+		<insert id="insertCom" parameterType="HashMap">
+			INSERT INTO T4_BOARD (
+				BOARD_NO, 
+				USER_ID, 
+				TITLE, 
+				CONTENT, 
+				CATEGORY, 
+				CDATETIME, 
+				UDATETIME)
+			VALUES (#{boardNo}, #{userId}, #{title}, #{content}, 1, now(), now());
+		</insert>
+		
+	
+	</mapper>
