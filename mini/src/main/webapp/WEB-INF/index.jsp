@@ -20,8 +20,8 @@
 <section id="mainContent" class="nth1">
     <div class="wrapper">
         <h2 class="mctTitle">현재 진행중인 랜선펀딩</h2>
-        <div class="mctArea type2" v-for="(item, index) in fundingList">
-            <a @click="fnViewFunding(item.fundingNo)" href="javaScript:;" class="mctThumb typeRow">
+        <div class="mctArea type2">
+            <a @click="fnViewFunding(item.fundingNo)" href="javaScript:;" class="mctThumb typeRow" v-for="(item, index) in fundingList">
 				<div class="imgBox">
 				    <img :src="item.imgPath" alt="펀딩이미지">
 				</div>
