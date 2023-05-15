@@ -72,7 +72,8 @@
 		 <!-- 작업한 본문 입력 -->
 	<div id="app">
        
-        <select>
+        <select v-model = "order" @change = "fnChangeOrder()">
+        <option value = "" selected disabled>정렬</option>
          <option value = "recent">최신순</option>
          <option value = "view">조회수</option>
         </select>
@@ -144,7 +145,8 @@
      		 selectPage : 1,
      		 pageCount : 1,
      	     sessionId: "${sessionId}",    
-     		 sessionStatus : "${sessionStatus}"
+     		 sessionStatus : "${sessionStatus}",
+     		 order : ""
             }
             , methods: {
             	// 커뮤니티 리스트
@@ -152,7 +154,8 @@
                     var self = this;   
                  // 페이징 추가6
         			var startNum = ((self.selectPage-1) * 10);
-            		var nparmap = {startNum : startNum};
+            		var nparmap = {startNum : startNum, order : self.order};
+            		console.log(self.order);
                     $.ajax({
                         url: "/community/list.dox",
                         dataType: "json",
@@ -166,6 +169,10 @@
                         }
                     });
                 }
+	            , fnChangeOrder: function () {
+	                var self = this;                    
+	                self.fnGetComList();
+	            }
             	<!-- 페이징 추가 7-->
         		, fnSearch : function(pageNum){
         			var self = this;

@@ -33,6 +33,7 @@
         margin: 20px auto;
     }
     .com_head .writer div:first-child { margin-bottom: 10px;}
+    .com_head .writer .flexc {display:flex; justify-content: space-between;}
    .com_content {
         margin: 20px auto 40px auto;
         /* border: 1px solid black; */
@@ -61,7 +62,8 @@
          width: 60px;
          height: 35px;
    }
-   .mg20 {margin-right: 20px;}
+   .mgr20 {margin-right: 20px;}
+   .mgb20 {margin-bottom: 20px;}
 </style>
 
 
@@ -75,9 +77,12 @@
                    <div class="title">{{info.title}}</div>
                    <div class="writer">
                        <div>{{info.nick}}</div> 
-                       <div>
-                           <span class="mg20">{{info.cdatetime}}</span>
-                           <span>조회 {{info.hits}}</span>  
+                       <div class="flexc">
+                       		<div>
+	                       		<span class="mg20">작성일 {{info.cdatetime}}</span>
+	                           <span>조회 {{info.hits}}</span> 
+                       		</div>
+                       		<div>수정일 {{info.udatetime}}</div>
                        </div>
                        
                    </div>
@@ -87,15 +92,15 @@
                
                <hr>
                <div class="comment">
-                   <h4>댓글</h4>
-                   <div class="comment_list">
+                   <h4 class="mgb20">댓글</h4>
+                   <div class="comment_list" v-for="(item, index) in list" >
                        <div>
-                           <span class="mg20">작성자</span>
-                           <span>작성일</span>
+                           <span class="mg20">{{item.nick}}</span>
+                           <span>{{item.cdatetime}}</span>
                        </div>
-                       <div class="comment_content">작성내용</div>
-                       
+                       <div class="mgb20">{{item.comment}}</div>
                    </div>
+                   
                    <div class="comment_enroll">
                       <div>작성자</div>
                       <input type="text" placeholder="댓글을 남겨보세요.">
@@ -108,9 +113,9 @@
            <!--container 끝-->
            <div class="btns">
                <span>
-                   <button @click="fnAddCom()">글쓰기</button>
-                   <button v-if="info.userId==sessionId || sessionId=='A'">수정</button>
-                   <button @click="fnEnroll()" v-if="info.userId==sessionId || sessionId=='A'">삭제</button>
+                   <button @click="fnAddCom()" style="background-color: #E4DBD6;">글쓰기</button>
+                   <button @click="fnGoModify()" v-if="info.userId==sessionId || sessionStatus=='A'">수정</button>
+                   <button @click="fnRemove()" v-if="info.userId==sessionId || sessionStatus=='A'">삭제</button>
                </span>
                <button onClick="location.href='/community.do'">목록</button>
            </div>
@@ -132,13 +137,14 @@
    var app = new Vue({
             el: '#app',
             data: {
-              info : {}
+            	list : []
+              , info : {}
               , boardNo : "${map.boardNo}"
           	  , sessionId: "${sessionId}"    
           	  , sessionStatus : "${sessionStatus}"
             }
             , methods: {
-            	// 커뮤니티 글 상세
+            	// 커뮤니티 글 상세, 댓글 리스트
             	 fnGetInfo : function(){
      	            var self = this;
      	            var nparmap = {boardNo : self.boardNo};
@@ -150,32 +156,16 @@
      	                data : nparmap,
      	                success : function(data) {
      	                    self.info = data.info;
+     	                    self.list = data.list;
      	                    console.log(data.info);
+     	                    console.log(data.list);
      	                }
      	            });
      	
      	        }
-            	// 댓글 리스트
-                ,fnGetCommentList: function () {
-                    var self = this;   		
-            		var startNum = ((self.selectPage-1) * 10);
-            		var nparmap = {};
-                    $.ajax({
-                        url: "/community/commentList.dox",
-                        dataType: "json",
-                        type: "POST",
-                        data: nparmap,
-                        success: function (data) {
-                        	console.log(data.list);
-                        	self.list = data.list;
-                           self.cnt = data.cnt;
-                           // self.pageCount = Math.ceil(self.cnt / 10);  
-
-                        }
-                    });
-                },
+            	
             	 // 커뮤니티 글 삭제
-                fnEnroll : function() {
+                , fnRemove : function() {
                     var self = this;
                     var nparmap = {boardNo : self.boardNo};
         	        $.ajax({
@@ -251,6 +241,11 @@
             			}            			
             		}
             		location.href = "/community/edit.do";
+            	}
+            	// 글 수정 페이지로 가기
+            	, fnGoModify: function() {
+            		var self = this;
+            		self.pageChange("/community/edit.do", {boardNo : self.boardNo});            		
             	}
             	
             

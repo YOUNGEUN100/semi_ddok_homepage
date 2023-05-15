@@ -105,16 +105,40 @@
     		,userId : "${sessionId}"   
    	    	,title : ""
    	    	,content : ""
+   	    	,cdatetime: ""
     	},
         cnt : 1,
-        content : ""
+        content : "",
+        boardNo : "${map.boardNo}"
     }
     // 4. 컴포넌트 추가
     , components: {VueEditor}
     , methods: {
-        fnEnroll : function() {
+    	// 수정할 글 불러오기
+    	 fnGetInfo : function(){
+	            var self = this;
+	            var nparmap = {boardNo : self.boardNo};
+	            // 레시피 설명
+	            $.ajax({
+	                url:"/community/view.dox",
+	                dataType:"json",
+	                type : "POST",
+	                data : nparmap,
+	                success : function(data) {
+	                    self.info = data.info;
+	                    console.log(self.info);
+	                }
+	            });
+	
+	        }
+    	// 커뮤니티 글 등록
+        ,fnEnroll : function() {
             var self = this;
-            
+            // 작성일이 있다면 수정 함수 호출
+            if (self.info.cdatetime) {
+            	self.fnModify();
+            	return;
+            }
             var nparmap = self.info;
 	        $.ajax({
 	            url:"/community/save.dox",
@@ -128,8 +152,34 @@
 	            	var form = new FormData();
 	       	        form.append( "file1",  $("#file1")[0].files[0] );
 	       	     	form.append( "boardNo",  data.boardNo); // pk
-	           		self.upload(form); 
+	       	     	if (form.file1) {
+	       	     		self.upload(form); 
+	       	     	}
+	           		
+	           	 	location.href="/community.do";
+	            }
+	        }); 
+        }
+     // 커뮤니티 글 수정
+        , fnModify : function() {
+            var self = this;
+            var nparmap = self.info;
+	        $.ajax({
+	            url:"/community/modify.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log(data);
+	            	alert("수정되었습니다!");
 	            	
+	            	var form = new FormData();
+	       	        form.append( "file1",  $("#file1")[0].files[0] );
+	       	     	form.append( "boardNo",  data.boardNo); // pk
+	       	     	if (form.file1) {
+	       	     		self.upload(form); 
+	       	     	}
+	           		
 	           	 	location.href="/community.do";
 	            }
 	        }); 
@@ -149,11 +199,12 @@
 	           }
 	           
 	       });
-		},
+		}
 		
     } // 메소드 end
     , created: function () {
 		var self = this;
+		self.fnGetInfo();
 	}
 });
 

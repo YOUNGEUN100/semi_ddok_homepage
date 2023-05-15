@@ -22,6 +22,12 @@
 			FROM T4_BOARD B
 			LEFT JOIN (SELECT USER_ID, NICK, STATUS FROM T4_USER) U ON U.USER_ID = B.USER_ID
 			WHERE BOARD_KIND = 'COM' AND DELETE_YN = 'N'
+			<if test = "order == 'recent'">
+        	ORDER BY CDATETIME DESC
+        	</if>
+        	<if test = "order == 'view'">
+        	ORDER BY HITS DESC
+        	</if>
 			LIMIT #{startNum}, 10
 		</select>
 		
@@ -56,12 +62,6 @@
 		</select>
 	
 		
-		<!--커뮤니티 조회수-->
-		<update id="updateComCnt" parameterType="hashmap">
-			UPDATE T4_BOARD
-			SET HITS = HITS + 1
-			WHERE BOARD_NO = #{boardNo}
-		</update>
 		
 		
 		<!-- 커뮤니티 등록 -->
@@ -78,6 +78,24 @@
 				DELETE_YN)
 			VALUES ('COM', NULL, #{userId}, #{title}, #{content}, 1, now(), now(),'N')
 		</insert>
+		
+		<!-- 커뮤니티 글 수정 -->
+		<update id="updateCom" parameterType="hashmap">
+			UPDATE T4_BOARD
+			SET TITLE = #{title},
+				CONTENT = #{content},
+				UDATETIME = NOW()
+			WHERE BOARD_NO = #{boardNo}
+		</update>
+		
+		
+		<!--커뮤니티 조회수-->
+		<update id="updateComCnt" parameterType="hashmap">
+			UPDATE T4_BOARD
+			SET HITS = HITS + 1
+			WHERE BOARD_NO = #{boardNo}
+		</update>
+		
 		
 		<!-- 첨부파일 등록 -->
 		<insert id="insertFile" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="board_no">
@@ -99,5 +117,20 @@
 			SET DELETE_YN = 'Y'
 			WHERE BOARD_NO = #{boardNo}
 		</update>
+		
+		<!--댓글 리스트 -->
+		<select id="selectComment" parameterType="hashmap" resultType="com.example.mini.model.Community">
+			SELECT 
+				COMMENT_NO,
+				BOARD_NO,
+				C.USER_ID, 
+				CONTENT AS COMMENT, 
+				CDATETIME, 
+				UDATETIME,
+				U.NICK AS NICK
+			FROM T4_COMMENT C
+			LEFT JOIN T4_USER U ON U.USER_ID = C.USER_ID
+			WHERE BOARD_NO = #{boardNo}
+		</select>
 	
 	</mapper>

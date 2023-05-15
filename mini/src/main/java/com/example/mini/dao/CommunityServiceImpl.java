@@ -26,27 +26,37 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	// 커뮤니티 글보기
 	@Override
-	public Community searchComInfo(HashMap<String, Object> map) {
-		Community info = communityMapper.selectComInfo(map);
-		if(info != null) {
+	public HashMap<String, Object> searchComInfo(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("info", communityMapper.selectComInfo(map));
+		resultMap.put("list", communityMapper.selectComment(map));
+		if(resultMap.get("info") != null) {
 			communityMapper.updateComCnt(map);
 		}
-		return info;
+		return resultMap;
 	}
 	// 커뮤니티 글쓰기
 	@Override
 	public void addCom(HashMap<String, Object> map) {
 		communityMapper.insertCom(map);	
 	}
+	// 커뮤니티 글수정
+	@Override
+	public void modifyCom(HashMap<String, Object> map) {
+		communityMapper.updateCom(map);
+	}
+	
 	// 파일 등록
 	@Override
 	public void addFile(HashMap<String, Object> map) {
 		communityMapper.insertFile(map);
 	}
+	// 커뮤니티 글 삭제
 	@Override
 	public void removeCom(HashMap<String, Object> map) {
 		communityMapper.deleteCom(map);
 	}
+	
 	
 
 

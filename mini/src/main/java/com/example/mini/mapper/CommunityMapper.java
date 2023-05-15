@@ -11,7 +11,7 @@ import com.example.mini.model.Recipe;
 @Mapper
 public interface CommunityMapper {
 	// 커뮤니티 리스트
-	List<Community> selectComList(HashMap<String, Object> map);
+	List<Community>  selectComList(HashMap<String, Object> map);
 	
 	// 커뮤니티 리스트 개수
 	int selectComCnt(HashMap<String, Object> map);
@@ -25,10 +25,17 @@ public interface CommunityMapper {
 	// 커뮤니티 글 등록
 	void insertCom(HashMap<String,Object>map);
 	
+	// 글 수정
+	void updateCom(HashMap<String, Object> map);
+	
 	// 파일 등록
 	void insertFile(HashMap<String,Object>map);
 	
 	// 커뮤니티 글 삭제
 	void deleteCom(HashMap<String, Object> map);
+	
+	// 댓글 리스트
+	List<Community> selectComment(HashMap<String, Object> map);
+	
 	
 }

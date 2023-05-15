@@ -61,9 +61,7 @@ public class CommunityController {
 	@ResponseBody
 	public String communityView(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		Community info = communityService.searchComInfo(map);
-		resultMap.put("info", info);
-		resultMap.put("message", "성공");
+		resultMap = communityService.searchComInfo(map);
 		return new Gson().toJson(resultMap);
 	}
 	
@@ -71,6 +69,7 @@ public class CommunityController {
 	// 5. 커뮤니티 글 작성 및 수정
 	@RequestMapping("/community/edit.do")
 	public String communityEdit(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		request.setAttribute("map", map);
 		return "/community_edit";
 	}
 	
@@ -84,13 +83,22 @@ public class CommunityController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
-	
+	// 커뮤니티 글수정
+		@RequestMapping(value = "/community/modify.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String communityModify(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			communityService.modifyCom(map);
+			resultMap.put("message", "성공");
+			return new Gson().toJson(resultMap);
+		}
 	// 커뮤니티 글삭제
 	@RequestMapping(value = "/community/remove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String communityRemove(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		communityService.removeCom(map);
+		resultMap.put("boardNo", map.get("id"));
 		resultMap.put("message", "성공");
 		return new Gson().toJson(resultMap);
 	}

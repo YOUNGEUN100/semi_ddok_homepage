@@ -24,6 +24,9 @@ public class Community {
 	private String fileSize;
 	private String fileKind;
 	
+	private String comment;
+	private int commentNo;
+	
 	
 	
 	public int getFileNo() {
@@ -147,6 +150,18 @@ public class Community {
 	}
 	public void setSecretYn(String secretYn) {
 		this.secretYn = secretYn;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public int getCommentNo() {
+		return commentNo;
+	}
+	public void setCommentNo(int commentNo) {
+		this.commentNo = commentNo;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	
