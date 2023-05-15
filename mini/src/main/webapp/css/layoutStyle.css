@@ -3,7 +3,7 @@
 /*** header --- START ***/
 #header {width:100%; height:auto; min-height:140px; background:var(--base-colorWhite); border-bottom:0 solid var(--base-colorBasicGray); position:fixed; top:0; left:0; z-index:99999; transition:all 0.2s ease-in;}
 #header.active {border-bottom-width:1px;}
-#header + * {margin-top:140px;}
+#header + * + * {margin-top:140px;}
 #header .wrapper {min-height:auto; display:flex; flex-flow:column nowrap; justify-content:space-between;}
 
 #header #logo {order:2; align-self:center; margin-bottom:10px;}

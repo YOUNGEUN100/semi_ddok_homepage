@@ -6,8 +6,8 @@ import com.example.mini.model.TodayEat;
 
 public interface TodayEatService {
 	//맛집메뉴 추천
-	TodayEat searchStoreInfo(HashMap<String, Object>map);
+	TodayEat searchStoreInfo(HashMap<String, Object> hmap);
 	
 	//레시피 추천
-	TodayEat searchRecipeInfo(HashMap<String, Object>map);
+	TodayEat searchRecipeInfo(HashMap<String, Object> hmap);
 }

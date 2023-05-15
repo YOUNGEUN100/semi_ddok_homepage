@@ -83,7 +83,7 @@ h1, h2, h3, h4, h5, h6 {line-height:1.25;}
 ::-webkit-scrollbar-button {width:0; height:0;}
 
 #pageContent {position:relative; clear:both;}
-.wrapper {max-width:1240px; min-height:calc(100vh - 140px - 520px); margin:0 auto; padding:0 20px;}
+.wrapper {max-width:1240px; min-height:calc(100vh - 140px - 520px); margin:0 auto; padding:0 20px; position:relative;}
 /*** setting --- END ***/
 
 

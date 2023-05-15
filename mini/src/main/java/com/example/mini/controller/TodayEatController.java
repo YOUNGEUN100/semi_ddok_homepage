@@ -1,7 +1,5 @@
 package com.example.mini.controller;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,9 +39,26 @@ public class TodayEatController {
 	
 	// 맛집메뉴 추천 결과페이지
 	@RequestMapping("/todayEat/store/result.do")
-	public String recommendFoodResult(Model model) throws Exception{
+	public String selectStore(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> hmap) throws Exception{
+		request.setAttribute("hmap", hmap);
 		return "/todayEat_store_result";
 	}
+	@RequestMapping(value = "/todayEat/store/result.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String selectStoreInfo(Model model, @RequestParam HashMap <String, Object> hmap) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		String json = hmap.get("nation").toString();
+		ObjectMapper mapper = new ObjectMapper();
+	    List<Object> list = mapper.readValue(json, new TypeReference<List<Object>>(){});
+	    hmap.put("nation", list);
+		TodayEat info = todayEatService.searchStoreInfo(hmap);
+		resultMap.put("info", info);
+		resultMap.put("message", "성공");
+		return new Gson().toJson(resultMap);
+	}
+	
+	
 	
 	// 레시피 추천 페이지
 	@RequestMapping("/todayEat/recipe.do")
@@ -53,21 +68,19 @@ public class TodayEatController {
 	
 	// 레시피 추천 결과페이지
 	@RequestMapping("/todayEat/recipe/result.do")
-	public String selectRecipe(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
-		request.setAttribute("map", map);
+	public String selectRecipe(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> hmap) throws Exception{
+		request.setAttribute("hmap", hmap);
 		return "/todayEat_recipe_result";
 	}
-	
-	
 	@RequestMapping(value = "/todayEat/recipe/result.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String selectRecipeInfo(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
+	public String selectRecipeInfo(Model model, @RequestParam HashMap <String, Object> hmap) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		String json = map.get("ingredient").toString();
+		String json = hmap.get("ingredient").toString();
 		ObjectMapper mapper = new ObjectMapper();
 	    List<Object> list = mapper.readValue(json, new TypeReference<List<Object>>(){});
-		map.put("ingredient", list);
-		TodayEat info = todayEatService.searchRecipeInfo(map);
+	    hmap.put("ingredient", list);
+		TodayEat info = todayEatService.searchRecipeInfo(hmap);
 		resultMap.put("info", info);
 		resultMap.put("message", "성공");
 		return new Gson().toJson(resultMap);

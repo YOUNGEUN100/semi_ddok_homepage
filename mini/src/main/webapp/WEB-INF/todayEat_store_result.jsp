@@ -4,84 +4,74 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <style>
-#result {text-align:center;}
+.styleBoxRound {border-radius:1.5em; overflow:hidden;}
+.styleBoxShadow {box-shadow:0 0 10px 0 rgba(0,0,0,0.1);}
+
+.resultMenu {text-align:center; margin-bottom:5em;}
+.resultMenuTitle {font-size:1.75em;}
+.resultMenuTitle span {font-size:1.25em;}
 .imgBox {width:300px; height:300px; border-radius:50%; background:var(--base-colorBasicGray); margin:1em auto 2em;}
 .replayBtn {font-weight:600;}
 .replayBtn i {margin-right:0.2em;}
-</style>
-<style>
-	.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-	.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-	.map_wrap {position:relative;width:100%;height:500px;}
-	#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-	.bg_white {background:#fff;}
-	#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-	#menu_wrap .option{text-align: center;}
-	#menu_wrap .option p {margin:10px 0;}  
-	#menu_wrap .option button {margin-left:5px;}
-	#placesList li {list-style: none;}
-	#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-	#placesList .item span {display: block;margin-top:4px;}
-	#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-	#placesList .item .info{padding:10px 0 10px 55px;}
-	#placesList .info .gray {color:#8a8a8a;}
-	#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-	#placesList .info .tel {color:#009900;}
-	#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-	#placesList .item .marker_1 {background-position: 0 -10px;}
-	#placesList .item .marker_2 {background-position: 0 -56px;}
-	#placesList .item .marker_3 {background-position: 0 -102px}
-	#placesList .item .marker_4 {background-position: 0 -148px;}
-	#placesList .item .marker_5 {background-position: 0 -194px;}
-	#placesList .item .marker_6 {background-position: 0 -240px;}
-	#placesList .item .marker_7 {background-position: 0 -286px;}
-	#placesList .item .marker_8 {background-position: 0 -332px;}
-	#placesList .item .marker_9 {background-position: 0 -378px;}
-	#placesList .item .marker_10 {background-position: 0 -423px;}
-	#placesList .item .marker_11 {background-position: 0 -470px;}
-	#placesList .item .marker_12 {background-position: 0 -516px;}
-	#placesList .item .marker_13 {background-position: 0 -562px;}
-	#placesList .item .marker_14 {background-position: 0 -608px;}
-	#placesList .item .marker_15 {background-position: 0 -654px;}
-	#pagination {margin:10px auto;text-align: center;}
-	#pagination a {display:inline-block;margin-right:10px;}
-	#pagination .on {font-weight: bold; cursor: default;color:#777;}
+.resultMapTitle {font-size:1.625em; font-weight:500; margin-bottom:0.5em;}
+.resultMapTitle span {font-weight:700;}
+.resultMap {width:100%; position:relative; display:flex; flex-flow:row wrap; justify-content:space-between; align-items:stretch;}
+.resultMap .map_wrap {width:calc(100% - 370px); position:relative; height:500px;}
+.resultMap #menu_wrap {width:350px; height:500px; overflow-y:auto; text-align:justify; font-size:0.875em; line-height:1.25; background:var(--base-colorWhite); padding:0.5em;}
+.resultMap #menu_wrap h5 {font-size:1.125em;}
+.infowindow {font-size:0.875em; font-weight:500;}
+
+#placesList li {list-style:none;}
+#placesList .item {position:relative; border-bottom:1px solid var(--base-colorDeepGray); overflow:hidden; cursor:pointer; min-height:65px; transition:all 0.2s ease-in;}
+#placesList .item:hover h5 {color:var(--main-colorRed);}
+#placesList .item:last-child {border-bottom:0;}
+#placesList .item span {display:block; margin-top:4px;}
+#placesList .item h5, #placesList .item .info {text-overflow:ellipsis; overflow:hidden; white-space:nowrap; transition:all 0.2s ease-in;}
+#placesList .item .info {padding:1.2em 0 1em 4em;}
+#placesList .info .gray {color:var(--base-colorDarkGray);}
+#placesList .info .jibun {padding-left:26px; background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList .info .tel {font-weight:600; color:var(--main-colorGreen);}
+#placesList .item .markerbg {float:left; position:absolute; width:36px; height:37px; margin:10px 0 0 10px; background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+#placesList .item .marker_1 {background-position:0 -10px;}
+#placesList .item .marker_2 {background-position:0 -56px;}
+#placesList .item .marker_3 {background-position:0 -102px}
+#placesList .item .marker_4 {background-position:0 -148px;}
+#placesList .item .marker_5 {background-position:0 -194px;}
+#placesList .item .marker_6 {background-position:0 -240px;}
+#placesList .item .marker_7 {background-position:0 -286px;}
+#placesList .item .marker_8 {background-position:0 -332px;}
+#placesList .item .marker_9 {background-position:0 -378px;}
+#placesList .item .marker_10 {background-position:0 -423px;}
+#placesList .item .marker_11 {background-position:0 -470px;}
+#placesList .item .marker_12 {background-position:0 -516px;}
+#placesList .item .marker_13 {background-position:0 -562px;}
+#placesList .item .marker_14 {background-position:0 -608px;}
+#placesList .item .marker_15 {background-position:0 -654px;}
 </style>
 
 
 <!-- pageContent -- START -->
 <div id="pageContent">
-	<div id="app">
-		<div class="wrapper">
+	<div class="wrapper">
 		<jsp:include page="/layout/includeLoading.jsp"></jsp:include>
-<!-- 			<div id="result">
-	 			<h3 class="resultTitle">
-					오늘 <span>닭갈비</span> 어때요?
+		<div id="app" class="resultContainer">
+			<div class="resultMenu">
+	 			<h3 class="resultMenuTitle">
+					오늘 ‘<span id="menuName">{{info.menuName}}</span>’ 어때요?
 				</h3>
 				<div class="imgBox">
 					<img src="" alt="">
 				</div>
 				<a class="replayBtn" href="/todayEat/store.do"><i class="fa-solid fa-reply"></i> 다시 추천받기</a>
-			</div> -->
-			
-			<div id="container">
-				<div class="map_wrap">
+			</div>
+			<h4 class="resultMapTitle"><span id="location"></span>에서 찾아본 <span>{{info.menuName}} 맛집</span>은 여기래요!</h4>
+			<div class="resultMap">
+				<div class="map_wrap styleBoxRound styleBoxShadow">
 				    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-				
-				    <div id="menu_wrap" class="bg_white">
-				        <div class="option">
-				            <div>
-				                <template>
-				                    키워드 : <input type="text" value="구로디지털" id="keyword" size="15"> 
-				                    <button @click="searchPlaces">검색하기</button> 
-				                </template>
-				            </div>
-				        </div>
-				        <hr>
-				        <ul id="placesList"></ul>
-				        <div id="pagination"></div>
-				    </div>
 				</div>
+	            <div id="menu_wrap" class="styleBoxRound styleBoxShadow">
+	                <ul id="placesList"></ul>
+	            </div>
 			</div>
 		</div>
 	</div>
@@ -95,12 +85,47 @@
 var app = new Vue({ 
     el: '#app',
     data: {
+		list : [], 
+		info : {},
+		param : {
+			purpose : "${hmap.purpose}",
+			situation : "${hmap.situation}",
+			nation : ${hmap.nation}
+		},
+		location : ${hmap.location},
     	map : {},
     	ps : {},
     	marker : {},
     	markers : []
     }   
     , methods: {
+		fnGetStoreResult : function() {
+            var self = this;
+            var nparmap = self.param;
+            nparmap.nation = JSON.stringify(self.param.nation);
+
+            var location = self.location;
+            location = JSON.stringify(self.location);
+            var storeLoc = document.getElementById("location");
+            if(self.location[1] == "전체") {
+            	storeLoc.innerHTML = self.location[0];
+            } else {
+            	storeLoc.innerHTML = self.location[0].concat(" ", self.location[1]);
+            }
+            
+            
+            $.ajax({
+                url:"/todayEat/store/result.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                    self.info = data.info;
+                    console.log(self.info);
+                }
+            }); 
+		},
+    	
     	initMap() {
     		var container = document.getElementById('map');
     	       var options = {
@@ -136,28 +161,23 @@ var app = new Vue({
    	    
 	   	// 키워드 검색을 요청하는 함수입니다
 	   	 searchPlaces : function() {
-	
-	   	     var keyword = document.getElementById('keyword').value;
-	
-	   	     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-	   	         alert('키워드를 입력해주세요!');
-	   	         return false;
-	   	     }
+			 var self = this;
+			 var storeLoc = document.getElementById("location").innerText;
+			 var storeMenu = document.getElementById("menuName").innerText;
+			 var keyword = storeLoc.concat(" ", storeMenu, " 맛집");
+			 console.log(keyword);
 	
 	   	     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
 	   	     this.ps.keywordSearch( keyword, this.placesSearchCB); 
 	   	 },
 	
 	   	 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
-	   	 placesSearchCB : function(data, status, pagination) {
+	   	 placesSearchCB : function(data, status) {
 	   	     if (status === kakao.maps.services.Status.OK) {
 	
 	   	         // 정상적으로 검색이 완료됐으면
 	   	         // 검색 목록과 마커를 표출합니다
 	   	         this.displayPlaces(data);
-	
-	   	         // 페이지 번호를 표출합니다
-	   	         this.displayPagination(pagination);
 	
 	   	     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 	
@@ -283,42 +303,11 @@ var app = new Vue({
 	   	  	this.markers = [];
 	   	 },
 	
-	   	 // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-	   	 displayPagination : function(pagination) {
-	   	     var paginationEl = document.getElementById('pagination'),
-	   	         fragment = document.createDocumentFragment(),
-	   	         i; 
-	
-	   	     // 기존에 추가된 페이지번호를 삭제합니다
-	   	     while (paginationEl.hasChildNodes()) {
-	   	         paginationEl.removeChild (paginationEl.lastChild);
-	   	     }
-	
-	   	     for (i=1; i<=pagination.last; i++) {
-	   	         var el = document.createElement('a');
-	   	         el.href = "#";
-	   	         el.innerHTML = i;
-	
-	   	         if (i===pagination.current) {
-	   	             el.className = 'on';
-	   	         } else {
-	   	             el.onclick = (function(i) {
-	   	                 return function() {
-	   	                     pagination.gotoPage(i);
-	   	                 }
-	   	             })(i);
-	   	         }
-	
-	   	         fragment.appendChild(el);
-	   	     }
-	   	     paginationEl.appendChild(fragment);
-	   	 },
-	
 	   	 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 	   	 // 인포윈도우에 장소명을 표시합니다
 	   	 displayInfowindow : function(marker, title) {
 	   	     var self = this;
-	   		 var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+	   		 var content = '<div class="infowindow" style="padding:5px;z-index:1;">' + title + '</div>';
 	
 	   	     self.infowindow.setContent(content);
 	   	     self.infowindow.open(self.map, marker);
@@ -336,7 +325,8 @@ var app = new Vue({
     	window.kakao && window.kakao.maps ? this.initMap() : this.addScript();  
     }
     , created: function () {
-    	
+		var self = this;
+		self.fnGetStoreResult();
 	}
 });
 </script>

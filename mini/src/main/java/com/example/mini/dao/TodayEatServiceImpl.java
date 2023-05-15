@@ -15,13 +15,14 @@ public class TodayEatServiceImpl implements TodayEatService{
 	private TodayEatMapper todayEatMapper;
 
 	@Override
-	public TodayEat searchStoreInfo(HashMap<String, Object> map) {
-		return null;
+	public TodayEat searchStoreInfo(HashMap<String, Object> hmap) {
+		TodayEat info = todayEatMapper.selectStoreInfo(hmap);
+		return info;
 	}
 
 	@Override
-	public TodayEat searchRecipeInfo(HashMap<String, Object> map) {
-		TodayEat info = todayEatMapper.selectRecipeInfo(map);
+	public TodayEat searchRecipeInfo(HashMap<String, Object> hmap) {
+		TodayEat info = todayEatMapper.selectRecipeInfo(hmap);
 		return info;
 	}
 
