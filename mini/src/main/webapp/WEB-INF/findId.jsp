@@ -26,12 +26,12 @@
     .findArea .inputBox  .markEssential{font-size: 0.9em; padding-left: 5px;}
     .findArea .inputBox{
         margin-top: 55px; box-shadow: 0 0 5px #ccc; border-radius: 20px;
-        padding: 50px 95px; font-weight: bold; font-size: 1.1em;
+        padding: 50px 95px; font-weight: bold; font-size: 1.1em; 
         } 
     .findArea .inputBox input{
         border: 0; border-bottom: 1px solid black;
         margin: 12px 5px; padding-left: 10px;
-        margin-bottom: 30px; font-size: 0.88em;
+        margin-bottom: 30px; font-size: 0.88em; border-radius:0;
     	}
     .findArea .inputBox .calender{ width: 30px; height: 30px;}
     .findArea .inputBox .w100{width: 100%;}

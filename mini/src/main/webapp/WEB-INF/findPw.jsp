@@ -30,7 +30,7 @@
     .findArea .inputBox input{
         border: 0; border-bottom: 1px solid black;
         margin: 12px 5px; padding-left: 10px;
-        margin-bottom: 30px; font-size: 0.88em;
+        margin-bottom: 30px; font-size: 0.88em; border-radius:0;
     	}
     .findArea .inputBox .w100{width: 100%;}
     .findArea .inputBox select{

@@ -118,7 +118,7 @@ public class UserController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
-	
+	//비번찾기
 	@RequestMapping("/findPw.do") 
     public String findPw(Model model) throws Exception{
 
@@ -134,7 +134,7 @@ public class UserController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
-	
+	//비번 변경
 	@RequestMapping(value = "/pwUpdate.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String updateBbs(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
@@ -143,11 +143,11 @@ public class UserController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
-
+	//마이페이지
 	@RequestMapping("/myPage.do") 
     public String mypage(Model model) throws Exception{
 
-        return "/myPage";
+        return "/mypage";
     }
 	
 	@RequestMapping("/myPagee/order.do") 
