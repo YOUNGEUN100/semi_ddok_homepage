@@ -195,18 +195,28 @@
 
                             <div class="comment_box">
                                 <div class="comment_list" v-for="(item, index) in list">
-                                    <div class="commenter">
-                                        <span>{{item.nick}}</span>
-                                        <span>{{item.cdatetime2}}</span>
-                                        <button @click="fnDeleteComment(item.commentNo)" v-if="sessionId == item.userId || sessionStatus == 'A'">삭제</button>
-                                    </div>
-                                    <div class="comment_content">
-                                        <span>{{item.content}}</span>
-                                    </div>
+                                	<template v-if="editCoNo != item.commentNo">
+                                    	<div class="commenter">
+	                                        <span>{{item.nick}}</span>
+    	                                    <span>{{item.cdatetime2}}</span>
+        	                                <button @click="fnDeleteComment(item.commentNo)" v-if="sessionId == item.userId || sessionStatus == 'A'">삭제</button>
+            	                            <button @click="fnEditComment(item)" v-if="sessionId == item.userId || sessionStatus == 'A'">수정</button>
+                	                    </div>
+                    	                <div class="comment_content">
+                        	                <pre>{{item.content}}</pre>
+                            	        </div>
+                                    </template>
+                                    
+                                    <template v-else>
+                                    	<div class="comment_content" >                                     
+                                        	<textarea rows = "5" v-model="commentInfo.content"></textarea>
+                                        	<button @click="fnEditCommentFinish">수정</button>
+                                    	</div>
+                                    </template>
                                 </div>                                                               
                             </div>
                             <div class="comment_add">
-                        		<textarea rows = "5" placeholder="댓글을 입력하세요." v-model="content"></textarea>
+                        		<textarea rows = "3" placeholder="댓글을 입력하세요." v-model="content"></textarea>
                         		<p></p>
                         		<button @click = "fnWriteComment">댓글등록</button>
                         	</div>
@@ -239,12 +249,14 @@
         var app = new Vue({
             el: '#app',
             data: {
-                info: {},
-                list:[],
+                info: {}, // 게시글 정보
+                list:[], // 댓글 리스트
+                commentInfo: {}, // 댓글 수정용 정보
                 boardNo: "${map.boardNo}",
                 sessionId: "${sessionId}",
                 sessionStatus: "${sessionStatus}",
-                content : ""
+                content : "",
+                editCoNo: "",
 
             },
             methods: {
@@ -277,7 +289,7 @@
                         data: nparmap,
                         success: function (data) {
                             self.list = data.list;
-                            console.log(data.list);
+                            console.log(data.list);                            
                         }
                     });
                 }
@@ -334,6 +346,36 @@
                     		self.fnGetFleaComment();
                     	}
                 });
+            		
+            	}
+            	
+            	// 랜선장터 댓글 수정
+            	, fnEditComment: function(item) {
+            		var self = this;            		
+            		self.editCoNo = item.commentNo;
+            		self.commentInfo = item;  
+            		console.log(self.commentInfo);
+            	}
+            	
+            	// 랜선장터 댓글 수정 확인
+            	, fnEditCommentFinish: function() {
+            		var self = this;
+            		if (!confirm("댓글을 수정하시겠습니까?")) {
+            			return
+            		}
+            		var nparmap = self.commentInfo;
+            		$.ajax({
+                    	url: "/fleamarket/editcomment.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("수정완료");
+                    		self.editCoNo = "";
+                    		self.commentInfo = "";
+                    		self.fnGetFlea();
+                    	}
+                	});
             		
             	}
             	

@@ -28,6 +28,9 @@ public interface FundingService {
 	// 랜선장터 댓글 삭제
 	void removeComment(HashMap<String, Object> map);
 	
+	// 랜선장터 댓글 수정
+	void modifyComment(HashMap<String, Object> map);
+	
 	// 랜선장터 거래완료
 	void endTrade(HashMap<String, Object> map);
 	
@@ -57,5 +60,8 @@ public interface FundingService {
 	
 	// 펀딩 등록	
 	void addFunding(HashMap<String, Object> map);
+	
+	// 펀딩 이미지 등록
+	void addFundingImg(HashMap<String, Object> map);
 
 }

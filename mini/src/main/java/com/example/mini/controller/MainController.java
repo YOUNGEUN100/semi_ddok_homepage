@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.MainService;
 import com.example.mini.dao.UserService;
-import com.example.mini.model.Main;
+import com.example.mini.model.Funding;
 import com.example.mini.model.Recipe;
 import com.google.gson.Gson;
 
@@ -55,7 +55,7 @@ public class MainController {
 	@ResponseBody
 	public String searchFundingList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Main> list = mainService.searchFundingList(map);
+		List<Funding> list = mainService.searchFundingList(map);
 		resultMap.put("list", list);		
 		return new Gson().toJson(resultMap);
 	}

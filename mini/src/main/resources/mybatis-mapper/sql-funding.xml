@@ -271,7 +271,15 @@
 			WHERE COMMENT_NO = #{commentNo}
 		</delete>
 		
-		<!--오픈된 펀딩 리스트-->		
+		<!-- 랜선장터 댓글 수정 -->
+		<update id="editComment" parameterType="hashmap">
+			UPDATE T4_COMMENT
+			SET CONTENT = #{content},
+				UDATETIME = NOW()
+			WHERE COMMENT_NO = #{commentNo}
+		</update>
+		
+		<!--오픈된 펀딩 리스트-->
 		<select id="selectOpenFundingList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			<![CDATA[
 				SELECT
@@ -290,17 +298,18 @@
 					CNT,
 					TIMESTAMPDIFF(DAY, NOW(), FUNDING_END_DT) AS D_DAY,
 					IMG_PATH,
+					CONCAT(IMG_PATH, IMG_ORG_NAME) AS IMG_PATH2,
 					DATE_FORMAT(FUNDING_END_DT,'%k') AS END_TIME
 					
 				FROM T4_FUNDING A
 				LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
 							FROM T4_FUNDING_MEMBER
 							GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
-				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH
+				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_ORG_NAME
 							FROM T4_F_IMAGE
 							WHERE THUMBNAIL_YN = 'Y'
 							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
-				WHERE  FUNDING_START_DT < NOW()]]>
+				WHERE  FUNDING_START_DT < NOW() AND FUNDING_CLOSE_YN = 'Y']]>
 				
 				<if test = "orderValue == 'endDate'">
 				ORDER BY FUNDING_END_DT
@@ -349,7 +358,8 @@
             		END AS DOW,
             		DATE_FORMAT(FUNDING_START_DT, '%c/%e') AS S_DAY,
             		DATE_FORMAT(FUNDING_START_DT, '%H') AS S_TIME,
-            		IMG_PATH
+            		IMG_PATH,
+            		CONCAT(IMG_PATH, IMG_ORG_NAME) AS IMG_PATH2
             		
 				FROM T4_FUNDING A
 				
@@ -357,7 +367,7 @@
 							FROM T4_FUNDING_MEMBER
 							GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
 							
-				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH
+				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_ORG_NAME
 							FROM T4_F_IMAGE
 							WHERE THUMBNAIL_YN = 'Y'
 							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
@@ -489,8 +499,15 @@
 			WHERE FUNDING_NO = #{fundingNo} AND USER_ID = #{sessionId}
 		</select>
 		
+		<update id="checkFundingDate" parameterType="hashmap">
+			UPDATE T4_FUNDING
+			SET FUNDING_CLOSE_YN = 'Y',
+				UDATETIME = NOW()
+			WHERE FUNDING_END_DT > NOW()
+		</update>
+		
 		<!-- 펀딩 등록 -->
-		<insert id="insertFunding" parameterType="hashmap">
+		<insert id="insertFunding" parameterType="hashmap" useGeneratedKeys="true" keyProperty="id" keyColumn="FUNDING_NO">
 			INSERT INTO T4_FUNDING
 			VALUES
 				(NULL,
@@ -505,6 +522,13 @@
 				NOW(),
 				NOW()
 				)
+		</insert>
+		
+		<!-- 펀딩 이미지 등록 -->
+		<insert id="insertFundingImg" parameterType="hashmap">
+		INSERT INTO T4_F_IMAGE
+		VALUES
+			(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'N', NULL, NOW(), NOW() )
 		</insert>
 		
 	</mapper>

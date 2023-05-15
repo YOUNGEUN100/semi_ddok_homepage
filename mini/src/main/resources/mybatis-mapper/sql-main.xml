@@ -6,7 +6,7 @@
 	<mapper namespace="com.example.mini.mapper.MainMapper">
 		
 		<!--진행중 펀딩 리스트-->		
-		<select id="selectFundingList" parameterType="hashmap" resultType="com.example.mini.model.Main">
+		<select id="selectFundingList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			<![CDATA[
 				SELECT
 					A.FUNDING_NO,

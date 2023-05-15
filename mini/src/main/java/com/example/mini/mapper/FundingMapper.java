@@ -36,6 +36,9 @@ public interface FundingMapper {
 	// 랜선장터 댓글 삭제
 	void deleteComment(HashMap<String, Object> map);
 	
+	// 랜선장터 댓글 수정
+	void editComment(HashMap<String, Object> map);
+	
 	// 랜선장터 거래완료
 	void finishTrade(HashMap<String, Object> map);
 	
@@ -63,8 +66,12 @@ public interface FundingMapper {
 	// 중복신청 필터링용 카운트
 	int checkFundingMember(HashMap<String, Object> map);
 	
+	// 펀딩 종료 체크
+	void checkFundingDate(HashMap<String, Object> map);
+	
 	// 펀딩 등록
 	void insertFunding(HashMap<String, Object> map);
-
-
+	
+	// 펀딩 이미지 등록
+	void insertFundingImg(HashMap<String, Object> map);
 }

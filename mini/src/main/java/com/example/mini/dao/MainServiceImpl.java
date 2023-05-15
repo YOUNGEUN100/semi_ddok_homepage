@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.mini.mapper.MainMapper;
-import com.example.mini.model.Main;
+import com.example.mini.model.Funding;
 import com.example.mini.model.Recipe;
 
 @Service
@@ -18,8 +18,8 @@ public class MainServiceImpl implements MainService{
 	
 	// 펀딩 리스트
 	@Override
-	public List<Main> searchFundingList(HashMap<String, Object> map) throws Exception {
-		List<Main> list = mainMapper.selectFundingList(map);
+	public List<Funding> searchFundingList(HashMap<String, Object> map) throws Exception {
+		List<Funding> list = mainMapper.selectFundingList(map);
 		return list;
 	}
 	

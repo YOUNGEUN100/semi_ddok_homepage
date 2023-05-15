@@ -119,11 +119,11 @@
                             </div>
 
                             <div class="open_date_box">
-                                <span>펀딩시작일</span> <input class="open_date" type="date" v-model="info.openDate">
+                                <span>펀딩시작일</span> <input class="open_date" type="datetime-local" v-model="info.openDate">
                             </div>
 
                             <div class="end_date_box">
-                                <span>펀딩종료일</span> <input class="end_date" type="date" v-model="info.endDate">
+                                <span>펀딩종료일</span> <input class="end_date" type="datetime-local" v-model="info.endDate">
                             </div>
 
                             <div class="price_box">
@@ -136,26 +136,11 @@
 
                             <div class="thumb_box">
                                 <p>썸네일 이미지</p>
-                                <form action="">
-                                    <input type="file">
-                                    <input type="submit">
-                                </form>
+                                <input type="file" id="file1" name="file1">
+                                 <vue-editor v-model="info.content"></vue-editor>
                             </div>
+                            
 
-                            <div class="detail_box">
-                                <p>상세설명 이미지</p>
-                                <form action="">
-                                    <input type="file">
-                                    <input type="submit">
-                                </form>
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="content_box">
-                            <p>내용</p> <textarea class="content" rows="15" v-model="info.content"></textarea>
                         </div>
 
                         <div class="btn_box">
@@ -178,7 +163,10 @@
 
 
     <script type="text/javascript">     
-
+    	console.log(Vue);
+    	Vue.use(Vue2Editor);
+    	const VueEditor = Vue2Editor.VueEditor;
+    	
         var app = new Vue({
             el: '#app',
             data: {
@@ -194,15 +182,15 @@
                 },                
                 sessionId: "${sessionId}"
 
-            },
-            methods: {
+            }
+            , components: {VueEditor}
+            , methods: {
                 fnAddFunding: function () {
                     var self = this;
                     if(!confirm("등록 하시겟습니까?")) {
                     	return;
                     }
                     console.log(self.info);
-                    console.log(typeof self.info.openDate);
                     var nparmap = self.info
                     $.ajax({
                         url: "/funding/add.dox",
@@ -211,11 +199,32 @@
                         data: nparmap,
                         success: function (data) {
                             alert("등록되었습니다.");
-                            location.href = "/funding.do";
+                            
+                            var form = new FormData();
+        	       	        form.append( "file1",  $("#file1")[0].files[0] );
+        	       	     	form.append( "fundingNo",  data.fundingNo); // pk
+        	           		self.upload(form);
+        	       	     	
+                           // location.href = "/funding.do";
                             
                         }
                     });
                 }
+            
+            	, upload : function(form){
+    	    		var self = this;
+    	         	$.ajax({
+    	             	url : "/fileUpload1.dox"
+    	           	, type : "POST"
+    	           	, processData : false
+    	           	, contentType : false
+    	           	, data : form
+    	           	, success:function(response) { 
+    	        	   	
+    	          	 }
+    	           
+    	       	});
+    			}
 				
          		
              	

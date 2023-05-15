@@ -40,9 +40,17 @@ public class Funding {
 	private String sDay;
 	private String sTime;
 	private String imgPath;
+	private String imgPath2;
 	private String imgPathDetail;
 	private String startDate;
 	private String endTime;
+	private int imgNo;
+	private String imgOrgName;
+	private String imgName;
+	private int imgSize;
+	private String thumbnailYn;
+	private int fundingIndex;	
+	
 	//---펀딩용 모델 끝---
 	
 	public int getBoardNo() {
@@ -277,6 +285,48 @@ public class Funding {
 		this.endTime = endTime;
 	}
 	//---펀딩용 게터세터 끝---
+	public int getImgNo() {
+		return imgNo;
+	}
+	public void setImgNo(int imgNo) {
+		this.imgNo = imgNo;
+	}
+	public String getImgOrgName() {
+		return imgOrgName;
+	}
+	public void setImgOrgName(String imgOrgName) {
+		this.imgOrgName = imgOrgName;
+	}
+	public String getImgName() {
+		return imgName;
+	}
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+	public int getImgSize() {
+		return imgSize;
+	}
+	public void setImgSize(int imgSize) {
+		this.imgSize = imgSize;
+	}
+	public String getThumbnailYn() {
+		return thumbnailYn;
+	}
+	public void setThumbnailYn(String thumbnailYn) {
+		this.thumbnailYn = thumbnailYn;
+	}
+	public int getFundingIndex() {
+		return fundingIndex;
+	}
+	public void setFundingIndex(int fundingIndex) {
+		this.fundingIndex = fundingIndex;
+	}
+	public String getImgPath2() {
+		return imgPath2;
+	}
+	public void setImgPath2(String imgPath2) {
+		this.imgPath2 = imgPath2;
+	}
 	
 	
 	

@@ -64,6 +64,12 @@ public class FundingServiceImpl implements FundingService {
 		
 	}
 	
+	@Override // 랜선장터 댓글 삭제
+	public void modifyComment(HashMap<String, Object> map) {
+		fundingMapper.editComment(map);
+		
+	}
+	
 	@Override // 랜선장터 거래완료
 	public void endTrade(HashMap<String, Object> map) {
 		fundingMapper.finishTrade(map);		
@@ -84,6 +90,8 @@ public class FundingServiceImpl implements FundingService {
 	@Override // 오픈중 펀딩 리스트
 	public List<Funding> searchOpenFundingList(HashMap<String, Object> map) throws Exception {
 		List<Funding> list = fundingMapper.selectOpenFundingList(map);
+		fundingMapper.checkFundingDate(map);
+		fundingMapper.checkFundingDate(map);
 		return list;
 	}
 
@@ -131,8 +139,17 @@ public class FundingServiceImpl implements FundingService {
 
 	@Override // 펀딩 등록
 	public void addFunding(HashMap<String, Object> map) {
-	fundingMapper.insertFunding(map);		
+		fundingMapper.insertFunding(map);		
 	}
+	
+
+	
+	@Override // 펀딩 이미지 등록
+	public void addFundingImg(HashMap<String, Object> map) {
+		fundingMapper.insertFundingImg(map);
+	}
+
+	
 
 	
 
