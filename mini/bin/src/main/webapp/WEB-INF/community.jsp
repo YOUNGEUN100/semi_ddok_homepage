@@ -25,8 +25,6 @@
     }
     button:hover {cursor: pointer;}
 	.comlist {
-		display: flex;
-	    flex-direction: column;
 		border: none;
         box-sizing: border-box;
         padding: 40px 40px;
@@ -39,30 +37,10 @@
 	.comlist .center{text-align:center; }
 	.comlist #title:hover{cursor: pointer;}
 	#no{width:10%; }
-	#title{width:50%; text-align:left;}
+	#title{width:50%;text-align:left;}
 	#writer{width:10%;}
 	#date{width:20%;}
 	#view{width:10%;}
-	
-	/* 페이징 추가2 */
-	.pagination { margin:24px;display: inline-flex;}
-    ul { text-align: center; }
-	.pagination li {
-	    min-width:32px;
-	    padding:4px 8px;
-	    text-align:center;
-	    margin:0 3px;
-	    border-radius: 6px;
-	    border:1px solid #eee;
-	    color:#666;
-	    display : inline;
-	}
-	.pagination li:hover {background: #E4DBD6;}
-	.page-item a {color:#666;text-decoration: none;}
-	.pagination li.active {background-color : #E7AA8D;color:#fff;}
-	.pagination li.active a {color:#fff;}
-    /* 페이징 추가 끝 */
-	#page {text-align:center;}
 </style>
 
 
@@ -91,37 +69,18 @@
              	
              	<tbody>
 	              	<tr class="center" v-for="(item, index) in list" >
-                        <td id="no">{{index+1}}</td>
-	                   <template>
-	                         <td id="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
-	                        <td id="title" V-if="item.status=='C'" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
-                        </template>
-   	                    <td id="writer">{{item.nick}}</td>
+                        <td id="no">{{index}}</td>
+                        <td id="title" @click="fnViewCom(item.boardNo)">{{item.content}}</td>
+   	                    <td id="writer">{{item.userId}}</td>
        	                <td id="date">{{item.cdatetime}}</td>
                	        <td id="view">{{item.hits}}</td>
 	                  </tr>                                 
               </tbody>        	                       
              </table>
            </div>
-           
-           <button @click="fnAddCom()">글쓰기</button>
-           
-            <!-- 페이징 추가3 -->
-            <div id="page">
-            <template >
-				  <paginate id="page"
-				    :page-count="pageCount"
-				    :page-range="3"
-				    :margin-pages="2"
-				    :click-handler="fnSearch"
-				    :prev-text="'<'"
-				    :next-text="'>'"
-				    :container-class="'pagination'"
-				    :page-class="'page-item'">
-				  </paginate>
-				</template>         
-			</div>
-           
+                        
+		
+           <button>글쓰기</button>
  
 	</div>
 	</div>
@@ -133,26 +92,18 @@
 
 <script type="text/javascript">
  // 자바 스크립트 입력 
- Vue.component('paginate', VuejsPaginate)
- 
   var app = new Vue({
             el: '#app',
             data: {
               list : [],
-              cnt : 0,
-              // 페이징 추가5
-     		 selectPage : 1,
-     		 pageCount : 1,
-     	     sessionId: "${sessionId}",    
-     		 sessionStatus : "${sessionStatus}"
+              cnt : 0
             }
             , methods: {
             	// 커뮤니티 리스트
                 fnGetComList: function () {
-                    var self = this;   
-                 // 페이징 추가6
-        			var startNum = ((self.selectPage-1) * 10);
-            		var nparmap = {startNum : startNum};
+                    var self = this;   		
+            		var startNum = ((self.selectPage-1) * 10);
+            		var nparmap = {};
                     $.ajax({
                         url: "/community/list.dox",
                         dataType: "json",
@@ -161,16 +112,19 @@
                         success: function (data) {
                         	console.log(data.list);
                         	self.list = data.list;
-                            self.cnt = data.cnt;
-      					 	self.pageCount = Math.ceil(self.cnt / 10);
+                           self.cnt = data.cnt;
+                           // self.pageCount = Math.ceil(self.cnt / 10);  
+
                         }
                     });
                 }
-            	<!-- 페이징 추가 7-->
+            		<!-- 페이징 추가 7-->
         		, fnSearch : function(pageNum){
         			var self = this;
         			self.selectPage = pageNum;
         			var startNum = ((pageNum-1) * 10);
+        			console.log(pageNum);
+        			console.log(startNum);
         			var nparmap = {startNum : startNum};
         			$.ajax({
         				url : "/community/list.dox",

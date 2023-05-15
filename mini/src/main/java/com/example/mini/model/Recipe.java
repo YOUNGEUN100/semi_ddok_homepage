@@ -9,6 +9,7 @@ public class Recipe {
 	private String difficulty;
 	private int recipeHits;
 	private String deleteYn;
+	private String hashtag;
 	private String cdatetime;
 	private String udatetime;
 	private String cookIngre;
@@ -57,6 +58,12 @@ public class Recipe {
 	}
 	public void setDeleteYn(String deleteYn) {
 		this.deleteYn = deleteYn;
+	}
+	public String getHashtag() {
+		return hashtag;
+	}
+	public void setHashtag(String hashtag) {
+		this.hashtag = hashtag;
 	}
 	public String getCdatetime() {
 		return cdatetime;

@@ -70,16 +70,21 @@
                     <input id="recipe_name" name="recipe_name" v-model="info.recipeName" type="text" required>
                   </li>
                   <li>
-	                  <label for="recipe_img" class="enrol-re">대표 사진</label>
-	                   <form action="">
-	                        <input type="file" id="file1" name="file1">
-	                    </form>
-                 </li>
+                    <label for="recipe_img" class="enrol-re">대표 사진</label>
+                    <div>
+                        <vue-editor v-model="content"></vue-editor>
+                    </div> 
+                  <!--  <label for="recipe_img" class="enrol-re">대표 사진</label>
+                   <form action="">
+                        <input type="file">
+                        <input type="submit">
+                    </form> --> 
                  
+                 </li>
                   <li>
                     <label class="enrol-re">카테고리</label>
                         <select class="sel" name="purpose" id="purpose" v-model="info.pcode">
-                            <option value="" selected="selected" disabled hidden>목적별</option>
+                            <option value="0" selected="selected" disabled>목적별</option>
                             <option value="REF">냉장고털이</option>
                             <option value="HAN">해장</option>
                             <option value="SNA">간식</option>
@@ -87,7 +92,7 @@
                             <option value="DIE">다이어트</option>
                         </select>
                         <select class="sel" name="howto" id="howto" v-model="info.hcode">
-                            <option value="" selected="selected" disabled hidden>방법별</option>
+                            <option value="0" selected="selected" disabled>방법별</option>
                             <option value="ROA">구이/부침</option>
                             <option value="SOU">국탕찌개</option>
                             <option value="FRY">볶음/조림</option>
@@ -95,7 +100,7 @@
                             <option value="ETC">기타</option>
                         </select>
                         <select class="sel" name="tool" id="tool" v-model="info.tcode">
-                            <option value="" selected disabled hidden>도구별</option>
+                            <option value="0" selected disabled>도구별</option>
                             <option value="POT">냄비/후라이팬</option>
                             <option value="MIC">전자레인지</option>
                             <option value="OVE">에어프라이어/오븐</option>
@@ -107,7 +112,7 @@
                     <span>
                         <span>시간</span>
                         <select class="sel" name="time" id="time" v-model="info.time">
-                            <option value="" selected disabled hidden>시간</option>
+                            <option value="0" selected disabled>시간</option>
                             <option value="5분이내">5분이내</option>
                             <option value="10분이내">10분이내</option>
                             <option value="15분이내">15분이내</option>
@@ -122,7 +127,7 @@
                     <span>
                         <span>난이도</span>
                         <select class="sel" name="difficult" id="difficult" v-model="info.difficulty">
-                            <option value="" selected disabled hidden>난이도</option>
+                            <option value="0" selected disabled>난이도</option>
                             <option value="핵쉬움">핵쉬움</option>
                             <option value="쉬움">쉬움</option>
                             <option value="보통">보통</option>
@@ -157,7 +162,8 @@
                      <div id="re-img">
                         <label>레시피 이미지</label>
                         <form action="">
-                            <input type="file" id="fileR" name="fileR">
+                            <input type="file">
+                            <input type="submit">
                         </form>
                      </div>
                      <div id="re-info">
@@ -230,12 +236,6 @@
 	            success : function(data) {  
 	            	console.log(data);
 	            	alert("등록되었습니다!");
-	            	
-	            	var form = new FormData();
-	       	        form.append( "file1",  $("#file1")[0].files[0] );
-	       	     	form.append( "recipeNo",  data.recipeNo); // pk
-	           		self.upload(form); 
-	            	
 	           	 	location.href="/recipe.do";
 	            }
 	        }); 
@@ -261,10 +261,11 @@
         },
         // 파일 업로드
 	    upload : function(){
-	    	var self = this;
+			var form = new FormData();
+	        form.append( "file1", $("#file1")[0].files[0] );
 	        
 	         $.ajax({
-	             url : "/fileUpload.dox"
+	             url : "/upload.do"
 	           , type : "POST"
 	           , processData : false
 	           , contentType : false

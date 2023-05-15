@@ -61,7 +61,6 @@
          width: 60px;
          height: 35px;
    }
-   .mg20 {margin-right: 20px;}
 </style>
 
 
@@ -74,23 +73,22 @@
                <div class="com_head">
                    <div class="title">{{info.title}}</div>
                    <div class="writer">
-                       <div>{{info.nick}}</div> 
+                       <div>{{info.userId}}</div> 
                        <div>
-                           <span class="mg20">{{info.cdatetime}}</span>
+                           <span>{{info.cdatetime}}</span>
                            <span>조회 {{info.hits}}</span>  
                        </div>
                        
                    </div>
                </div>
                <hr>
-               <div class="com_content" v-html="info.content"><pre></pre></div>
-               
+               <div class="com_content">{{info.content}}</div>
                <hr>
                <div class="comment">
                    <h4>댓글</h4>
                    <div class="comment_list">
                        <div>
-                           <span class="mg20">작성자</span>
+                           <span>작성자</span>
                            <span>작성일</span>
                        </div>
                        <div class="comment_content">작성내용</div>
@@ -108,11 +106,11 @@
            <!--container 끝-->
            <div class="btns">
                <span>
-                   <button @click="fnAddCom()">글쓰기</button>
-                   <button v-if="info.userId==sessionId || sessionId=='A'">수정</button>
-                   <button @click="fnEnroll()" v-if="info.userId==sessionId || sessionId=='A'">삭제</button>
+                   <button>글쓰기</button>
+                   <button>수정</button>
+                   <button>삭제</button>
                </span>
-               <button onClick="location.href='/community.do'">목록</button>
+               <button>목록</button>
            </div>
 
        </div>
@@ -173,22 +171,6 @@
 
                         }
                     });
-                },
-            	 // 커뮤니티 글 삭제
-                fnEnroll : function() {
-                    var self = this;
-                    var nparmap = {boardNo : self.boardNo};
-        	        $.ajax({
-        	            url:"/community/remove.dox",
-        	            dataType:"json",	
-        	            type : "POST", 
-        	            data : nparmap,
-        	            success : function(data) { 
-        	            	if (!confirm("삭제하시겠습니까?")) return;
-        	            	
-        	           	 	location.href="/community.do";
-        	            }
-        	        }); 
                 }
             		<!-- 페이징 추가 7-->
         		, fnSearch : function(pageNum){
@@ -238,19 +220,6 @@
             		document.body.appendChild(form);
             		form.submit();
             		document.body.removeChild(form);
-            	}
-            	// 커뮤니티 글쓰기
-            	, fnAddCom: function() {
-            		var self = this;
-            		if (self.sessionId == "") {
-            			if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")) {            				
-            				location.href="/login.do"
-            				return;
-            			} else {
-            				return;
-            			}            			
-            		}
-            		location.href = "/community/edit.do";
             	}
             	
             

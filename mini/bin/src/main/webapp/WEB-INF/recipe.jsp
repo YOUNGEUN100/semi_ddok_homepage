@@ -194,7 +194,7 @@
                         </div>
                         <img class="recipe-img" :src="item.imgPath">
                     </div>
-                    <div>{{item.hashtag}}</div>
+                    <div>#레시피 #뭐먹지 #마시따</div>
                     <div class="r-text">{{item.recipeName}}</div>
                 </div>
             </div>

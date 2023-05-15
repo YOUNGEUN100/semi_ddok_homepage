@@ -13,7 +13,6 @@
 				TIME,
 				DIFFICULTY,
 				RECIPE_HITS,
-				HASHTAG,
 				DELETE_YN,
 				CDATETIME,
 				UDATETIME,
@@ -53,7 +52,6 @@
 					TIME,
 					DIFFICULTY,
 					RECIPE_HITS,
-					HASHTAG,
 					DELETE_YN,
 					CDATETIME,
 					UDATETIME,
@@ -81,7 +79,6 @@
 					TIME,
 					DIFFICULTY,
 					RECIPE_HITS,
-					HASHTAG,
 					DELETE_YN,
 					CDATETIME,
 					UDATETIME,
@@ -109,7 +106,6 @@
 					TIME,
 					DIFFICULTY,
 					RECIPE_HITS,
-					HASHTAG,
 					DELETE_YN,
 					CDATETIME,
 					UDATETIME,
@@ -145,7 +141,6 @@
 				TIME,
 				DIFFICULTY,
 				RECIPE_HITS,
-				HASHTAG,
 				DELETE_YN,
 				CDATETIME,
 				UDATETIME,
@@ -188,7 +183,7 @@
 		
 		
 		<!-- 레시피 등록 -->
-		<insert id="insertRecipe" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="recipe_no">
+		<insert id="insertRecipe" parameterType="HashMap">
 			INSERT INTO T4_RECIPE(
 				RECIPE_NO,
 				RECIPE_NAME,
