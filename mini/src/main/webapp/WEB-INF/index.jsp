@@ -146,27 +146,21 @@
         </div>
         <div class="mctArea mainContentSlider">
             <div class="mctThumb typeCol">
-                <a href="javaScript:;" class="imgBox">
-                    <img src="" alt="">
-                </a>
+                  <img src="/images/news1_1.jpg" alt="카드">
                 <a href="javaScript:;" class="txtBox">
                 	<p class="text">요리를 하려는데 계량 기구가 없다면?</p>
                     <h4 class="title">한 눈으로 살펴보는 간단한 계량팁</h4>
                 </a>
             </div>
             <div class="mctThumb typeCol">
-                <a href="javaScript:;" class="imgBox">
-                    <img src="" alt="">
-                </a>
+                <img src="/images/news2_1.jpg" alt="">
                 <a href="javaScript:;" class="txtBox">
                 	<p class="text">작정하고 출시했다는</p>
                     <h4 class="title">다*소 피크닉 신상템 모음집</h4>
                 </a>
             </div>
             <div class="mctThumb typeCol">
-                <a href="javaScript:;" class="imgBox">
-                    <img src="" alt="">
-                </a>
+                 <img src="/images/news3_1.jpg" alt="">
                 <a href="javaScript:;" class="txtBox">
                 	<p class="text">경제·재테크 꿀팁!</p>
                     <h4 class="title">운동하고 5만원도 받는 1석2조 제도</h4>
