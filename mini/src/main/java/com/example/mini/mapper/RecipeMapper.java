@@ -44,6 +44,8 @@ public interface RecipeMapper {
 	void insertHowtoCode(HashMap<String,Object>map);
 	void insertToolCode(HashMap<String,Object>map);
 	void insertRecipeImg(HashMap<String,Object>map);
-		
+	
+	// 중복 레시피 번호 확인
+	int selectRecipeNoCnt(HashMap<String, Object> map);
 	
 }

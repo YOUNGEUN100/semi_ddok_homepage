@@ -41,33 +41,33 @@ select {border-radius:4px; border-color:var(--base-colorDeepGray); padding:0.5em
             <div class="selectArea typeBoxArea styleBoxRound styleBoxShadow">
                 <h3 class="selectTitle">목적별</h3>
                 <div class="selectBox">
-                    <span class="boxItem"><input type="radio" id="han" name="purpose" value="han" checked><label for="han">해장</label></span>
-                    <span class="boxItem"><input type="radio" id="sim" name="purpose" value="sim"><label for="sim">간단식</label></span>
-                    <span class="boxItem"><input type="radio" id="die" name="purpose" value="die"><label for="die">식이조절</label></span>
-                    <span class="boxItem"><input type="radio" id="one" name="purpose" value="one"><label for="one"></label>한그릇</span>
-                    <span class="boxItem"><input type="radio" id="bru" name="purpose" value="bru"><label for="bru"></label>브런치</span>
-                    <span class="boxItem"><input type="radio" id="sna" name="purpose" value="sna"><label for="sna">간식</label></span>
-                    <span class="boxItem"><input type="radio" id="nig" name="purpose" value="nig"><label for="nig">야식</label></span>
+                    <span class="boxItem"><input type="radio" id="han" v-model="purpose" value="han" checked><label for="han">해장</label></span>
+                    <span class="boxItem"><input type="radio" id="sim" v-model="purpose" value="sim"><label for="sim">간단식</label></span>
+                    <span class="boxItem"><input type="radio" id="die" v-model="purpose" value="die"><label for="die">식이조절</label></span>
+                    <span class="boxItem"><input type="radio" id="one" v-model="purpose" value="one"><label for="one"></label>한그릇</span>
+                    <span class="boxItem"><input type="radio" id="bru" v-model="purpose" value="bru"><label for="bru"></label>브런치</span>
+                    <span class="boxItem"><input type="radio" id="sna" v-model="purpose" value="sna"><label for="sna">간식</label></span>
+                    <span class="boxItem"><input type="radio" id="nig" v-model="purpose" value="nig"><label for="nig">야식</label></span>
                 </div>
             </div>
             <div class="selectArea typeBoxArea styleBoxRound styleBoxShadow">
                 <h3 class="selectTitle">상황별</h3>
                 <div class="selectBox">
-                    <span class="boxItem"><input type="radio" id="alo" name="situation" value="alo" checked><label for="alo">혼밥</label></span>
-                    <span class="boxItem"><input type="radio" id="fre" name="situation" value="fre"><label for="fre">친구</label></span>
-                    <span class="boxItem"><input type="radio" id="lov" name="situation" value="lov"><label for="lov">연인</label></span>
-                    <span class="boxItem"><input type="radio" id="fan" name="situation" value="fan"><label for="fan">가족</label></span>
-                    <span class="boxItem"><input type="radio" id="com" name="situation" value="com"><label for="com">모임</label></span>
+                    <span class="boxItem"><input type="radio" id="alo" v-model="situation" value="alo" checked><label for="alo">혼밥</label></span>
+                    <span class="boxItem"><input type="radio" id="fre" v-model="situation" value="fre"><label for="fre">친구</label></span>
+                    <span class="boxItem"><input type="radio" id="lov" v-model="situation" value="lov"><label for="lov">연인</label></span>
+                    <span class="boxItem"><input type="radio" id="fan" v-model="situation" value="fan"><label for="fan">가족</label></span>
+                    <span class="boxItem"><input type="radio" id="com" v-model="situation" value="com"><label for="com">모임</label></span>
                 </div>
             </div>
             <div class="selectArea typeBoxArea styleBoxRound styleBoxShadow">
                 <h3 class="selectTitle">나라별</h3>
                 <div class="selectBox">
-                    <span class="boxItem"><input type="checkbox" id="kor" name="nation" value="kor" checked><label for="kor">한식</label></span>
-                    <span class="boxItem"><input type="checkbox" id="chi" name="nation" value="chi"><label for="chi">중식</label></span>
-                    <span class="boxItem"><input type="checkbox" id="jap" name="nation" value="jap"><label for="jap">일식</label></span>
-                    <span class="boxItem"><input type="checkbox" id="ita" name="nation" value="ita"><label for="ita">양식</label></span>
-                    <span class="boxItem"><input type="checkbox" id="etc" name="nation" value="etc"><label for="etc">그 외</label></span>
+                    <span class="boxItem"><input type="checkbox" id="kor" v-model="nation" value="kor" checked><label for="kor">한식</label></span>
+                    <span class="boxItem"><input type="checkbox" id="chi" v-model="nation" value="chi"><label for="chi">중식</label></span>
+                    <span class="boxItem"><input type="checkbox" id="jap" v-model="nation" value="jap"><label for="jap">일식</label></span>
+                    <span class="boxItem"><input type="checkbox" id="ita" v-model="nation" value="ita"><label for="ita">양식</label></span>
+                    <span class="boxItem"><input type="checkbox" id="etc" v-model="nation" value="etc"><label for="etc">그 외</label></span>
                 </div>
             </div>
             <div class="selectArea typeBoxArea styleBoxRound styleBoxShadow">
@@ -90,7 +90,7 @@ select {border-radius:4px; border-color:var(--base-colorDeepGray); padding:0.5em
 function Checkform() {
 	var f = document.storeForm;
 	
-	var nat_check = document.querySelectorAll('input[name="nation"]:checked').length;
+	var nat_check = document.querySelectorAll('input[v-model="nation"]:checked').length;
 	if(nat_check == 0){
 		alert("[나라별]에서 최소 한 곳 이상 선택해 주세요.");
         return false;

@@ -9,17 +9,11 @@
 	  /* style START */
         
         /* 페이징 추가2 */
-		.pagination {
-	        margin:24px;
-	        display: inline-flex;
-	        
-	    }
-	    ul {
-	        text-align: center;
-	    }
+		.pagination { margin:24px;display: inline-flex;}
+	    ul { text-align: center; }
 		.pagination li {
 		    min-width:32px;
-		    padding:2px 6px;
+		    padding:4px 8px;
 		    text-align:center;
 		    margin:0 3px;
 		    border-radius: 6px;
@@ -27,176 +21,82 @@
 		    color:#666;
 		    display : inline;
 		}
-		.pagination li:hover {
-		    background: #E4DBD6;
-		}
-		.page-item a {
-		    color:#666;
-		    text-decoration: none;
-		}
-		.pagination li.active {
-		    background-color : #E7AA8D;
-		    color:#fff;
-		}
-		.pagination li.active a {
-		    color:#fff;
-		}
+		.pagination li:hover {background: #E4DBD6;}
+		.page-item a {color:#666;text-decoration: none;}
+		.pagination li.active {background-color : #E7AA8D;color:#fff;}
+		.pagination li.active a {color:#fff;}
 	    /* 페이징 추가 끝 */
-        #wrapper {
-            text-align: center;
-        }
-        .category-circle {
+	    
+        #wrapper { text-align: center; }
+        #app .r-category { display: flex; justify-content: center; margin-bottom: 40px;)}
+        .r-category .box1 .category-circle {
             width:100px;
             height: 100px;
             border-radius: 50%;
             background: rgba(232, 227, 227, 0.959);
-            /* margin-bottom: 20px; */
         }
-        .category-circle:hover {
-            background: #bdee71;
-        }
-        .r-category {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-        .box1 {
-            text-align: center;
-            margin: 0 25px;
-            cursor: pointer;
-        }
+        .r-category .box1 .category-circle:hover {background: #bdee71;}
+        .r-category .box1 {text-align: center; margin: 0 25px; cursor: pointer;}
 
         @media screen and (max-width: 512px) {
-            .box1 {
-            text-align: center;
-            margin: 0px 18px;
-           }
-           .box1 > div:last-child {
-            margin: 0;
-           }
+            .box1 {text-align: center; margin: 0px 18px;}
+           .box1 > div:last-child {margin: 0;}
         }
 
-        .r-search {
-            margin-top: 150px;
-            margin-bottom: 70px;
-        }
-        .r-input {
+        #app .r-search {margin-top: 150px; margin-bottom: 70px; }
+        .r-search .r-input {
             width: 40%;
             border : none;
             border-bottom: 1px solid black;
             padding-left: 30px;
             font-size: 18px;
             text-align: left;
-            
         }
 
         @media screen and (max-width: 512px) {
-            .r-input {
-            width: 90%;
-            padding-left: 0px;
-            }
-            .category-img {
-            width: 30px;
-            height: 30px;
-            background-color: white;
-            }
+            .r-search .r-input {width: 90%; padding-left: 0px;}
         }
             
-        .c-icon {
-            position:relative;
-            bottom: 60px;
-            
-        }
-        .search-icon {
-            position: relative;
-            right:30px;
-            cursor: pointer;
-        }
-        .detail-category {
+        .box1 .c-icon { position:relative; bottom: 60px; }
+        .r-search .search-icon { position: relative; right:30px; cursor: pointer; }
+        #app .detail-category {
             border: 5px solid rgba(245, 243, 243, 0.959);
             box-shadow: 2px 2px 20px 0px #ece9e9;
             border-radius: 10px;
             padding: 20px 30px;
             margin-bottom: 70px;
         }
-        .box2 {
-            display: flex;
-            padding: 20px;
-        }
-        .box2 div {
-            margin-right: 50px;
-            font-size: 20px;
-        }
-        .box2 a {
-            margin-right: 20px;
-            font-size: 20px;
-        }
-        .box2 a:hover {
-            background-color: #bdee71;
-        }
-
+        .detail-category .box2 {display: flex;  padding: 20px;}
+        .detail-category .box2 div { margin-right: 50px; font-size: 20px;}
+        .detail-category .box2 a { margin-right: 20px; font-size: 20px; }
+        .detail-category .box2 a:hover { background-color: #bdee71;}
         @media screen and (max-width: 512px) {
-            .box2 {
-            display: block;
-            }
-            .box2 div {
-            margin-right: 0;
-            font-size: 20px;
-            }
-            .box2 a {
-                display: flex;
-                flex-direction: column;
-                margin-right: 0px;
-            }
+            .box2 { display: block;}
+            .box2 div { margin-right: 0;font-size: 20px; }
+            .box2 a { display: flex;flex-direction: column;  margin-right: 0px;}
         }
-        .recipe-img {
-            width:380px;
-            height: 250px;
-            margin-bottom: 10px;
-        }
-        .search-result-s {
+        .item .recipe-img { width:380px;height: 250px;margin-bottom: 10px;}
+        #app .search-result-s {
             display: flex;
             justify-content:space-between;
             margin-bottom: 5px;
             font-weight : bold;
         }
-        .search-result-s > div:first-child {
-            font-size: 20px;
-        }
-        .search-result-s > div:last-child {
-            font-size: 15px;
-            position: relative;
-            right:40px;
-        }
-         .r-text {
-            font-size: 20px;
-            font-weight: bold;
-        }
+        #app .search-result-s > div:first-child { font-size: 20px; }
+        #app .search-result-s > div:last-child {font-size: 15px;position: relative;right:40px; }
+        .item .r-text { font-size: 20px;font-weight: bold;}
         @media screen and (max-width: 512px) {
-             .item-list {
-             
-       		 }
-            .item {
-            margin-bottom: 30px;
-            }
-            .recipe-img {
-            height: auto;
-        	}
+           .item {margin-bottom: 30px; }
+            .item .recipe-img {height: auto;}
         }
         .item-list {
             display: grid;
             grid-template-columns: repeat(3,1fr);
             grid-template-rows: repeat(3,350px);
         }
-        .item-list div {
-            margin-right: 15px;
-        }
-       
-        .item {
-            text-align: left;
-            cursor: pointer;
-        }
-        .add_btn {
+        .item-list div { margin-right: 15px; }
+        .item-list .item { text-align: left;cursor: pointer; }
+        #app .add_btn {
             float: left;
             margin-top: -220px;
             border: none;
@@ -207,10 +107,8 @@
             color: white;
             font-size: 20px;
         }
-        .add_btn:hover {
-        	cursor: pointer;
-        }
-        .re-view-cnt {
+        #app .add_btn:hover {cursor: pointer; }
+        .item .re-view-cnt {
             display: inline-block;
             position: relative;
             left:290px;
@@ -232,7 +130,7 @@
     <div id="wrapper">
     	<div id="app">
     	
-         <button class="add_btn" @click="fnGoEdit()">등록</button>
+         <button class="add_btn" @click="fnGoEdit()" v-if="sessionStatus=='A'">등록</button>
         <div class="r-search">
             <input type="text" v-model="keyword" placeholder="원하는 레시피를 검색해 보세요!" class="r-input"  @keyup.enter="fnGetRecipeAll()">
             <i class="search-icon fa-solid fa-magnifying-glass fa-lg" @click="fnGetRecipeAll()"></i>
@@ -253,11 +151,6 @@
                 <i class="c-icon fa-solid fa-fish-fins fa-2xl"></i>
                 <div>방법</div>
             </div>
-            <!-- <div class="box1">
-                <div id="all-btn" class="category-img"></div>
-                <i class="c-icon fa-solid fa-egg fa-2xl"></i>
-                <div>재료</div>
-            </div> -->
             <div class="box1" id="tool-btn">
                 <div  class="category-circle"></div>
                 <i class="c-icon fa-solid fa-kitchen-set fa-2xl"></i>
@@ -307,8 +200,8 @@
             </div>
             
             <!-- 페이징 추가3 -->
-            <template>
-				  <paginate
+            <template >
+				  <paginate id="page"
 				    :page-count="pageCount"
 				    :page-range="3"
 				    :margin-pages="2"
@@ -349,7 +242,9 @@
 		 recipe_code : "",
 		 // 페이징 추가5
 		 selectPage : 1,
-		 pageCount : 1
+		 pageCount : 1,
+		 sessionId: "${sessionId}",    
+	     sessionStatus : "${sessionStatus}"
 	}, methods: {
 		// 전체 레시피 리스트 가져오기
 		fnGetRecipeAll : function() {
@@ -498,6 +393,7 @@
 	
 	$(function () {
 	    $("#all-btn").on("click", function() {
+	    	$("#page").show();
 	        $("#purpose").show();
 	        $("#howto").show();
 	        $("#tool").show();
@@ -506,6 +402,7 @@
 	})
 	$(function () {
 	    $("#purpose-btn").on("click", function() {
+	    	$("#page").hide();
 	        $("#purpose").show();
 	        $("#howto").hide();
 	        $("#tool").hide();
@@ -514,6 +411,7 @@
 	})
 	$(function () {
 	    $("#howto-btn").on("click", function() {
+	    	$("#page").hide();
 	        $("#purpose").hide();
 	        $("#howto").show();
 	        $("#tool").hide();
@@ -522,6 +420,7 @@
 	})
 	$(function () {
 	    $("#tool-btn").on("click", function() {
+	    	$("#page").hide();
 	        $("#purpose").hide();
 	        $("#howto").hide();
 	        $("#tool").show();

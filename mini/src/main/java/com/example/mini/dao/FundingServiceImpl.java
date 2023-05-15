@@ -30,9 +30,21 @@ public class FundingServiceImpl implements FundingService {
 	}
 	
 	@Override // 랜선장터 글보기
-	public Funding searchFleaInfo(HashMap<String, Object>map) {
+	public HashMap<String, Object> searchFleaInfo(HashMap<String, Object>map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Funding info  = fundingMapper.selectFleaInfo(map);
-		return info;
+		
+		if (info != null) {
+			fundingMapper.updateCnt(map);
+		}
+		
+		resultMap.put("info", info);
+		return resultMap;
+	}
+	
+	@Override // 랜선장터 게시글 등록
+	public void addFlea(HashMap<String, Object> map) {
+		fundingMapper.insertFlea(map);
 	}
 	
 	@Override // 랜선장터 댓글 리스트
@@ -58,8 +70,14 @@ public class FundingServiceImpl implements FundingService {
 	}
 	
 	@Override // 랜선장터 게시글 삭제
-	public void removePost(HashMap<String, Object> map) {
-		fundingMapper.deletePost(map);
+	public void removeFlea(HashMap<String, Object> map) {
+		fundingMapper.deleteFlea(map);
+		
+	}
+	
+	@Override // 랜선장터 게시글 수정
+	public void modifyFlea(HashMap<String, Object> map) {
+		fundingMapper.editFlea(map);
 		
 	}
 

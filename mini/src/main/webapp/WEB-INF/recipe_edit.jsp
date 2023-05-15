@@ -6,12 +6,8 @@
 
 <style>
       /* style START */
-        h1 {
-            text-align: center;
-        }
-        legend {
-            font-size: x-large;
-        }
+        h1 { text-align: center;  }
+        legend {font-size: x-large; }
         fieldset {
             width: 100%;
             border: 5px solid rgba(245, 243, 243, 0.959);
@@ -20,42 +16,15 @@
             padding: 20px 30px;
             margin: 40px 0;
         }
-        fieldset li {
-        	display: flex;
-            margin: 20px 5px;
-        }
-        fieldset .enrol-re {
-            float: left;
-            width: 100px;
-            font-weight: bold;
-            /* font-size: large; */
-        }
-        .recipe-file {
-            display: flex;
-        }
-        fieldset > li > #recipe_name,#recipe-ingre {
-            border-radius: 5px;
-            width: 100%;
-        }
-        fieldset > li > #no_btn {
-            border-radius: 5px;
-            width: 22%;
-        }
-        fieldset > li > #recipe_no {
-            border-radius: 5px;
-            width: 78%;
-        }
-        .enrol-no {
-	        border-radius: 5px;
-	        width : 30%;
-        }
-        select {
-            width: 100px;
-            margin-right: 10px;
-        }
-        .ingre-ch {
-            margin-right: 10px;
-        }
+        fieldset li {display: flex; margin: 20px 5px; }
+        fieldset .enrol-re {float: left; width: 100px;font-weight: bold;  }
+        .recipe-file { display: flex; }
+        fieldset > li > #recipe_name,#recipe-ingre {  border-radius: 5px;  width: 100%; }
+        fieldset > li > #no_btn {  border-radius: 5px;  width: 15%; }
+        fieldset > li > #recipe_no {border-radius: 5px; width: 30%;   }
+        .enrol-no {border-radius: 5px; width : 30%;}
+        .sel { width: 100px; margin-right: 10px; }
+        .ingre-ch {margin-right: 10px;}
         .btn_box button {
             border: none;
             width: 100px;
@@ -66,34 +35,19 @@
             color: white;
             font-size: 20px;
             font-weight: bold;
-            }
-        #add-area {
-            text-align: center;
-            margin:10px 0;
         }
+        #add-area { text-align: center;margin:10px 0; }
         #add-area #add-btn {
             border: none;
             background: none;
             padding:5px;
             font-size: medium;
         }
-        #step-num{
-            margin-right: 30px;
-        }
-        #re-info {
-            margin-bottom: 20px;
-        }
-        #re-img {
-            display: flex;
-        }
-        #recipe-step label {
-                float: left;
-                width: 130px;
-                /* font-size: large; */
-        }
-        .btn:hover {
-            cursor: pointer;
-        }
+        #step-num{margin-right: 30px;}
+        #re-info {margin-bottom: 20px;}
+        #re-img { display: flex; }
+        #recipe-step label {float: left; width: 130px; }
+        .btn:hover {  cursor: pointer; }
 	 
 </style>
 
@@ -107,13 +61,13 @@
             <fieldset>
                 <legend>레시피 정보</legend>
                 	<li>
-                    <label for="recipe_no" class="enrol-re"  >레시피 번호</label>
-                    <input id="recipe_no" name="recipe_no" type="text" placeholder=" 레시피 번호를 입력하세요" required>
-                  	<button id="no_btn">레시피번호 중복 확인</button>
+                    <label for="recipe_no" class="enrol-re" >레시피 번호</label>
+                    <input id="recipe_no" name="recipe_no" type="number" v-model="info.recipeNo" placeholder=" 레시피 번호를 입력하세요" required>
+                  	<button id="no_btn" @click="fnCheck()">레시피번호 중복 확인</button>
                   </li>
                   <li>
                     <label for="recipe_name" class="enrol-re">레시피 제목</label>
-                    <input id="recipe_name" name="recipe_name" type="text" required>
+                    <input id="recipe_name" name="recipe_name" v-model="info.recipeName" type="text" required>
                   </li>
                   <li>
                     <label for="recipe_img" class="enrol-re">대표 사진</label>
@@ -130,7 +84,7 @@
                   <li>
                     <label class="enrol-re">카테고리</label>
                         <select class="sel" name="purpose" id="purpose" v-model="info.pcode">
-                            <option value="0">목적별</option>
+                            <option value="0" selected="selected" disabled>목적별</option>
                             <option value="REF">냉장고털이</option>
                             <option value="HAN">해장</option>
                             <option value="SNA">간식</option>
@@ -138,7 +92,7 @@
                             <option value="DIE">다이어트</option>
                         </select>
                         <select class="sel" name="howto" id="howto" v-model="info.hcode">
-                            <option value="0">방법별</option>
+                            <option value="0" selected="selected" disabled>방법별</option>
                             <option value="ROA">구이/부침</option>
                             <option value="SOU">국탕찌개</option>
                             <option value="FRY">볶음/조림</option>
@@ -146,7 +100,7 @@
                             <option value="ETC">기타</option>
                         </select>
                         <select class="sel" name="tool" id="tool" v-model="info.tcode">
-                            <option value="0">도구별</option>
+                            <option value="0" selected disabled>도구별</option>
                             <option value="POT">냄비/후라이팬</option>
                             <option value="MIC">전자레인지</option>
                             <option value="OVE">에어프라이어/오븐</option>
@@ -158,7 +112,7 @@
                     <span>
                         <span>시간</span>
                         <select class="sel" name="time" id="time" v-model="info.time">
-                            <option value="0">시간</option>
+                            <option value="0" selected disabled>시간</option>
                             <option value="5분이내">5분이내</option>
                             <option value="10분이내">10분이내</option>
                             <option value="15분이내">15분이내</option>
@@ -172,8 +126,8 @@
                     </span>
                     <span>
                         <span>난이도</span>
-                        <select class="sel" name="difficult" id="difficult" v-model="info.difficult">
-                            <option value="0">난이도</option>
+                        <select class="sel" name="difficult" id="difficult" v-model="info.difficulty">
+                            <option value="0" selected disabled>난이도</option>
                             <option value="핵쉬움">핵쉬움</option>
                             <option value="쉬움">쉬움</option>
                             <option value="보통">보통</option>
@@ -225,8 +179,6 @@
     
               <div class="btn_box">
                 <button class="btn" @click="fnEnroll()">등록</button>
-                <button class="btn" @click="fnEdit()">수정</button>
-                <button class="btn" @click="fnDelete()">삭제</button>
             </div>
     
        
@@ -249,23 +201,32 @@
     el: '#app',
     data: {
     	info : {
-    		recipeName : ""
-   	    	, rPurpose : ""
-   	    	, howto : ""
-   	    	, tool : ""
-   	    	, time : ""
-   	    	, difficulty : ""
-   	    	, ingredient : ""
-   	    	, cookIngre :""
+    		recipeNo : ""
+    		,recipeName : ""
+   	    	,pcode : ""
+   	    	,hcode : ""
+   	    	,tcode : ""
+   	    	,time : ""
+   	    	,difficulty : ""
+   	    	,cookIngre :""
+			,ingredient : ""
+			,imgNo : ""
     	},
         cnt : 1,
-        content : ""
+        content : "",
+        enrollFlg : false
     }
     // 4. 컴포넌트 추가
     , components: {VueEditor}
     , methods: {
         fnEnroll : function() {
             var self = this;
+            
+            if (!enrollFlg){
+            	alert("레시피 번호가 중복되었습니다.");
+            } 
+            return; 
+            
             var nparmap = self.info;
 	        $.ajax({
 	            url:"/recipe/save.dox",
@@ -278,12 +239,6 @@
 	           	 	location.href="/recipe.do";
 	            }
 	        }); 
-        },
-        fnEdit : function() {
-            alert("수정되었습니다!");
-        },
-        fnDelete : function() {
-            alert("삭제되었습니다!");
         },
         fnAddIndex : function() {
         	var self = this;
@@ -320,11 +275,33 @@
 	           }
 	           
 	       });
-		}
+		},
+		fnCheck : function(){
+	   	 	var self = this;
+	   	 	var nparmap = {recipeNo : self.info.recipeNo};
+	        $.ajax({
+	            url:"/recipe/check.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	if(data.cnt > 0){
+	            		self.enrollFlg = false;
+	            		alert("레시피 번호가 중복되었습니다.");
+	            	}
+	            	else{
+	            		self.enrollFlg = true;
+	            		alert("사용가능한 레시피 번호입니다.");
+	            	}
+	            }
+        	}); 
+   	 	
+   	 	}
        
     } // 메소드 end
     , created: function () {
 		var self = this;
+		self.info.imgNo += 1;
 	}
 });
 

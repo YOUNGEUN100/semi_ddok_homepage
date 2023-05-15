@@ -72,6 +72,11 @@ public class RecipeServiceImpl implements RecipeService{
 		recipeMapper.insertToolCode(map);
 		recipeMapper.insertRecipeImg(map);
 	}
+
+	@Override
+	public int searchRecipeNoCnt(HashMap<String, Object> map) {
+		return recipeMapper.selectRecipeNoCnt(map);
+	}
 	
 	
 

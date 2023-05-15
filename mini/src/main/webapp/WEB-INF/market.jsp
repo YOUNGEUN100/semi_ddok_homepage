@@ -293,13 +293,15 @@
                 <div class="recommend"><P>추천상품</P></div>
                 <div class="smart_market" id="box3">
                     <div v-for="(item2, index) in list2">
-                        <img :src="item2.imgPath" class="box">
-                        <div class="gap2 box4">
-                            <p>현재 {{item2.productStock}}개 남았어요!</p>
-                            <p>{{item2.productName}}</p>
-                            <p>{{item2.productPrice | numberFormat()}}원 (100{{item2.productVolume}}당 {{item2.productPrice*100 / item2.productWeight*item2.productEa | numberFormat()}}원)</p>
-                            <p><img class="star" src="images/star.png"> {{(item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)/3 |  numberFormat(1)}} </p>
-                        </div>
+                    	<a href="javascript:;" @click="fnView(item2.productNo)">
+	                        <img :src="item2.imgPath" class="box">
+	                        <div class="gap2 box4">
+	                            <p>현재 {{item2.productStock}}개 남았어요!</p>
+	                            <p>{{item2.productName}}</p>
+	                            <p>{{item2.productPrice | numberFormat()}}원 (100{{item2.productVolume}}당 {{item2.productPrice*100 / item2.productWeight*item2.productEa | numberFormat()}}원)</p>
+	                            <p><img class="star" src="images/star.png"> {{(item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)/3 |  numberFormat(1)}} </p>
+	                        </div>
+                        </a>
                     </div>            
                 </div>
                 

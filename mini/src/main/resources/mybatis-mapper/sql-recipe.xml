@@ -221,9 +221,14 @@
 				RECIPE_NO,
 				IMG_PATH,
 				THUMBNAIL_YN)
-			VALUES(NULL, #{recipeNo}, "../images/recipe_5.jpg", "Y")
+			VALUES(50, #{recipeNo}, "../images/recipe_5.jpg", "Y")
 		</insert>
 	
-		
+		<!-- 중복 레시피 번호 확인 -->
+		<select id="selectRecipeNoCnt" parameterType="HashMap" resultType="int">
+			SELECT COUNT(*) AS CNT
+			FROM T4_RECIPE
+			WHERE RECIPE_NO = #{recipeNo}
+		</select>
 		
 	</mapper>

@@ -351,13 +351,13 @@
             </div>   
             <div class="smart_empth3"></div>
             <div class="smart_cnt">
-                <span class="font_cnt">개수 </span><input class="input_cnt" type="number" min="1" max="3">
+                <span class="font_cnt">개수 </span><input class="input_cnt" type="number" min="1" max="3" v-model="productCnt">
                 <span class="font_cnt2"> 현재 {{info.productStock}}개남았어요!</span>
             </div>
             <div class="smart_empth4"></div>
             <div class="smart_button">
                 <button class="btn_buy">구매하기</button>
-                <button class="btn_cart">장바구니담기</button>
+                <button class="btn_cart" @click="fnCart(info.productNo)">장바구니담기</button>
                 <a href="javascript:clip2();"><img class="share" src="/images/share.png" ></a>
             </div>
         </div>
@@ -439,18 +439,20 @@ Vue.component('paginate', VuejsPaginate)
     var app = new Vue({ 
         el: '#app',
         data: {
-        list : [] 
-        , info : {}
-        , imglist : {}
-        , reviewlist : {}
-        , productNo : "${map.productNo}"
-        , productName : ""
-        , isOpen : false
-        
-        	<!-- 페이징 추가 5-->
-		, selectPage: 1
-		, pageCount: 1
-		, cnt : 0
+	        list : [] 
+	        , info : {}
+	        , imglist : {}
+	        , reviewlist : {}
+	        , productNo : "${map.productNo}"
+	        , sessionId : "${sessionId}"
+	        , productName : ""
+	        , isOpen : false
+	        , productCnt : ""
+	        
+	        	<!-- 페이징 추가 5-->
+			, selectPage: 1
+			, pageCount: 1
+			, cnt : 0
             
         }
     
@@ -465,9 +467,10 @@ Vue.component('paginate', VuejsPaginate)
             
             fnGetList : function(){
                 var self = this;
-                var nparmap = {productNo : self.productNo};
+                var nparmap = {productNo : self.productNo, sessionId : self.sessionId};
                 
-                
+				
+
                 //상품정보
                 $.ajax({
                     url:"/smartmarket-view.dox",
@@ -511,6 +514,53 @@ Vue.component('paginate', VuejsPaginate)
 
             }
         
+        	//장바구니담기
+        	, fnCart : function(productNo){
+    	    	var self = this;
+    	    	var nparmap = {productNo : self.productNo, productCnt : self.productCnt};
+    	    	    	    	
+    	    	$.ajax({
+    	            url:"/addCart.dox",
+    	            dataType:"json",	
+    	            type : "POST", 
+    	            data : nparmap,
+    	            success : function(data) {            
+    	           	 	alert("저장되었습니다..");
+    	           		location.href="/cart.do";
+    	            }
+    	        });
+    	    	
+    		}
+        	
+        	, pageChange : function(url, param) {
+        		var target = "_self";
+        		if(param == undefined){
+        		//	this.linkCall(url);
+        			return;
+        		}
+        		var form = document.createElement("form"); 
+        		form.name = "dataform";
+        		form.action = url;
+        		form.method = "post";
+        		form.target = target;
+        		for(var name in param){
+    				var item = name;
+    				var val = "";
+    				if(param[name] instanceof Object){
+    					val = JSON.stringify(param[name]);
+    				} else {
+    					val = param[name];
+    				}
+    				var input = document.createElement("input");
+    	    		input.type = "hidden";
+    	    		input.name = item;
+    	    		input.value = val;
+    	    		form.insertBefore(input, null);
+    			}
+        		document.body.appendChild(form);
+        		form.submit();
+        		document.body.removeChild(form);
+        	}
         
         
 	      

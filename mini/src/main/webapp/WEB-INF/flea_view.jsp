@@ -216,7 +216,7 @@
 
                         <div class="btn_box">
                         	<button @click="fnFinishTrade" v-if="sessionId == info.userId || sessionStatus == 'A'">거래완료</button>
-                            <button v-if="sessionId==info.userId">수정</button>
+                            <button @click="fnEditFlea(boardNo)" v-if="sessionId==info.userId">수정</button>
                             <button @click="fnDeletePost" v-if="sessionId == info.userId || sessionStatus == 'A'">삭제</button>
                         </div>
 
@@ -260,7 +260,6 @@
                         data: nparmap,
                         success: function (data) {
                             self.info = data.info;
-                            console.log(data.info + "gg");
                         }
                     });
                 }
@@ -383,6 +382,42 @@
                     		location.href="/flea.do"
                     	}
                 });
+            	}
+            	
+            	, pageChange : function(url, param) {
+            		var target = "_self";
+            		if(param == undefined){
+            		//	this.linkCall(url);
+            			return;
+            		}
+            		var form = document.createElement("form"); 
+            		form.name = "dataform";
+            		form.action = url;
+            		form.method = "post";
+            		form.target = target;
+            		for(var name in param){
+        				var item = name;
+        				var val = "";
+        				if(param[name] instanceof Object){
+        					val = JSON.stringify(param[name]);
+        				} else {
+        					val = param[name];
+        				}
+        				var input = document.createElement("input");
+        	    		input.type = "hidden";
+        	    		input.name = item;
+        	    		input.value = val;
+        	    		form.insertBefore(input, null);
+        			}
+            		document.body.appendChild(form);
+            		form.submit();
+            		document.body.removeChild(form);
+            	}
+            	
+            	// 랜선장터 글 수정
+            	, fnEditFlea: function(boardNo) {
+            		var self = this;            		
+            		self.pageChange("./edit.do", {boardNo : boardNo});
             	}
             	
 

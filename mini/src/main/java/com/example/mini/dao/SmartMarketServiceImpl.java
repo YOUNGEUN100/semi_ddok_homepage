@@ -78,6 +78,27 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		
 		return resultMap;
 	}
+
+	@Override
+	public void addCart(HashMap<String, Object> map) {
+		smartmarketMapper.insertCart(map);
+		
+	}
+
+	//카트 리스트
+	@Override
+	public HashMap<String, Object> searchCartList(HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("list",smartmarketMapper.selectCartList(map));
+		resultMap.put("result","success");
+		
+		return resultMap;
+	}
+
+	@Override
+	public void removeCart(HashMap<String, Object> map) {
+		smartmarketMapper.deleteCart(map);
+	}
 	
 	
 	

@@ -5,7 +5,6 @@
 
 <style>
 	    /* style START */
-      
         .btn {
             cursor: pointer;
         }
@@ -216,6 +215,18 @@
         .market-item {
             margin-top: 100px;
         }
+        .btn_box .btn {
+        	display: felx;
+            border: none;
+            width: 100px;
+            height: 40px;
+            margin-left: 16px;
+            border-radius: 15px;
+            background-color: #999999;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
 
        
         /* style END */
@@ -227,6 +238,11 @@
 	 <!-- wrap START -->
     <div class="wrapper">
     	<div id="app">
+    	 <div class="btn_box" v-if="sessionStatus=='A'">
+                <button class="btn">수정</button>
+                <button class="btn">삭제</button>
+         </div>
+         
         <div class="recipe-info-box">
             <div class="recipe-thumb-img">
                 <div class="re-view-cnt">
@@ -334,7 +350,8 @@
 	    list : [] 
 	    , info : {}
 	    , recipeNo : "${map.recipeNo}"
-	        
+	    , sessionId: "${sessionId}"    
+	    , sessionStatus : "${sessionStatus}"
 	    } 
 	    , methods: {
 	        fnGetInfo : function(){
@@ -375,7 +392,16 @@
             }
 			// 레시피 저장
 			, fnSave : function() {
-				alert("저장되었습니다.");
+				var self = this;
+				console.log(self.sessionId);
+				console.log(self.sessionStatus);
+				if (self.sessionId == "") {
+                	alert("로그인을 해주세요");
+                	return;
+                }
+                if (!confirm("레시피를 저장하시겠습니까?")) {
+                    return;
+                }
 			}
 			// 레시피 인쇄
 			, fnPrint : function() {

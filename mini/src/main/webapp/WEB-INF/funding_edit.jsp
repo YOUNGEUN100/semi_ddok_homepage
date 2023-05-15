@@ -211,7 +211,7 @@
                         data: nparmap,
                         success: function (data) {
                             alert("등록되었습니다.");
-                            location.href = "funding.do";
+                            location.href = "/funding.do";
                             
                         }
                     });

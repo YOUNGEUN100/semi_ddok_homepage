@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-	<!--랜선장터 거래 리스트-->
+	
 	<mapper namespace="com.example.mini.mapper.FundingMapper">
+		<!--랜선장터 거래 리스트-->
 		<select id="selectTradeFleaList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 		<![CDATA[
 			SELECT      
@@ -96,7 +97,7 @@
 			
         	LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
         	
-        	WHERE BOARD_KIND = 'D_LAN' ]]>
+        	WHERE BOARD_KIND = 'D_LAN' AND DELETE_YN !='Y']]>
         	
         	<if test = "orderValue2 == 'recent'">
         	ORDER BY CDATETIME DESC
@@ -160,6 +161,13 @@
         	WHERE BOARD_NO = #{boardNo} ]]>
 		</select>
 		
+		<!-- 게시글 조회수 증가 -->
+		<update id="updateCnt" parameterType="hashmap" >
+			UPDATE T4_BOARD 
+			SET HITS = HITS + 1
+			WHERE BOARD_NO = #{boardNo}
+		</update>
+		
 		<!-- 랜선장터 댓글 리스트 -->
 		<select id="selectFleaComment" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			SELECT 
@@ -187,6 +195,34 @@
 			WHERE BOARD_NO = #{boardNo};
 		</select>
 		
+		<!-- 랜선장터 게시글 등록 -->
+		<insert id="insertFlea" parameterType="hashmap">
+			INSERT INTO T4_BOARD (
+				BOARD_NO,
+                USER_ID,
+                TITLE,
+                CONTENT,
+                HITS,
+                BOARD_KIND,
+                FINISH_YN,
+                CDATETIME,
+                UDATETIME,
+                DELETE_YN
+                )
+			VALUES (
+				NULL,
+				#{sessionId},
+				#{title},
+				#{content},
+				0,
+				#{boardKind},
+				'N',
+				NOW(),
+				NOW(),
+				'N'				
+				)
+		</insert>
+		
 		<!-- 랜선장터 댓글 입력 -->
 		<insert id="insertFleaComment" parameterType="hashmap">
 			INSERT INTO T4_COMMENT (
@@ -213,10 +249,21 @@
 		</update>
 		
 		<!-- 랜선장터 게시글 삭제 -->
-		<delete id="deletePost" parameterType="hashmap">
-			DELETE FROM T4_BOARD
+		<update id="deleteFlea" parameterType="hashmap">
+			UPDATE T4_BOARD
+			SET DELETE_YN = 'Y'
 			WHERE BOARD_NO = #{boardNo}
-		</delete>
+		</update>
+		
+		<!-- 랜선장터 게시글 수정 -->
+		<update id="editFlea" parameterType="hashmap">
+			UPDATE T4_BOARD 
+			SET BOARD_KIND = #{boardKind},
+				TITLE = #{title},
+				CONTENT = #{content},
+				UDATETIME = NOW()
+			WHERE BOARD_NO = #{boardNo}
+		</update>
 		
 		<!-- 랜선장터 댓글 삭제 -->
 		<delete id="deleteComment" parameterType="hashmap">
