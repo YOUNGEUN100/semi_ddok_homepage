@@ -22,6 +22,7 @@ public class Funding {
 	private String nick; //게시판용
 	private int commentNo;
 	private int reCommentNo;
+	private int commentReno;
 	//---랜선마켓 게시판 모델 끝---
 	
 	//---펀딩용 모델 시작---
@@ -60,6 +61,12 @@ public class Funding {
 	}
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
+	}
+	public int getCommentReno() {
+		return commentReno;
+	}
+	public void setCommentReno(int commentReno) {
+		this.commentReno = commentReno;
 	}
 	public String getUserId() {
 		return userId;

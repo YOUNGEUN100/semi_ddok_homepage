@@ -206,8 +206,8 @@
                 	                    
                     	                <div class="comment_content"> <!-- 댓글내용 -->
                         	                <pre v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">{{item.content}}</pre>
-                        	                <pre v-else> 비밀 댓글입니다.</pre>
-                        	                                     	                
+                        	                <pre v-else> 비밀 댓글입니다.</pre>                       	                                     	                
+
                             	        </div>
                             	        
                             	        <div class="reComment_content"> <!-- 대댓글영역 -->
@@ -309,7 +309,7 @@
                         data: nparmap,
                         success: function (data) {
                             self.list = data.list;
-                            console.log(data.list);                            
+                            console.log(data.list);
                         }
                     });
                 }
@@ -513,6 +513,8 @@
                     	success: function (data) {
                     		alert("등록완료");
                     		self.editReCoNo = "";
+                    		self.reContent = "";
+                    		self.fnGetFleaComment();
                     	}
                 });
             		

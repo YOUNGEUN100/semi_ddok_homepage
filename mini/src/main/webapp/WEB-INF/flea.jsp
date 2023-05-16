@@ -48,16 +48,20 @@
             margin: auto;
         }
         
-        table {
-        width : 100%;}
+        table {}
 
         table,
         td,
         th {
-            border: 1px dotted black;
+            /* border: 1px dotted black; */
             border-collapse: collapse;
             padding: 16px;
             table-layout: fixed;
+            text-align:center;
+        }
+        
+        th {
+        	border-bottom: 1px solid #999999;
         }
         
         
@@ -125,9 +129,31 @@
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
         }
+        #sale_flg { 
+        	width : 9%;
+        }
+        
+        #address {
+        	width : 16%;
+        }
+        
         
         #title {
         	cursor : pointer;
+        	width : 40%;
+        	text-align:left;
+        }
+        
+        #id {
+        	width : 10%;
+        }
+        
+        #date {
+        	width : 15%;
+        }
+        
+        #viewCnt {
+        	width : 10%;
         }
         
         .writeBtn {
