@@ -33,6 +33,9 @@ public interface FundingMapper {
 	// 랜선장터 댓글 입력
 	void insertFleaComment(HashMap<String, Object> map);
 	
+	// 댓글 입력시 reno업데이트
+	void updateReno(HashMap<String, Object> map);
+	
 	// 랜선장터 대댓글 입력
 	void insertFleaReComment(HashMap<String, Object> map);
 	

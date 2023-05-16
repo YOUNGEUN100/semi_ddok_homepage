@@ -25,6 +25,9 @@ public interface FundingService {
 	// 랜선장터 댓글 입력
 	void addFleaComment(HashMap<String, Object> map);
 	
+	// 댓글 입력시 reno업데이트
+	void editReno(HashMap<String, Object> map);
+	
 	// 랜선장터 대댓글 입력
 	void addFleaReComment(HashMap<String, Object> map);
 	

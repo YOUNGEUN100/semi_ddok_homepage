@@ -192,7 +192,9 @@
 
 			LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
 			
-			WHERE BOARD_NO = #{boardNo} AND DELETE_YN = 'N';
+			WHERE BOARD_NO = #{boardNo} AND DELETE_YN = 'N'
+            
+            ORDER BY COMMENT_RENO;
 		</select>	
 			
 		<!-- 랜선장터 댓글 입력 -->
@@ -215,6 +217,13 @@
 				'N'
 				)
 		</insert>
+		
+		
+		<update id="updateReno" parameterType="hashmap">
+			UPDATE T4_COMMENT 
+			SET COMMENT_RENO = COMMENT_NO 
+			WHERE COMMENT_RENO IS NULL
+		</update>
 		
 		<!-- 랜선장터 거래종료 -->
 		<update id="finishTrade" parameterType="hashmap">

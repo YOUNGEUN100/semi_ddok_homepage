@@ -197,30 +197,39 @@
                                 <div class="comment_list" v-for="(item, index) in list">
                                 	<template v-if="editCoNo != item.commentNo">
                                 	
-                                    	<div class="commenter"> <!-- 댓글작성자 댓글작성일 정보영역 -->
-	                                        <span>{{item.nick}}</span>
-    	                                    <span>{{item.cdatetime2}}</span>
-        	                                <button @click="fnDeleteComment(item.commentNo)" v-if="sessionId == item.userId || sessionStatus == 'A'">삭제</button>
-            	                            <button @click="fnEditComment(item)" v-if="sessionId == item.userId || sessionStatus == 'A'">수정</button>
-                	                    </div>
+                                		<div  v-if="item.commentNo == item.commentReno"> <!-- 댓글 commentNo와 commentReno가 같으면 출력 -->
+                                		
+                                			<div class="commenter"> <!-- 댓글작성자 댓글작성일 정보영역 -->
+		                                        <span>{{item.nick}}</span>
+    		                                    <span>{{item.cdatetime2}}</span>
+        		                                <button @click="fnDeleteComment(item.commentNo)" v-if="sessionId == item.userId || sessionStatus == 'A'">삭제</button>
+            		                            <button @click="fnEditComment(item)" v-if="sessionId == item.userId || sessionStatus == 'A'">수정</button>
+                		                    </div>
                 	                    
-                    	                <div class="comment_content"> <!-- 댓글내용 -->
-                        	                <pre v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">{{item.content}}</pre>
-                        	                <pre v-else> 비밀 댓글입니다.</pre>                       	                                     	                
-
-                            	        </div>
+                    		                <div class="comment_content"> <!-- 댓글내용 -->
+                        		                <pre v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">{{item.content}}</pre>
+                        		                <pre v-else> 비밀 댓글입니다.</pre>
+                            		        </div>
                             	        
-                            	        <div class="reComment_content"> <!-- 대댓글영역 -->
-                            	        	<div v-if="editReCoNo != item.commentNo">
-                            	        		<div v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId" @click="fnRecommentBtn(item)">답글작성</div> 
-                            	        	</div>
-                            	       	 	<div v-else>
-                            	        		<textarea placeholder="댓글을 입력하세요." v-model="reContent"></textarea>
-                        	               		<button @click="fnWriteReComment(item.commentNo)">입력</button>
-                        	               		<button @click="fnRecommentclose">취소</button>
-                            	        	</div>
-                            	        </div>
-
+                            	        
+                            	        
+                            	    	    <div class="reComment_content"> <!-- 대댓글작성 영역 -->
+	                            	        	<div v-if="editReCoNo != item.commentNo">
+    	                        	        		<div v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId" @click="fnRecommentBtn(item)">답글작성</div> 
+        	                    	        	</div>
+            	                	       	 	<div v-else>
+                	            	        		<textarea placeholder="댓글을 입력하세요." v-model="reContent"></textarea>
+                    	    	               		<button @click="fnWriteReComment(item.commentNo)">입력</button>
+                        		               		<button @click="fnRecommentclose">취소</button>
+                            		        	</div>
+                            		        </div>
+                            		        
+                                		</div>
+                                		
+                                		<div v-else> <!-- 대댓글 출력 영역 commentNo와 commentReno가 다르면 출력 -->
+                                			<pre v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">{{item.content}}</pre>
+                                		</div>
+                                    	
                                     </template>
                                     
                                     <template v-else>
@@ -292,6 +301,7 @@
                         success: function (data) {
                             self.info = data.info;
                             console.log(data.info);
+                            self.fnGetFleaComment();
                         }
                     });
                 }
@@ -344,7 +354,7 @@
                     	success: function (data) {
                     		alert("댓글 등록 완료");
                     		self.content = "";
-                    		self.fnGetFleaComment();
+                    		self.fnGetFlea();
                     	}
                 });
             	}
@@ -527,7 +537,6 @@
             created: function () {
                 var self = this;
                 self.fnGetFlea();
-                self.fnGetFleaComment();
             }
         });
     </script>

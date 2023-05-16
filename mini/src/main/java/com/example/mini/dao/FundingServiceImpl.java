@@ -50,12 +50,18 @@ public class FundingServiceImpl implements FundingService {
 	@Override // 랜선장터 댓글 리스트
 	public List<Funding> searchFleaComment(HashMap<String, Object> map) throws Exception {
 		List<Funding> list = fundingMapper.selectFleaComment(map);
+		
 		return list;
 	}
 	
 	@Override // 랜선장터 댓글 입력
 	public void addFleaComment(HashMap<String, Object> map) {
 		fundingMapper.insertFleaComment(map);		
+	}
+	
+	@Override // 댓글 입력시 reno업데이트
+	public void editReno(HashMap<String, Object> map) {
+		fundingMapper.updateReno(map);		
 	}
 	
 	@Override // 랜선장터 대댓글 입력
