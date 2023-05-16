@@ -8,6 +8,11 @@ import com.example.mini.model.Recipe;
 
 public interface RecipeService {
 	
+	// 마이페이지 레시피 저장
+	void AddMypageRecipe(HashMap<String, Object>map);
+	// 마이페이지 중복 레시피 번호 확인
+	int checkRecipeNo(HashMap<String, Object> map);
+	
 	// 레시피 게시판 리스트(전체)
 	HashMap<String, Object> searchRecListAll(HashMap<String, Object> map) throws Exception;
 		

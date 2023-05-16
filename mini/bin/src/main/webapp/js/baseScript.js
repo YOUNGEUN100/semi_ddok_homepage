@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	$(window).scrollTop(0);
+	
 	// slick sliderEvent
     var mainVisualSlider = $('.mainVisualSlider');
     var mainContentSlider = $('.mainContentSlider');

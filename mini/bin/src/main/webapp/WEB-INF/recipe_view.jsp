@@ -255,7 +255,7 @@
             <div class="big-box">
                 <div class="recipe-info">
                     <div class="recipe-name">
-                        <div>#1인분 #냉장고털이 #빵</div>
+                        <div>{{info.hashtag}}</div>
                         <div><strong>{{info.recipeName}}</strong></div>
                     </div>
                     <hr>

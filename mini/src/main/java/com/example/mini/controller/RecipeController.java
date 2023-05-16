@@ -110,6 +110,20 @@ public class RecipeController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
+	// 마이페이지 레시피 저장
+	@RequestMapping(value = "/recipe/mypageSave.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String recipeMypageSave(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int cnt = recipeService.checkRecipeNo(map);
+		if (cnt == 0) {
+			recipeService.AddMypageRecipe(map);
+			resultMap.put("message", "등록되었습니다.");
+		} else {
+			resultMap.put("message", "이미 등록된 레시피입니다.");
+		}
+		return new Gson().toJson(resultMap);
+	}
 	
 	
 	// 페이지 - 똑똑한 레시피 등록 및 수정

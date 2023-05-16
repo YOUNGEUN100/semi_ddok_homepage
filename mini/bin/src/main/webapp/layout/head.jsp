@@ -21,6 +21,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <!-- 페이징 추가1 -->
+    <script src="https://unpkg.com/vuejs-paginate@latest"></script>
+	<script src="https://unpkg.com/vuejs-paginate@0.9.0"></script>
+	<!-- 1. vue2editor 에디터 cdn -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+	<script src="https://unpkg.com/vue2-editor@2.3.11/dist/index.js"></script>
+    
 </head>
 <body id="viewBd">
 <jsp:include page="/layout/includeHeader.jsp"></jsp:include>

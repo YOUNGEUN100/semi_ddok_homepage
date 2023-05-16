@@ -20,8 +20,8 @@
 <section id="mainContent" class="nth1">
     <div class="wrapper">
         <h2 class="mctTitle">현재 진행중인 랜선펀딩</h2>
-        <div class="mctArea type2" v-for="(item, index) in fundingList">
-            <a @click="fnViewFunding(item.fundingNo)" href="javaScript:;" class="mctThumb typeRow">
+        <div class="mctArea type2">
+            <a @click="fnViewFunding(item.fundingNo)" href="javaScript:;" class="mctThumb typeRow" v-for="(item, index) in fundingList">
 				<div class="imgBox">
 				    <img :src="item.imgPath" alt="펀딩이미지">
 				</div>
@@ -113,40 +113,25 @@
 <section id="mainContent" class="nth3">
     <div class="wrapper">
         <h2 class="mctTitle">똑똑한 레시피</h2>
-        <ul class="mctTab">
+        <ul class="mctTab" style="display:none;">
             <li><a href="javaScript:;" class="active">한식</a></li>
             <li><a href="javaScript:;">양식</a></li>
             <li><a href="javaScript:;">분식</a></li>
             <li><a href="javaScript:;">디저트</a></li>
         </ul>
         <div class="mctArea type3">
-            <div class="mctThumb typeCol">
-                <a href="javaScript:;" class="imgBox">
-                    <!-- <img src="" alt=""> -->
-              </a>
-              <a href="javaScript:;" class="txtBox">
-                  <p class="text">#요리초보 #요린이 #봄나물 #제철나물 #나물요리</p>
-                  <h4 class="title">봄 된장 비빔밥</h4>
-              </a>
-          </div>
-          <div class="mctThumb typeCol">
-              <a href="javaScript:;" class="imgBox">
-                  <!-- <img src="" alt=""> -->
-              </a>
-              <a href="javaScript:;" class="txtBox">
-                  <p class="text">#라면 #돈까스 #분식 #분식집</p>
-                  <h4 class="title">돈까스 김치나베 라면</h4>
-              </a>
-          </div>
-          <div class="mctThumb typeCol">
-              <a href="javaScript:;" class="imgBox">
-                  <!-- <img src="" alt=""> -->
-                </a>
-                <a href="javaScript:;" class="txtBox">
-                    <p class="text">#국수 #열무김치 #비빔장 #새콤달콤 #한그릇</p>
-                    <h4 class="title">열무비빔국수</h4>
-                </a>
-            </div>
+		    <div class="mctThumb typeCol" v-for="(item, index) in recipeList" >
+		        <a href="javaScript:;" class="imgBox" @click="fnViewRecipe(item.recipeNo)">
+		        <img :src="item.imgPath" alt="레시피 이미지">
+		        </a>
+		      <a href="javaScript:;" class="txtBox">
+		          <p class="text">#요리초보 #요린이 #봄나물 #제철나물 #나물요리</p>
+		          <h4 class="title">{{item.recipeName}}</h4>
+		      </a>
+		  </div>
+		</div>
+          
+          
         </div>
     </div>
 </section>
@@ -161,27 +146,21 @@
         </div>
         <div class="mctArea mainContentSlider">
             <div class="mctThumb typeCol">
-                <a href="javaScript:;" class="imgBox">
-                    <img src="" alt="">
-                </a>
+                  <img src="/images/news1_1.jpg" alt="카드">
                 <a href="javaScript:;" class="txtBox">
                 	<p class="text">요리를 하려는데 계량 기구가 없다면?</p>
                     <h4 class="title">한 눈으로 살펴보는 간단한 계량팁</h4>
                 </a>
             </div>
             <div class="mctThumb typeCol">
-                <a href="javaScript:;" class="imgBox">
-                    <img src="" alt="">
-                </a>
+                <img src="/images/news2_1.jpg" alt="">
                 <a href="javaScript:;" class="txtBox">
                 	<p class="text">작정하고 출시했다는</p>
                     <h4 class="title">다*소 피크닉 신상템 모음집</h4>
                 </a>
             </div>
             <div class="mctThumb typeCol">
-                <a href="javaScript:;" class="imgBox">
-                    <img src="" alt="">
-                </a>
+                 <img src="/images/news3_1.jpg" alt="">
                 <a href="javaScript:;" class="txtBox">
                 	<p class="text">경제·재테크 꿀팁!</p>
                     <h4 class="title">운동하고 5만원도 받는 1석2조 제도</h4>
@@ -209,8 +188,8 @@
 var app = new Vue({ 
     el: '#app',
     data: {
-    	fundingList : []
-   	    	
+    	fundingList : [],
+   		recipeList : []	
 
     }
     
@@ -266,7 +245,27 @@ var app = new Vue({
                 	var self = this;
                 	self.pageChange("./funding/view/open.do", {fundingNo : fundingNo});
         }
-   	 
+   		// 레시피 리스트
+   	 	, fnGetRecipe : function() {
+			var self = this;    		
+	      	var nparmap = {};
+	        $.ajax({
+	            url:"/index/recipe.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	//console.log("레시피 데이터 : ");
+	            	//console.log(data);
+					self.recipeList = data.list;
+	            }
+	        }); 
+		 }
+		// 레시피 상세보기
+	 	, fnViewRecipe: function(recipeNo) {
+		  	var self = this;
+		  	self.pageChange("./recipe/view.do", {recipeNo : recipeNo});
+		}
     	
     		
     		
@@ -274,6 +273,7 @@ var app = new Vue({
     , created: function () {
     	var self = this;
     	self.fnGetFunding();
+    	self.fnGetRecipe();
 	}
 });
 </script>

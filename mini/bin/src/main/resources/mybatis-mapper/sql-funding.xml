@@ -2,9 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-	<!--랜선마켓 리스트-->
+	
 	<mapper namespace="com.example.mini.mapper.FundingMapper">
-		<select id="selectLanList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+		<!--랜선장터 거래 리스트-->
+		<select id="selectTradeFleaList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+		<![CDATA[
 			SELECT      
 				BOARD_NO,
 				A.USER_ID,
@@ -13,26 +15,271 @@
 				CONTENT,
 				HITS,
 				BOARD_KIND,
+				CASE
+					WHEN BOARD_KIND = 'T_LAN' && FINISH_YN = 'N' THEN '판매중'
+					WHEN BOARD_KIND = 'T_LAN' && FINISH_YN = 'Y' THEN '판매완료'
+        			WHEN BOARD_KIND = 'D_LAN' && FINISH_YN = 'N' THEN '나눔중'
+        			WHEN BOARD_KIND = 'D_LAN' && FINISH_YN = 'Y' THEN '나눔완료'
+					END AS BOARD_KIND2,
 				FINISH_YN,
 				CATEGORY,
+				CDATETIME,
+				UDATETIME,
 				CASE
 					WHEN CURDATE() = DATE_FORMAT(CDATETIME,'%Y-%m-%d') then DATE_FORMAT(CDATETIME,'%H : %i : %s')
             	    ELSE DATE_FORMAT(CDATETIME,'%Y-%m-%d') 
-				END AS CDATETIME,
+				END AS CDATETIME2,
 				CASE
 					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
             	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
-				END AS UDATETIME,
+				END AS UDATETIME2,
 				DELETE_YN,
 				SECRET_YN,
 				ANSWER_YN,
             	B.ADDR
+            	
 			FROM T4_BOARD A
+			
         	LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
-        	WHERE BOARD_KIND = 'T_LAN' OR BOARD_KIND = 'D_LAN'
+        	
+        	WHERE BOARD_KIND = 'T_LAN' ]]>
+        	
+        	
+        	
+        	<if test = "orderValue == 'recent'">
+        	ORDER BY CDATETIME DESC
+        	</if>
+        	
+        	<if test = "orderValue == 'viewCnt'">
+        	ORDER BY HITS DESC
+        	</if>
+        	  	
+        	LIMIT #{startNum} , #{lastNum}
+        	
+
 		</select>
 		
-		<!--오픈된 펀딩 리스트-->		
+		<!--랜선장터 나눔 리스트-->
+		<select id="selectDonateFleaList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+		<![CDATA[
+			SELECT      
+				BOARD_NO,
+				A.USER_ID,
+				B.NICK,
+				TITLE,
+				CONTENT,
+				HITS,
+				BOARD_KIND,
+				CASE
+					WHEN BOARD_KIND = 'T_LAN' && FINISH_YN = 'N' THEN '판매중'
+					WHEN BOARD_KIND = 'T_LAN' && FINISH_YN = 'Y' THEN '판매완료'
+        			WHEN BOARD_KIND = 'D_LAN' && FINISH_YN = 'N' THEN '나눔중'
+        			WHEN BOARD_KIND = 'D_LAN' && FINISH_YN = 'Y' THEN '나눔완료'
+					END AS BOARD_KIND2,
+				FINISH_YN,
+				CATEGORY,
+				CDATETIME,
+				UDATETIME,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(CDATETIME,'%Y-%m-%d') then DATE_FORMAT(CDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(CDATETIME,'%Y-%m-%d') 
+				END AS CDATETIME2,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
+				END AS UDATETIME2,
+				DELETE_YN,
+				SECRET_YN,
+				ANSWER_YN,
+            	B.ADDR
+            	
+			FROM T4_BOARD A
+			
+        	LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
+        	
+        	WHERE BOARD_KIND = 'D_LAN' AND DELETE_YN !='Y']]>
+        	
+        	<if test = "orderValue2 == 'recent'">
+        	ORDER BY CDATETIME DESC
+        	</if>
+        	
+        	<if test = "orderValue2 == 'viewCnt'">
+        	ORDER BY HITS DESC
+        	</if>
+        	
+        	<if test = "moreBtn2 == 'off'">
+			LIMIT 5
+			</if>
+		</select>
+		
+		<!-- 페이징 용 카운트 -->
+		<select id="fleaPagingCnt" parameterType="hashmap" resultType="int">
+			SELECT COUNT(*) AS CNT
+            FROM T4_BOARD
+            WHERE BOARD_KIND = 'T_LAN';
+		</select>
+		
+		
+		<!-- 랜선장터 글보기  -->
+		<select id="selectFleaInfo" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+		<![CDATA[
+			SELECT      
+				BOARD_NO,
+				A.USER_ID,
+				B.NICK,
+				TITLE,
+				CONTENT,
+				HITS,
+				BOARD_KIND,
+				CASE
+					WHEN BOARD_KIND = 'T_LAN' && FINISH_YN = 'N' THEN '판매중'
+					WHEN BOARD_KIND = 'T_LAN' && FINISH_YN = 'Y' THEN '판매완료'
+        			WHEN BOARD_KIND = 'D_LAN' && FINISH_YN = 'N' THEN '나눔중'
+        			WHEN BOARD_KIND = 'D_LAN' && FINISH_YN = 'Y' THEN '나눔완료'
+					END AS BOARD_KIND2,
+				FINISH_YN,
+				CATEGORY,
+				CDATETIME,
+				UDATETIME,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(CDATETIME,'%Y-%m-%d') then DATE_FORMAT(CDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(CDATETIME,'%Y-%m-%d') 
+				END AS CDATETIME2,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
+				END AS UDATETIME2,
+				DELETE_YN,
+				SECRET_YN,
+				ANSWER_YN,
+            	B.ADDR
+            	
+			FROM T4_BOARD A 
+			
+        	LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID 
+        	
+        	WHERE BOARD_NO = #{boardNo} ]]>
+		</select>
+		
+		<!-- 게시글 조회수 증가 -->
+		<update id="updateCnt" parameterType="hashmap" >
+			UPDATE T4_BOARD 
+			SET HITS = HITS + 1
+			WHERE BOARD_NO = #{boardNo}
+		</update>
+		
+		<!-- 랜선장터 댓글 리스트 -->
+		<select id="selectFleaComment" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+			SELECT 
+				COMMENT_NO,
+				BOARD_NO,
+    			A.USER_ID,
+    			NICK,
+    			CONTENT,
+   			 	COMMENT_RENO,
+    			CDATETIME,
+    			UDATETIME,
+    			CASE
+					WHEN CURDATE() = DATE_FORMAT(CDATETIME,'%Y-%m-%d') then DATE_FORMAT(CDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(CDATETIME,'%Y-%m-%d') 
+				END AS CDATETIME2,
+				CASE
+					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
+            	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
+				END AS UDATETIME2  
+    
+			FROM T4_COMMENT A
+
+			LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
+			
+			WHERE BOARD_NO = #{boardNo};
+		</select>
+		
+		<!-- 랜선장터 게시글 등록 -->
+		<insert id="insertFlea" parameterType="hashmap">
+			INSERT INTO T4_BOARD (
+				BOARD_NO,
+                USER_ID,
+                TITLE,
+                CONTENT,
+                HITS,
+                BOARD_KIND,
+                FINISH_YN,
+                CDATETIME,
+                UDATETIME,
+                DELETE_YN
+                )
+			VALUES (
+				NULL,
+				#{sessionId},
+				#{title},
+				#{content},
+				0,
+				#{boardKind},
+				'N',
+				NOW(),
+				NOW(),
+				'N'				
+				)
+		</insert>
+		
+		<!-- 랜선장터 댓글 입력 -->
+		<insert id="insertFleaComment" parameterType="hashmap">
+			INSERT INTO T4_COMMENT (
+				COMMENT_NO,
+				BOARD_NO,
+				USER_ID,
+				CONTENT,
+				CDATETIME,
+				UDATETIME)
+			VALUES (
+				NULL,
+				#{boardNo},
+				#{sessionId},
+				#{content},
+				NOW(),
+				NOW())
+		</insert>
+		
+		<!-- 랜선장터 거래종료 -->
+		<update id="finishTrade" parameterType="hashmap">
+			UPDATE T4_BOARD 
+			SET FINISH_YN = 'Y'
+			WHERE BOARD_NO = #{boardNo}
+		</update>
+		
+		<!-- 랜선장터 게시글 삭제 -->
+		<update id="deleteFlea" parameterType="hashmap">
+			UPDATE T4_BOARD
+			SET DELETE_YN = 'Y'
+			WHERE BOARD_NO = #{boardNo}
+		</update>
+		
+		<!-- 랜선장터 게시글 수정 -->
+		<update id="editFlea" parameterType="hashmap">
+			UPDATE T4_BOARD 
+			SET BOARD_KIND = #{boardKind},
+				TITLE = #{title},
+				CONTENT = #{content},
+				UDATETIME = NOW()
+			WHERE BOARD_NO = #{boardNo}
+		</update>
+		
+		<!-- 랜선장터 댓글 삭제 -->
+		<delete id="deleteComment" parameterType="hashmap">
+			DELETE FROM T4_COMMENT
+			WHERE COMMENT_NO = #{commentNo}
+		</delete>
+		
+		<!-- 랜선장터 댓글 수정 -->
+		<update id="editComment" parameterType="hashmap">
+			UPDATE T4_COMMENT
+			SET CONTENT = #{content},
+				UDATETIME = NOW()
+			WHERE COMMENT_NO = #{commentNo}
+		</update>
+		
+		<!--오픈된 펀딩 리스트-->
 		<select id="selectOpenFundingList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			<![CDATA[
 				SELECT
@@ -50,17 +297,19 @@
 					UDATETIME,
 					CNT,
 					TIMESTAMPDIFF(DAY, NOW(), FUNDING_END_DT) AS D_DAY,
-					IMG_PATH
+					IMG_PATH,
+					CONCAT(IMG_PATH, IMG_ORG_NAME) AS IMG_PATH2,
+					DATE_FORMAT(FUNDING_END_DT,'%k') AS END_TIME
 					
 				FROM T4_FUNDING A
 				LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
 							FROM T4_FUNDING_MEMBER
 							GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
-				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH
+				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_ORG_NAME
 							FROM T4_F_IMAGE
 							WHERE THUMBNAIL_YN = 'Y'
 							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
-				WHERE  FUNDING_START_DT < NOW()]]>
+				WHERE  FUNDING_START_DT < NOW() AND FUNDING_CLOSE_YN = 'Y']]>
 				
 				<if test = "orderValue == 'endDate'">
 				ORDER BY FUNDING_END_DT
@@ -109,7 +358,8 @@
             		END AS DOW,
             		DATE_FORMAT(FUNDING_START_DT, '%c/%e') AS S_DAY,
             		DATE_FORMAT(FUNDING_START_DT, '%H') AS S_TIME,
-            		IMG_PATH
+            		IMG_PATH,
+            		CONCAT(IMG_PATH, IMG_ORG_NAME) AS IMG_PATH2
             		
 				FROM T4_FUNDING A
 				
@@ -117,7 +367,7 @@
 							FROM T4_FUNDING_MEMBER
 							GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
 							
-				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH
+				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_ORG_NAME
 							FROM T4_F_IMAGE
 							WHERE THUMBNAIL_YN = 'Y'
 							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
@@ -142,6 +392,7 @@
 			 
 		</select>
 		
+		<!--오픈된 펀딩 상세-->
 		<select id="selectOpenFundingInfo" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			SELECT
 					A.FUNDING_NO,
@@ -158,7 +409,9 @@
 					UDATETIME,
 					CNT,
 					TIMESTAMPDIFF(DAY, NOW(), FUNDING_END_DT) AS D_DAY,
-					IMG_PATH
+					IMG_PATH,
+					IMG_PATH_DETAIL,
+					DATE_FORMAT(FUNDING_END_DT,'%k') AS END_TIME
 					
 			FROM T4_FUNDING A
 			LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
@@ -168,9 +421,114 @@
 						FROM T4_F_IMAGE
 						WHERE THUMBNAIL_YN = 'Y'
 						GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
+			LEFT JOIN ( SELECT FUNDING_NO, IMG_PATH AS IMG_PATH_DETAIL
+						FROM T4_F_IMAGE
+                        WHERE THUMBNAIL_YN = 'N'
+						) D ON A.FUNDING_NO = D.FUNDING_NO
 			WHERE A.FUNDING_NO = #{fundingNo}
 			 
 		</select>
 		
+		<!--준비중 펀딩 상세-->		
+		<select id="selectPlannedFundingInfo" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+			
+				SELECT
+					A.FUNDING_NO,
+					FUNDING_NAME,
+					FUNDING_SUMMARY,
+					FUNDING_SCRIPT,
+					FUNDING_START_DT,
+					FUNDING_END_DT,
+					FUNDING_CLOSE_YN,
+					FUNDING_GOAL_CNT,
+					FUNDING_PRICE,
+					FORMAT(FUNDING_PRICE , 0) AS FUNDING_PRICE2,
+					CDATETIME,
+					UDATETIME,
+					CNT,
+					TIMESTAMPDIFF(day, now(), FUNDING_END_DT) AS D_DAY,
+					CASE 
+						WHEN DAYOFWEEK(FUNDING_START_DT) = 1 THEN '(일)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 2 THEN '(월)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 3 THEN '(화)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 4 THEN '(수)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 5 THEN '(목)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 6 THEN '(금)'
+                		WHEN DAYOFWEEK(FUNDING_START_DT) = 7 THEN '(토)'
+            		END AS DOW,
+            		DATE_FORMAT(FUNDING_START_DT, '%c/%e') AS S_DAY,
+            		DATE_FORMAT(FUNDING_START_DT, '%H') AS S_TIME,
+            		IMG_PATH,
+            		IMG_PATH_DETAIL,
+            		DATE_FORMAT(FUNDING_START_DT,'%Y-%m-%d') AS START_DATE
+            		
+				FROM T4_FUNDING A
+				
+				LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
+							FROM T4_FUNDING_MEMBER
+							GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
+							
+				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH
+							FROM T4_F_IMAGE
+							WHERE THUMBNAIL_YN = 'Y'
+							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
+				LEFT JOIN ( SELECT FUNDING_NO, IMG_PATH AS IMG_PATH_DETAIL
+						FROM T4_F_IMAGE
+                        WHERE THUMBNAIL_YN = 'N'
+						) D ON A.FUNDING_NO = D.FUNDING_NO
+									
+				WHERE A.FUNDING_NO = #{fundingNo}				
+			 
+		</select>
+		
+		<!-- 펀딩 신청 인서트 -->
+		<insert id="applyFunding" parameterType="hashmap">
+			INSERT INTO T4_FUNDING_MEMBER
+			VALUES
+				(#{fundingNo},
+				#{sessionId},
+				NOW(),
+				NOW()
+				)
+		</insert>
+		
+		<!-- 펀딩신청 중복검사용 cnt -->
+		<select id="checkFundingMember" parameterType="hashmap" resultType="int">
+			SELECT COUNT(*) AS CNT
+			FROM T4_FUNDING_MEMBER
+			WHERE FUNDING_NO = #{fundingNo} AND USER_ID = #{sessionId}
+		</select>
+		
+		<update id="checkFundingDate" parameterType="hashmap">
+			UPDATE T4_FUNDING
+			SET FUNDING_CLOSE_YN = 'Y',
+				UDATETIME = NOW()
+			WHERE FUNDING_END_DT > NOW()
+		</update>
+		
+		<!-- 펀딩 등록 -->
+		<insert id="insertFunding" parameterType="hashmap" useGeneratedKeys="true" keyProperty="id" keyColumn="FUNDING_NO">
+			INSERT INTO T4_FUNDING
+			VALUES
+				(NULL,
+				#{title},
+				#{summary},
+				#{content},
+				#{openDate},
+				#{endDate},
+				'N',				
+				#{goal},
+				#{price},
+				NOW(),
+				NOW()
+				)
+		</insert>
+		
+		<!-- 펀딩 이미지 등록 -->
+		<insert id="insertFundingImg" parameterType="hashmap">
+		INSERT INTO T4_F_IMAGE
+		VALUES
+			(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'N', NULL, NOW(), NOW() )
+		</insert>
 		
 	</mapper>

@@ -17,7 +17,8 @@
 				ADDR,
 				ADDR2,
 				JOINDATE,
-				PW_HINT	
+				PW_Q,
+				PW_A
 			FROM T4_USER
 			WHERE USER_ID=#{id} AND PASSWORD=#{pw}
 		</select>
@@ -26,6 +27,12 @@
 			SELECT COUNT(*) AS CNT 
 			FROM T4_USER
 			WHERE USER_ID = #{id}
+		</select>
+		
+		<select id="selectUserNickCnt" parameterType="HashMap" resultType="int">
+			SELECT COUNT(*) AS CNT 
+			FROM T4_USER
+			WHERE NICK = #{nick}
 		</select>
 		
 		<insert id="insertUser" parameterType="HashMap">
@@ -42,8 +49,34 @@
 				ADDR,
 				ADDR2,
 				JOINDATE,
-				PW_HINT)
+				PW_Q,
+				PW_A)
 			VALUES(#{id}, #{pw}, #{name}, #{nick}, #{email}, #{birth},
-			#{hp}, #{livingYear}, #{status}, #{addr}, #{addr2}, now(), #{pwHint})
+			#{hp}, #{livingYear}, #{status}, #{addr}, #{addr2}, now(), #{pwQ}, #{pwA})
 		</insert>
+		
+		<select id="selectUserId" parameterType="HashMap" resultType="com.example.mini.model.User">
+			SELECT USER_ID 
+			FROM T4_USER
+			WHERE NAME = #{name} AND HP = #{hp} AND BIRTH = #{birth}
+		</select>
+		
+		<select id="selectUserIdCnt" parameterType="HashMap" resultType="int">
+			SELECT COUNT(USER_ID)  
+			FROM T4_USER
+			WHERE NAME = #{name} AND HP = #{hp} AND BIRTH = #{birth}
+		</select>
+		
+		<select id="selectUserPw" parameterType="HashMap" resultType="com.example.mini.model.User">
+			SELECT PASSWORD 
+			FROM T4_USER 
+			WHERE USER_ID = #{id} AND NAME = #{name} AND PW_Q = #{pwQ} AND PW_A = #{pwA}
+		</select>
+		
+		<update id="updatePw" parameterType="HashMap">
+			UPDATE T4_USER
+			SET PASSWORD = #{pw}
+			WHERE USER_ID  = #{id} AND NAME = #{name} AND PW_Q = #{pwQ} AND PW_A =#{pwA}
+		</update> 
+		
 	</mapper>

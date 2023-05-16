@@ -11,6 +11,12 @@ import com.example.mini.model.Recipe;
 @Mapper
 public interface RecipeMapper {
 	
+	// 마이페이지 레시피 저장
+	void insertMypageRecipe(HashMap<String,Object>map);
+	
+	// 마이페이지 중복 레시피 번호 확인
+	int checkRecipeNo(HashMap<String, Object> map);
+	
 	// 레시피 게시판 리스트(전체)
 	List<Recipe> selectRecListAll(HashMap<String, Object> map);
 	

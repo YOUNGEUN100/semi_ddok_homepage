@@ -21,6 +21,7 @@ public class Recipe {
 	private int cookIndex;
 	private String cookContent;
 
+	private String userId;
 	
 	public int getRecipeNo() {
 		return recipeNo;
@@ -130,6 +131,12 @@ public class Recipe {
 	}
 	public void setCookContent(String cookContent) {
 		this.cookContent = cookContent;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	

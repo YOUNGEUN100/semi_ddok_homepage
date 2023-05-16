@@ -5,6 +5,19 @@
 
 	<mapper namespace="com.example.mini.mapper.RecipeMapper">
 	
+	<!-- 레시피 마이페이지 저장 -->
+	<insert id="insertMypageRecipe" parameterType="HashMap">
+			INSERT INTO T4_USER_RECIPE 
+    		VALUES(#{userId}, #{recipeNo})
+	</insert>
+	
+	<!-- 마이페이지 중복 레시피 번호 확인 -->
+	<select id="checkRecipeNo" parameterType="HashMap" resultType="int">
+		SELECT COUNT(*) AS CNT
+		FROM T4_USER_RECIPE
+		WHERE RECIPE_NO = #{recipeNo};
+	</select>
+	
 	<!--레시피 리스트-->
 		<select id="selectRecListAll" parameterType="hashmap" resultType="com.example.mini.model.Recipe">
 	      SELECT  

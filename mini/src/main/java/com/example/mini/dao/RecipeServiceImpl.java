@@ -15,6 +15,18 @@ public class RecipeServiceImpl implements RecipeService{
 
 	@Autowired //Mapper와 연결
 	private RecipeMapper recipeMapper;
+	
+	// 레시피 등록
+	@Override
+	public void AddMypageRecipe(HashMap<String, Object> map) {
+		recipeMapper.insertMypageRecipe(map);
+	}
+	// 마이페이지 중복 레시피 번호 확인
+	@Override
+	public int checkRecipeNo(HashMap<String, Object> map) {
+		return recipeMapper.checkRecipeNo(map);
+	}
+	
 
 	@Override
 	public HashMap<String, Object> searchRecListAll(HashMap<String, Object> map) throws Exception {

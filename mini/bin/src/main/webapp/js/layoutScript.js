@@ -36,4 +36,5 @@ $(document).ready(function(){
         var self = this;
         $(self).removeClass("active");
     });
+
 });

@@ -29,12 +29,25 @@ public class CommunityServiceImpl implements CommunityService{
 	public HashMap<String, Object> searchComInfo(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("info", communityMapper.selectComInfo(map));
-		resultMap.put("list", communityMapper.selectComment(map));
 		if(resultMap.get("info") != null) {
 			communityMapper.updateComCnt(map);
 		}
 		return resultMap;
 	}
+	
+	// 댓글 리스트 글보기
+	@Override
+	public HashMap<String, Object> selectComment(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("list", communityMapper.selectComment(map));
+		return resultMap;
+	}
+	// 댓글 쓰기
+	@Override
+	public void addComment(HashMap<String, Object> map) {
+		communityMapper.insertComment(map);	
+	}
+
 	// 커뮤니티 글쓰기
 	@Override
 	public void addCom(HashMap<String, Object> map) {

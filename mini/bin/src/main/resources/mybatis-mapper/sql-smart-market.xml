@@ -6,19 +6,239 @@
 	<mapper namespace="com.example.mini.mapper.SmartMarketMapper">
 		<select id="selectSmartMarketList" parameterType="hashmap" resultType="com.example.mini.model.SmartMarket">
 			SELECT 
-				PRODUCT_NO
-				,PRODUCT_NAME
-				,PRODUCT_KIND
-				,PRODUCT_WEIGHT
-				,PRODUCT_EA
-				,PRODUCT_VOLUME
-				,TITLE
-				,CONTENT
-				,PRODUCT_PRICE
-				,PRODUCT_STOCK
-				,PRODUCT_CNT
-				,DISCOUNT_YN
-				,DELETE_YN
-			FROM T4_PRODUCT ;
+				A.PRODUCT_NO
+				, A.PRODUCT_NAME
+				, A.PRODUCT_KIND
+				, A.PRODUCT_WEIGHT
+				, A.PRODUCT_EA
+				, A.PRODUCT_VOLUME
+				, A.TITLE
+				, A.CONTENT
+				, A.PRODUCT_PRICE
+				, A.PRODUCT_STOCK
+				, A.PRODUCT_CNT
+				, A.DISCOUNT_YN
+				, A.DELETE_YN
+				, B.IMG_PATH
+                , C.SATISFACTION_GRADE
+				, C.REPURCHASE_GRADE
+				, C.DELIVERY_GRADE
+			FROM T4_PRODUCT A 
+			INNER JOIN  T4_P_IMAGE B 
+			ON A.PRODUCT_NO=B.PRODUCT_NO
+            LEFT JOIN (
+					SELECT 
+						AVG(SATISFACTION_GRADE) AS SATISFACTION_GRADE
+						, AVG(REPURCHASE_GRADE) AS REPURCHASE_GRADE
+						, AVG(DELIVERY_GRADE) AS DELIVERY_GRADE
+						, PRODUCT_NO
+					FROM T4_REVIEW GROUP BY PRODUCT_NO
+                    ) C 
+			ON A.PRODUCT_NO = C.PRODUCT_NO
+			WHERE B.THUMBNAIL_YN='Y'
+			<if test="product_kind !='' and product_kind != null">
+			AND PRODUCT_KIND = #{product_kind}
+		</if>
 		</select>
+		
+		<select id="selectSmartMarketRecommendList" parameterType="hashmap" resultType="com.example.mini.model.SmartMarket">
+			SELECT 
+				A.PRODUCT_NO
+				, A.PRODUCT_NAME
+				, A.PRODUCT_KIND
+				, A.PRODUCT_WEIGHT
+				, A.PRODUCT_EA
+				, A.PRODUCT_VOLUME
+				, A.TITLE
+				, A.CONTENT
+				, A.PRODUCT_PRICE
+				, A.PRODUCT_STOCK
+				, A.PRODUCT_CNT
+				, A.DISCOUNT_YN
+				, A.DELETE_YN
+				, B.IMG_PATH
+                , C.SATISFACTION_GRADE
+				, C.REPURCHASE_GRADE
+				, C.DELIVERY_GRADE
+			FROM T4_PRODUCT A 
+			INNER JOIN  T4_P_IMAGE B 
+			ON A.PRODUCT_NO=B.PRODUCT_NO
+            LEFT JOIN (
+					SELECT 
+						AVG(SATISFACTION_GRADE) AS SATISFACTION_GRADE
+						, AVG(REPURCHASE_GRADE) AS REPURCHASE_GRADE
+						, AVG(DELIVERY_GRADE) AS DELIVERY_GRADE
+						, PRODUCT_NO
+					FROM T4_REVIEW GROUP BY PRODUCT_NO
+                    ) C 
+			ON A.PRODUCT_NO = C.PRODUCT_NO
+			WHERE B.THUMBNAIL_YN='Y'
+			ORDER BY RAND()
+			LIMIT 5		
+		</select>
+		
+		<select id="selectSmartMarketInfo" parameterType="hashmap" resultType="com.example.mini.model.SmartMarket">
+			SELECT 
+				A.PRODUCT_NO
+				, A.PRODUCT_NAME
+				, A.PRODUCT_KIND
+				, A.PRODUCT_WEIGHT
+				, A.PRODUCT_EA
+				, A.PRODUCT_VOLUME
+				, A.TITLE
+				, A.CONTENT
+				, A.PRODUCT_PRICE
+				, A.PRODUCT_STOCK
+				, A.PRODUCT_CNT
+				, A.DISCOUNT_YN
+				, A.DELETE_YN
+				, B.IMG_PATH
+                , C.SATISFACTION_GRADE
+				, C.REPURCHASE_GRADE
+				, C.DELIVERY_GRADE
+			FROM T4_PRODUCT A 
+			INNER JOIN  T4_P_IMAGE B 
+			ON A.PRODUCT_NO=B.PRODUCT_NO
+            LEFT JOIN (
+					SELECT 
+						AVG(SATISFACTION_GRADE) AS SATISFACTION_GRADE
+						, AVG(REPURCHASE_GRADE) AS REPURCHASE_GRADE
+						, AVG(DELIVERY_GRADE) AS DELIVERY_GRADE
+						, PRODUCT_NO
+					FROM T4_REVIEW GROUP BY PRODUCT_NO
+                    ) C 
+			ON A.PRODUCT_NO = C.PRODUCT_NO
+			WHERE B.THUMBNAIL_YN='Y'
+			<if test="productNo !='' and productNo != null">
+			AND A.PRODUCT_NO = #{productNo}
+		</if>
+		</select>
+		
+		<select id="selectSmartMarketImgList" parameterType="hashmap" resultType="com.example.mini.model.SmartMarket2">
+			SELECT 
+				A.PRODUCT_NO
+				, A.PRODUCT_NAME
+				, A.PRODUCT_KIND
+				, A.PRODUCT_WEIGHT
+				, A.PRODUCT_EA
+				, A.PRODUCT_VOLUME
+				, A.TITLE
+				, A.CONTENT
+				, A.PRODUCT_PRICE
+				, A.PRODUCT_STOCK
+				, A.PRODUCT_CNT
+				, A.DISCOUNT_YN
+				, A.DELETE_YN
+				, B.IMG_PATH
+			FROM T4_PRODUCT A 
+			INNER JOIN  T4_P_IMAGE B 
+			ON A.PRODUCT_NO=B.PRODUCT_NO
+			WHERE 1=1
+			AND B.THUMBNAIL_YN='N'
+			<if test="productNo !='' and productNo != null">
+			AND A.PRODUCT_NO = #{productNo}
+		</if>
+		</select>
+		
+		<select id="selectCartList" parameterType="hashmap" resultType="com.example.mini.model.Cart">
+			SELECT 
+				B.PRODUCT_NAME
+			    , B.PRODUCT_PRICE
+			    , C.IMG_PATH
+			    , A.PRODUCT_CNT
+			    , A.CART_NO
+    			, A.USER_ID
+			FROM T4_CART A
+			INNER JOIN T4_PRODUCT B
+			ON A.PRODUCT_NO = B.PRODUCT_NO
+			INNER JOIN T4_P_IMAGE C
+			ON A.PRODUCT_NO = C.PRODUCT_NO
+			WHERE 1=1
+			AND C.THUMBNAIL_YN='Y'
+			AND A.USER_ID = #{userid}		
+		</select>
+		
+		
+		<select id="selectSmartMarketReviewList" parameterType="hashmap" resultType="com.example.mini.model.SmartReview">
+			SELECT 
+				A.PRODUCT_NO
+				, B.NICK 
+				, A.SATISFACTION_GRADE 
+				, A.REPURCHASE_GRADE
+				, A.DELIVERY_GRADE 
+				, DATE_FORMAT(A.CDATETIME, '%Y-%m-%d') as CDATETIME
+			    , C.PRODUCT_NAME
+			    , A.R_ID
+			FROM T4_REVIEW A
+			INNER JOIN T4_USER B
+			ON A.USER_ID=B.USER_ID
+			INNER JOIN T4_PRODUCT C
+			ON A.PRODUCT_NO=C.PRODUCT_NO
+			WHERE 1=1
+			<if test="productNo !='' and productNo != null">
+			AND A.PRODUCT_NO = #{productNo}
+			</if>
+			ORDER BY R_ID DESC
+			LIMIT #{startNum}, 5
+		</select>
+		
+		<select id="selectSmartMarketReviewCnt" parameterType="hashmap" resultType="int">	
+		SELECT 
+			COUNT(*) AS CNT
+		FROM T4_REVIEW A
+			INNER JOIN T4_USER B
+			ON A.USER_ID=B.USER_ID
+			INNER JOIN T4_PRODUCT C
+			ON A.PRODUCT_NO=C.PRODUCT_NO
+			WHERE 1=1
+		<if test="productNo !='' and productNo != null">
+			AND A.PRODUCT_NO = #{productNo}
+		</if>
+		</select>
+		
+		
+		<select id="selectSmartMarketCnt" parameterType="hashmap" resultType="int">	
+			SELECT 
+				COUNT(*) AS CNT
+			FROM T4_PRODUCT A 
+			INNER JOIN  T4_P_IMAGE B 
+			ON A.PRODUCT_NO=B.PRODUCT_NO
+            LEFT JOIN (
+					SELECT 
+						AVG(SATISFACTION_GRADE) AS SATISFACTION_GRADE
+						, AVG(REPURCHASE_GRADE) AS REPURCHASE_GRADE
+						, AVG(DELIVERY_GRADE) AS DELIVERY_GRADE
+						, PRODUCT_NO
+					FROM T4_REVIEW GROUP BY PRODUCT_NO
+                    ) C 
+			ON A.PRODUCT_NO = C.PRODUCT_NO
+			WHERE 1=1
+			<if test="product_no !='' and product_no != null">
+				AND A.PRODUCT_NO = #{product_no};
+			</if>
+		</select>	
+		
+		<select id="selectSmartMarketKind" parameterType="hashmap" resultType="com.example.mini.model.Code">	
+			SELECT 
+				KIND,
+				CODE,
+				NAME,
+				IMG
+			FROM T4_CODE
+			WHERE KIND = 'PKIND'
+		</select>
+		
+		<insert id="insertCart" parameterType="hashmap" >
+			INSERT INTO T4_CART
+				(USER_ID, PRODUCT_NO, PRODUCT_CNT)
+			VALUES
+				(#{userid}, #{productNo}, #{productCnt})
+		</insert>
+		
+		
+		<delete id="deleteCart" parameterType="hashmap" >
+			DELETE FROM T4_CART
+			WHERE CART_NO = #{cartNo}
+		</delete>
+		
 	</mapper>

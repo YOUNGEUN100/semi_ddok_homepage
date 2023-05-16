@@ -64,6 +64,24 @@ public class CommunityController {
 		resultMap = communityService.searchComInfo(map);
 		return new Gson().toJson(resultMap);
 	}
+	// 댓글 리스트 글보기	
+		@RequestMapping(value = "/community/commentList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String commentList(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap = communityService.selectComment(map);
+			return new Gson().toJson(resultMap);
+		}
+	// 댓글 글등록
+	@RequestMapping(value = "/community/commentSave.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String commentSave(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		communityService.addComment(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+		
 	
 
 	// 5. 커뮤니티 글 작성 및 수정
