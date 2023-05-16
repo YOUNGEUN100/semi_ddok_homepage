@@ -69,13 +69,7 @@
       .myArea .contentBox .recipeBox .recipeDetail{
           font-size: 1.1em; font-weight: bold; cursor: pointer; 
       }
-      /*.myArea .contentBox .recipeBox .itemList {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            grid-template-rows: repeat(3,350px);
-        }*/
 
-      
 </style>
 
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.MyService;
+import com.example.mini.model.Funding;
 import com.example.mini.model.Recipe;
 import com.google.gson.Gson;
 
@@ -24,6 +25,7 @@ public class MyController {
 	
 	@Autowired
 	MyService myService;
+	
 	
 	@Autowired
 	HttpSession session;
@@ -60,13 +62,24 @@ public class MyController {
 	    	request.setAttribute("sessionId", session.getAttribute("sessionId"));
 	        return "/myPage_order";
 	    }
-		
+		//참여한 펀딩 리스트
 		@RequestMapping("/myPage/funding.do") 
 	    public String mypageFunding(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 			request.setAttribute("map", map);
 	    	request.setAttribute("sessionId", session.getAttribute("sessionId"));
 	        return "/myPage_funding";
 	    }
+		
+		
+		@RequestMapping(value = "/funding/attend.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String searchFundingList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<Funding> list = myService.searchAttendFunding(map);
+			resultMap.put("list", list);
+			resultMap.put("result", "success");
+			return new Gson().toJson(resultMap);
+		}
 		
 		@RequestMapping("/myPage/review.do") 
 	    public String mypageReview(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam HashMap<String, Object> map) throws Exception{

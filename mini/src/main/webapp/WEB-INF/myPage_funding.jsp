@@ -111,21 +111,22 @@
                     <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
           
-                <div class="fundingBox" id="fundingBox"><!-- 참여한 펀딩내역 요약 -->
+                <div class="fundingBox" ><!-- 참여한 펀딩내역 요약 -->
+                <div v-for="(item, index) in list">
                     <div class="fundImg">
-                        <img src="images/f_toilet.png">
+                        <img :src="item.imgPath2">
                     </div>
                     <div class="fundContent">
-                        <h1>크리넥스 3겹 데코 앤 소프트 수딩플러스 화장지 27m 팩, 24롤</h1>
-                        <div class="fundnIfo">코튼과 알로에베라 로션으로 피부에 더 편안하고 부드러운 마무리의 도톰한 3겹 제품</div>
-                        <div class="fundDetail"><p>100명 중 13명</p><p>금일 10시 종료</p></div>
+                        <h1>{{item.fundingName}}</h1>
+                        <div class="fundnIfo">{{item.fundingSummary}}</div>
+                        <div class="fundDetail"><p>{{item.fundingGoalCnt}}명 중 {{item.cnt}}명</p><p>{{item.dDay}}시 남음</p></div>
                         <div>
                             <progress max="100" value="13"></progress>
                         </div>
-                        <div class="fundPrice"><p>공구가</p><p>19,900원</p></div>
+                        <div class="fundPrice"><p>공구가</p><p>{{item.fundingPrice2}}원</p></div>
                     </div>
                 </div>
-                
+               	</div> 
             </div>
 
         </div>
@@ -143,14 +144,34 @@
 var app = new Vue({ 
     el: '#app',
     data: {
+    	list : [],
     	sessionName : "${sessionName}"	
     }
     , methods : {
-    		
+    	
+    	fnAttendFunding : function(){
+            var self = this;
+            var nparmap = {userId : self.sessionId};
+            $.ajax({
+                url:"/recipe/like.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                	console.log(self.sessionId);
+                	self.list = data.list;
+                	console.log(data.list);
+                	console.log(self.list);
+                    
+                }
+            });
+
+        }
 		   	 
 	}	
     , created: function () {
-    
+    	var self = this;
+    	self.fnAttendFunding();
 	}
 });
 	
