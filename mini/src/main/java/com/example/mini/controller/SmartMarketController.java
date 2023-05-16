@@ -69,12 +69,32 @@ public class SmartMarketController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	//카트 수정(구매하기)
+	@RequestMapping(value = "/cart-edit.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String editCart(Model model, @RequestParam  HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		String productCnt = (String) map.get("productCnt"); //숫자형으로 파싱
+		String cartNo = (String) map.get("cartNo"); //숫자형으로 파싱
+		
+		map.put("productCnt", Integer.parseInt(productCnt));
+		map.put("cartNo", Integer.parseInt(cartNo));		
+		
+		smartmarketService.editCart(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
 	
+	
+	//주문페이지
 	@RequestMapping("/order.do") 
     public String order(Model model) throws Exception{
 
         return "/order";
     }
+	
+
 	
 	//상품리스트
 	@RequestMapping(value = "/smartmarket-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -114,6 +134,23 @@ public class SmartMarketController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	
+	
+	//사용자 정보
+		@RequestMapping(value = "/userinfo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String Userinfo(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap = smartmarketService.searchUserInfo(map);
+			
+			map.put("userid", session.getAttribute("sessionId"));
+			resultMap.put("message", "성공");
+			return new Gson().toJson(resultMap);
+		}
+		
+		
+		
+		
 	
 	//리뷰 페이징
 	@RequestMapping(value = "/reviewlist.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -156,5 +193,10 @@ public class SmartMarketController {
 			 request.setAttribute("map", map);
 			return "/market_edit";
 		}
+		
+		
+		
+		
+		
 	
 }

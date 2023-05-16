@@ -99,6 +99,22 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 	public void removeCart(HashMap<String, Object> map) {
 		smartmarketMapper.deleteCart(map);
 	}
+
+	@Override
+	public void editCart(HashMap<String, Object> map) {
+		smartmarketMapper.updateCart(map);
+		
+	}
+
+	@Override
+	public HashMap<String, Object> searchUserInfo(HashMap<String, Object> map) {
+		HashMap<String, Object> resultmap = new HashMap<String, Object>();
+		//SmartMarket info = smartmarketMapper.selectSmartMarketInfo(map);
+		resultmap.put("info", smartmarketMapper.selectUserInfo(map));
+		return resultmap;
+	}
+
+	
 	
 	
 	

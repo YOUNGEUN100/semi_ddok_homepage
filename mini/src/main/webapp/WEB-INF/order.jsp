@@ -70,7 +70,7 @@
 
             .wrapper .delivery{
                 width: 1100px;
-                height: 160px;
+                height: auto;
                 
                 margin: auto;
             }
@@ -82,7 +82,7 @@
             .wrapper .delivery .delivery_content{
                 width: 950px;
                 height: 100px;
-                background-color: #d4d1bb;
+
                 margin-left: 20px;
             }
 
@@ -109,6 +109,9 @@
             #td2{
                 width: 800px;
             }
+          #img_size{
+              width: 100px;
+          }            
 
             .wrapper .payment_info{
                 width: 1100px;
@@ -155,7 +158,58 @@
                 font-size: 20px;
 
             }
-            
+
+
+          #tr11{
+              border-top: 1px solid #ccc;
+              border-bottom: 1px solid #ccc;
+          }
+
+          #td11{
+              width: 50px;
+          }
+          #td12{
+              width: 100px;
+          }
+
+          #td13{
+              width: 570px;
+          }
+          #td14{
+              width: 80px;
+              border-left: 1px solid #ccc;
+              border-right: 1px solid #ccc;
+          }
+          #td15{
+              width: 120px;
+              border-right: 1px solid #ccc;
+          }
+          #td16{
+              width: 80px;
+              font-weight: bold;
+          }
+          
+          .wrapper .cart_product_payment{
+              width: 1198px;
+              height: 100px;
+          }
+          .wrapper .cart_product_payment_val{
+              width: 890px;
+              height: 60px;
+              border: 3px solid gray;
+              text-align: center;
+              display: inline-block;
+              margin-top: 25px;
+              margin-left: 90px;
+              line-height: 60px;
+              font-weight: bold;
+          }
+          .wrapper .cart_product_deleteyn{
+              height: 70px;
+              width: 1050px;
+              
+              margin: auto;
+          }                                          
         
 </style>
 
@@ -180,15 +234,15 @@
                         <table class="table1">
                             <tr id="tr1">
                                 <td id="td1">이름</td>
-                                <td id="td2">홍길동</td>
+                                <td id="td2">{{info.name}}</td>	
                             </tr>
                             <tr id="tr2">
                                 <td id="td1">이메일</td>
-                                <td id="td2">test@naver.com</td>
+                                <td id="td2">{{info.email}}</td>
                             </tr>
                             <tr id="tr2">
                                 <td id="td1">휴대폰</td>
-                                <td id="td2">010-0000-0000</td>
+                                <td id="td2">{{info.hp}}</td>
                             </tr>
                         </table>
                     </div>
@@ -199,15 +253,15 @@
                         <table class="table1">
                             <tr id="tr1">
                                 <td id="td1">이름</td>
-                                <td id="td2">홍길동</td>
+                                <td id="td2">{{info.name}}</td>
                             </tr>
                             <tr id="tr2">
                                 <td id="td1">주소</td>
-                                <td id="td2">서울 특별시 구로구 구로디지털로 100</td>
+                                <td id="td2">{{info.addr}}{{info.addr2}}</td>
                             </tr>
                             <tr id="tr2">
                                 <td id="td1">연락처</td>
-                                <td id="td2">010-0000-0000</td>
+                                <td id="td2">{{info.hp}}</td>
                             </tr>
                         </table>
                     </div>
@@ -216,7 +270,42 @@
                     <div class="delivery">
                         <span class="delivery_font">배송 1건중 1</span>
                         <div class="empt"></div>
-                        <div class="delivery_content">123141234</div>
+                        
+							<div class="delivery_content" v-for="(item, index) in list">
+	                            <table class="table11" >
+	                                <tr id="tr11">
+	                                    <td id="td11" rowspan="2"><input type="checkbox" :value="item" v-model="selectedItems" @click="fncheckChange(item)"></td>	
+	                                    <td id="td12" rowspan="2"><img :src="item.imgPath" id="img_size"></td>
+	                                    <td id="td13">{{item.productName}}</td>
+	                                    <td id="td14" rowspan="2"><input type="text" id="item.cartNo" :value="item.productPrice*item.productCnt | numberFormat()" size="5" disabled></td>
+	                                    <td id="td15" rowspan="2">2500원</td>
+	                                    <td id="td16" rowspan="2"><button @click="fnRemove(item)" >삭제</button></td>
+	                                </tr>
+	                                <tr id="tr11">
+	                                    <td>{{item.productPrice*item.productCnt | numberFormat()}}원  
+	                                    	<input type="number" size="5" min="1" max="5" v-model="item.productCnt" @input="fnsearchChange($event)">
+	                                    </td>
+	                                </tr>
+	                            </table>
+	                        </div>
+	                        
+	                    <div class="cart_product_deleteyn">
+                            <table>
+                                <tr>
+                                    <td width="100"><input type="checkbox" v-model="selectAll">전체선택</td>
+                                    <td width="200"><button @click="getSelectedItems">선택삭제</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="cart_product_payment">
+                            <div class="cart_product_payment_val"><span>상품가격 <input type="text" v-model="total_productPrice"> 원  + 배송비 0원 = 주문금액 4,900원</div>
+                        </div>
+                        <div class="line">
+                            <hr>
+                        </div>
+                                                
+                        
                     </div>
 
                     <!-- 결제 정보 -->
@@ -283,14 +372,14 @@ IMP.init(userCode);
     data: {
         seen: true
         , list : []  
+    	, info : {}
         , productNo : ""
         , productCnt : ""
         , sessionId : "${sessionId}"
         , selectedItems : []
         , selectAll: false
-        , imp_id : "imp61877255"
-         
-        
+        , total_productPrice : 0
+
     }
     
     ,filters: {
@@ -303,18 +392,16 @@ IMP.init(userCode);
     
     ,
     watch: {
-    	
       selectAll(value) {
         if (value) {
           // 전체 선택 체크박스가 선택되었을 때 모든 항목을 선택합니다.
-          this.selectedItems = this.list.map(item => item.cartNo);	
+          this.selectedItems = this.list.map(item => item);	
         } else {
           // 전체 선택 체크박스가 해제되었을 때 모든 항목의 선택을 해제합니다.
           this.selectedItems = [];
         }
       }
     }
-    
     
     , methods: {
     	fnGetList : function(){
@@ -334,44 +421,115 @@ IMP.init(userCode);
                 	self.list = data.list;
                 }
             });
+    		
+    		
     	}
     
-    	,getSelectedItems() {
-    		var self = this;
-    		var number_picked = [];
-    		var cnt = 0;
-    		var cartNo2 = 0;
-    		
-    	      console.log(nparmap);
-    	      console.log(self.selectedItems);
-    	      
-    	      cnt = self.selectedItems.length;
-    	      
-    	      
-    	      for (var i = 0; i < cnt; i += 1) {
-    	    	  
-    	    	  var picked = self.selectedItems.pop();
-    	    	  
-    	    	
-    	    	  var nparmap = {cartNo : picked};
-    	    	  console.log(nparmap);
-        	      $.ajax({
-      	            url:"/cart-remove.dox",
-      	            dataType:"json",
-      	            type : "POST",
-      	            data : nparmap,
-      	            success : function(data) {
-      	            	self.fnGetList();
-      	            }
-      	        });
-        	      
-    	    	  
-    	    	}
-    	      
-    	      
-    	      
-    	   }
+    	
     
+    	//사용자 정보
+	    ,fnUserinfo : function(){
+			var self = this;
+			var nparmap = {userid : self.sessionId};
+			
+			console.log(nparmap);
+			
+			$.ajax({
+                url:"/userinfo.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                	console.log(data);
+                	self.info = data.info;
+                }
+            });
+			  		
+			
+			
+		}
+    	
+    	//, fnsearchChange : function(event){
+    	//	console.log(event.target.value) // 상품의 갯수가 변경되는지 이벤트를 받아온다
+    	//}
+    	//갯수 변경 합계 구하기
+    	, fnsearchChange : function(event){
+    		var self = this;
+			var cnt = 0;
+			
+			
+    		console.log(event.target.value) // 상품의 갯수가 변경되는지 이벤트를 받아온다
+		      
+		      console.log(self.selectedItems);
+		      cnt = self.selectedItems.length;
+
+		      if(cnt > 0){
+					for (var i = 0; i < cnt; i += 1) {
+				    	  console.log(self.selectedItems[i].productPrice);
+				    	  console.log(Number(self.selectedItems[i].productCnt));
+				    	  self.total_productPrice = self.selectedItems[i].productPrice*Number(self.selectedItems[i].productCnt); 
+				    	  
+				    	}		    	  
+		      }
+		      
+  	    		
+    	}
+    	
+    	
+    	//체크박스 체크
+    	, fncheckChange : function(item){
+    		var self = this;
+			var cnt = 0;
+			
+			/* console.log(e) */
+			
+			  
+	        console.log(self.selectedItems);
+	        cnt = self.selectedItems.length;
+	        console.log("test==", cnt);
+
+	        /* if(cnt > 0){ */
+				/* for (var i = 0; i < cnt; i += 1) { */
+			    	  /* console.log(self.selectedItems[i].productPrice);
+			    	  console.log(Number(self.selectedItems[i].productCnt)); */
+    	  self.total_productPrice = self.total_productPrice + (item.productPrice*Number(item.productCnt)); 
+    	  console.log("test2 == ", self.total_productPrice);
+			    	/* } */		    	  
+	       /* } */    		    		
+    	}
+    
+    
+		    	
+		//선택삭제(전체삭제)
+		,getSelectedItems() {
+			var self = this;
+			var cnt = 0;
+			
+		      //console.log(nparmap);
+		      console.log(self.selectedItems);
+		      
+		      cnt = self.selectedItems.length;
+		      
+				for (var i = 0; i < cnt; i += 1) {
+		    	  
+		    	  var nparmap = {cartNo : self.selectedItems[i].cartNo};
+		    	  //console.log(nparmap);
+		    	  $.ajax({
+	    	            url:"/cart-remove.dox",
+	    	            dataType:"json",
+	    	            type : "POST",
+	    	            data : nparmap,
+	    	            success : function(data) {
+	    	            	self.fnGetList();
+	    	            }
+	    	      });
+		    	}  	      
+		      
+		      
+		      
+		      
+		   }
+	
 	  //장바구니 삭제
 	    ,fnRemove : function(item){
 	    	var self = this;
@@ -394,6 +552,8 @@ IMP.init(userCode);
 	        });
 	        
 		}
+  
+	
 	  
 	  //쇼핑계속하기
 	  ,fnMarket : function(){
@@ -436,7 +596,9 @@ IMP.init(userCode);
     
     , created: function () {
     	var self = this;
-        self.fnGetList();		
+        self.fnGetList();	
+        self.fnUserinfo();
+        
 	}
 });
     

@@ -12,6 +12,7 @@
 <div id="pageContent">
 	<div class="wrapper">
 		 <!-- 작업한 본문 입력 -->
+		 asdfasfasdasdf
 	</div>
 </div>
 <!-- pageContent -- END -->

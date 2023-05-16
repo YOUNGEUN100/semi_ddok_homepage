@@ -29,10 +29,29 @@ public interface SmartMarketService {
 	// 카트 리스트
 	HashMap<String, Object> searchCartList(HashMap<String, Object> map) throws Exception;
 	
+	// 사용자 정보
+	HashMap<String, Object> searchUserInfo(HashMap<String, Object> map);
+		
+		
+	
 	//카트 등록
 	void addCart(HashMap<String, Object> map);
 	
+	//카트 수정(구매하기)
+	void editCart(HashMap<String, Object> map);
+	
 	//카트 삭제
 	void removeCart(HashMap<String, Object> map);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

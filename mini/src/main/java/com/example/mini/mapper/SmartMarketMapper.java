@@ -10,6 +10,8 @@ import com.example.mini.model.Code;
 import com.example.mini.model.SmartMarket;
 import com.example.mini.model.SmartMarket2;
 import com.example.mini.model.SmartReview;
+import com.example.mini.model.User;
+
 
 @Mapper
 public interface SmartMarketMapper {
@@ -29,6 +31,9 @@ public interface SmartMarketMapper {
 	//상품 리뷰 리스트
 	List<SmartReview> selectSmartMarketReviewList(HashMap<String, Object> map) throws Exception;
 	
+	//사용자정보
+	User selectUserInfo(HashMap<String, Object>map);
+	
 	//리뷰 전체 갯수
 	int selectSmartMarketReviewCnt(HashMap<String, Object> map);
 	
@@ -44,8 +49,16 @@ public interface SmartMarketMapper {
 	//카트 등록
 	void insertCart(HashMap<String, Object> map);
 	
+	//카트 수정(구매하기)
+	void updateCart(HashMap<String, Object> map);
+	
 	// 리스트
 	List<Cart> selectCartList(HashMap<String, Object> map) throws Exception;
+	
 	// 댓글 삭제
 	void deleteCart(HashMap<String, Object> map);
+	
+	
+	
+	
 }

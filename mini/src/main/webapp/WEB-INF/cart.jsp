@@ -341,7 +341,7 @@
       selectAll(value) {
         if (value) {
           // 전체 선택 체크박스가 선택되었을 때 모든 항목을 선택합니다.
-          this.selectedItems = this.list.map(item => item.cartNo);	
+          this.selectedItems = this.list.map(item => item);	
         } else {
           // 전체 선택 체크박스가 해제되었을 때 모든 항목의 선택을 해제합니다.
           this.selectedItems = [];
@@ -372,38 +372,27 @@
     	//선택삭제(전체삭제)
     	,getSelectedItems() {
     		var self = this;
-    		var number_picked = [];
     		var cnt = 0;
-    		var cartNo2 = 0;
     		
-    	      console.log(nparmap);
+    	      //console.log(nparmap);
     	      console.log(self.selectedItems);
     	      
     	      cnt = self.selectedItems.length;
     	      
-    	      
-    	      for (var i = 0; i < cnt; i += 1) {
+				for (var i = 0; i < cnt; i += 1) {
     	    	  
-    	    	  var picked = self.selectedItems.pop();
-    	    	  
-    	    	
-    	    	  var nparmap = {cartNo : picked};
-    	    	  console.log(nparmap);
-        	      $.ajax({
-      	            url:"/cart-remove.dox",
-      	            dataType:"json",
-      	            type : "POST",
-      	            data : nparmap,
-      	            success : function(data) {
-      	            	self.fnGetList();
-      	            }
-      	        });
-        	      
-    	    	  
-    	    	}
-    	      
-    	      
-    	      
+    	    	  var nparmap = {cartNo : self.selectedItems[i].cartNo};
+    	    	  //console.log(nparmap);
+    	    	  $.ajax({
+        	            url:"/cart-remove.dox",
+        	            dataType:"json",
+        	            type : "POST",
+        	            data : nparmap,
+        	            success : function(data) {
+        	            	self.fnGetList();
+        	            }
+        	      });
+    	    	}  	      
     	   }
     
 	  //장바구니 삭제
@@ -433,26 +422,23 @@
 	  	//구매하기(선택항목)
     	, getSelectedItemsPay() {
     		var self = this;
-    		var number_picked = [];
     		var cnt = 0;
-    		var cartNo2 = 0;
-    		
-    		
-    	      cnt = self.selectedItems.length;
-    	      
-    	      
-    	      for (var i = 0; i < cnt; i += 1) {
-    	    	  
-    	    	  /* var picked = self.selectedItems.pop(); */
-    	    	  var picked = self.selectedItems[i];
-    	    	  
-    	    	  var nparmap = picked;
-    	    	  console.log(nparmap);
-    	    	  //console.log(nparmap.productCnt);
-        	      
-        	      
-    	    	  
-    	    	}
+    	    cnt = self.selectedItems.length;
+    	    
+    	    for (var i = 0; i < cnt; i += 1) {
+   	    	  var nparmap = self.selectedItems[i];
+   	    	  console.log(nparmap);
+   	    	  //console.log(nparmap.productCnt);
+	   	    	$.ajax({
+		            url:"/cart-edit.dox",
+		            dataType:"json",
+		            type : "POST",
+		            data : nparmap,
+		            success : function(data) {
+		            	location.href="/order.do";
+		            }
+		      	});
+    	    }
     	      
     	      
     	      
