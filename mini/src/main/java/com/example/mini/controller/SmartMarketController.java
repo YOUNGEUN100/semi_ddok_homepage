@@ -146,6 +146,7 @@ public class SmartMarketController {
 		@RequestMapping("/market/view.do")
 		public String smartMarketInfo(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 			request.setAttribute("map", map);
+			map.put("userid", session.getAttribute("sessionId"));
 			return "/market_view";
 		}
 		

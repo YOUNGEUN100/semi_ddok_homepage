@@ -386,6 +386,7 @@
 			self.pkind = item.name;
 			self.fnGetList();
 		}
+	    
 	    ,fnGetList3 : function(){
     		var self = this;
     		var nparmap = {product_kind : self.product_kind};
@@ -400,7 +401,9 @@
                 	console.log(data.list);
                 	self.list2 = data.list;
                 }
-            });
+            });    		
+    		
+    		
     	}
 	    , pageChange : function(url, param) {
     		var target = "_self";
