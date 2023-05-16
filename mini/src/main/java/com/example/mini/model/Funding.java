@@ -21,6 +21,7 @@ public class Funding {
 	private String addr; //게시판용
 	private String nick; //게시판용
 	private int commentNo;
+	private int reCommentNo;
 	//---랜선마켓 게시판 모델 끝---
 	
 	//---펀딩용 모델 시작---
@@ -42,6 +43,7 @@ public class Funding {
 	private String imgPath;
 	private String imgPath2;
 	private String imgPathDetail;
+	private String imgPathDetail2;
 	private String startDate;
 	private String endTime;
 	private int imgNo;
@@ -167,6 +169,12 @@ public class Funding {
 	}
 	public void setCommentNo(int commentNo) {
 		this.commentNo = commentNo;
+	}
+	public int getReCommentNo() {
+		return reCommentNo;
+	}
+	public void setReCommentNo(int reCommentNo) {
+		this.reCommentNo = reCommentNo;
 	}
 	//---펀딩용 게터세터 시작---
 	public int getFundingNo() {
@@ -326,6 +334,12 @@ public class Funding {
 	}
 	public void setImgPath2(String imgPath2) {
 		this.imgPath2 = imgPath2;
+	}
+	public String getImgPathDetail2() {
+		return imgPathDetail2;
+	}
+	public void setImgPathDetail2(String imgPathDetail2) {
+		this.imgPathDetail2 = imgPathDetail2;
 	}
 	
 	

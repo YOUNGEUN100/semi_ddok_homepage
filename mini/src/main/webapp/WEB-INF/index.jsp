@@ -23,7 +23,7 @@
         <div class="mctArea type2">
             <a @click="fnViewFunding(item.fundingNo)" href="javaScript:;" class="mctThumb typeRow" v-for="(item, index) in fundingList">
 				<div class="imgBox">
-				    <img :src="item.imgPath" alt="펀딩이미지">
+				    <img :src="item.imgPath2" alt="펀딩이미지">
 				</div>
 				<div class="txtBox">
 				    <h4 class="title">{{item.fundingName}}</h4>

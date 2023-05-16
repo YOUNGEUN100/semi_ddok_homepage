@@ -58,13 +58,18 @@ public class FundingServiceImpl implements FundingService {
 		fundingMapper.insertFleaComment(map);		
 	}
 	
+	@Override // 랜선장터 대댓글 입력
+	public void addFleaReComment(HashMap<String, Object> map) {
+		fundingMapper.insertFleaReComment(map);		
+	}
+	
 	@Override // 랜선장터 댓글 삭제
 	public void removeComment(HashMap<String, Object> map) {
 		fundingMapper.deleteComment(map);
 		
 	}
 	
-	@Override // 랜선장터 댓글 삭제
+	@Override // 랜선장터 댓글 수정
 	public void modifyComment(HashMap<String, Object> map) {
 		fundingMapper.editComment(map);
 		
@@ -91,7 +96,7 @@ public class FundingServiceImpl implements FundingService {
 	public List<Funding> searchOpenFundingList(HashMap<String, Object> map) throws Exception {
 		List<Funding> list = fundingMapper.selectOpenFundingList(map);
 		fundingMapper.checkFundingDate(map);
-		fundingMapper.checkFundingDate(map);
+		fundingMapper.checkFundingDate2(map);
 		return list;
 	}
 
@@ -147,6 +152,12 @@ public class FundingServiceImpl implements FundingService {
 	@Override // 펀딩 이미지 등록
 	public void addFundingImg(HashMap<String, Object> map) {
 		fundingMapper.insertFundingImg(map);
+	}
+
+	@Override// 랜선마켓 첨부파일 등록
+	public void addFleaFile(HashMap<String, Object> map) {
+		fundingMapper.insertFleaFile(map);
+		
 	}
 
 	

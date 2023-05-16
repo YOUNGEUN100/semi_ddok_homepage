@@ -205,7 +205,7 @@
         	       	     	form.append( "fundingNo",  data.fundingNo); // pk
         	           		self.upload(form);
         	       	     	
-                           // location.href = "/funding.do";
+                           	location.href = "/funding.do";
                             
                         }
                     });

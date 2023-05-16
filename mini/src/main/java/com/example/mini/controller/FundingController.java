@@ -121,7 +121,9 @@ public class FundingController {
 	@ResponseBody
 	public String addFlea(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		fundingService.addFlea(map);		
+		fundingService.addFlea(map);
+		resultMap.put("boardNo", map.get("idFlea"));
+		System.out.println(map.get("idFlea"));
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);		
 	}
@@ -143,6 +145,16 @@ public class FundingController {
 	public String addFleaComment(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		fundingService.addFleaComment(map);		
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 랜선장터 대댓글 등록
+	@RequestMapping(value = "/fleamarket/addrecomment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String addFleaReComment(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.addFleaReComment(map);		
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
@@ -275,6 +287,55 @@ public class FundingController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
+	
+	// 랜선장터 첨부파일
+		@RequestMapping("/fileUpload2.dox")
+		    public String result1(@RequestParam("file2") MultipartFile multi, @RequestParam("boardNo") int boardNo, HttpServletRequest request,HttpServletResponse response, Model model)
+		    {
+		        String url = null;
+		        String path="/images/";
+		        try {
+		 
+		            //String uploadpath = request.getServletContext().getRealPath(path);
+		            String uploadpath = path;
+		            String originFilename = multi.getOriginalFilename();
+		            String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
+		            long size = multi.getSize();
+		            String saveFileName = genSaveFileName(extName);
+		            
+		            System.out.println("uploadpath : " + uploadpath);
+		            System.out.println("originFilename : " + originFilename);
+		            System.out.println("extensionName : " + extName);
+		            System.out.println("size : " + size);
+		            System.out.println("saveFileName : " + saveFileName);
+		            String path2 = System.getProperty("user.dir");
+		            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
+		            if(!multi.isEmpty())
+		            {
+		                File file = new File(path2 + "\\src\\main\\webapp\\images", saveFileName);
+		                multi.transferTo(file);
+		                
+		                HashMap<String, Object> map = new HashMap<String, Object>();
+		                map.put("imgName", saveFileName);
+		                map.put("boardNo", boardNo);
+		                map.put("orlgName", originFilename);
+		                map.put("saveName", saveFileName);
+		                map.put("filePath", uploadpath);
+		                map.put("fileSize", size);
+		                map.put("fileKind",extName);
+		                
+		                // insert 쿼리 실행
+		                fundingService.addFleaFile(map); 
+		                model.addAttribute("filename", multi.getOriginalFilename());
+		                model.addAttribute("uploadPath", file.getAbsolutePath());
+		                
+		                return "filelist";
+		            }
+		        }catch(Exception e) {
+		            System.out.println(e);
+		        }
+		        return "redirect:bbs.do";
+		    }
 	
 	// 펀딩 첨부파일
 	@RequestMapping("/fileUpload1.dox")

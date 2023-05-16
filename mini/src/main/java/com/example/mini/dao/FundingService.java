@@ -25,6 +25,9 @@ public interface FundingService {
 	// 랜선장터 댓글 입력
 	void addFleaComment(HashMap<String, Object> map);
 	
+	// 랜선장터 대댓글 입력
+	void addFleaReComment(HashMap<String, Object> map);
+	
 	// 랜선장터 댓글 삭제
 	void removeComment(HashMap<String, Object> map);
 	
@@ -63,5 +66,8 @@ public interface FundingService {
 	
 	// 펀딩 이미지 등록
 	void addFundingImg(HashMap<String, Object> map);
+	
+	// 랜선펀딩 첨부파일 등록
+	void addFleaFile(HashMap<String, Object> map);
 
 }
