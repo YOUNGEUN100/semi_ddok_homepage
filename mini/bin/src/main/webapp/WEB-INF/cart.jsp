@@ -267,7 +267,7 @@
                         <div class="cart_product" v-for="(item, index) in list">
                             <table class="table1" >
                                 <tr id="tr1">
-                                    <td id="td1" rowspan="2"><input type="checkbox" :value="item.cartNo" v-model="selectedItems" ></td>	
+                                    <td id="td1" rowspan="2"><input type="checkbox" :value="item" v-model="selectedItems" ></td>	
                                     <td id="td2" rowspan="2"><img :src="item.imgPath" id="img_size"></td>
                                     <td id="td3">{{item.productName}}</td>
                                     <td id="td4" rowspan="2">{{item.productPrice | numberFormat()}}</td>
@@ -275,7 +275,7 @@
                                     <td id="td6" rowspan="2"><button @click="fnRemove(item)" >삭제</button></td>
                                 </tr>
                                 <tr id="tr1">
-                                    <td>{{item.productPrice | numberFormat()}}원  <input type="number" size="5" min="1" max="5" v-model="item.productCnt"></td>
+                                    <td>{{item.productPrice | numberFormat()}}원  <input type="number" size="5" min="1" max="5" v-model="item.productCnt" ></td>
                                 </tr>
                             </table>
                         </div>
@@ -300,8 +300,8 @@
                         </div>
                     </div>
                     <div class="cart_shopping">
-                        <button id="btn_shop">계속쇼핑하기</button>
-                        <button id="btn_buy">구매하기</button>
+                        <button id="btn_shop" @click="fnMarket">계속쇼핑하기</button>
+                        <button id="btn_buy" @click="getSelectedItemsPay">구매하기</button>
                     </div>
                 </div>
             </div>
@@ -320,7 +320,7 @@
         seen: true
         , list : []  
         , productNo : ""
-        , productCnt : ""
+        , productCnt : 0
         , sessionId : "${sessionId}"
         , selectedItems : []
         , selectAll: false
@@ -338,11 +338,10 @@
     
     ,
     watch: {
-    	
       selectAll(value) {
         if (value) {
           // 전체 선택 체크박스가 선택되었을 때 모든 항목을 선택합니다.
-          this.selectedItems = this.list.map(item => item.cartNo);	
+          this.selectedItems = this.list.map(item => item);	
         } else {
           // 전체 선택 체크박스가 해제되었을 때 모든 항목의 선택을 해제합니다.
           this.selectedItems = [];
@@ -370,40 +369,30 @@
             });
     	}
     
+    	//선택삭제(전체삭제)
     	,getSelectedItems() {
     		var self = this;
-    		var number_picked = [];
     		var cnt = 0;
-    		var cartNo2 = 0;
     		
-    	      console.log(nparmap);
+    	      //console.log(nparmap);
     	      console.log(self.selectedItems);
     	      
     	      cnt = self.selectedItems.length;
     	      
-    	      
-    	      for (var i = 0; i < cnt; i += 1) {
+				for (var i = 0; i < cnt; i += 1) {
     	    	  
-    	    	  var picked = self.selectedItems.pop();
-    	    	  
-    	    	
-    	    	  var nparmap = {cartNo : picked};
-    	    	  console.log(nparmap);
-        	      $.ajax({
-      	            url:"/cart-remove.dox",
-      	            dataType:"json",
-      	            type : "POST",
-      	            data : nparmap,
-      	            success : function(data) {
-      	            	self.fnGetList();
-      	            }
-      	        });
-        	      
-    	    	  
-    	    	}
-    	      
-    	      
-    	      
+    	    	  var nparmap = {cartNo : self.selectedItems[i].cartNo};
+    	    	  //console.log(nparmap);
+    	    	  $.ajax({
+        	            url:"/cart-remove.dox",
+        	            dataType:"json",
+        	            type : "POST",
+        	            data : nparmap,
+        	            success : function(data) {
+        	            	self.fnGetList();
+        	            }
+        	      });
+    	    	}  	      
     	   }
     
 	  //장바구니 삭제
@@ -428,6 +417,37 @@
 	        });
 	        
 		}
+	  
+	  
+	  	//구매하기(선택항목)
+    	, getSelectedItemsPay() {
+    		var self = this;
+    		var cnt = 0;
+    	    cnt = self.selectedItems.length;
+    	    
+    	    for (var i = 0; i < cnt; i += 1) {
+   	    	  var nparmap = self.selectedItems[i];
+   	    	  console.log(nparmap);
+   	    	  //console.log(nparmap.productCnt);
+	   	    	$.ajax({
+		            url:"/cart-edit.dox",
+		            dataType:"json",
+		            type : "POST",
+		            data : nparmap,
+		            success : function(data) {
+		            	location.href="/order.do";
+		            }
+		      	});
+    	    }
+    	      
+    	      
+    	      
+    	   }
+	  
+	  //쇼핑계속하기
+	  ,fnMarket : function(){
+		  location.href="/market.do";
+	  }
     
     
     }

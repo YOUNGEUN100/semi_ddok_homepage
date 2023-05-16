@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.mini.model.Community;
-import com.example.mini.model.Recipe;
 
 @Mapper
 public interface CommunityMapper {
@@ -14,7 +13,7 @@ public interface CommunityMapper {
 	List<Community>  selectComList(HashMap<String, Object> map);
 	
 	// 커뮤니티 조회수
-		void updateComCnt(HashMap<String, Object> map);
+	void updateComCnt(HashMap<String, Object> map);
 	
 	// 커뮤니티 리스트 개수
 	int selectComCnt(HashMap<String, Object> map);
@@ -44,5 +43,15 @@ public interface CommunityMapper {
 	void deleteComment(HashMap<String, Object> map);
 	
 	
+	/* 아래부터는 QNA 작성하는 공간입니다 */
+	
+	// QNA 리스트
+	List<Community>selectQnaList(HashMap<String, Object> map);
+	
+	// QNA 글 등록
+	void insertQna(HashMap<String,Object>map);
+	
+	// QNA 글보기
+	Community selectQnaInfo(HashMap<String, Object>map);
 	
 }

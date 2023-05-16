@@ -221,8 +221,8 @@
 		
 		</div>
 	</div>
-</div>
-<!-- pageContent -- END -->
+<!-- pageContent -- END --></div>
+
 
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 

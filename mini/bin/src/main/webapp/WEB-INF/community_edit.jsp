@@ -106,10 +106,12 @@
    	    	,title : ""
    	    	,content : ""
    	    	,cdatetime: ""
+   	    	,category : 1
     	},
         cnt : 1,
         content : "",
-        boardNo : "${map.boardNo}"
+        boardNo : "${map.boardNo}",
+        sessionStatus : "${sessionStatus}",
     }
     // 4. 컴포넌트 추가
     , components: {VueEditor}
@@ -125,8 +127,10 @@
 	                type : "POST",
 	                data : nparmap,
 	                success : function(data) {
-	                    self.info = data.info;
-	                    console.log(self.info);
+	                	//console.log(data.info);
+	                	if (data.info.length > 1) return;
+	                    self.info = data.info[0];
+	                   	console.log(self.info);
 	                }
 	            });
 	
@@ -134,11 +138,16 @@
     	// 커뮤니티 글 등록
         ,fnEnroll : function() {
             var self = this;
+            // 관리자가 작성한 글이면 공지글로
+            if (self.sessionStatus=='A') {
+            	self.info.category = 2;
+            }
             // 작성일이 있다면 수정 함수 호출
             if (self.info.cdatetime) {
             	self.fnModify();
             	return;
             }
+            
             var nparmap = self.info;
 	        $.ajax({
 	            url:"/community/save.dox",

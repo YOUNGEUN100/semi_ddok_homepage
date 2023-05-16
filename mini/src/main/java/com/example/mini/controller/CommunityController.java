@@ -197,26 +197,56 @@ public class CommunityController {
 	
 	// QNA
 	@RequestMapping("/qna.do")
-	public String qna(Model model) throws Exception{
+	public String qna(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		request.setAttribute("map", map);
 		return "/qna";
+	}
+	// 커뮤니티 리스트 뿌리기
+	@RequestMapping(value = "/qna/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
+	@ResponseBody
+	public String qnaList(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		String startNum = (String) map.get("startNum");
+		map.put("startNum", Integer.parseInt(startNum));
+		
+		resultMap = communityService.searchQnaList(map);
+		return new Gson().toJson(resultMap);
 	}
 	
 	
 	// qna 상세보기
 	@RequestMapping("/qna/view.do")
-	public String qnaView(Model model) throws Exception{
+	public String qnaView(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		request.setAttribute("map", map);
 		return "/qna_view";
 	}
-	
+
 	
 	// QNA 작성 수정
 	@RequestMapping("/qna/edit.do")
-	public String qnaEdit(Model model) throws Exception{
+	public String qnaEdit(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		request.setAttribute("map", map);
 		return "/qna_edit";
 	}
 
-
-		
+	// 문의 글등록
+	@RequestMapping(value = "/qna/save.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String qnaSave(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		communityService.addQna(map);
+		// resultMap.put("boardNo", map.get("id"));
+		return new Gson().toJson(resultMap);
+	}
+	// 문의 글보기	
+		@RequestMapping(value = "/qna/view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String qnaView(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap = communityService.searchQnaInfo(map);
+			return new Gson().toJson(resultMap);
+		}
 	
 }
 		

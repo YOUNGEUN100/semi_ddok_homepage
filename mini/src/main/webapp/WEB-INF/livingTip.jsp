@@ -4,18 +4,13 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <style>
-	.tipContainer {
-		display : flex;
-		justify-content: space-between;
-		flex-wrap: wrap;
-	}
-	
-	.cards {
-		width : 300px;
-		height: 600px;
-		background-color: #a2d5f2;
-		margin : 24px;
-	}
+	 .card_list {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-template-rows: repeat(3,420px);
+        }
+       .card_list div { margin-right: 15px; }
+       .card_list .card { text-align: left;cursor: pointer; }
 </style>
 
 
@@ -23,17 +18,26 @@
 <div id="app">
 	<div id="pageContent">
 		<div class="wrapper">
+		 	<div id="app">
+		
 		 
-		 <div class="tipContainer">
-		 	<div class="cards">dd</div>
-		 	<div class="cards">dd</div>
-		 	<div class="cards">dd</div>
-		 	<div class="cards">dd</div>
-		 	<div class="cards">dd</div>
-		 	<div class="cards">dd</div>
-		 </div>
+		 <div class="card_list" >
+                <div class="card" onClick="location.href='/livingTip/view.do'">
+                    <img class="recipe-img" src="./images/news1.jpg">
+                </div>
+                <div class="card" onClick="location.href='/livingTip/view.do'">
+                    <img class="recipe-img" src="./images/news2.jpg">
+                </div>
+                <div class="card" onClick="location.href='/livingTip/view.do'">
+                    <img class="recipe-img" src="./images/news3.jpg">
+                </div>
+                <div class="card" onClick="location.href='/livingTip/view.do'">
+                    <img class="recipe-img" src="./images/news4.jpg">
+                </div>
+            </div>
+            
 		 
-		 
+		 	</div>
 		</div>
 	</div>
 </div>

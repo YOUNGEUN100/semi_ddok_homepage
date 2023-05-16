@@ -218,7 +218,7 @@
                             <ul>
                                 <li>
                                     <div class="open_list" v-for="(item, index) in list">
-                                        <div class="fund_img"><img :src="item.imgPath2" @click="fnViewFunding(item.fundingNo)"></div>
+                                        <div class="fund_img"><img :src="item.imgPath" @click="fnViewFunding(item.fundingNo)"></div>
                                         <div class="fund_content">
                                             <h1 class="fund_name" @click="fnViewFunding(item.fundingNo)">{{item.fundingName}}</h1>
                                             <p class="fund_summary">{{item.fundingSummary}}</p>
@@ -263,7 +263,7 @@
                             <ul>
                                 <li>
                                     <div class="planned_list" v-for="(item, index) in list2">
-                                        <div class="fund_img"><img :src="item.imgPath2" @click="fnViewFunding2(item.fundingNo)"></div>
+                                        <div class="fund_img"><img :src="item.imgPath" @click="fnViewFunding2(item.fundingNo)"></div>
                                         <div class="fund_content">
                                             <h1 class="fund_name" @click="fnViewFunding2(item.fundingNo)">{{item.fundingName}}</h1>
                                             <p class="fund_summary">{{item.fundingSummary}}</p>
@@ -325,7 +325,8 @@
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
-                            self.list = data.list;                         
+                            self.list = data.list;
+                            console.log(data.list);
                         }
                     });
                 }

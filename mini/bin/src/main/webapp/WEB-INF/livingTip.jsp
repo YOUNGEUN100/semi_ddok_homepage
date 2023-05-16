@@ -4,16 +4,40 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <style>
-	<!--스타일 입력 --> 
+	.tipContainer {
+		display : flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	
+	.cards {
+		width : 300px;
+		height: 600px;
+		background-color: #a2d5f2;
+		margin : 24px;
+	}
 </style>
 
 
 <!-- pageContent -- START -->
-<div id="pageContent">
-	<div class="wrapper">
-		 <!-- 작업한 본문 입력 -->
+<div id="app">
+	<div id="pageContent">
+		<div class="wrapper">
+		 
+		 <div class="tipContainer">
+		 	<div class="cards">dd</div>
+		 	<div class="cards">dd</div>
+		 	<div class="cards">dd</div>
+		 	<div class="cards">dd</div>
+		 	<div class="cards">dd</div>
+		 	<div class="cards">dd</div>
+		 </div>
+		 
+		 
+		</div>
 	</div>
 </div>
+
 <!-- pageContent -- END -->
 
 

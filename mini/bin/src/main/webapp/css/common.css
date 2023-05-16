@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+@import url('https://fonts.googleapis.com/css2?family=Vibur&display=swap');
 @font-face {
     font-family:'Pretendard';
     src:url('/font/Pretendard-ExtraLight.woff') format('woff');
@@ -84,6 +84,11 @@ h1, h2, h3, h4, h5, h6 {line-height:1.25;}
 
 #pageContent {position:relative; clear:both;}
 .wrapper {max-width:1240px; min-height:calc(100vh - 140px - 520px); margin:0 auto; padding:0 20px; position:relative;}
+
+.styleBoxRound {border-radius:1.5em; overflow:hidden;}
+.styleBoxShadow {box-shadow:0 0 10px 0 rgba(0,0,0,0.1);}
+.styleHoverShadow {transition:all 0.2s ease-out;}
+.styleHoverShadow:hover {box-shadow:0 2px 20px 0 rgba(0,0,0,0.3);}
 /*** setting --- END ***/
 
 

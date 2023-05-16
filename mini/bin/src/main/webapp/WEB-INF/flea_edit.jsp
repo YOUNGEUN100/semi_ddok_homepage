@@ -124,17 +124,11 @@
 
                             <div class="detail_box">
                                 <p>첨부파일</p>
-                                <form action="">
-                                    <input type="file">
-                                    <input type="submit">
-                                </form>
+                                <input type="file" id="file2" name="file2" multiple>
+                                 <vue-editor v-model="info.content"></vue-editor>
                             </div>
 
-                        </div>
-
-                        <div class="content_box">
-                            <p>내용</p> <textarea class="content" rows="15" v-model="info.content"></textarea>
-                        </div>
+                        </div>                      
 
                         <div class="btn_box">
                             <button @click="fnAddPost" v-if="boardNo==''">등록</button>
@@ -159,7 +153,10 @@
     <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 
-    <script type="text/javascript">     
+    <script type="text/javascript">
+    	console.log(Vue);
+		Vue.use(Vue2Editor);
+		const VueEditor = Vue2Editor.VueEditor;
 
         var app = new Vue({
             el: '#app',
@@ -174,6 +171,7 @@
                 boardNo: "${map.boardNo}"
 
             },
+            components: {VueEditor},
             methods: {
             	
             	//게시글 수정용 데이터 불러오기
@@ -228,12 +226,38 @@
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
+                        	var form = new FormData();   
+                        	var file = $("#file2").prop("file2");
+                        	for(var i =0; i<file.size; i++) {
+                        		form.append( "file2[]",  $("#file2")[i].files[i] );
+                        	}
+                        	
+                        	form.append( "boardNo",  data.boardNo);           		
+               	       	    self.upload(form);    
+        	       	     	 // pk
+        	       	     	console.log(data.boardNo);
+        	           		
                             alert("등록되었습니다.");
-                            location.href = "/flea.do";
+                           // location.href = "/flea.do";
                             
                         }
                     });
                 }
+            	
+            	, upload : function(form){
+    	    		var self = this;
+    	         	$.ajax({
+    	             	url : "/fileUpload2.dox"
+    	           	, type : "POST"
+    	           	, processData : false
+    	           	, contentType : false
+    	           	, data : form
+    	           	, success:function(response) { 
+    	        	   	
+    	          	 }
+    	           
+    	       	});
+    			}
             	
             	// 게시글 삭제            	
             	, fnDeletePost: function() {

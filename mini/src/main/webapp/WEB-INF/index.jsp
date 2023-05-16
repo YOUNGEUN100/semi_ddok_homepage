@@ -30,7 +30,7 @@
         <div class="mctArea type2">
             <a @click="fnViewFunding(item.fundingNo)" href="javaScript:;" class="mctThumb typeRow" v-for="(item, index) in fundingList">
 				<div class="imgBox">
-				    <img :src="item.imgPath2" alt="펀딩이미지">
+				    <img :src="item.imgPath" alt="펀딩이미지">
 				</div>
 				<div class="txtBox">
 				    <h4 class="title">{{item.fundingName}}</h4>
@@ -132,7 +132,7 @@
 		        	<img :src="item.imgPath" alt="레시피 이미지">
 		        </a>
 				<a href="javaScript:;" class="txtBox">
-				    <p class="text">#요리초보 #요린이 #봄나물 #제철나물 #나물요리</p>
+				    <p class="text">{{item.hashtag}}</p>
 				    <h4 class="title">{{item.recipeName}}</h4>
 				</a>
 			</div>
@@ -150,33 +150,31 @@
         </div>
         <div class="mctArea mainContentSlider">
             <div class="mctThumb typeCol">
-                  <img src="/images/news1_1.jpg" alt="카드">
+                  <img src="/images/news1.jpg" alt="카드1">
                 <a href="javaScript:;" class="txtBox">
-                	<p class="text">요리를 하려는데 계량 기구가 없다면?</p>
-                    <h4 class="title">한 눈으로 살펴보는 간단한 계량팁</h4>
+                	<p class="text">5월부터 시작</p>
+                    <h4 class="title">이직 중도퇴사자 연말정산 방법</h4>
                 </a>
             </div>
             <div class="mctThumb typeCol">
-                <img src="/images/news2_1.jpg" alt="">
+                <img src="/images/news2.jpg" alt="카드2">
                 <a href="javaScript:;" class="txtBox">
-                	<p class="text">작정하고 출시했다는</p>
-                    <h4 class="title">다*소 피크닉 신상템 모음집</h4>
+                	<p class="text">각종 색바랜 옷</p>
+                    <h4 class="title">완벽하게 되살리는 방법</h4>
                 </a>
             </div>
             <div class="mctThumb typeCol">
-                 <img src="/images/news3_1.jpg" alt="">
+                 <img src="/images/news3.jpg" alt="카드3">
                 <a href="javaScript:;" class="txtBox">
-                	<p class="text">경제·재테크 꿀팁!</p>
-                    <h4 class="title">운동하고 5만원도 받는 1석2조 제도</h4>
+                	<p class="text">전세 월세집 재계약할 때</p>
+                    <h4 class="title">필수 체크리스트</h4>
                 </a>
             </div>
             <div class="mctThumb typeCol">
-                <a href="javaScript:;" class="imgBox">
-                    <img src="" alt="">
-                </a>
+                 <img src="/images/news4.jpg" alt="카드4">
                 <a href="javaScript:;" class="txtBox">
-                	<p class="text">(추가) 경제·재테크 꿀팁!</p>
-                    <h4 class="title">운동하고 5만원도 받는 1석2조 제도</h4>
+                	<p class="text">2023년 연차 쓰기 좋은</p>
+                    <h4 class="title">남은 연휴 총정리</h4>
                 </a>
             </div>
         </div>

@@ -208,7 +208,9 @@
     	},
         cnt : 1,
         content : "",
-        enrollFlg : false
+        enrollFlg : false,
+         
+        
     }
     // 4. 컴포넌트 추가
     , components: {VueEditor}

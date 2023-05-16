@@ -4,14 +4,27 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <style>
-	<!--스타일 입력 --> 
+	.card {display:flex; flex-direction:column;align-items:center;}
+	.card img {width:500px;}
 </style>
 
 
 <!-- pageContent -- START -->
 <div id="pageContent">
 	<div class="wrapper">
-		 <!-- 작업한 본문 입력 -->
+		 <div id="app">
+		  	<div class="card">
+                 <img src="/images/news1.jpg">
+                 <img src="/images/news1_1.jpg">
+                 <img src="/images/news1_2.jpg">
+                 <img src="/images/news1_3.jpg">
+                 <img src="/images/news1_4.jpg">
+                 <img src="/images/news1_5.jpg">
+                  <img src="/images/news1_6.jpg">
+             </div>
+		 	
+
+		 </div>
 	</div>
 </div>
 <!-- pageContent -- END -->
@@ -20,5 +33,4 @@
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 <script type="text/javascript">
- // 자바 스크립트 입력 
 </script>

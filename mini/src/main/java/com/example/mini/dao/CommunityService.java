@@ -30,4 +30,16 @@ public interface CommunityService {
 		
 		// 댓글 삭제
 		void removeComment(HashMap<String, Object> map);
+		
+		/* 아래부터는 QNA 작성하는 공간입니다 */
+		
+		// QNA 리스트 (+ 조회수)
+		HashMap<String, Object> searchQnaList(HashMap<String, Object> map);
+		
+		// 문의글 등록
+		void addQna(HashMap<String,Object>map);
+		
+		// 문의글 보기
+		HashMap<String, Object> searchQnaInfo(HashMap<String, Object>map);
+		
 }

@@ -38,11 +38,7 @@
 	}
 	.comlist .center{text-align:center; }
 	.comlist .title:hover{cursor: pointer;}
-	.comlist .no{width:10%; }
-	.comlist .title{width:50%; text-align:left;}
-	.comlist .writer{width:10%;}
-	.comlist .date{width:20%;}
-	.comlist .view{width:10%;}
+	.comlist .title{text-align:left;}
 	
 	/* 페이징 추가2 */
 	.pagination { margin:24px;display: inline-flex;}
@@ -83,7 +79,7 @@
              	<thead>
              		<tr>
              			<th>글번호</th>
-             			<th>제목</th>
+             			<th colspan=3>제목</th>
              			<th>작성자</th>
              			<th>작성일</th>
              			<th>조회수</th>
@@ -94,8 +90,8 @@
 	              	<tr class="center" v-for="(item, index) in list" >
                         <td class="no">{{item.boardNo}}</td>
 	                   <template>
-	                         <td class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
-	                        <td class="title" v-if="item.status=='C'" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
+	                         <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
+	                        <td colspan=3 class="title" v-if="item.status=='C'" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
                         </template>
    	                    <td class="writer">{{item.nick}}</td>
        	                <td class="date">{{item.cdatetime}}</td>

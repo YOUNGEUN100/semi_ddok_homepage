@@ -6,11 +6,18 @@
 
 <!-- mainVisual -->
 <section id="mainVisual" class="mainVisualSlider">
-    <div class="slide page1">
+    <div class="slide page1 styleBlack" style="background:url('/images/mainVisual_img01.jpg') center center / cover no-repeat;">
+        <div class="wrapper" style="align-items:flex-start;">
+            <h2 class="slideTitle">똑똑한 마켓</h2>
+            <p class="slideText">가장 소량씩, 가장 신선하게 <br>적은 양으로 부담없이 즐겨요</p>
+            <a href="./market.do" class="sideLink">자세히 보기</a>
+        </div>
+    </div>
+    <div class="slide page2 styleWhite" style="background:url('/images/mainVisual_img02.jpg') center center / cover no-repeat;">
         <div class="wrapper">
-            <h2 class="slideTitle">slide1 Title</h2>
-            <p class="slideText">slide1 Text</p>
-            <a href="javaScript:;" class="sideLink">more view</a>
+            <h2 class="slideTitle">투데잇 : Today-Eat</h2>
+            <p class="slideText">오늘도 무엇을 <br>어떻게 먹을지 고민중이신가요?</p>
+            <a href="./todayEat.do" class="sideLink">바로가기</a>
         </div>
     </div>
 </section>
@@ -122,17 +129,14 @@
         <div class="mctArea type3">
 		    <div class="mctThumb typeCol" v-for="(item, index) in recipeList" >
 		        <a href="javaScript:;" class="imgBox" @click="fnViewRecipe(item.recipeNo)">
-		        <img :src="item.imgPath" alt="레시피 이미지">
+		        	<img :src="item.imgPath" alt="레시피 이미지">
 		        </a>
-		      <a href="javaScript:;" class="txtBox">
-		          <p class="text">#요리초보 #요린이 #봄나물 #제철나물 #나물요리</p>
-		          <h4 class="title">{{item.recipeName}}</h4>
-		      </a>
-		  </div>
+				<a href="javaScript:;" class="txtBox">
+				    <p class="text">#요리초보 #요린이 #봄나물 #제철나물 #나물요리</p>
+				    <h4 class="title">{{item.recipeName}}</h4>
+				</a>
+			</div>
 		</div>
-          
-          
-        </div>
     </div>
 </section>
 <section id="mainContent" class="nth4">
@@ -176,6 +180,24 @@
                 </a>
             </div>
         </div>
+    </div>
+</section>
+<section id="mainContent" class="nth5">
+    <div class="wrapper">
+    	<div class="mctArea typeLeft">
+	        	<h2 class="mctTitle">알쓸정책</h2>
+	        	<button class="moreBtn" @click="fnMorePolicy()">더보기 <i class="fa-solid fa-circle-chevron-down fa-rotate-270"></i></button>
+        	<ul class="mctList">
+        		<li><span class="cateBox">#생활</span><h4 class="title"><a href="javaScript:;" target="_self">1인가구에 '스마트초인종·가정용CCTV' 안심장비 지원</a></h4></li>
+        		<li><span class="cateBox">#생활</span><h4 class="title"><a href="javaScript:;" target="_self">고립·은둔청년 찾아 사회복귀 돕는다! 원스톱 지원</a></h4></li>
+        		<li><span class="cateBox">#문화</span><h4 class="title"><a href="javaScript:;" target="_self">'문화가 흐르는 예술마당' 개막…린, 원슈타인 공연 열린다</a></h4></li>
+        		<li><span class="cateBox">#경제</span><h4 class="title"><a href="javaScript:;" target="_self">글로벌기업·국제기구 84곳에서 '청년인턴 직무캠프' 운영</a></h4></li>
+        	</ul>
+    	</div>
+    	<div class="mctArea typeRight">
+    		<a class="mctBanner" href="javaScript:;" target="_self">
+    		</a>
+    	</div>
     </div>
 </section>
 </div>
@@ -265,6 +287,10 @@ var app = new Vue({
 	 	, fnViewRecipe: function(recipeNo) {
 		  	var self = this;
 		  	self.pageChange("./recipe/view.do", {recipeNo : recipeNo});
+		}
+		// 알쓸정책 바로가기
+		, fnMorePolicy : function() {
+    		location.href = "./policy.do";
 		}
     	
     		

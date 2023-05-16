@@ -4,11 +4,6 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <style>
-.styleBoxRound {border-radius:1.5em; overflow:hidden;}
-.styleBoxShadow {box-shadow:0 0 10px 0 rgba(0,0,0,0.1);}
-.styleHoverShadow {transition:all 0.2s ease-out;}
-.styleHoverShadow:hover {box-shadow:0 2px 20px 0 rgba(0,0,0,0.3);}
-
 .resultMenu {text-align:center; margin-bottom:5em;}
 .resultMenuTitle {font-size:1.75em;}
 .resultMenuTitle span {font-size:1.25em;}
@@ -39,7 +34,7 @@
 				<div class="imgBox">
                 	<img class="img" :src="info.imgPathT">
 				</div>
-				<a class="replayBtn" @click="fnReplay()"><i class="fa-solid fa-reply"></i> 다시 추천받기</a>
+				<a class="replayBtn" @click="fnReplay()"><i class="fa-solid fa-arrow-rotate-left"></i> 다시 추천받기</a>
 			</div>
 			<div class="resultMore">
 				<div class="recipeArea">

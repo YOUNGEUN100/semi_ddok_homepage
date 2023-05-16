@@ -354,6 +354,7 @@
 	    , sessionStatus : "${sessionStatus}"
 	    } 
 	    , methods: {
+	    	// 레시피 정보 보여주기
 	        fnGetInfo : function(){
 	            var self = this;
 	            var nparmap = {recipeNo : self.recipeNo};
@@ -402,6 +403,16 @@
                 if (!confirm("레시피를 저장하시겠습니까?")) {
                     return;
                 }
+                var nparmap = {userId : self.sessionId, recipeNo : self.recipeNo};
+    	        $.ajax({
+    	            url:"/recipe/mypageSave.dox",
+    	            dataType:"json",	
+    	            type : "POST", 
+    	            data : nparmap,
+    	            success : function(data) {
+    	            	alert(data.message);
+    	            }
+    	        }); 
 			}
 			// 레시피 인쇄
 			, fnPrint : function() {

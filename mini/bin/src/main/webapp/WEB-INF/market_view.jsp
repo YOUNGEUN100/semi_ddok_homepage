@@ -447,7 +447,7 @@ Vue.component('paginate', VuejsPaginate)
 	        , sessionId : "${sessionId}"
 	        , productName : ""
 	        , isOpen : false
-	        , productCnt : ""
+	        , productCnt : 1
 	        
 	        	<!-- 페이징 추가 5-->
 			, selectPage: 1
@@ -518,17 +518,24 @@ Vue.component('paginate', VuejsPaginate)
         	, fnCart : function(productNo){
     	    	var self = this;
     	    	var nparmap = {productNo : self.productNo, productCnt : self.productCnt};
-    	    	    	    	
+
+    	    	
+    	    	if(self.sessionId=="" || self.sessionId =="defind" ){
+    	    		alert("장바구니담기를 하시려면 로그인해주세요");
+    	    		return;
+    	    	}
+    	    	
     	    	$.ajax({
     	            url:"/addCart.dox",
     	            dataType:"json",	
     	            type : "POST", 
     	            data : nparmap,
     	            success : function(data) {            
-    	           	 	alert("저장되었습니다..");
+    	           	 	alert("장바구니에 담았습니다..");
     	           		location.href="/cart.do";
     	            }
-    	        });
+    	        });    	    	
+    	    	
     	    	
     		}
         	

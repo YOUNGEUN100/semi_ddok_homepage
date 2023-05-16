@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.example.mini.mapper.MyMapper">
+		<select id="selectLikeRecipe" parameterType="HashMap" resultType="com.example.mini.model.Recipe">
+			SELECT RECIPE_NAME, HASHTAG, IMG_PATH, USER_ID, R.RECIPE_NO
+			FROM T4_USER_RECIPE UR
+			LEFT JOIN 
+				T4_RECIPE R ON R.RECIPE_NO = UR.RECIPE_NO
+			LEFT JOIN 
+				T4_R_IMAGE I ON R.RECIPE_NO = I.RECIPE_NO
+			WHERE USER_ID = #{userId} AND THUMBNAIL_YN ='Y'
+		</select>
+		
+		<select id="selectAttendFunding" parameterType="HashMap" resultType="com.example.mini.model.Funding">
+			SELECT
+				A.FUNDING_NO,
+				FUNDING_NAME,
+				FUNDING_SUMMARY,
+				FUNDING_END_DT,
+				FUNDING_GOAL_CNT,
+				FUNDING_PRICE,
+				CNT,
+				TIMESTAMPDIFF(DAY, NOW(), FUNDING_END_DT) AS D_DAY,
+				IMG_PATH,
+				CONCAT(IMG_PATH, IMG_ORG_NAME) AS IMG_PATH2,
+				FORMAT(FUNDING_PRICE , 0) AS FUNDING_PRICE2,
+				THUMBNAIL_YN,
+				USER_ID
+				
+			FROM T4_FUNDING A
+			LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
+						FROM T4_FUNDING_MEMBER
+						GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
+			LEFT JOIN (SELECT FUNDING_NO, IMG_PATH
+						FROM T4_F_IMAGE
+						WHERE THUMBNAIL_YN = 'Y'
+						GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
+			LEFT JOIN T4_FUNDING_MEMBER M ON A.FUNDING_NO = M.FUNDING_NO
+			WHERE USER_ID = #{userId} AND FUNDING_CLOSE_YN = 'N' AND THUMNAIL_YN = 'Y'
+			
+		</select>
+		
+	</mapper>

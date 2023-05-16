@@ -62,6 +62,13 @@
          width: 60px;
          height: 35px;
    }
+   .comment_list button {
+         width: 50px;
+         height: 30px;
+         font-size:small;
+         margin-left : 20px;
+         background-color: white;
+   }
    .mgr20 {margin-right: 20px;}
    .mgb20 {margin-bottom: 20px;}
 </style>
@@ -93,18 +100,25 @@
                <hr>
                <div class="comment">
                    <h4 class="mgb20">댓글</h4>
+                   
                    <div class="comment_list" v-for="(item, index) in list" >
                        <div>
                            <span class="mg20">{{item.nick}}</span>
                            <span>{{item.cdatetime}}</span>
+                            <button v-if="item.userId==sessionId || sessionStatus=='A'" @click="fncommentDel(item.commentNo)">삭제</button>
                        </div>
                        <div class="mgb20">{{item.comment}}</div>
+                      
                    </div>
                    
                    <div class="comment_enroll">
-                      <div>작성자</div>
-                      <input type="text" placeholder="댓글을 남겨보세요.">
-                      <button>등록</button>
+                   		<template>
+                   			<div v-if="sessionId==''">작성자</div>
+                   			<div v-else>{{sessionNick}}</div>
+                   		</template>
+                   
+                      <input type="text" placeholder="댓글을 남겨보세요." v-model="commentInfo.comment">
+                      <button @click="fnCommentEnroll()">등록</button>
                    </div>
                    
                </div>
@@ -139,31 +153,50 @@
             data: {
             	list : []
               , info : {}
+   			  , commentInfo : {
+	   				boardNo : "${map.boardNo}",
+	        		userId : "${sessionId}",
+	        		comment : ""
+   			  }
               , boardNo : "${map.boardNo}"
           	  , sessionId: "${sessionId}"    
           	  , sessionStatus : "${sessionStatus}"
+          	  , sessionNick : "${sessionNick}"    
             }
             , methods: {
-            	// 커뮤니티 글 상세, 댓글 리스트
+            	// 커뮤니티 글 상세
             	 fnGetInfo : function(){
      	            var self = this;
      	            var nparmap = {boardNo : self.boardNo};
-     	            // 레시피 설명
      	            $.ajax({
      	                url:"/community/view.dox",
      	                dataType:"json",
      	                type : "POST",
      	                data : nparmap,
      	                success : function(data) {
-     	                    self.info = data.info;
-     	                    self.list = data.list;
+     	                    self.info = data.info[0];
+     	                   console.log("글 데이터는");
      	                    console.log(data.info);
-     	                    console.log(data.list);
      	                }
      	            });
-     	
      	        }
-            	
+		         // 댓글 리스트
+		       	 ,fnCommentList : function(){
+			            var self = this;
+			            var nparmap = {boardNo : self.boardNo};
+			            $.ajax({
+			                url:"/community/commentList.dox",
+			                dataType:"json",
+			                type : "POST",
+			                data : nparmap,
+			                success : function(data) {
+			                    self.list = data.list;
+			                    console.log("댓글 리스트는");
+			                    console.log(data.list);
+			                }
+			            });
+			
+			        }
             	 // 커뮤니티 글 삭제
                 , fnRemove : function() {
                     var self = this;
@@ -247,15 +280,54 @@
             		var self = this;
             		self.pageChange("/community/edit.do", {boardNo : self.boardNo});            		
             	}
-            	
+            	// 댓글 등록하기
+            	, fnCommentEnroll : function() {
+            		 var self = this;
+            		 if (self.sessionId == "") {
+             			if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")){            				
+             				location.href="/login.do";    		
+             			} else return;
+             		 }
+                   	var nparmap = self.commentInfo;
+        	        $.ajax({
+        	            url:"/community/commentSave.dox",
+        	            dataType:"json",	
+        	            type : "POST", 
+        	            data : nparmap,
+        	            success : function(data) {  
+        	            	console.log(data);
+        	            	alert("등록되었습니다!");
+        	            	self.fnCommentList();
+        	            	self.commentInfo.comment = "";
+        	            }
+        	        }); 
+            	}
+            	// 댓글 삭제하기
+            	, fncommentDel : function(commentNo) {
+            		 var self = this;
+            		 if (!confirm("삭제하시겠습니까?")) return;
+                     var nparmap = {commentNo : commentNo};
+         	        $.ajax({
+         	            url:"/community/commentRemove.dox",
+         	            dataType:"json",	
+         	            type : "POST", 
+         	            data : nparmap,
+         	            success : function(data) { 
+         	            	alert("댓글이 삭제되었습니다.");
+         	            	self.fnCommentList();
+         	            }
+         	        }); 
+            	}
             
 
 
             }
             , created: function () {
             	var self = this;
+            	console.log(self.sessionNick);
             	console.log(self.boardNo);
             	self.fnGetInfo();
+            	self.fnCommentList();
             }
         });
 

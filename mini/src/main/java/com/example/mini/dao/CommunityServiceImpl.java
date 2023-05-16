@@ -74,8 +74,35 @@ public class CommunityServiceImpl implements CommunityService{
 		communityMapper.deleteComment(map);
 	}
 	
+	/* 아래부터는 QNA 작성하는 공간입니다 */
 	
-
+	// 문의글 리스트
+	@Override
+	public HashMap<String, Object> searchQnaList(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();	
+		resultMap.put("list", communityMapper.selectQnaList(map));
+		resultMap.put("cnt", communityMapper.selectComCnt(map));
+		resultMap.put("result","success");
+		return resultMap;
+	}
+	
+	// 문의 글쓰기
+	@Override
+	public void addQna(HashMap<String, Object> map) {
+		communityMapper.insertQna(map);
+	}
+	
+	// 문의글 보기
+	@Override
+	public HashMap<String, Object> searchQnaInfo(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		Community info = communityMapper.selectQnaInfo(map);
+		resultMap.put("info", info);
+		if(info != null) {
+			communityMapper.updateComCnt(map);
+		}
+		return resultMap;
+	}
 
 
 

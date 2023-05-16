@@ -196,15 +196,31 @@
                             <div class="comment_box">
                                 <div class="comment_list" v-for="(item, index) in list">
                                 	<template v-if="editCoNo != item.commentNo">
-                                    	<div class="commenter">
+                                	
+                                    	<div class="commenter"> <!-- 댓글작성자 댓글작성일 정보영역 -->
 	                                        <span>{{item.nick}}</span>
     	                                    <span>{{item.cdatetime2}}</span>
         	                                <button @click="fnDeleteComment(item.commentNo)" v-if="sessionId == item.userId || sessionStatus == 'A'">삭제</button>
             	                            <button @click="fnEditComment(item)" v-if="sessionId == item.userId || sessionStatus == 'A'">수정</button>
                 	                    </div>
-                    	                <div class="comment_content">
-                        	                <pre>{{item.content}}</pre>
+                	                    
+                    	                <div class="comment_content"> <!-- 댓글내용 -->
+                        	                <pre v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">{{item.content}}</pre>
+                        	                <pre v-else> 비밀 댓글입니다.</pre>
+                        	                                     	                
                             	        </div>
+                            	        
+                            	        <div class="reComment_content"> <!-- 대댓글영역 -->
+                            	        	<div v-if="editReCoNo != item.commentNo">
+                            	        		<div v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId" @click="fnRecommentBtn(item)">답글작성</div> 
+                            	        	</div>
+                            	       	 	<div v-else>
+                            	        		<textarea placeholder="댓글을 입력하세요." v-model="reContent"></textarea>
+                        	               		<button @click="fnWriteReComment(item.commentNo)">입력</button>
+                        	               		<button @click="fnRecommentclose">취소</button>
+                            	        	</div>
+                            	        </div>
+
                                     </template>
                                     
                                     <template v-else>
@@ -257,6 +273,9 @@
                 sessionStatus: "${sessionStatus}",
                 content : "",
                 editCoNo: "",
+                editReCoNo: "",
+                reContent : "",
+                recommentBtn : "N"
 
             },
             methods: {
@@ -272,6 +291,7 @@
                         data: nparmap,
                         success: function (data) {
                             self.info = data.info;
+                            console.log(data.info);
                         }
                     });
                 }
@@ -460,6 +480,42 @@
             	, fnEditFlea: function(boardNo) {
             		var self = this;            		
             		self.pageChange("./edit.do", {boardNo : boardNo});
+            	}
+            	
+            	// 대댓글 리스트
+            	
+            	// 대댓글 할성 버튼
+            	, fnRecommentBtn: function(item) {
+            		var self = this;
+            		self.editReCoNo = item.commentNo;
+            		console.log(self.editReCoNo);
+            	}
+            	
+            	// 대댓글 활성 취소
+            	, fnRecommentclose: function() {
+            		var self = this;
+            		self.editReCoNo = "";
+            	}
+            	
+            	// 대댓글 작성
+            	, fnWriteReComment: function(commentNo) {
+            		var self = this;
+            		var nparmap = {commentNo : commentNo,
+            						content : self.reContent,
+            						sessionId : self.sessionId,
+            						boardNo : self.boardNo
+            						};
+            		$.ajax({
+                    	url: "/fleamarket/addrecomment.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("등록완료");
+                    		self.editReCoNo = "";
+                    	}
+                });
+            		
             	}
             	
 

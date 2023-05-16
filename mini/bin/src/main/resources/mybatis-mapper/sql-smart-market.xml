@@ -221,7 +221,6 @@
 		<select id="selectSmartMarketKind" parameterType="hashmap" resultType="com.example.mini.model.Code">	
 			SELECT 
 				KIND,
-				CODE,
 				NAME,
 				IMG
 			FROM T4_CODE
@@ -235,10 +234,45 @@
 				(#{userid}, #{productNo}, #{productCnt})
 		</insert>
 		
+		<update id="updateCart" parameterType="hashmap" >
+			UPDATE T4_CART
+				SET PRODUCT_CNT = #{productCnt}
+			WHERE CART_NO = #{cartNo}
+		</update>
+		
 		
 		<delete id="deleteCart" parameterType="hashmap" >
 			DELETE FROM T4_CART
 			WHERE CART_NO = #{cartNo}
 		</delete>
+
+
+
+		<select id="selectUserInfo" parameterType="hashmap" resultType="com.example.mini.model.User">
+			SELECT 
+				USER_ID
+				, NAME
+				, NICK
+				, EMAIL
+				, GENDER
+				, BIRTH
+				, HP
+				, LIVING_YEAR
+				, STATUS
+				, ADDR
+				, ADDR2
+			FROM  T4_USER
+			WHERE 1=1
+			<if test="userid !='' and userid != null">
+				AND USER_ID = #{userid}
+			</if>
+		</select>
+
 		
+				
 	</mapper>
+	
+	
+	
+	
+	

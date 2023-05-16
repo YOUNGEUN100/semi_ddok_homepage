@@ -63,7 +63,7 @@
      .joinArea .joinBox .accountFind{font-size: 0.8em; color: #5EA152;}
      .joinArea .joinBox .w100{width: 100%;}
      .joinArea .joinBox .w90{width: 85%; margin-right: 15px; }
-     .joinArea .joinBox .w80{width: 76%; margin-right: 8px;}
+     .joinArea .joinBox .w80{width: 75%; margin-right: 8px;}
      .joinArea .joinBox .w50{width: 45%; margin-right: 7px;}
      .joinArea .joinBox .w60{width: 55%; margin-right: 10px;}
 
@@ -82,6 +82,10 @@
          background-color: #5EA152; color:#fff; 
          border-radius: 8px; padding: 10px; border: 0; font-weight: bold; 
          width: 76%; margin-left: 30px;}
+     
+     .joinArea .joinBox input::placeholder{
+     	font-size:0.9em;
+     	}
 </style>
 
 

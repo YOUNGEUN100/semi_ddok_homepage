@@ -37,12 +37,12 @@
         box-shadow: 0px 0px 20px 5px #e7e6e6;
 	}
 	.comlist .center{text-align:center; }
-	.comlist #title:hover{cursor: pointer;}
-	#no{width:10%; }
-	#title{width:50%; text-align:left;}
-	#writer{width:10%;}
-	#date{width:20%;}
-	#view{width:10%;}
+	.comlist .title:hover{cursor: pointer;}
+	.comlist .no{width:10%; }
+	.comlist .title{width:50%; text-align:left;}
+	.comlist .writer{width:10%;}
+	.comlist .date{width:20%;}
+	.comlist .view{width:10%;}
 	
 	/* 페이징 추가2 */
 	.pagination { margin:24px;display: inline-flex;}
@@ -82,7 +82,7 @@
              <table>                            
              	<thead>
              		<tr>
-             			<th>연번</th>
+             			<th>글번호</th>
              			<th>제목</th>
              			<th>작성자</th>
              			<th>작성일</th>
@@ -92,14 +92,14 @@
              	
              	<tbody>
 	              	<tr class="center" v-for="(item, index) in list" >
-                        <td id="no">{{index+1}}</td>
+                        <td class="no">{{item.boardNo}}</td>
 	                   <template>
-	                         <td id="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
-	                        <td id="title" V-if="item.status=='C'" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
+	                         <td class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
+	                        <td class="title" v-if="item.status=='C'" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
                         </template>
-   	                    <td id="writer">{{item.nick}}</td>
-       	                <td id="date">{{item.cdatetime}}</td>
-               	        <td id="view">{{item.hits}}</td>
+   	                    <td class="writer">{{item.nick}}</td>
+       	                <td class="date">{{item.cdatetime}}</td>
+               	        <td class="view">{{item.hits}}</td>
 	                  </tr>                                 
               </tbody>        	                       
              </table>
