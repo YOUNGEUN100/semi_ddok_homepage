@@ -52,7 +52,7 @@
 			</template>
 	        <template v-if="sessionId != ''">
 	        <li><a href="/login.do" @click="fnLogout">로그아웃</a></li>
-	        <li><a href="myPage.do" >마이페이지</a></li>
+	        <li><a href="/myPage.do" >마이페이지</a></li>
 	        </template>
 	        <li><a href="/cart.do">장바구니</a></li>
 	    </ul>
