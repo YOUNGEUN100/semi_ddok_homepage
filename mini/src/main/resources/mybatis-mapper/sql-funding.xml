@@ -192,7 +192,7 @@
 
 			LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
 			
-			WHERE BOARD_NO = #{boardNo};
+			WHERE BOARD_NO = #{boardNo} AND DELETE_YN = 'N';
 		</select>	
 			
 		<!-- 랜선장터 댓글 입력 -->
@@ -203,14 +203,17 @@
 				USER_ID,
 				CONTENT,
 				CDATETIME,
-				UDATETIME)
+				UDATETIME,
+				DELETE_YN)
 			VALUES (
 				NULL,
 				#{boardNo},
 				#{sessionId},
 				#{content},
 				NOW(),
-				NOW())
+				NOW(),
+				'N'
+				)
 		</insert>
 		
 		<!-- 랜선장터 거래종료 -->
@@ -239,7 +242,8 @@
 		
 		<!-- 랜선장터 댓글 삭제 -->
 		<delete id="deleteComment" parameterType="hashmap">
-			DELETE FROM T4_COMMENT
+			UPDATE T4_COMMENT
+			SET DELETE_YN = 'Y'
 			WHERE COMMENT_NO = #{commentNo}
 		</delete>
 		
@@ -253,20 +257,26 @@
 		
 		<!-- 랜선장터 대댓글 작성 -->
 		<insert id="insertFleaReComment" parameterType="hashmap">
-			INSERT INTO T4_RE_COMMENT (
-				RE_COMMENT_NO,
+			INSERT INTO T4_COMMENT (
 				COMMENT_NO,
+				BOARD_NO,
 				USER_ID,
 				CONTENT,
+				COMMENT_RENO,
 				CDATETIME,
-				UDATETIME)
+				UDATETIME,
+				DELETE_YN
+				)
 			VALUES (
 				NULL,
-				${commentNo},
+				#{boardNo},
 				#{sessionId},
 				#{content},
+				#{commentNo},
 				NOW(),
-				NOW())
+				NOW(),
+				'N'
+				)
 		</insert>
 		
 		<!--오픈된 펀딩 리스트-->

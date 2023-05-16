@@ -502,7 +502,9 @@
             		var self = this;
             		var nparmap = {commentNo : commentNo,
             						content : self.reContent,
-            						sessionId : self.sessionId};
+            						sessionId : self.sessionId,
+            						boardNo : self.boardNo
+            						};
             		$.ajax({
                     	url: "/fleamarket/addrecomment.dox",
                     	dataType: "json",
