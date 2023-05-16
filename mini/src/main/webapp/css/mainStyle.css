@@ -8,9 +8,17 @@ section#mainContent.nth4 .mctArea .mctThumb .imgBox img {opacity:0;}
 /*** temp --- END ***/
 
 /*** mainVisual --- START ***/
-#mainVisual {width:100%;}
+#mainVisual {width:100%; max-width:1910px; margin-left:auto; margin-right:auto;}
 #mainVisual .slide {background:var(--base-colorBasicGray);}
-#mainVisual .slide .wrapper {width:100%; height:500px; display:flex; flex-flow:column wrap; justify-content:center;}
+#mainVisual .slide .wrapper {width:100%; height:700px; display:flex; flex-flow:column wrap; justify-content:center; align-items:flex-start;}
+#mainVisual .slide .wrapper .slideTitle {font-size:2.75em;}
+#mainVisual .slide .wrapper .slideText {font-size:1.25em; margin:1.5em 0 2.5em;}
+#mainVisual .slide .wrapper .sideLink {display:inline-block; background:var(--main-colorGreen); font-weight:600; padding:0.75em 3em; color:var(--base-colorWhite); font-size:1.125em; transition:all 0.15s ease-out;}
+#mainVisual .slide .wrapper .sideLink:hover {background:var(--main-colorOrange);}
+
+#mainVisual .slide.styleBlack {color:var(--base-colorBlack); }
+#mainVisual .slide.styleWhite {color:var(--base-colorWhite); }
+#mainVisual .slick-dots {bottom:1em;}
 /*** mainVisual --- END ***/
 
 /*** mainContent --- START ***/
@@ -130,6 +138,22 @@ section#mainContent.nth4 .mctArea .mctThumb .txtBox .title {text-align:center; -
 	section#mainContent.nth4 .mctArea {width:100%;}
 	section#mainContent.nth4 .mctArea .mctThumb {padding:0 10px;}
 }
+/*** nth4 --- END ***/
+
+/*** nth5 --- START ***/
+section#mainContent.nth5 .wrapper {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:stretch;}
+section#mainContent.nth5 .mctArea.typeLeft {width:calc(100% - 380px); flex-flow:row wrap; align-items:flex-start; padding-right:2em;}
+section#mainContent.nth5 .mctArea.typeLeft .moreBtn {line-height:1; font-weight:600; border:0; background:none; border-radius:0; padding:0; margin-top:0.75em; color:var(--base-colorDarkGray);}
+section#mainContent.nth5 .mctArea.typeLeft .moreBtn i {font-size:0.9em;}
+section#mainContent.nth5 .mctArea.typeLeft ul.mctList {width:100%; margin-top:-1px; border-top:1px solid var(--base-colorDeepGray);}
+section#mainContent.nth5 .mctArea.typeLeft ul.mctList li {width:100%; display:flex; flex-flow:row wrap; align-items:center; padding:0.875em 0.5em 0.75em; border-bottom:1px solid var(--base-colorDeepGray);}
+section#mainContent.nth5 .mctArea.typeLeft ul.mctList li .cateBox {width:46px; text-align:center; line-height:1; font-weight:500; font-size:0.875em; padding:0.375em; background:var(--base-colorWhite); border:1px solid var(--base-colorBlack); cursor:context-menu;}
+section#mainContent.nth5 .mctArea.typeLeft ul.mctList li h4.title {width:calc(100% - 46px); padding:0.125em 0.5em; font-weight:600; font-size:1.125em; text-align:left; word-break:keep-all; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical;}
+section#mainContent.nth5 .mctArea.typeLeft ul.mctList li h4.title a {display:inline;}
+section#mainContent.nth5 .mctArea.typeLeft ul.mctList li h4.title a:hover {text-decoration:underline; text-underline-position:under;}
+section#mainContent.nth5 .mctArea.typeRight {width:380px; background:var(--base-colorBasicGray);}
+
+/*** nth5 --- END ***/
 
 
 i.action {

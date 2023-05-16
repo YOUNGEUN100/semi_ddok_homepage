@@ -3,7 +3,7 @@
 <header id="header">
 	<div class="wrapper">
 		<h1 id="logo">
-	        <a href="/main.do">똑똑</a>
+	        <a href="/main.do"><img src="/images/logo.png" alt="DDokDDok"></a>
 	    </h1>
 	    <nav id="gnbMenu" class="nav typeMenu">
 	        <ul class="depth1">

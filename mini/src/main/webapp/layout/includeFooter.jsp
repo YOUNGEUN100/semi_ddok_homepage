@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<i id="scrollBtn" class="fa-solid fa-arrow-up styleBoxShadow styleHoverShadow"></i>
+
 <footer id="footer">
 	<div class="wrapper">
 	    <div class="topArea">
@@ -14,7 +16,7 @@
 	        <a href="javaScript:;" class="qnaBtn">문의 게시판</a>
 	    </div>
 	    <div class="btmArea">
-	        <div class="logo typeFooter">(주) 똑똑</div>
+	        <div class="logo typeFooter"><img src="/images/logo.png" alt="DDokDDok"></div>
 	        <ul class="infoBox">
 	            <li><span>상호명</span>주식회사 똑똑</li>
 	            <li><span>사업자 등록번호</span>123-45-67890</li>
