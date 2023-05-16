@@ -4,7 +4,7 @@
 	
 	<mapper namespace="com.example.mini.mapper.MyMapper">
 		<select id="selectLikeRecipe" parameterType="HashMap" resultType="com.example.mini.model.Recipe">
-			SELECT RECIPE_NAME, HASHTAG, IMG_PATH, USER_ID
+			SELECT RECIPE_NAME, HASHTAG, IMG_PATH, USER_ID, R.RECIPE_NO
 			FROM T4_USER_RECIPE UR
 			LEFT JOIN 
 				T4_RECIPE R ON R.RECIPE_NO = UR.RECIPE_NO

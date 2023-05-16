@@ -7,7 +7,7 @@
 	.myArea{
          background-color: #fff;
          margin: 0 auto;
-         padding: 30px 80px; 
+         padding: 30px 40px; 
          display: flex; flex-direction: column; justify-content: center;
          align-items: center;
         }
@@ -58,8 +58,10 @@
 
 
       .myArea .contentBox .recipeBox{
-          width: 100%; display: flex; flex-direction: row; justify-content: space-between;
-          margin-top: 30px; margin-bottom: 20px; 
+          width: 100%; display: grid;
+          grid-template-columns: repeat(3,1fr);
+          grid-template-rows: repeat(4,270px); row-gap: 50px; column-gap: 30px;
+          margin-top: 30px; margin-bottom: 50px; 
       }
       .myArea .contentBox .recipeBox .recipeImg{
           width: 95%; height: 90%; cursor: pointer;
@@ -67,6 +69,11 @@
       .myArea .contentBox .recipeBox .recipeDetail{
           font-size: 1.1em; font-weight: bold; cursor: pointer; 
       }
+      /*.myArea .contentBox .recipeBox .itemList {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-template-rows: repeat(3,350px);
+        }*/
 
       
 </style>
@@ -87,8 +94,8 @@
                     <a class="menu" id="funding" href="/myPage/funding.do">펀딩내역</a>
                     <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
-                <div class="recipeBox" ><!-- 찜한 레시피 요약 -->
-                    <div v-for="(item, index) in list">
+                <div class="recipeBox itemList"><!-- 찜한 레시피 요약 -->
+                    <div v-for="(item, index) in list" >
                         <img :src="item.imgPath"  name="레시피이미지" class="recipeImg">
                         <div>{{item.hashtag}}</div>
                         <div class="recipeDetail">{{item.recipeName}}</div>    
@@ -124,9 +131,10 @@ var app = new Vue({
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
-                	console.log(sessionId);
-                	console.log(list);
-                	console.log(data);
+                	console.log(self.sessionId);
+                	self.list = data.list;
+                	console.log(data.list);
+                	console.log(self.list);
                     
                 }
             });
@@ -135,7 +143,8 @@ var app = new Vue({
 		   	 
 	}	
     , created: function () {
-    
+    	var self = this;
+    	self.fnLikeRecipe();
 	}
 });
 	
