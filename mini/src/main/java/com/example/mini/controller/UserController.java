@@ -143,30 +143,7 @@ public class UserController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
-	//마이페이지
-	@RequestMapping("/myPage.do") 
-    public String mypage(Model model) throws Exception{
-
-        return "/mypage";
-    }
 	
-	@RequestMapping("/myPagee/order.do") 
-    public String mypageOrder(Model model) throws Exception{
-
-        return "/myPage_order";
-    }
-	
-	@RequestMapping("/mypage/funding.do") 
-    public String mypageFunding(Model model) throws Exception{
-
-        return "/myPage_funding";
-    }
-	
-	@RequestMapping("/mypage/review.do") 
-    public String mypageReview(Model model) throws Exception{
-
-        return "/myPage_review";
-    }
 	
 	@RequestMapping("/payment.do") 
     public String payment(Model model) throws Exception{

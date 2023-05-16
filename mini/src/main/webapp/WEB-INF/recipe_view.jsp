@@ -391,22 +391,57 @@
                 alert("복사되었습니다.");
             }
 			// 레시피 저장
-			, fnSave : function() {
+			, fnSave : function(recipeNo) {
 				var self = this;
 				console.log(self.sessionId);
 				console.log(self.sessionStatus);
-				if (self.sessionId == "") {
+
+                if (self.sessionId == "") {
                 	alert("로그인을 해주세요");
+                	location.href="/login.do";
                 	return;
                 }
-                if (!confirm("레시피를 저장하시겠습니까?")) {
-                    return;
+                if (confirm("레시피를 저장하시겠습니까?")) {
+                	console.log(self.recipeNo);
+                	self.pageChange("/recipe/myPage.do", {recipeNo : self.recipeNo});
+                	return;
                 }
+
 			}
 			// 레시피 인쇄
 			, fnPrint : function() {
 				window.print();
 			}
+			,
+			pageChange : function(url, param) {
+	     		var target = "_self";
+	     		if(param == undefined){
+	     		//	this.linkCall(url);
+	     			return;
+	     		}
+	     		var form = document.createElement("form"); 
+	     		form.name = "dataform";
+	     		form.action = url;
+	     		form.method = "post";
+	     		form.target = target;
+	     		for(var name in param){
+	 				var item = name;
+	 				var val = "";
+	 				if(param[name] instanceof Object){
+	 					val = JSON.stringify(param[name]);
+	 				} else {
+	 					val = param[name];
+	 				}
+	 				var input = document.createElement("input");
+	 	    		input.type = "hidden";
+	 	    		input.name = item;
+	 	    		input.value = val;
+	 	    		form.insertBefore(input, null);
+	 			}
+	     		document.body.appendChild(form);
+	     		form.submit();
+	     		document.body.removeChild(form);
+	     	}
 	    
 	        
 	    }   

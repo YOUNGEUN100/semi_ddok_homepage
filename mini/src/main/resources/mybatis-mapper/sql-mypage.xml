@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.example.mini.mapper.MyMapper">
+		<select id="selectLikeRecipe" parameterType="HashMap" resultType="com.example.mini.model.My">
+			SELECT RECIPE_NAME, HASHTAG, IMG_PATH, RECIPE_NO
+			FROM T4_RECIPE R
+			INNER JOIN 
+				T4_R_IMAGE I ON R.RECIPE_NO = I.RECIPE_NO
+			INNER JOIN T4_USER_RECIPE U ON R.RECIPE_NO = U.RECIPE_NO
+			WHERE R.RECIPE_NO = #{recipeNo} AND THUMBNAIL_YN = 'Y' AND USER_ID =#{id}
+		</select>
+		
+		
+	</mapper>
