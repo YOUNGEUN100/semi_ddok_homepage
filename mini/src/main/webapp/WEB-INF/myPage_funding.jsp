@@ -28,7 +28,7 @@
           width: 80%;  display: flex;
           flex-direction: column;
           justify-content: center;
-          align-items: center;
+          align-items: center;   
       }
       
       .myArea .contentBox .menuBox{
@@ -57,9 +57,9 @@
       }
 
       .myArea .contentBox .fundingBox{
-          width: 100%; box-shadow: 0 0 5px #ccc; margin-top:20px
-          border-radius: 20px; display: flex; flex-direction: row; 
-          justify-content: space-between; align-items: center;
+          width: 100%; box-shadow: 0 0 5px #ccc;
+          display: flex; flex-direction: row; border-radius: 20px;
+          justify-content: space-between; align-items: center; margin-top: 30px
       }
       .myArea .contentBox .fundingBox img{
           width: 100%; border: 1px solid #ccc;
@@ -69,7 +69,7 @@
           width: 70%;
       }
       .myArea .contentBox .fundingBox .fundContent h1{
-          font-size: 1.8em; margin-bottom: 20px; cursor: pointer;
+          font-size: 1.8em; margin-bottom: 20px; cursor: pointer; margin-top:15px;
       }
       .myArea .contentBox .fundingBox .fundDetail{
           width: 90%;
@@ -82,7 +82,7 @@
           margin-bottom: 10px;
       }
       .myArea .contentBox .fundingBox .fundPrice p{
-          display: inline-block; margin-right: 20px;
+          display: inline-block; margin-right: 20px; margin-bottom:15px;
       }
       .myArea .contentBox .fundingBox .fundPrice p:last-child{
           font-size: 1.4em; font-weight: bold; color: #5EA152;
@@ -99,16 +99,16 @@
 	<div class="wrapper">
 		 <div id="app" class="myArea">
             <div class="userBox"> <!--위-->
-                <img src="images/Sample_User_Icon.png">
-                <div class="edit" title="회원정보 수정은 여길 누르세요">님 환영합니다</div>
+                <img src="/./images/Sample_User_Icon.png">
+                <div class="edit" title="회원정보 수정은 여길 누르세요">{{sessionName}}님 환영합니다</div>
                 
             </div>
             <div class="contentBox"> <!--아래-->
                 <div class="menuBox"> <!--메뉴버튼-->
-                    <div class="menu" id="order" >주문내역</div>
-                    <div class="menu" id="recipe" >찜한 레시피</div>
-                    <div class="menu" id="funding" >펀딩내역</div>
-                    <div class="menu" id="review" >리뷰관리</div>
+                    <a class="menu" id="order" href="/myPage.do">주문내역</a>
+                    <a class="menu" id="recipe" href="/myPage/recipe.do">찜한 레시피</a>
+                    <a class="menu" id="funding" href="/myPage/funding.do">펀딩내역</a>
+                    <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
           
                 <div class="fundingBox" id="fundingBox"><!-- 참여한 펀딩내역 요약 -->
@@ -143,7 +143,7 @@
 var app = new Vue({ 
     el: '#app',
     data: {
-    		
+    	sessionName : "${sessionName}"	
     }
     , methods : {
     		

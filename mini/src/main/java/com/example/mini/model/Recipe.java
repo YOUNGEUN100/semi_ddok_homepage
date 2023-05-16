@@ -20,6 +20,7 @@ public class Recipe {
 	private String tname;
 	private int cookIndex;
 	private String cookContent;
+	private String thumbnailYn;
 
 	private String userId;
 	
@@ -137,6 +138,12 @@ public class Recipe {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getThumbnailYn() {
+		return thumbnailYn;
+	}
+	public void setThumbnailYn(String thumbnailYn) {
+		this.thumbnailYn = thumbnailYn;
 	}
 
 	

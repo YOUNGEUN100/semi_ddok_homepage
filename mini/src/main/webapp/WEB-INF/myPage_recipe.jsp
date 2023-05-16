@@ -82,16 +82,16 @@
             </div>
             <div class="contentBox"> <!--아래-->
                 <div class="menuBox"> <!--메뉴버튼-->
-                    <div class="menu" id="order" >주문내역</div>
-                    <div class="menu" id="recipe" >찜한 레시피</div>
-                    <div class="menu" id="funding" >펀딩내역</div>
-                    <div class="menu" id="review" >리뷰관리</div>
+                    <a class="menu" id="order" href="/myPage.do">주문내역</a>
+                    <a class="menu" id="recipe" href="/myPage/recipe.do">찜한 레시피</a>
+                    <a class="menu" id="funding" href="/myPage/funding.do">펀딩내역</a>
+                    <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
                 <div class="recipeBox" ><!-- 찜한 레시피 요약 -->
-                    <div>
-                        <img  name="레시피이미지" class="recipeImg">
-                        <div>{{info.hashtag}}</div>
-                        <div class="recipeDetail"></div>    
+                    <div v-for="(item, index) in list">
+                        <img :src="item.imgPath"  name="레시피이미지" class="recipeImg">
+                        <div>{{item.hashtag}}</div>
+                        <div class="recipeDetail">{{item.recipeName}}</div>    
                     </div>
                 </div>
             </div>
@@ -108,26 +108,26 @@
 var app = new Vue({ 
     el: '#app',
     data: {
-    	info : {}
+    	list : []
     	, sessionName : "${sessionName}"
     	, sessionId : "${sessionId}"
-  	    , recipeNo : "${map.recipeNo}"
+  	    
     }
     , methods : {
-    	
-    	fnLikeRecipe : function(recipeNo){
+    	//찜한레시피
+    	fnLikeRecipe : function(){
             var self = this;
-            var nparmap = {recipeNo : self.recipeNo};
-            // 레시피 설명
+            var nparmap = {userId : self.sessionId};
             $.ajax({
                 url:"/recipe/like.dox",
                 dataType:"json",
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
+                	console.log(sessionId);
+                	console.log(list);
                 	console.log(data);
-                    self.info = data.info;
-                    console.log(data.info);
+                    
                 }
             });
 

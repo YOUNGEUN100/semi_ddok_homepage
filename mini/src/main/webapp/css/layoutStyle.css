@@ -18,8 +18,9 @@
 #header #gnbMenu ul.depth2 > li > a {padding:8px;}
 
 #header #gnbUser {order:1; margin-top:10px; align-self:flex-end; display:flex; flex-flow:row nowrap; justify-content:space-between;}
-#header #gnbUser li::before {content:'｜'; font-weight:300;}
-#header #gnbUser li:first-child::before {display:none;}
+#header #gnbUser li::after {content:'｜'; font-weight:300;}
+#header #gnbUser li.helloText::after {display:none;}
+#header #gnbUser li:last-child::after {display:none;}
 #header #gnbUser a {font-size:0.875em;}
 #header a, #header a::before {transition:all 0.2s ease-in;}
 /*** header --- END ***/

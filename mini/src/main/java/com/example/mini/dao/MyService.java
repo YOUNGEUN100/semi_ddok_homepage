@@ -1,11 +1,12 @@
 package com.example.mini.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
-import com.example.mini.model.My;
+import com.example.mini.model.Recipe;
 
 public interface MyService {
 	
 	//레시피 저장
-	My searchLikeRecipe(HashMap<String, Object>map);
+	List<Recipe> searchLikeRecipe(HashMap<String, Object>map);
 }
