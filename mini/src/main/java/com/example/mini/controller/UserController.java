@@ -1,6 +1,7 @@
 package com.example.mini.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.UserService;
+import com.example.mini.model.Recipe;
 import com.example.mini.model.User;
 import com.google.gson.Gson;
 
@@ -144,6 +146,30 @@ public class UserController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	//회원 정보 수정
+	@RequestMapping("/modify.do") 
+    public String mypage(Model model) throws Exception{
+		
+        return "/modify";
+    }
+	
+	@RequestMapping(value = "/modify.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String UserList(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = userService.searchUserInfo(map);
+		HashMap<String, Object> list = userService.searchUserInfo(map);
+		String result = (String) resultMap.get("result");
+		if(result.equals("success")) {
+			User user = (User) resultMap.get("user");
+			session.setAttribute("sessionId", user.getUserId());
+			session.setAttribute("sessionName", user.getName());
+			session.setAttribute("sessionNick", user.getNick());
+			
+		}
+		return new Gson().toJson(resultMap);
+		
+    }
 	
 	@RequestMapping("/payment.do") 
     public String payment(Model model) throws Exception{

@@ -32,4 +32,5 @@ public interface UserMapper {
 	
 	//비밀번호를 잊어 비밀번호 업데이트
 	void updatePw(HashMap<String, Object>map);
+	
 }

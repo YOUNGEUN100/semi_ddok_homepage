@@ -79,4 +79,12 @@
 			WHERE USER_ID  = #{id} AND NAME = #{name} AND PW_Q = #{pwQ} AND PW_A =#{pwA}
 		</update> 
 		
+		<select id="selectLikeRecipe" parameterType="HashMap" resultType="com.example.mini.model.User">
+			SELECT RECIPE_NAME, HASHTAG, IMG_PATH
+			FROM T4_RECIPE R
+			INNER JOIN 
+				T4_R_IMAGE I ON R.RECIPE_NO = I.RECIPE_NO
+			WHERE R.RECIPE_NO = #{recipeNo} AND THUMBNAIL_YN = 'Y'
+		</select>
+		
 	</mapper>

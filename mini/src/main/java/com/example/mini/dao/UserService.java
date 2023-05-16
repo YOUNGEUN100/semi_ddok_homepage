@@ -27,6 +27,8 @@ public interface UserService {
 	//비밀번호 찾기
 	User searchUserPw(HashMap<String, Object>map);
 	
-	//비번 잊어 비번 업데이트
+	//비번 분실로 비번 변경
 	void editPw(HashMap<String, Object>map);
+	
+	
 }

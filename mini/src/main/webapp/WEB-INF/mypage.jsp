@@ -90,7 +90,7 @@
 		 <div id="app" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="images/Sample_User_Icon.png">
-                <div class="edit" title="회원정보 수정은 여길 누르세요">님 환영합니다</div>
+                <a href="/modify.do" class="edit" title="회원정보 수정은 여길 누르세요">{{sessionName}}님 환영합니다</a>
                 
             </div>
             <div class="contentBox"> <!--아래-->
@@ -133,7 +133,9 @@
 var app = new Vue({ 
     el: '#app',
     data: {
-    		
+    	list : []
+		, sessionName : "${sessionName}"
+		, sessionId : "${sessionId}"	
     }
     , methods : {
     		

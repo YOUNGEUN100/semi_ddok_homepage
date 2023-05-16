@@ -16,6 +16,7 @@ public class User {
 	private String pwQ;
 	private String pwA;
 	
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -100,5 +101,6 @@ public class User {
 	public void setPwA(String pwA) {
 		this.pwA = pwA;
 	}
+
 	
 }

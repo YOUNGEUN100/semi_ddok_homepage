@@ -2,6 +2,7 @@
 
 <jsp:include page="/layout/head.jsp"></jsp:include>
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <style>
 	.editArea{
@@ -26,7 +27,7 @@
      .editArea .editBox .captionBox span:first-child{font-weight: bold; font-size: 0.9em;}
      .editArea .editBox input{
       border: 0; border-bottom: 1px solid black; 
-      padding: 10px; margin-bottom: 20px; 
+      padding: 10px; margin-bottom: 20px; border-radius:0;
      }
      .editArea .editBox .duplicationBtn{
       border-radius: 8px; border: 0.7px solid black;
@@ -83,25 +84,31 @@
         <div class="editBox" >
             <div class="captionBox">
                 <span class="markEssential">아이디</span>
-                <input type="text" class="w100" placeholder="아이디는 변경이 불가합니다" v-model="info.id" disabled>
+                <input type="text" class="w100" placeholder={{item.id}}  v-model="info.id">
             </div> 
+           
             <div class="captionBox">
                 <span class="markEssential">비밀번호</span>  <span class="captionCheck">20자 이내의 비밀번호를 입력해주세요</span>
                 <input type="password" class="w100" placeholder="변경할 비밀번호 입력(영문,숫자,특수문자 포함 8~20자)" v-model="info.pw">
             </div>
+           
             <div class="captionBox">
                 <span class="markEssential">비밀번호 확인</span> <span class="captionCheck">비밀번호가 일치하지않습니다.</span>
             </div>
             <input type="password" class="w100" placeholder="비밀번호 재입력" v-model="info.pwck">
+           
             <p class="markEssential">이름</p>
-            <input type="text" class="w100" placeholder="이름을 변경하려면 고객센터로 문의해 주세요" v-model="info.name" disabled>
+            <input type="text" class="w100" placeholder="이름을 변경하려면 고객센터로 문의해 주세요"  v-model="info.name">
+           
             <p class="markEssential">닉네임</p>
             <input type="text" class="w100" placeholder="변경할 닉네임을 입력해 주세요" v-model="info.nick">
+           
             <p class="markEssential">전화번호</p>
-            <input type="tel" class="w100" placeholder="변경할 휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.phone">
+            <input type="tel" class="w100" placeholder="변경할 휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
+            
             <p>이메일주소</p>
-            <input type="email" class="w50" placeholder="이메일 주소" >@ 
-            <select class="mail">
+            <input type="email" class="w50" placeholder="이메일 주소" v-model="info.email">@ 
+            <select class="mail" v-model="info.domain">
                 <div>
                     <option>naver.com</option>
                     <option>gmail.com</option>
@@ -113,19 +120,21 @@
                     <option>nate.com</option>
                 </div>
             </select> 
+            
             <p class="markEssential">주소</p>
             <input type="number" class="w60 addr" placeholder="우편번호"><button class="zipcodeBtn">우편번호 찾기</button>
             <input type="text" class="w100 addr" placeholder="주소" v-model="info.addr">
             <input type="text" class="w100 " placeholder="상세주소 입력" v-model="info.addr2">
-            <p class="gender">성별</p>
-            <label for="M" class="genderBox"><input type="radio" id="M" name="gender" class="genderValue">남성</label>
-            <label for="F" class="genderBox"><input type="radio" id="F" name="gender" class="genderValue">여성</label>
+            
+            <p class="gender" >성별</p>
+            <label for="M" class="genderBox"><input type="radio" id="M" name="gender" class="genderValue" v-model="info.gender" value="m">남성</label>
+            <label for="F" class="genderBox"><input type="radio" id="F" name="gender" class="genderValue" v-model="info.gender" value="f">여성</label>
             <div>
                 <p class="markEssential">생년월일</p>
                 <input type="date" class="w100" placeholder="생년월일" v-model="info.birth">
             </div>
             <p>자취경력</p>
-            <input type="text" class="w90" placeholder="자취경력 햇수 입력" v-model="info.id"> 년차
+            <input type="text" class="w90" placeholder="자취경력 햇수 입력" v-model="info.livingYear"> 년차
         </div>
         <div class="btnBox">
             <button class="joinBtn">변경하기</button>
@@ -139,5 +148,72 @@
 
 
 <script type="text/javascript">
- // 자바 스크립트 입력 
+	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+		app.fnResult(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo);
+	} 
+	
+var app = new Vue({ 
+    el: '#app',
+    data: {
+    	/*list : [],*/
+    	info : {
+    		id:"",
+    		pw:"",
+    		pwck:"",
+    		name:"",
+    		nick:"",
+    		hp:"",
+    		email:"",
+    		domain:"",
+    		addr:"",
+    		addr2:"",
+    		gender:"",
+    		birth:"",
+    		livingYear:""
+    	},
+    	sessionId : "${sessionId}"
+    	
+    }
+    , methods : {
+    	
+    	/*fnUserList : function(){
+            var self = this;
+            var nparmap = {userId : self.sessionId};
+            $.ajax({
+                url:"/modify.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                	console.log(self.sessionId);
+                	self.list = data.list;
+                	console.log(data.list);
+                	console.log(self.list);
+                    
+                }
+            });
+
+        },	
+    	 fnSearchAddr : function(){
+ 	 		var self = this;
+ 	 		var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+ 	 		window.open("addr.do", "test", option);
+ 	 	},
+ 	 	fnResult : function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+     		var self = this;
+     		self.roadFullAddr = roadFullAddr;
+     		// 콘솔 통해 각 변수 값 찍어보고 필요한거 가져다 쓰면 됩니다.
+     		self.info.zipCode = zipNo;
+     		self.info.addr = roadAddrPart1;
+     		self.info.addr2 = addrDetail;
+     		console.log(roadAddrPart1);
+     		console.log(addrDetail);
+     		console.log(engAddr);
+     	}  	*/ 
+	}	
+    , created: function () {
+    	/*var self = this;
+    	self.fnUserList();*/
+	}
+});
 </script>

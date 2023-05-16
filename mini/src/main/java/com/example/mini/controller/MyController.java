@@ -25,8 +25,7 @@ public class MyController {
 	
 	@Autowired
 	MyService myService;
-	
-	
+		
 	@Autowired
 	HttpSession session;
 	
