@@ -193,7 +193,7 @@
 				CATEGORY, 
 				CDATETIME, 
 				UDATETIME,
-				DELETE_YN
+				DELETE_YN,
 				HITS)
 			VALUES ('QNA', NULL, #{userId}, #{title}, #{content}, #{category}, now(), now(),'N',0)
 		</insert>
