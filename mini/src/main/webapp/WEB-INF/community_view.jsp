@@ -105,7 +105,7 @@
                        <div>
                            <span class="mg20">{{item.nick}}</span>
                            <span>{{item.cdatetime}}</span>
-                            <button v-if="item.userId==sessionId || sessionStatus=='A'" @click="fncommentDel()">삭제</button>
+                            <button v-if="item.userId==sessionId || sessionStatus=='A'" @click="fncommentDel(item.commentNo)">삭제</button>
                        </div>
                        <div class="mgb20">{{item.comment}}</div>
                       
@@ -303,16 +303,18 @@
         	        }); 
             	}
             	// 댓글 삭제하기
-            	, fncommentDel : function() {
+            	, fncommentDel : function(commentNo) {
             		 var self = this;
-                     var nparmap = {commentNo : self.commentNo};
+            		 if (!confirm("삭제하시겠습니까?")) return;
+                     var nparmap = {commentNo : commentNo};
          	        $.ajax({
          	            url:"/community/commentRemove.dox",
          	            dataType:"json",	
          	            type : "POST", 
          	            data : nparmap,
          	            success : function(data) { 
-         	            	if (!confirm("삭제하시겠습니까?")) return;
+         	            	alert("댓글이 삭제되었습니다.");
+         	            	self.fnCommentList();
          	            }
          	        }); 
             	}

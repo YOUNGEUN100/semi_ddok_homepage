@@ -27,4 +27,7 @@ public interface CommunityService {
 		
 		// 커뮤니티 글 삭제
 		void removeCom(HashMap<String, Object> map);
+		
+		// 댓글 삭제
+		void removeComment(HashMap<String, Object> map);
 }

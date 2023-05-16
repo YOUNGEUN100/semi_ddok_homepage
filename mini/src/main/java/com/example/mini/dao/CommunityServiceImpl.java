@@ -69,6 +69,10 @@ public class CommunityServiceImpl implements CommunityService{
 	public void removeCom(HashMap<String, Object> map) {
 		communityMapper.deleteCom(map);
 	}
+	@Override
+	public void removeComment(HashMap<String, Object> map) {
+		communityMapper.deleteComment(map);
+	}
 	
 	
 

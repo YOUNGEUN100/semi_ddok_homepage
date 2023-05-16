@@ -78,7 +78,6 @@ public class CommunityController {
 	public String commentSave(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		communityService.addComment(map);
-		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
 		
@@ -98,7 +97,6 @@ public class CommunityController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		communityService.addCom(map);
 		resultMap.put("boardNo", map.get("id"));
-		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
 	// 커뮤니티 글수정
@@ -107,7 +105,6 @@ public class CommunityController {
 		public String communityModify(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();
 			communityService.modifyCom(map);
-			resultMap.put("message", "성공");
 			return new Gson().toJson(resultMap);
 		}
 	// 커뮤니티 글삭제
@@ -117,9 +114,16 @@ public class CommunityController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		communityService.removeCom(map);
 		resultMap.put("boardNo", map.get("id"));
-		resultMap.put("message", "성공");
 		return new Gson().toJson(resultMap);
 	}
+	// 댓글 삭제
+		@RequestMapping(value = "/community/commentRemove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String commentRemove(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			communityService.removeComment(map);
+			return new Gson().toJson(resultMap);
+		}
 	
 	// 파일 업로드
 	 @RequestMapping("/community/fileUpload.dox")
@@ -196,11 +200,15 @@ public class CommunityController {
 	public String qna(Model model) throws Exception{
 		return "/qna";
 	}
+	
+	
 	// qna 상세보기
 	@RequestMapping("/qna/view.do")
 	public String qnaView(Model model) throws Exception{
 		return "/qna_view";
 	}
+	
+	
 	// QNA 작성 수정
 	@RequestMapping("/qna/edit.do")
 	public String qnaEdit(Model model) throws Exception{

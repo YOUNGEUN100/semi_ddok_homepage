@@ -40,6 +40,8 @@ public interface CommunityMapper {
 	// 커뮤니티 글 삭제
 	void deleteCom(HashMap<String, Object> map);
 	
+	// 커뮤니티 글 삭제
+	void deleteComment(HashMap<String, Object> map);
 	
 	
 	
