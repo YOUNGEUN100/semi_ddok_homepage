@@ -181,6 +181,7 @@
 		<if test="recipeNo !='' and recipeNo != null">
 			WHERE R.RECIPE_NO = #{recipeNo}
 		</if>
+			LIMIT 1
 		</select>
 	
 		<!--레시피 과정 보기-->
