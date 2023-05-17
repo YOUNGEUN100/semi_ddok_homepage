@@ -38,19 +38,33 @@ public class RecipeServiceImpl implements RecipeService{
 	}
 	
 	@Override
-	public List<Recipe> searchRecListPur(HashMap<String, Object> map) throws Exception {
-		List<Recipe> list = recipeMapper.selectRecListPur(map);
-		return list;
+	public HashMap<String, Object> searchRecListPur(HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();	
+		resultMap.put("cnt", recipeMapper.selectPurListCnt(map));
+		resultMap.put("list", recipeMapper.selectRecListPur(map));
+		resultMap.put("result","success");
+		return resultMap;
+
 	}
 	@Override
-	public List<Recipe> searchRecListHow(HashMap<String, Object> map) throws Exception {
-		List<Recipe> list = recipeMapper.selectRecListHow(map);
-		return list;
+	public HashMap<String, Object> searchRecListHow(HashMap<String, Object> map) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();	
+		resultMap.put("cnt", recipeMapper.selecHowListCnt(map));
+		resultMap.put("list", recipeMapper.selectRecListHow(map));
+		resultMap.put("result","success");
+		return resultMap;
 	}
+	
 	@Override
-	public List<Recipe> searchRecListTool(HashMap<String, Object> map) throws Exception {
-		List<Recipe> list = recipeMapper.selectRecListTool(map);
-		return list;
+	public HashMap<String, Object>searchRecListTool(HashMap<String, Object> map) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();	
+		resultMap.put("cnt", recipeMapper.selectToolListCnt(map));
+		resultMap.put("list", recipeMapper.selectRecListTool(map));
+		resultMap.put("result","success");
+		return resultMap;
+		
 	}
 
 	@Override

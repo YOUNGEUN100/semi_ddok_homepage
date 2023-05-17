@@ -36,7 +36,7 @@
 				(SELECT RECIPE_NO, IMG_PATH
 				FROM T4_R_IMAGE
 				WHERE THUMBNAIL_YN = 'Y') I 
-			ON I.RECIPE_NO = R.RECIPE_NO 
+				ON I.RECIPE_NO = R.RECIPE_NO 
 			<if test="keyword != '' and keyword != null">
 			WHERE RECIPE_NAME LIKE CONCAT('%', #{keyword}, '%')
 			</if>
@@ -45,14 +45,14 @@
 		
 		<!--레시피 리스트 개수 -->
 		<select id="selectRecListCnt" parameterType="hashmap" resultType="int">
-	      SELECT  
+	        SELECT  
 				COUNT(*) AS CNT
 			FROM T4_RECIPE R
 			INNER JOIN 
-				(SELECT RECIPE_NO, IMG_PATH
-				FROM T4_R_IMAGE
-				WHERE THUMBNAIL_YN = 'Y') I 
-			ON I.RECIPE_NO = R.RECIPE_NO 
+					(SELECT RECIPE_NO, IMG_PATH
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'Y') I 
+					ON I.RECIPE_NO = R.RECIPE_NO 
 		</select>
 		
 		
@@ -82,6 +82,23 @@
 			<if test="recipe_code !='' and recipe_code != null">
 			WHERE P.CODE = #{recipe_code}
 			</if>
+			LIMIT #{startNum}, 12
+		</select>
+		
+		<!--목적별 레시피 리스트 개수 -->
+		<select id="selectPurListCnt" parameterType="hashmap" resultType="int">
+	        SELECT  
+				COUNT(*) AS CNT
+			FROM T4_RECIPE R
+			INNER JOIN 
+					(SELECT RECIPE_NO, IMG_PATH
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'Y') I 
+					ON I.RECIPE_NO = R.RECIPE_NO 
+			<if test="recipe_code !='' and recipe_code != null">
+			INNER JOIN T4_R_PURPOSE P ON P.RECIPE_NO = R.RECIPE_NO
+			WHERE CODE = #{recipe_code};
+			</if>
 		</select>
 		
 		<!--방법별 레시피 리스트-->
@@ -110,6 +127,23 @@
 			<if test="recipe_code !='' and recipe_code != null">
 			WHERE H.CODE = #{recipe_code}
 			</if>
+			LIMIT #{startNum}, 12
+		</select>
+		
+		<!--방법별 레시피 리스트 개수 -->
+		<select id="selecHowListCnt" parameterType="hashmap" resultType="int">
+	        SELECT  
+				COUNT(*) AS CNT
+			FROM T4_RECIPE R
+			INNER JOIN 
+					(SELECT RECIPE_NO, IMG_PATH
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'Y') I 
+					ON I.RECIPE_NO = R.RECIPE_NO 
+			<if test="recipe_code !='' and recipe_code != null">
+			INNER JOIN T4_HOWTO H ON H.RECIPE_NO = R.RECIPE_NO
+			WHERE CODE = #{recipe_code};
+			</if>
 		</select>
 		
 		<!--도구별 레시피 리스트-->
@@ -137,6 +171,23 @@
             LEFT JOIN T4_TOOL T ON T.RECIPE_NO = R.RECIPE_NO
 			<if test="recipe_code !='' and recipe_code != null">
 			WHERE T.CODE = #{recipe_code}
+			</if>
+			LIMIT #{startNum}, 12
+		</select>
+		
+		<!--도구별 레시피 리스트 개수 -->
+		<select id="selectToolListCnt" parameterType="hashmap" resultType="int">
+	        SELECT  
+				COUNT(*) AS CNT
+			FROM T4_RECIPE R
+			INNER JOIN 
+					(SELECT RECIPE_NO, IMG_PATH
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'Y') I 
+					ON I.RECIPE_NO = R.RECIPE_NO 
+			<if test="recipe_code !='' and recipe_code != null">
+			INNER JOIN T4_TOOL T ON T.RECIPE_NO = R.RECIPE_NO
+			WHERE CODE = #{recipe_code};
 			</if>
 		</select>
 		

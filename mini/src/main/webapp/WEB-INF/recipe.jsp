@@ -115,12 +115,14 @@ var recipeList = new Vue({
 		 keycnt : 0,
 		 codeList : ${map.codeList},
 		 rkind : "전체",
+		 rUrl : "", 
 		 recipe_code : "",
 		 // 페이징 추가5
 		 selectPage : 1,
 		 pageCount : 1,
 		 sessionId: "${sessionId}",    
-	     sessionStatus : "${sessionStatus}"
+	     sessionStatus : "${sessionStatus}",
+	     pageUrl : "/recipe/all.dox"
 	}, methods: {
 		// 전체 레시피 리스트 가져오기
 		fnGetRecipeAll : function() {
@@ -150,8 +152,13 @@ var recipeList = new Vue({
 			self.selectPage = pageNum;
 			var startNum = ((self.selectPage-1) * 12);
 			var nparmap = {startNum : startNum};
+			
+			if (self.rkind == '전체') {self.pageUrl = "/recipe/all.dox"}
+			if (self.category == 'R_PURPOSE') {self.pageUrl = "/recipe/list/purpose.dox"}
+			if (self.category == 'HOWTO') {self.pageUrl = "/recipe/list/howto.dox"}
+			if (self.category == 'TOOL') {self.pageUrl = "/recipe/list/tool.dox"}
 			$.ajax({
-				url: "/recipe/all.dox",
+				url: self.pageUrl,
 				dataType: "json",
 				type: "POST",
 				data : nparmap,
@@ -168,8 +175,11 @@ var recipeList = new Vue({
 			var self = this;
 			self.recipe_code = item.code;
 			self.rkind = item.name;
-			
-			var nparmap = {recipe_code : self.recipe_code};
+			self.category = item.kind;
+			console.log(self.category);
+			// 페이징 추가6
+			var startNum = ((self.selectPage-1) * 12);
+			var nparmap = {recipe_code : self.recipe_code, startNum : startNum};
 			$.ajax({
 				url: "/recipe/list/purpose.dox",
 				dataType: "json",
@@ -177,7 +187,10 @@ var recipeList = new Vue({
 				data : nparmap,
 				success : function(data) {
 					 self.list = data.list;
-					 self.cnt = data.list.length;
+					 self.cnt = data.cnt;
+					 console.log("목적별 리스트 갯수");
+					 console.log(self.cnt);
+					 self.pageCount = Math.ceil(self.cnt / 12);
 				}
 			})
 		}
@@ -186,10 +199,11 @@ var recipeList = new Vue({
 			var self = this;
 			self.recipe_code = item.code;
 			self.rkind = item.name;
-			console.log(self.recipe_code);
-			console.log(self.rkind);
-			
-			var nparmap = {recipe_code : self.recipe_code};
+			self.category = item.kind;
+			console.log(self.category);
+			// 페이징 추가6
+			var startNum = ((self.selectPage-1) * 12);
+			var nparmap = {recipe_code : self.recipe_code, startNum : startNum};
 			$.ajax({
 				url: "/recipe/list/howto.dox",
 				dataType: "json",
@@ -197,7 +211,8 @@ var recipeList = new Vue({
 				data : nparmap,
 				success : function(data) {
 					 self.list = data.list;
-					 self.cnt = data.list.length;
+					 self.cnt = data.cnt;
+					 self.pageCount = Math.ceil(self.cnt / 12);
 				}
 			})
 		}
@@ -206,8 +221,11 @@ var recipeList = new Vue({
 			var self = this;
 			self.recipe_code = item.code;
 			self.rkind = item.name;
-			
-			var nparmap = {recipe_code : self.recipe_code};
+			self.category = item.kind;
+			console.log(self.category);
+			// 페이징 추가6
+			var startNum = ((self.selectPage-1) * 12);
+			var nparmap = {recipe_code : self.recipe_code, startNum : startNum};
 			$.ajax({
 				url: "/recipe/list/tool.dox",
 				dataType: "json",
@@ -215,7 +233,8 @@ var recipeList = new Vue({
 				data : nparmap,
 				success : function(data) {
 					 self.list = data.list;
-					 self.cnt = data.list.length;
+					 self.cnt = data.cnt;
+					 self.pageCount = Math.ceil(self.cnt / 12);
 				}
 			})
 		}

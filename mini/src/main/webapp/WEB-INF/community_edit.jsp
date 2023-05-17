@@ -199,7 +199,7 @@
 	       	     		self.upload(form); 
 	       	     	}
 		       	     alert("수정되었습니다!");
-	           	 	/* location.href="/community.do";  */
+	           	 	location.href="/community.do"; 
 	            }
 	        }); 
         }

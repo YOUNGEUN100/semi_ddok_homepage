@@ -57,9 +57,11 @@ public class RecipeController {
 	@ResponseBody
 	public String searchRecipeListPur(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Recipe> list = recipeService.searchRecListPur(map);
-		resultMap.put("list", list);
-		resultMap.put("result", "success");
+		
+		String startNum = (String) map.get("startNum");
+		map.put("startNum", Integer.parseInt(startNum));
+		
+		resultMap = recipeService.searchRecListPur(map);
 		return new Gson().toJson(resultMap);
 	}
 	// 방법별 레시피
@@ -67,9 +69,11 @@ public class RecipeController {
 	@ResponseBody
 	public String searchRecipeListHow(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Recipe> list = recipeService.searchRecListHow(map);
-		resultMap.put("list", list);
-		resultMap.put("result", "success");
+		
+		String startNum = (String) map.get("startNum");
+		map.put("startNum", Integer.parseInt(startNum));
+		
+		resultMap = recipeService.searchRecListHow(map);
 		return new Gson().toJson(resultMap);
 	}
 	// 도구별 레시피
@@ -77,9 +81,11 @@ public class RecipeController {
 	@ResponseBody
 	public String searchRecipeListTool(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Recipe> list = recipeService.searchRecListTool(map);
-		resultMap.put("list", list);
-		resultMap.put("result", "success");
+		
+		String startNum = (String) map.get("startNum");
+		map.put("startNum", Integer.parseInt(startNum));
+		
+		resultMap = recipeService.searchRecListTool(map);
 		return new Gson().toJson(resultMap);
 	}
 		
