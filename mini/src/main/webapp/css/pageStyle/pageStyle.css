@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+#pageContent .styleBoxRound {border-radius:1.5em;}
+#pageContent .styleBoxShadow {box-shadow:0 0 10px 0 rgba(0,0,0,0.1);}
+#pageContent .styleHoverShadow {transition:all 0.2s ease-out;}
+#pageContent .styleHoverShadow:hover {box-shadow:0 2px 20px 0 rgba(0,0,0,0.3);}
+
+
+        
+/***** (pagination) --- START *****/
+.pagination {margin:24px auto; display:flex; justify-content:center;}
+.pagination ul {text-align:center;}
+.pagination li {min-width:34px; display:inline; border-radius:17px; border:1px solid var(--base-colorDeepGray); color:var(--base-colorCharcoal); font-weight:500; margin:0 2px; text-align:center; transition:all 0.2s ease-out;}
+.pagination li.active {background-color:var(--main-colorOrange); border-color:var(--main-colorOrange); color:var(--base-colorWhite); font-weight:700;}
+.pagination li:hover {background:var(--base-colorDeepGray); color:var(--base-colorWhite);}
+.pagination li.active:hover {background:var(--main-colorOrange);}
+.pagination a {width:100%; display:block; line-height:1; padding:8px;}
+/***** (pagination) --- END *****/
