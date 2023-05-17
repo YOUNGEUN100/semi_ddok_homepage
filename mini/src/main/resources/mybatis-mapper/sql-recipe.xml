@@ -58,7 +58,7 @@
 		
 		<!--목적별 레시피 리스트-->
 		<select id="selectRecListPur" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
-			SELECT P.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, P.CODE AS PCODE
+			SELECT P.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, P.CODE AS PCODE, HASHTAG
 			FROM 
 			(	SELECT  
 					R.RECIPE_NO AS RECIPE_NO,
@@ -86,7 +86,7 @@
 		
 		<!--방법별 레시피 리스트-->
 		<select id="selectRecListHow" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
-			SELECT H.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, H.CODE AS HCODE
+			SELECT H.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, H.CODE AS HCODE, HASHTAG
 			FROM 
 			(	SELECT  
 					R.RECIPE_NO AS RECIPE_NO,
@@ -114,7 +114,7 @@
 		
 		<!--도구별 레시피 리스트-->
 		<select id="selectRecListTool" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
-			SELECT T.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, T.CODE AS TCODE
+			SELECT T.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, T.CODE AS TCODE, HASHTAG
 			FROM 
 			(	SELECT  
 					R.RECIPE_NO AS RECIPE_NO,

@@ -153,7 +153,7 @@ public class CommunityController {
 	                multi.transferTo(file);
 	                
 	                HashMap<String, Object> map = new HashMap<String, Object>();
-	                map.put("images", "\\images\\" + saveName);
+	                map.put("images", "../images/" + saveName);
 	                map.put("boardNo", boardNo);
 	                map.put("orlgName", orlgName);
 	                map.put("saveName", saveName);
@@ -169,12 +169,12 @@ public class CommunityController {
 	           model.addAttribute("filePath", file.getAbsolutePath());
 	           model.addAttribute("fileSize",fileSize);
 	           
-	                return "filelist";
+	                // return "filelist";
 	            }
 	        }catch(Exception e) {
 	            System.out.println(e);
 	        }
-	        return "redirect:community.do";
+	        return "redirect:../community.do";
 	    }
 	    
 	    // 현재 시간을 기준으로 파일 이름 생성

@@ -77,7 +77,7 @@
 <!-- pageContent -- START -->
 <div id="pageContent">
 	<div class="wrapper">
-		<div id="app">
+		<div id="communityView">
 
            <div class="container">
                <div class="com_head">
@@ -125,6 +125,7 @@
            
            </div>
            <!--container 끝-->
+           
            <div class="btns">
                <span>
                    <button @click="fnAddCom()" style="background-color: #E4DBD6;">글쓰기</button>
@@ -148,8 +149,8 @@
 
 <script type="text/javascript">
  // 자바 스크립트 입력
-   var app = new Vue({
-            el: '#app',
+   var communityView = new Vue({
+            el: '#communityView',
             data: {
             	list : []
               , info : {}

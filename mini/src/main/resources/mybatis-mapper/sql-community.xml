@@ -108,9 +108,9 @@
 				CATEGORY, 
 				CDATETIME, 
 				UDATETIME,
-				DELETE_YN
+				DELETE_YN,
 				HITS)
-			VALUES ('COM', NULL, #{userId}, #{title}, #{content}, #{category}, now(), now(),'N')
+			VALUES ('COM', NULL, #{userId}, #{title}, #{content}, #{category}, now(), now(),'N',0)
 		</insert>
 		
 		<!-- 커뮤니티 글 수정 -->
@@ -133,7 +133,7 @@
 				FILE_SIZE, 
 				FILE_KIND,
 				CDATETIME)
-			VALUES (NULL, #{boardNo}, #{orlgName}, #{saveName}, #{filePath}, #{fileSize}, #{fileKind}, now())
+			VALUES (NULL, #{boardNo}, #{orlgName}, #{saveName}, #{images}, #{fileSize}, #{fileKind}, now())
 		</insert>
 		
 		<!-- 커뮤니티 게시글 삭제 -->

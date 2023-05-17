@@ -301,6 +301,7 @@
 				data : nparmap,
 				success : function(data) {
 					 self.list = data.list;
+					 console.log(self.list);
 					 self.cnt = data.list.length;
 				}
 			})
@@ -321,6 +322,7 @@
 				data : nparmap,
 				success : function(data) {
 					 self.list = data.list;
+					 console.log(self.list);
 					 self.cnt = data.list.length;
 				}
 			})
@@ -339,6 +341,7 @@
 				data : nparmap,
 				success : function(data) {
 					 self.list = data.list;
+					 console.log(self.list);
 					 self.cnt = data.list.length;
 				}
 			})

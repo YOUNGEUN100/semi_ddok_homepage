@@ -5,14 +5,14 @@
 
 <style>
 	<!--스타일 입력 --> 
-	table { width : 100%;}
-    table, td,th {
+	.comTable { width : 100%;}
+    .comTable, td,th {
         border-collapse: collapse;
         padding: 16px;
         table-layout: fixed;
     }
     th {border-bottom:1px solid black;}
-    button {
+    .comBtn {
        font-size: medium;
        padding: 5px 10px;
        margin-right:10px;
@@ -23,7 +23,7 @@
        height: 40px;
        background-color: #E4DBD6;
     }
-    button:hover {cursor: pointer;}
+    .comBtn:hover {cursor: pointer;}
 	.comlist {
 		display: flex;
 	    flex-direction: column;
@@ -66,7 +66,7 @@
 <div id="pageContent">
 	<div class="wrapper">
 		 <!-- 작업한 본문 입력 -->
-	<div id="app">
+	<div id="communityList">
        
         <select v-model = "order" @change = "fnChangeOrder()">
         <option value = "" selected disabled>정렬</option>
@@ -75,7 +75,7 @@
         </select>
       
           <div class="comlist">
-             <table>                            
+             <table class="comTable">                            
              	<thead>
              		<tr>
              			<th>글번호</th>
@@ -101,7 +101,7 @@
              </table>
            </div>
            
-           <button @click="fnAddCom()">글쓰기</button>
+           <button class="comBtn" @click="fnAddCom()">글쓰기</button>
            
             <!-- 페이징 추가3 -->
             <div id="page">
@@ -132,8 +132,8 @@
  // 자바 스크립트 입력 
  Vue.component('paginate', VuejsPaginate)
  
-  var app = new Vue({
-            el: '#app',
+  var communityList = new Vue({
+            el: '#communityList',
             data: {
               list : [],
               cnt : 0,
