@@ -69,6 +69,11 @@ public class FundingServiceImpl implements FundingService {
 		fundingMapper.insertFleaReComment(map);		
 	}
 	
+	@Override // 랜선장터 대댓글 삭제
+	public void removeReComment(HashMap<String, Object> map) {
+		fundingMapper.deleteReComment(map);	
+	}
+	
 	@Override // 랜선장터 댓글 삭제
 	public void removeComment(HashMap<String, Object> map) {
 		fundingMapper.deleteComment(map);
@@ -153,11 +158,14 @@ public class FundingServiceImpl implements FundingService {
 		fundingMapper.insertFunding(map);		
 	}
 	
-
-	
-	@Override // 펀딩 이미지 등록
+	@Override // 펀딩 썸네일 이미지 등록
 	public void addFundingImg(HashMap<String, Object> map) {
 		fundingMapper.insertFundingImg(map);
+	}
+	
+	@Override // 펀딩 상세 이미지 등록
+	public void addFundingImg2(HashMap<String, Object> map) {
+		fundingMapper.insertFundingImg2(map);
 	}
 
 	@Override// 랜선마켓 첨부파일 등록
@@ -165,6 +173,8 @@ public class FundingServiceImpl implements FundingService {
 		fundingMapper.insertFleaFile(map);
 		
 	}
+
+	
 
 	
 

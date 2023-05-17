@@ -123,7 +123,7 @@ public class FundingController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		fundingService.addFlea(map);
 		resultMap.put("boardNo", map.get("idFlea"));
-		System.out.println(map.get("idFlea"));
+		System.out.println("보드번호"+map.get("idFlea"));
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);		
 	}
@@ -157,6 +157,16 @@ public class FundingController {
 	public String addFleaReComment(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		fundingService.addFleaReComment(map);		
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 랜선장터 댓글 삭제
+	@RequestMapping(value = "/fleamarket/removerecomment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String removeReComment(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.removeReComment(map);		
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
@@ -291,8 +301,8 @@ public class FundingController {
 	}
 	
 	// 랜선장터 첨부파일
-		@RequestMapping("/fileUpload2.dox")
-		    public String result1(@RequestParam("file2") MultipartFile multi, @RequestParam("boardNo") int boardNo, HttpServletRequest request,HttpServletResponse response, Model model)
+		@RequestMapping("/fileUpload1.dox")
+		    public String result1(@RequestParam("file1") MultipartFile multi, @RequestParam("boardNo") int boardNo, HttpServletRequest request,HttpServletResponse response, Model model)
 		    {
 		        String url = null;
 		        String path="/images/";
@@ -339,9 +349,55 @@ public class FundingController {
 		        return "redirect:bbs.do";
 		    }
 	
-	// 펀딩 첨부파일
-	@RequestMapping("/fileUpload1.dox")
-	    public String result(@RequestParam("file1") MultipartFile multi, @RequestParam("fundingNo") int fundingNo, HttpServletRequest request,HttpServletResponse response, Model model)
+		// 펀딩 썸네일 첨부파일
+		@RequestMapping("/fileUpload2.dox")
+		    public String result2(@RequestParam("file1") MultipartFile multi, @RequestParam("fundingNo") int fundingNo, HttpServletRequest request,HttpServletResponse response, Model model)
+		    {
+		        String url = null;
+		        String path="/images/";
+		        try {
+		 
+		            //String uploadpath = request.getServletContext().getRealPath(path);
+		            String uploadpath = path;
+		            String originFilename = multi.getOriginalFilename();
+		            String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
+		            long size = multi.getSize();
+		            String saveFileName = genSaveFileName(extName);
+		            
+		            System.out.println("uploadpath : " + uploadpath);
+		            System.out.println("originFilename : " + originFilename);
+		            System.out.println("extensionName : " + extName);
+		            System.out.println("size : " + size);
+		            System.out.println("saveFileName : " + saveFileName);
+		            String path2 = System.getProperty("user.dir");
+		            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
+		            if(!multi.isEmpty())
+		            {
+		                File file = new File(path2 + "\\src\\main\\webapp\\images", saveFileName);
+		                multi.transferTo(file);
+		                
+		                HashMap<String, Object> map = new HashMap<String, Object>();
+		                map.put("imgName", saveFileName);
+		                map.put("fundingNo", fundingNo);
+		                map.put("imgOrgName", originFilename);	                
+		                map.put("imgPath", uploadpath);
+		                map.put("imgSize", size);
+		                
+		                // insert 쿼리 실행
+		                fundingService.addFundingImg(map); 
+		                model.addAttribute("filename", multi.getOriginalFilename());
+		                model.addAttribute("uploadPath", file.getAbsolutePath());
+		                
+		                return "filelist";
+		            }
+		        }catch(Exception e) {
+		            System.out.println(e);
+		        }
+		        return "redirect:bbs.do";
+		    }
+	// 펀딩 상세 첨부파일
+	@RequestMapping("/fileUpload3.dox")
+	    public String result3(@RequestParam("file2") MultipartFile multi, @RequestParam("fundingNo") int fundingNo, HttpServletRequest request,HttpServletResponse response, Model model)
 	    {
 	        String url = null;
 	        String path="/images/";
@@ -374,7 +430,7 @@ public class FundingController {
 	                map.put("imgSize", size);
 	                
 	                // insert 쿼리 실행
-	                fundingService.addFundingImg(map); 
+	                fundingService.addFundingImg2(map); 
 	                model.addAttribute("filename", multi.getOriginalFilename());
 	                model.addAttribute("uploadPath", file.getAbsolutePath());
 	                

@@ -39,6 +39,9 @@ public interface FundingMapper {
 	// 랜선장터 대댓글 입력
 	void insertFleaReComment(HashMap<String, Object> map);
 	
+	// 랜선장터 대댓글 삭제
+	void deleteReComment(HashMap<String, Object> map);
+	
 	// 랜선장터 댓글 삭제
 	void deleteComment(HashMap<String, Object> map);
 	
@@ -80,8 +83,11 @@ public interface FundingMapper {
 	// 펀딩 등록
 	void insertFunding(HashMap<String, Object> map);
 	
-	// 펀딩 이미지 등록
+	// 펀딩 썸네일 이미지 등록
 	void insertFundingImg(HashMap<String, Object> map);
+	
+	// 펀딩 상세 이미지 등록
+	void insertFundingImg2(HashMap<String, Object> map);
 	
 	// 랜선장터 첨부파일 등록
 	void insertFleaFile(HashMap<String, Object> map);

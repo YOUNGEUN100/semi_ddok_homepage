@@ -138,10 +138,13 @@
         }
         
         
-        #title {
+        .title {
         	cursor : pointer;
         	width : 40%;
         	text-align:left;
+        	overflow : hidden;
+        	text-overflow: ellipsis;
+        	white-space  : nowrap;
         }
         
         #id {
@@ -235,7 +238,7 @@
         	                                <td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.boardKind2}}</td>                                            
             	                            <td id="sale_flg" v-else>{{item.boardKind2}}</td>
                 	                        <td id="address">{{item.addr}}</td>
-                    	                    <td id="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
+                    	                    <td class="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
                         	                <td id="id">{{item.nick}}</td>
                             	            <td id="date">{{item.cdatetime2}}</td>
                                 	        <td id="viewCnt">{{item.hits}}</td>
@@ -294,7 +297,7 @@
                                         	<td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.boardKind2}}</td>                                            
                                         	<td id="sale_flg" v-else>{{item.boardKind2}}</td>
                                         	<td id="address">{{item.addr}}</td>
-                                        	<td id="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
+                                        	<td class="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
                                         	<td id="id">{{item.nick}}</td>
                                         	<td id="date">{{item.cdatetime2}}</td>
                                         	<td id="viewCnt">{{item.hits}}</td>

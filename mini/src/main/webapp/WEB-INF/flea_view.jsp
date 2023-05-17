@@ -110,6 +110,21 @@
             border-bottom : 1px solid black;        
         }
         
+        .comment_content textarea {
+        	width : 80%;
+        	border: 1px solid #999999;
+            border-radius: 10px;
+            padding : 16px;
+        }
+        
+        .recoBtnArea textarea {
+        	width : 80%;
+        	margin-top: 10px;
+        	border: 1px solid #999999;
+            border-radius: 10px;
+            padding : 16px;
+        }
+        
         .comment_add {
         	margin-top: 30px;
         	display : flex;
@@ -161,6 +176,7 @@
 		#coContent {
 			margin-top : 10px;
 			font-size: 20px;
+			cursor: pointer;
 		}
 		
 		#reCoContent {margin-left : 50px;}
@@ -220,12 +236,13 @@
                         		                <pre v-else> 비밀 댓글입니다.</pre>
                             		        </div>
                             		        
-                            		        <div class="comment_content" v-else>                                     
+                            		        <div class="comment_content" v-else> <!-- 댓글 수정버튼 영역 -->                         
                                         		<textarea rows = "5" v-model="commentInfo.content"></textarea>
                                         		<button @click="fnEditCommentFinish">수정</button>
+                                        		<button @click="fnEditCommentClose">취소</button>
                                     		</div>
                             		        
-                            		        <div v-if="editReCoNo == item.commentNo"> <!-- fnRecommentBtn 누르면 나오는 대댓글 작성 박스 -->
+                            		        <div class="recoBtnArea" v-if="editReCoNo == item.commentNo"> <!-- fnRecommentBtn 누르면 나오는 대댓글 작성 박스 -->
                 	            	        	<textarea placeholder="댓글을 입력하세요." v-model="reContent"></textarea>
                     	    	               	<button @click="fnWriteReComment(item.commentNo)">입력</button>
                         		               	<button @click="fnRecommentclose">취소</button>
@@ -236,8 +253,9 @@
                                 		<!-- 대댓글 출력 영역 commentNo와 commentReno가 다르면 출력 -->
                                 		<div v-else>
                                 			<div v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">
-                                				<div>{{item.nick}}</div>
-                                				<pre style="margin-left : 20px;">{{item.content}}</pre>
+                                				<div>{{item.nick}} [{{item.cdatetime2}}]</div>
+                                				<pre style="margin-left : 20px;display:inline-block;">{{item.content}}</pre>
+                                				<span @click="fnDeleteReComment(item.commentNo)"><a href="javaScript:;">삭제</a></span>
                                 			</div>                               			
                                 		</div>	
                                     	<!-- 대댓글 출력 영역 끝 -->
@@ -288,12 +306,11 @@
                 boardNo: "${map.boardNo}",
                 sessionId: "${sessionId}",
                 sessionStatus: "${sessionStatus}",
-                content : "",
-                editCoNo: "",
-                editReCoNo: "",
-                reContent : "",
-                recommentBtn : "N"
-
+                content : "", //댓글
+                reContent : "", //대댓글
+                editCoNo: "", //댓글트리거용
+                editReCoNo: "" //대댓글트리거용
+                
             },
             methods: {
                 fnGetFlea: function () {
@@ -314,7 +331,7 @@
                     });
                 }
             	
-            	// 랜선장터 댓글 리스트
+            	// 댓글 리스트
             	, fnGetFleaComment: function () {
                     var self = this;
                     var nparmap = {
@@ -332,7 +349,34 @@
                     });
                 }
             	
-            	// 랜선장터 댓글입력
+            	// 게시글 삭제            	
+            	, fnDeletePost: function() {
+            		var self = this;
+            		if (!confirm("게시글을 삭제하시겠습니까?")) {
+            			return;
+            		};
+            		var nparmap = {
+                            boardNo : self.boardNo
+                        };
+            		$.ajax({
+                    	url: "/fleamarket/deleteFlea.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("삭제완료");
+                    		location.href="/flea.do"
+                    	}
+                	});
+            	}
+            	
+            	// 게시글 수정
+            	, fnEditFlea: function(boardNo) {
+            		var self = this;            		
+            		self.pageChange("./edit.do", {boardNo : boardNo});
+            	}
+            	
+            	// 댓글입력
             	, fnWriteComment: function () {
             		var self = this;
             		if (self.content == "") {
@@ -360,61 +404,11 @@
                     	type: "POST",
                     	data: nparmap,
                     	success: function (data) {
-                    		alert("댓글 등록 완료");
+                    		alert("등록 완료");
                     		self.content = "";
                     		self.fnGetFlea();
                     	}
                 });
-            	}
-            	
-            	// 랜선장터 댓글 삭제
-            	, fnDeleteComment: function(commentNo) {
-            		var self = this;
-            		if (!confirm("댓글을 삭제하시겠습니까?")) {
-            			return
-            		}
-            		var nparmap = {commentNo : commentNo};
-            		$.ajax({
-                    	url: "/fleamarket/removecomment.dox",
-                    	dataType: "json",
-                    	type: "POST",
-                    	data: nparmap,
-                    	success: function (data) {
-                    		alert("댓글 삭제 완료");
-                    		self.fnGetFleaComment();
-                    	}
-                });
-            		
-            	}
-            	
-            	// 랜선장터 댓글 수정
-            	, fnEditComment: function(item) {
-            		var self = this;            		
-            		self.editCoNo = item.commentNo;
-            		self.commentInfo = item;  
-            		console.log(self.commentInfo);
-            	}
-            	
-            	// 랜선장터 댓글 수정 확인
-            	, fnEditCommentFinish: function() {
-            		var self = this;
-            		if (!confirm("댓글을 수정하시겠습니까?")) {
-            			return
-            		}
-            		var nparmap = self.commentInfo;
-            		$.ajax({
-                    	url: "/fleamarket/editcomment.dox",
-                    	dataType: "json",
-                    	type: "POST",
-                    	data: nparmap,
-                    	success: function (data) {
-                    		alert("수정완료");
-                    		self.editCoNo = "";
-                    		self.commentInfo = "";
-                    		self.fnGetFlea();
-                    	}
-                	});
-            		
             	}
             	
             	// 거래완료 버튼
@@ -440,69 +434,66 @@
                     		alert("거래완료");
                     		self.fnGetFlea();
                     	}
-                });
+                	});
             	}
             	
-            	// 게시글 삭제            	
-            	, fnDeletePost: function() {
+            	// 댓글 삭제
+            	, fnDeleteComment: function(commentNo) {
             		var self = this;
-            		if (!confirm("게시글을 삭제하시겠습니까?")) {
-            			return;
-            		};
-            		var nparmap = {
-                            boardNo : self.boardNo
-                        };
+            		if (!confirm("댓글을 삭제하시겠습니까?")) {
+            			return
+            		}
+            		var nparmap = {commentNo : commentNo};
             		$.ajax({
-                    	url: "/fleamarket/deleteFlea.dox",
+                    	url: "/fleamarket/removecomment.dox",
                     	dataType: "json",
                     	type: "POST",
                     	data: nparmap,
                     	success: function (data) {
-                    		alert("삭제완료");
-                    		location.href="/flea.do"
+                    		alert("삭제 완료");
+                    		self.fnGetFleaComment();
                     	}
-                });
+                	});
+            		
             	}
             	
-            	, pageChange : function(url, param) {
-            		var target = "_self";
-            		if(param == undefined){
-            		//	this.linkCall(url);
-            			return;
-            		}
-            		var form = document.createElement("form"); 
-            		form.name = "dataform";
-            		form.action = url;
-            		form.method = "post";
-            		form.target = target;
-            		for(var name in param){
-        				var item = name;
-        				var val = "";
-        				if(param[name] instanceof Object){
-        					val = JSON.stringify(param[name]);
-        				} else {
-        					val = param[name];
-        				}
-        				var input = document.createElement("input");
-        	    		input.type = "hidden";
-        	    		input.name = item;
-        	    		input.value = val;
-        	    		form.insertBefore(input, null);
-        			}
-            		document.body.appendChild(form);
-            		form.submit();
-            		document.body.removeChild(form);
-            	}
-            	
-            	// 랜선장터 글 수정
-            	, fnEditFlea: function(boardNo) {
+            	// 댓글 수정 활성
+            	, fnEditComment: function(item) {
             		var self = this;            		
-            		self.pageChange("./edit.do", {boardNo : boardNo});
+            		self.editCoNo = item.commentNo;
+            		self.commentInfo = item;  
+            		console.log(self.commentInfo);
             	}
             	
-            	// 대댓글 리스트
+            	// 댓글 수정 확인
+            	, fnEditCommentFinish: function() {
+            		var self = this;
+            		if (!confirm("댓글을 수정하시겠습니까?")) {
+            			return
+            		}
+            		var nparmap = self.commentInfo;
+            		$.ajax({
+                    	url: "/fleamarket/editcomment.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("수정완료");
+                    		self.editCoNo = "";
+                    		self.commentInfo = "";
+                    		self.fnGetFlea();
+                    	}
+                	});
+            		
+            	}
             	
-            	// 대댓글 할성 버튼
+            	// 댓글 수정 취소버튼
+            	, fnEditCommentClose: function() {
+            		var self = this;
+            		self.editCoNo = "";	
+            	}           	
+            	            	
+                // 대댓글 할성 버튼
             	, fnRecommentBtn: function(item) {
             		var self = this;
             		self.editReCoNo = item.commentNo;
@@ -534,8 +525,57 @@
                     		self.reContent = "";
                     		self.fnGetFleaComment();
                     	}
-                });
+                	});
             		
+            	}
+            	
+            	// 대댓글 삭제
+            	, fnDeleteReComment: function(commentNo) {
+            		var self = this;
+            		if (!confirm("댓글을 삭제하시겠습니까?")) {
+            			return
+            		}
+            		var nparmap = {commentNo : commentNo};
+            		$.ajax({
+                    	url: "/fleamarket/removerecomment.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("삭제완료");
+                    		self.fnGetFleaComment();
+                    	}
+                	});
+            	}
+            	
+            	, pageChange : function(url, param) {
+            		var target = "_self";
+            		if(param == undefined){
+            		//	this.linkCall(url);
+            			return;
+            		}
+            		var form = document.createElement("form"); 
+            		form.name = "dataform";
+            		form.action = url;
+            		form.method = "post";
+            		form.target = target;
+            		for(var name in param){
+        				var item = name;
+        				var val = "";
+        				if(param[name] instanceof Object){
+        					val = JSON.stringify(param[name]);
+        				} else {
+        					val = param[name];
+        				}
+        				var input = document.createElement("input");
+        	    		input.type = "hidden";
+        	    		input.name = item;
+        	    		input.value = val;
+        	    		form.insertBefore(input, null);
+        			}
+            		document.body.appendChild(form);
+            		form.submit();
+            		document.body.removeChild(form);
             	}
             	
 

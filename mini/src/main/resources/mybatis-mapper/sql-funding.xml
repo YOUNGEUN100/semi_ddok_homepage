@@ -243,6 +243,7 @@
 		<update id="editFlea" parameterType="hashmap">
 			UPDATE T4_BOARD 
 			SET BOARD_KIND = #{boardKind},
+				FINISH_YN = #{finishYn},
 				TITLE = #{title},
 				CONTENT = #{content},
 				UDATETIME = NOW()
@@ -253,7 +254,7 @@
 		<delete id="deleteComment" parameterType="hashmap">
 			UPDATE T4_COMMENT
 			SET DELETE_YN = 'Y'
-			WHERE COMMENT_NO = #{commentNo}
+			WHERE COMMENT_NO = #{commentNo} OR COMMENT_RENO = #{commentNo}
 		</delete>
 		
 		<!-- 랜선장터 댓글 수정 -->
@@ -288,6 +289,13 @@
 				)
 		</insert>
 		
+		<!-- 랜선장터 대댓글 삭제 -->
+		<delete id="deleteReComment" parameterType="hashmap">
+			UPDATE T4_COMMENT
+			SET DELETE_YN = 'Y'
+			WHERE COMMENT_NO = #{commentNo}
+		</delete>
+		
 		<!--오픈된 펀딩 리스트-->
 		<select id="selectOpenFundingList" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			<![CDATA[
@@ -306,14 +314,14 @@
 					UDATETIME,
 					CNT,
 					TIMESTAMPDIFF(DAY, NOW(), FUNDING_END_DT) AS D_DAY,
-					CONCAT(IMG_PATH, IMG_ORG_NAME) AS IMG_PATH,
+					CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH,
 					DATE_FORMAT(FUNDING_END_DT,'%k') AS END_TIME
 					
 				FROM T4_FUNDING A
 				LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
 							FROM T4_FUNDING_MEMBER
 							GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
-				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_ORG_NAME
+				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_NAME
 							FROM T4_F_IMAGE
 							WHERE THUMBNAIL_YN = 'Y'
 							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
@@ -366,7 +374,7 @@
             		END AS DOW,
             		DATE_FORMAT(FUNDING_START_DT, '%c/%e') AS S_DAY,
             		DATE_FORMAT(FUNDING_START_DT, '%H') AS S_TIME,
-            		CONCAT(IMG_PATH, IMG_ORG_NAME) AS IMG_PATH
+            		CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH
             		
 				FROM T4_FUNDING A
 				
@@ -374,7 +382,7 @@
 							FROM T4_FUNDING_MEMBER
 							GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
 							
-				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_ORG_NAME
+				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_NAME
 							FROM T4_F_IMAGE
 							WHERE THUMBNAIL_YN = 'Y'
 							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
@@ -416,22 +424,18 @@
 					UDATETIME,
 					CNT,
 					TIMESTAMPDIFF(DAY, NOW(), FUNDING_END_DT) AS D_DAY,
-					CONCAT(IMG_PATH, C.IMG_ORG_NAME) AS IMG_PATH,
-                    CONCAT(IMG_PATH, D.IMG_ORG_NAME) AS IMG_PATH_DETAIL,
+					CONCAT(IMG_PATH, C.IMG_NAME) AS IMG_PATH,
 					DATE_FORMAT(FUNDING_END_DT,'%k') AS END_TIME
 					
 			FROM T4_FUNDING A
 			LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
 						FROM T4_FUNDING_MEMBER
 						GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
-			LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_ORG_NAME
+			LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_NAME
 						FROM T4_F_IMAGE
 						WHERE THUMBNAIL_YN = 'Y'
 						GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
-			LEFT JOIN ( SELECT FUNDING_NO, IMG_ORG_NAME
-						FROM T4_F_IMAGE
-                        WHERE THUMBNAIL_YN = 'N'
-						) D ON A.FUNDING_NO = D.FUNDING_NO
+
 			WHERE A.FUNDING_NO = #{fundingNo}
 			 
 		</select>
@@ -465,8 +469,7 @@
             		END AS DOW,
             		DATE_FORMAT(FUNDING_START_DT, '%c/%e') AS S_DAY,
             		DATE_FORMAT(FUNDING_START_DT, '%H') AS S_TIME,
-            		CONCAT(IMG_PATH, C.IMG_ORG_NAME) AS IMG_PATH,
-                    CONCAT(IMG_PATH, D.IMG_ORG_NAME) AS IMG_PATH_DETAIL,
+            		CONCAT(IMG_PATH, C.IMG_NAME) AS IMG_PATH,
             		DATE_FORMAT(FUNDING_START_DT,'%Y-%m-%d') AS START_DATE
             		
 				FROM T4_FUNDING A
@@ -475,16 +478,12 @@
 							FROM T4_FUNDING_MEMBER
 							GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
 							
-				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_ORG_NAME
+				LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_NAME
 							FROM T4_F_IMAGE
 							WHERE THUMBNAIL_YN = 'Y'
 							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
-				LEFT JOIN ( SELECT FUNDING_NO, IMG_ORG_NAME
-						FROM T4_F_IMAGE
-                        WHERE THUMBNAIL_YN = 'N'
-						) D ON A.FUNDING_NO = D.FUNDING_NO
 									
-				WHERE A.FUNDING_NO = #{fundingNo}				
+				WHERE A.FUNDING_NO = #{fundingNo};				
 			 
 		</select>
 		
@@ -541,8 +540,15 @@
 				)
 		</insert>
 		
-		<!-- 펀딩 이미지 등록 -->
+		<!-- 펀딩 썸네일 이미지 등록 -->
 		<insert id="insertFundingImg" parameterType="hashmap">
+		INSERT INTO T4_F_IMAGE
+		VALUES
+			(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'Y', NULL, NOW(), NOW() )
+		</insert>
+		
+		<!-- 펀딩 상세 이미지 등록 -->
+		<insert id="insertFundingImg2" parameterType="hashmap">
 		INSERT INTO T4_F_IMAGE
 		VALUES
 			(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'N', NULL, NOW(), NOW() )

@@ -135,8 +135,10 @@
                         <div class="file_box">
 
                             <div class="thumb_box">
-                                <p>썸네일 이미지</p>
+                            	<p>썸네일 이미지</p>
                                 <input type="file" id="file1" name="file1">
+                                <p>상세 이미지</p>
+                                <input type="file" id="file2" name="file2" multiple>
                                  <vue-editor v-model="info.content"></vue-editor>
                             </div>
                             
@@ -199,22 +201,49 @@
                         data: nparmap,
                         success: function (data) {
                             alert("등록되었습니다.");
+                            console.log($("#file1")[0].files);
+                            console.log($("#file2")[0].files);
                             
+                            // 썸네일 이미지
                             var form = new FormData();
-        	       	        form.append( "file1",  $("#file1")[0].files[0] );
-        	       	     	form.append( "fundingNo",  data.fundingNo); // pk
-        	           		self.upload(form);
+                            form.append( "file1",  $("#file1")[0].files[0] );								
+							form.append( "fundingNo",  data.fundingNo);// pk
+							self.upload(form);
+                            
+							// 상세 이미지
+                            for(var i = 0; i<$("#file2")[0].files.length; i++) {
+								//append는 이어붙이는 명령어라 첫번째 파일을 보내고 다시 폼을 만들어 두번째 파일을 보내줘야함
+								var form = new FormData(); 
+								form.append( "file2",  $("#file2")[0].files[i] );								
+								form.append( "fundingNo",  data.fundingNo);// pk
+								self.upload2(form);
+							}                            
         	       	     	
-                           	location.href = "/funding.do";
+                           	//location.href = "/funding.do";
                             
                         }
                     });
                 }
             
             	, upload : function(form){
+	    			var self = this;
+	         		$.ajax({
+	            	 	url : "/fileUpload2.dox"
+	           		, type : "POST"
+	           		, processData : false
+	           		, contentType : false
+	           		, data : form
+	          	 	, success:function(response) { 
+	        	   	
+	          		 }
+	           
+	       			});
+				}
+            
+            	, upload2 : function(form){
     	    		var self = this;
     	         	$.ajax({
-    	             	url : "/fileUpload1.dox"
+    	             	url : "/fileUpload3.dox"
     	           	, type : "POST"
     	           	, processData : false
     	           	, contentType : false
@@ -223,7 +252,7 @@
     	        	   	
     	          	 }
     	           
-    	       	});
+    	       		});
     			}
 				
          		
