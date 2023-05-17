@@ -161,6 +161,14 @@
         	WHERE BOARD_NO = #{boardNo} ]]>
 		</select>
 		
+		<!-- 랜선장터 이미지 -->
+		<select id="selectFleaImg" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+			SELECT BOARD_NO,
+			CONCAT(FILE_PATH, SAVE_NAME) AS FILE_PATH
+			FROM T4_FILES
+			WHERE BOARD_NO = #{boardNo}
+		</select>
+		
 		<!-- 게시글 조회수 증가 -->
 		<update id="updateCnt" parameterType="hashmap" >
 			UPDATE T4_BOARD 
@@ -485,6 +493,15 @@
 									
 				WHERE A.FUNDING_NO = #{fundingNo};				
 			 
+		</select>
+		
+		<!-- 펀딩 상세 이미지 -->
+		<select id="fundingImgDetail" parameterType="hashmap" resultType="com.example.mini.model.Funding">
+			SELECT FUNDING_NO,
+					IMG_NAME,
+					CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH_DETAIL
+            FROM T4_F_IMAGE
+            WHERE THUMBNAIL_YN = 'N' AND FUNDING_NO = #{fundingNo}
 		</select>
 		
 		<!-- 펀딩 신청 인서트 -->

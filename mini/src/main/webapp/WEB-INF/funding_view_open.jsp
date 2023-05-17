@@ -162,8 +162,8 @@
                         </div>
                     </div>
 
-                    <div class="box2" id="detail_box">
-                        <img :src="info.imgPathDetail">
+                    <div class="box2" id="detail_box" v-for="(item, index) in imgInfo">
+                        <img :src="item.imgPathDetail">
                     </div>
 
                     <div id="button_box1">
@@ -203,6 +203,7 @@
             el: '#app',
             data: {
                 info: {},
+                imgInfo: [],
                 fundingNo: "${map.fundingNo}",
                 sessionId: "${sessionId}"
 
@@ -220,7 +221,9 @@
                         data: nparmap,
                         success: function (data) {
                             self.info = data.info;
+                            self.imgInfo = data.imgInfo;
                             console.log(data.info);
+                            console.log(data.imgInfo);
 
                             if (data.info.dDay <= 0) {
                                 fund_cnt.innerText = "종료임박 금일 " + data.info.endTime + "시 종료";

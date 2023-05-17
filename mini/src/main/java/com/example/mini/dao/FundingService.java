@@ -16,6 +16,9 @@ public interface FundingService {
 	// 랜선장터 글보기
 	HashMap<String, Object> searchFleaInfo(HashMap<String, Object> map);
 	
+	// 랜선장터 이미지
+	List<Funding> searchFleaImg(HashMap<String, Object> map);
+	
 	// 랜선장터 댓글 리스트
 	List<Funding> searchFleaComment(HashMap<String, Object> map) throws Exception;
 	
@@ -60,6 +63,9 @@ public interface FundingService {
 
 	// 준비중 펀딩 상세
 	Funding searchPlannedFundingInfo(HashMap<String, Object> map);
+	
+	// 펀딩 상세 이미지
+	List<Funding> fundingImgDetail2(HashMap<String, Object> map);
 
 	// 펀딩 신청
 	HashMap<String, Object> insertFunding(HashMap<String, Object> map);

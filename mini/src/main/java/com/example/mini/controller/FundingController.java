@@ -111,7 +111,9 @@ public class FundingController {
 	@ResponseBody
 	public String searchFleaInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap = fundingService.searchFleaInfo(map);		
+		resultMap = fundingService.searchFleaInfo(map);	
+		List<Funding> imgList = fundingService.searchFleaImg(map);
+		resultMap.put("imgList", imgList);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);		
 	}
@@ -250,7 +252,9 @@ public class FundingController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Funding info = fundingService.searchOpenFundingInfo(map);
+		List<Funding> imgInfo = fundingService.fundingImgDetail2(map);
 		resultMap.put("info", info);
+		resultMap.put("imgInfo", imgInfo);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
@@ -262,7 +266,9 @@ public class FundingController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Funding info = fundingService.searchPlannedFundingInfo(map);
+		List<Funding> imgInfo = fundingService.fundingImgDetail2(map);
 		resultMap.put("info", info);
+		resultMap.put("imgInfo", imgInfo);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}

@@ -209,7 +209,7 @@
                                 	<span class="hits"><i class="fa-solid fa-eye fa-lg"></i> {{info.hits}}</span>
                             	</div>		                            
                             </div>
-                            <div class="content_box" v-html="info.content"></div>
+                            <pre class="content_box" v-html="info.content"></pre>
                         </div>
 
 
@@ -301,7 +301,8 @@
             el: '#app',
             data: {
                 info: {}, // 게시글 정보
-                list:[], // 댓글 리스트
+                list: [], // 댓글 리스트
+                imgList: [], //이미지리스트
                 commentInfo: {}, // 댓글 수정용 정보
                 boardNo: "${map.boardNo}",
                 sessionId: "${sessionId}",
@@ -325,7 +326,9 @@
                         data: nparmap,
                         success: function (data) {
                             self.info = data.info;
+                            self.imgList = data.imgList;
                             console.log(data.info);
+                            console.log(data.imgList);
                             self.fnGetFleaComment();
                         }
                     });

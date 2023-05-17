@@ -21,6 +21,9 @@ public interface FundingMapper {
 	// 랜선장터 글보기
 	Funding selectFleaInfo(HashMap<String, Object> map);
 	
+	// 랜선장터 이미지
+	List<Funding> selectFleaImg(HashMap<String, Object> map);
+	
 	// 랜선장터 게시글 조회수 증가
 	void updateCnt(HashMap<String, Object> map);
 	
@@ -68,6 +71,9 @@ public interface FundingMapper {
 
 	// 준비중 펀딩 상세
 	Funding selectPlannedFundingInfo(HashMap<String, Object> map);
+	
+	// 펀딩 상세 이미지
+	List<Funding> fundingImgDetail(HashMap<String, Object> map);
 
 	// 펀딩 신청
 	void applyFunding(HashMap<String, Object> map);

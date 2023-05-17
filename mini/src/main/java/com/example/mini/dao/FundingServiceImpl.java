@@ -42,6 +42,12 @@ public class FundingServiceImpl implements FundingService {
 		return resultMap;
 	}
 	
+	@Override // 랜선장터 나눔 리스트
+	public List<Funding> searchFleaImg(HashMap<String, Object> map) {
+		List<Funding> list = fundingMapper.selectFleaImg(map);
+		return list;
+	}
+	
 	@Override // 랜선장터 게시글 등록
 	public void addFlea(HashMap<String, Object> map) {
 		fundingMapper.insertFlea(map);
@@ -126,6 +132,12 @@ public class FundingServiceImpl implements FundingService {
 	@Override // 준비중 펀딩 상세
 	public Funding searchPlannedFundingInfo(HashMap<String, Object> map) {
 		Funding info = fundingMapper.selectPlannedFundingInfo(map);
+		return info;
+	}
+	
+	@Override // 펀딩 상세 이미지
+	public List<Funding> fundingImgDetail2(HashMap<String, Object> map) {
+		List<Funding> info = fundingMapper.fundingImgDetail(map);
 		return info;
 	}
 
