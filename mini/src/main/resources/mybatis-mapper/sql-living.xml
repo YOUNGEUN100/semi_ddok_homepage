@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	
+	<mapper namespace="com.example.mini.mapper.LivingMapper">
+		
+		<!-- 카드 리스트-->		
+		<select id="selectCardList" parameterType="hashmap" resultType="com.example.mini.model.Living">
+			SELECT A.CARD_NO,
+				CARD_NAME,
+        		CARD_HITS,
+        		DELETE_YN,
+        		A.CDATETIME,
+		        A.UDATETIME,
+        		IMG_NAME,
+        		IMG_PATH
+			FROM T4_CARDINFO A
+			LEFT JOIN (SELECT CARD_NO,
+					IMG_NAME,
+					CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH
+					FROM T4_CARDIMG
+            		WHERE THUMBNAIL_YN = 'Y')B ON A.CARD_NO = B.CARD_NO;		
+		</select>
+		
+		
+		<!-- 카드 슬라이드-->	
+		<select id="selectCardInfo" parameterType="hashmap" resultType="com.example.mini.model.Living">
+			SELECT IMGFILE_NO,
+				CARD_NO,
+        		CONCAT(IMG_PATH,IMG_NAME)IMG_PATH,
+        		CDATETIME,
+        		UDATETIME
+			FROM T4_CARDIMG
+			WHERE THUMBNAIL_YN = 'N' AND CARD_NO = #{cardNo};
+		</select>
+		
+		
+		
+		
+		
+		
+	</mapper>
