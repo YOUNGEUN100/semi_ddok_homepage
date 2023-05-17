@@ -21,37 +21,42 @@
             margin-top: 30px;
         }
 
-        .board_title {
-            text-align: center;
-        }
-
-        .board_wrap {}
-
-        .title_box {
+        .board_title {text-align: center;}
+		
+		.title_box {
             border: 1px solid #999999;
             border-radius: 10px;
-            height: 80px;
+            height: 140px;
             padding: 18px;
             display: flex;
-            justify-content: space-between;
+  			flex-wrap: wrap;
         }
-
+		
+		.aa {display:flex;flex-wrap: wrap;}
+		.bb {display:flex;flex-wrap: wrap;}
+		
         .title_box h1 {
             margin-top: 5px;
+            overflow : hidden;
+        	text-overflow: ellipsis;
+        	white-space  : nowrap;
         }
-
-        .sale_flg {
-            width: 150px;
-        }
-
-        .title {
-            width: 730px;
-        }
-
+        
         .title_box span {
-            margin-top: 10px;
+        	margin-top: 10px;
             font-size: 25px;
+            
         }
+
+        .sale_flg {width:150px;}
+
+        .title { width: 950px;}
+        
+        .nick {width:150px;}
+        
+        .date {width:300px;}
+        
+        .hits {margin: auto 0 0 auto;}
 
         .content_box {
             border: 1px solid #999999;
@@ -60,7 +65,7 @@
             height: 700px;
             padding: 16px;
             font-size: 20px;
-            display : flex;            
+            display : flex;     
         }
 
         .content_box button {            
@@ -89,22 +94,16 @@
             padding: 16px;
         }
 
-        .comment_list {
-            margin-top: 8px;
-        }
+        .comment_list {margin-top: 8px;}
 
         .commenter {
             font-size: 25px;
             font-weight : bold;
         }
 
-        .commenter span {
-            margin-right: 15px;
-        }
+        .commenter span {margin-right: 15px;}
         
-        .commenter button {
-        	height : 40px;
-        }
+        .commenter button {height : 40px;}
 
         .comment_content {
             font-size: 15px;    
@@ -164,9 +163,7 @@
 			font-size: 20px;
 		}
 		
-		#reCoContent {
-			margin-left : 50px;
-		}
+		#reCoContent {margin-left : 50px;}
 
 		
         /* style END */
@@ -186,15 +183,17 @@
                     
                         <div class="board_wrap">
                             <div class="title_box">
-                                <h1 class="sale_flg" id="sale_flg">[{{info.boardKind2}}]</h1>                               
-                                <h1 class="title">{{info.title}}</h1>
-                                <span>{{info.cdatetime2}}</span>
-                                <span><i class="fa-solid fa-eye fa-lg"></i> {{info.hits}}</span>
+								<div class="aa">
+									<h1 class="sale_flg" id="sale_flg">[{{info.boardKind2}}]</h1>                               
+                                	<h1 class="title">{{info.title}}</h1>
+								</div>
+                            	<div class="bb">
+                            		<span class="nick">{{info.nick}}</span>
+                                	<span class="date">작성일 {{info.cdatetime2}}</span>
+                                	<span class="hits"><i class="fa-solid fa-eye fa-lg"></i> {{info.hits}}</span>
+                            	</div>		                            
                             </div>
-
-                            <div class="content_box">
-                               {{info.content}}                           
-                            </div>
+                            <div class="content_box" v-html="info.content"></div>
                         </div>
 
 

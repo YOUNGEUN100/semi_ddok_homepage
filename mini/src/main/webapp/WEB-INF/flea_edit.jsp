@@ -125,7 +125,7 @@
                             <div class="detail_box">
                                 <p>첨부파일</p>
                                 <input type="file" id="file2" name="file2" multiple>
-                                 <vue-editor v-html="info.content"></vue-editor>
+                                 <vue-editor v-model="info.content"></vue-editor>
                             </div>
 
                         </div>                      
@@ -238,7 +238,7 @@
         	       	     	console.log(data.boardNo);
         	           		
                             alert("등록되었습니다.");
-                           // location.href = "/flea.do";
+                            location.href = "/flea.do";
                             
                         }
                     });
