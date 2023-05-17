@@ -12,6 +12,7 @@ $(document).ready(function(){
         dots: true,
 	    arrows: false,
 	    infinite: true,
+	    draggable: true,
 	    fade: true,
 		speed: 500,
 		cssEase: 'linear'

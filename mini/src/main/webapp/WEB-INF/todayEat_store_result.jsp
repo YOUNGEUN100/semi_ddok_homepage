@@ -3,58 +3,13 @@
 <jsp:include page="/layout/head.jsp"></jsp:include>
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
-<style>
-.styleBoxRound {border-radius:1.5em; overflow:hidden;}
-.styleBoxShadow {box-shadow:0 0 10px 0 rgba(0,0,0,0.1);}
-
-.resultMenu {text-align:center; margin-bottom:5em;}
-.resultMenuTitle {font-size:1.75em;}
-.resultMenuTitle span {font-size:1.25em;}
-.imgBox {width:300px; height:300px; border-radius:50%; background:var(--base-colorBasicGray); margin:1em auto 2em;}
-.replayBtn {font-weight:600;}
-.replayBtn i {margin-right:0.2em;}
-.resultMapTitle {font-size:1.625em; font-weight:500; margin-bottom:0.5em;}
-.resultMapTitle span {font-weight:700;}
-.resultMap {width:100%; position:relative; display:flex; flex-flow:row wrap; justify-content:space-between; align-items:stretch;}
-.resultMap .map_wrap {width:calc(100% - 370px); position:relative; height:500px;}
-.resultMap #menu_wrap {width:350px; height:500px; overflow-y:auto; text-align:justify; font-size:0.875em; line-height:1.25; background:var(--base-colorWhite); padding:0.5em;}
-.resultMap #menu_wrap h5 {font-size:1.125em;}
-.infowindow {font-size:0.875em; font-weight:500;}
-
-#placesList li {list-style:none;}
-#placesList .item {position:relative; border-bottom:1px solid var(--base-colorDeepGray); overflow:hidden; cursor:pointer; min-height:65px; transition:all 0.2s ease-in;}
-#placesList .item:hover h5 {color:var(--main-colorRed);}
-#placesList .item:last-child {border-bottom:0;}
-#placesList .item span {display:block; margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow:ellipsis; overflow:hidden; white-space:nowrap; transition:all 0.2s ease-in;}
-#placesList .item .info {padding:1.2em 0 1em 4em;}
-#placesList .info .gray {color:var(--base-colorDarkGray);}
-#placesList .info .jibun {padding-left:26px; background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {font-weight:600; color:var(--main-colorGreen);}
-#placesList .item .markerbg {float:left; position:absolute; width:36px; height:37px; margin:10px 0 0 10px; background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position:0 -10px;}
-#placesList .item .marker_2 {background-position:0 -56px;}
-#placesList .item .marker_3 {background-position:0 -102px}
-#placesList .item .marker_4 {background-position:0 -148px;}
-#placesList .item .marker_5 {background-position:0 -194px;}
-#placesList .item .marker_6 {background-position:0 -240px;}
-#placesList .item .marker_7 {background-position:0 -286px;}
-#placesList .item .marker_8 {background-position:0 -332px;}
-#placesList .item .marker_9 {background-position:0 -378px;}
-#placesList .item .marker_10 {background-position:0 -423px;}
-#placesList .item .marker_11 {background-position:0 -470px;}
-#placesList .item .marker_12 {background-position:0 -516px;}
-#placesList .item .marker_13 {background-position:0 -562px;}
-#placesList .item .marker_14 {background-position:0 -608px;}
-#placesList .item .marker_15 {background-position:0 -654px;}
-</style>
-
+<link rel="stylesheet" href="/css/pageStyle/depth1_todayEat.css">
 
 <!-- pageContent -- START -->
-<div id="pageContent">
+<div id="pageContent" class="todayEat">
 	<div class="wrapper">
 		<jsp:include page="/layout/includeLoading.jsp"></jsp:include>
-		<div id="app" class="resultContainer">
+		<div id="result" class="resultContainer">
 			<div class="resultMenu">
 	 			<h3 class="resultMenuTitle">
 					오늘 ‘<span id="menuName">{{info.menuName}}</span>’ 어때요?
@@ -78,12 +33,11 @@
 </div>
 <!-- pageContent -- END -->
 
-
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 <script type="text/javascript">
-var app = new Vue({ 
-    el: '#app',
+var result = new Vue({ 
+    el: '#result',
     data: {
 		list : [], 
 		info : {},
@@ -112,7 +66,6 @@ var app = new Vue({
             } else {
             	storeLoc.innerHTML = self.location[0].concat(" ", self.location[1]);
             }
-            
             
             $.ajax({
                 url:"/todayEat/store/result.dox",

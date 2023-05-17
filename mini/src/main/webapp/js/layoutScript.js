@@ -3,20 +3,26 @@ $(document).ready(function(){
     var menuAll = $("header#header #gnbMenu");
     var menuSub = $("header#header #gnbMenu ul.depth2");
     var menuMainItem = $("header#header #gnbMenu ul.depth1 > li");
-
+    
     // header menu hoverEvent
     $(menuSub).hide();
-    $(menuAll).hover(function(){
-        var self = this;
-        $(self).addClass("active");
-        $(header).addClass("active", 400);
-        $(menuSub).stop(true,true).slideDown(400);
-    }, function() {
-        var self = this;
-        $(self).removeClass("active");
-        $(header).removeClass("active");
-        $(menuSub).stop(true,true).slideUp(300);
-    });
+    $(menuAll).hover(
+	    function () {
+	        var self = this;
+	        hovertimer = setTimeout(function(){
+		        var self = this;
+		        $(self).addClass("active");
+		        $(header).addClass("active", 400);
+		        $(menuSub).stop(true,true).slideDown(400);
+	        }, 200);
+	    },
+	    function () {
+	        clearTimeout(hovertimer);
+	        $(self).removeClass("active");
+	        $(header).removeClass("active");
+	        $(menuSub).stop(true,true).slideUp(300);
+	    }
+	);
     
     // header scrollEvent
 	var bodyOffset = $("body").offset();

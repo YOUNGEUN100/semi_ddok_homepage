@@ -6,6 +6,7 @@
 	        <a href="/main.do"><img src="/images/logo.png" alt="DDokDDok"></a>
 	    </h1>
 	    <nav id="gnbMenu" class="nav typeMenu">
+	    	<button class="menuBtn"><i class="fa-solid fa-bars"></i></button>
 	        <ul class="depth1">
 	            <li class="menu01">
 	                <a href="/todayEat.do">‘투데잇’ <small>Today-Eat</small></a>
@@ -50,8 +51,8 @@
 		        <li><a href="/login.do" >로그인</a></li>
 		        <li><a href="/join.do">회원가입</a></li>
 			</template>
-	        <template v-if="sessionId != ''">
-		        <li class="helloText">{{sessionNick}}님, 안녕하세요😊<li>
+	        <template v-else>
+		        <li class="helloText">{{sessionNick}}님, 안녕하세요😊</li>
 		        <li><a href="/login.do" @click="fnLogout">로그아웃</a></li>
 		        <li><a href="/myPage.do" >마이페이지</a></li>
 	        </template>

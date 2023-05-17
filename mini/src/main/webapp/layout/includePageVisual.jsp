@@ -63,10 +63,10 @@ function pageName(){
 		pageIconBox.appendChild(pageIcon);
 		break;
 	case "sample" : 
-		pageInfo.innerHTML = "샘플세팅 페이지입니다 😀";
+		pageInfo.innerHTML = "당신의 더 나은 생활을 위한 라이프 서포트 ‘똑똑’";
 		break;
 	default :
-		 pageInfo.innerHTML = "설정되지 않은 페이지입니다 😥";
+		 pageInfo.innerHTML = "당신의 더 나은 생활을 위한 라이프 서포트 ‘똑똑’";
 	};
 	
 	switch(pageName){
@@ -79,9 +79,19 @@ function pageName(){
 		pageTitle.innerHTML = "투데잇 : 맛집메뉴 추천";
 		break;
 	case "recipe" : 
-		document.title = "똑똑 :: 투데잇 - 레시피";
-		pageTitle.innerHTML = "투데잇 : 레시피 추천";
-		break;
+		if(urlList.length == 5){
+			document.title = "똑똑 :: 투데잇 - 레시피";
+			pageTitle.innerHTML = "투데잇 : 레시피 추천";
+			break;
+		} else if(urlList.length == 4){
+			document.title = "똑똑 :: 똑똑Eating - 레시피";
+			pageTitle.innerHTML = "똑똑한 레시피";
+			break;
+		} else{
+			document.title = "똑똑";
+			pageTitle.innerHTML = "똑똑";
+			break;
+		};
 	case "result" : 
 		const pageMidName = urlList[urlList.length - 2];
 		if(pageMidName === "store"){
@@ -94,7 +104,7 @@ function pageName(){
 			break;
 		} else{
 			document.title = "똑똑";
-			pageTitle.innerHTML = "noneSet Page";
+			pageTitle.innerHTML = "똑똑";
 			break;
 		};
 	case "funding" : 
@@ -112,10 +122,6 @@ function pageName(){
 	case "flea" : 
 		document.title = "똑똑 :: 소비N빵 - 랜선장터";
 		pageTitle.innerHTML = "랜선장터";
-		break;
-	case "recipe" : 
-		document.title = "똑똑 :: 똑똑Eating - 레시피";
-		pageTitle.innerHTML = "똑똑한 레시피";
 		break;
 	case "market" : 
 		document.title = "똑똑 :: 똑똑Eating - 마켓";
@@ -193,7 +199,7 @@ function pageName(){
 			break;
 		} else{
 			document.title = "똑똑";
-			pageTitle.innerHTML = "noneSet Page";
+			pageTitle.innerHTML = "똑똑";
 			break;
 		};
 	case "myPage" : 
@@ -214,12 +220,14 @@ function pageName(){
 		break;
 	case "sample" : 
 		document.title = "똑똑";
-		pageTitle.innerHTML = "sampleSet Page";
+		pageTitle.innerHTML = "당신의 더 나은 생활을 위한 라이프 서포트 ‘똑똑’";
 		break;
 	default : 
 		document.title = "똑똑";
-		pageTitle.innerHTML = "noneSet Page";
+	pageTitle.innerHTML = "당신의 더 나은 생활을 위한 라이프 서포트 ‘똑똑’";
 	};
 };
 pageName();
 </script>
+
+<link rel="stylesheet" href="/css/pageStyle/pageStyle.css">
