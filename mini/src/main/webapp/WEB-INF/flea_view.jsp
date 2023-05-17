@@ -91,11 +91,11 @@
 
         .comment_list {
             margin-top: 8px;
-            border-bottom: 1px solid #999999;
         }
 
         .commenter {
-            font-size: 20px;
+            font-size: 25px;
+            font-weight : bold;
         }
 
         .commenter span {
@@ -107,7 +107,8 @@
         }
 
         .comment_content {
-            font-size: 15px;            
+            font-size: 15px;    
+            border-bottom : 1px solid black;        
         }
         
         .comment_add {
@@ -157,6 +158,15 @@
             font-weight: bold;
 			cursor : pointer;
         }
+		
+		#coContent {
+			margin-top : 10px;
+			font-size: 20px;
+		}
+		
+		#reCoContent {
+			margin-left : 50px;
+		}
 
 		
         /* style END */
@@ -194,11 +204,11 @@
                             </div>
 
                             <div class="comment_box">
-                                <div class="comment_list" v-for="(item, index) in list">
-                                	<template v-if="editCoNo != item.commentNo">
-                                	
-                                		<div  v-if="item.commentNo == item.commentReno"> <!-- 댓글 commentNo와 commentReno가 같으면 출력 -->
-                                		
+                            	
+                            	<div class="comment_list" v-for="(item, index) in list">
+                               	
+                                		<!-- 댓글 출력 영역 commentNo와 commentReno가 같으면 출력 -->
+                                		<div  v-if="item.commentNo == item.commentReno">               		
                                 			<div class="commenter"> <!-- 댓글작성자 댓글작성일 정보영역 -->
 		                                        <span>{{item.nick}}</span>
     		                                    <span>{{item.cdatetime2}}</span>
@@ -206,39 +216,38 @@
             		                            <button @click="fnEditComment(item)" v-if="sessionId == item.userId || sessionStatus == 'A'">수정</button>
                 		                    </div>
                 	                    
-                    		                <div class="comment_content"> <!-- 댓글내용 -->
-                        		                <pre v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">{{item.content}}</pre>
+                    		                <div class="comment_content" v-if="editCoNo != item.commentNo"> <!-- 댓글내용 -->
+                        		                <pre id="coContent" @click="fnRecommentBtn(item)" v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">{{item.content}}</pre>
                         		                <pre v-else> 비밀 댓글입니다.</pre>
                             		        </div>
-                            	        
-                            	        
-                            	        
-                            	    	    <div class="reComment_content"> <!-- 대댓글작성 영역 -->
-	                            	        	<div v-if="editReCoNo != item.commentNo">
-    	                        	        		<div v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId" @click="fnRecommentBtn(item)">답글작성</div> 
-        	                    	        	</div>
-            	                	       	 	<div v-else>
-                	            	        		<textarea placeholder="댓글을 입력하세요." v-model="reContent"></textarea>
-                    	    	               		<button @click="fnWriteReComment(item.commentNo)">입력</button>
-                        		               		<button @click="fnRecommentclose">취소</button>
-                            		        	</div>
-                            		        </div>
                             		        
+                            		        <div class="comment_content" v-else>                                     
+                                        		<textarea rows = "5" v-model="commentInfo.content"></textarea>
+                                        		<button @click="fnEditCommentFinish">수정</button>
+                                    		</div>
+                            		        
+                            		        <div v-if="editReCoNo == item.commentNo"> <!-- fnRecommentBtn 누르면 나오는 대댓글 작성 박스 -->
+                	            	        	<textarea placeholder="댓글을 입력하세요." v-model="reContent"></textarea>
+                    	    	               	<button @click="fnWriteReComment(item.commentNo)">입력</button>
+                        		               	<button @click="fnRecommentclose">취소</button>
+                            		        </div>             		       
                                 		</div>
+                                		<!-- 댓글 출력 영역 끝 -->
                                 		
-                                		<div v-else> <!-- 대댓글 출력 영역 commentNo와 commentReno가 다르면 출력 -->
-                                			<pre v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">{{item.content}}</pre>
-                                		</div>
+                                		<!-- 대댓글 출력 영역 commentNo와 commentReno가 다르면 출력 -->
+                                		<div v-else>
+                                			<div v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">
+                                				<div>{{item.nick}}</div>
+                                				<pre style="margin-left : 20px;">{{item.content}}</pre>
+                                			</div>                               			
+                                		</div>	
+                                    	<!-- 대댓글 출력 영역 끝 -->
                                     	
                                     </template>
-                                    
-                                    <template v-else>
-                                    	<div class="comment_content" >                                     
-                                        	<textarea rows = "5" v-model="commentInfo.content"></textarea>
-                                        	<button @click="fnEditCommentFinish">수정</button>
-                                    	</div>
-                                    </template>
-                                </div>                                                               
+                                        
+                                </div>
+                            	
+                                                                                               
                             </div>
                             <div class="comment_add">
                         		<textarea rows = "3" placeholder="댓글을 입력하세요." v-model="content"></textarea>
