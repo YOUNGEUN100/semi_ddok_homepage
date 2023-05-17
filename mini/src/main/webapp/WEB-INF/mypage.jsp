@@ -143,8 +143,8 @@ var app = new Vue({
     	
     	fnUserEdit : function(){
     		var self = this;
-    		var pw = prompt("회원정보 수정을 하려면 비밀번호를 입력해주세요","");
-    		var nparmap = {pw : self.sessionPw}
+    		
+    		
     		console.log(self.map.sessionPw);
     		$.ajax({
                 url:"/modify.dox",
@@ -152,7 +152,7 @@ var app = new Vue({
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
-                
+                locaion.href="/modify.do";
                     
                 }
             });
