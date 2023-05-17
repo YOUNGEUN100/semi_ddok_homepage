@@ -3,6 +3,7 @@
 <jsp:include page="/layout/includeFooter.jsp"></jsp:include>
 </body>
 </html>
+<script type="text/javascript" src="/js/baseScript.js"></script>
 <script type="text/javascript">
 var app = new Vue({ 
     el: '#gnbUser',

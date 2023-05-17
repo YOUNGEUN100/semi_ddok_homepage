@@ -11,8 +11,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script src="/js/jquery.js"></script>
     <script src="/js/fontAwesome.js" crossorigin="anonymous"></script>
-	<script src="/js/layoutScript.js"></script>
-	<script src="/js/baseScript.js"></script>
+	<script type="text/javascript" src="/js/layoutScript.js"></script>
 	
 	<link rel="stylesheet" href="/css/common.css">
 	<link rel="stylesheet" href="/css/layoutStyle.css">

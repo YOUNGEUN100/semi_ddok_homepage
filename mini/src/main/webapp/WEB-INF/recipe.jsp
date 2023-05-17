@@ -9,7 +9,6 @@
 <div id="pageContent" class="recipe">
 	<div class="wrapper">
 		<div id="recipeList" class="recipeListContainer">
-			<button class="add_btn" @click="fnGoEdit()" v-if="sessionStatus=='A'">등록</button>
 			<section class="r-search">
 			    <input type="text" v-model="keyword" placeholder="원하는 레시피를 검색해 보세요!" class="r-input"  @keyup.enter="fnGetRecipeAll()">
 			    <i class="search-icon fa-solid fa-magnifying-glass fa-lg" @click="fnGetRecipeAll()"></i>
@@ -95,6 +94,20 @@
 							:page-class="'page-item'">
 				</paginate>
 			</template>
+			
+			<!-- adminCtrlBox -- Don't touch -->
+			<template>
+				<div v-if="sessionStatus=='A'" id="adminCtrlArea">
+					<i id="adminBtn" class="fa-solid fa-gear fa-spin styleBoxShadow styleHoverShadow"></i>
+					<div id="adminBox" class="styleBoxShadow">
+						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
+						<div class="btnSet">
+							<button class="addBtn" @click="fnGoEdit()" v-if="sessionStatus=='A'">등록</button>
+						</div>
+					</div>
+				</div>
+			</template>
+			<!-- adminCtrlBox -- Don't touch -->
         </div>
 	</div>
 </div>

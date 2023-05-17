@@ -19,6 +19,8 @@ function pageName(){
 	const pageId = pageList[0];
 	const pageNameList = urlList[urlList.length - 1].split('.');
 	const pageName = pageNameList[0];
+	const pageFstName = urlList[urlList.length - 2];
+	const pageMidName = urlList[urlList.length - 2];
 	console.log(pageId);
 	console.log(pageName);
 	
@@ -87,13 +89,8 @@ function pageName(){
 			document.title = "똑똑 :: 똑똑Eating - 레시피";
 			pageTitle.innerHTML = "똑똑한 레시피";
 			break;
-		} else{
-			document.title = "똑똑";
-			pageTitle.innerHTML = "똑똑";
-			break;
 		};
 	case "result" : 
-		const pageMidName = urlList[urlList.length - 2];
 		if(pageMidName === "store"){
 			document.title = "똑똑 :: 투데잇 - 맛집메뉴";
 			pageTitle.innerHTML = "투데잇 : 맛집메뉴 추천";
@@ -156,7 +153,6 @@ function pageName(){
 		pageTitle.innerHTML = "QnA";
 		break;
 	case "view" : 
-		const pageFstName = urlList[urlList.length - 2];
 		if(pageFstName === "flea"){
 			document.title = "똑똑 :: 소비N빵 - 랜선장터";
 			pageTitle.innerHTML = "랜선장터";
@@ -202,6 +198,37 @@ function pageName(){
 			pageTitle.innerHTML = "똑똑";
 			break;
 		};
+	case "edit" : 
+		if(pageFstName === "funding"){
+			document.title = "똑똑 :: 소비N빵 - 랜선펀딩";
+			pageTitle.innerHTML = "랜선펀딩";
+		} else if(pageFstName === "flea"){
+			document.title = "똑똑 :: 소비N빵 - 랜선장터";
+			pageTitle.innerHTML = "랜선장터";
+		} else if(pageFstName === "recipe"){
+			document.title = "똑똑 :: 똑똑Eating - 레시피";
+			pageTitle.innerHTML = "똑똑한 레시피";
+		} else if(pageFstName === "market"){
+			document.title = "똑똑 :: 똑똑Eating - 마켓";
+			pageTitle.innerHTML = "똑똑한 마켓";
+		} else if(pageFstName === "policy"){
+			document.title = "똑똑 :: 똑똑Living - 알쓸정책";
+			pageTitle.innerHTML = "알쓸정책";
+		} else if(pageFstName === "livingTip"){
+			document.title = "똑똑 :: 똑똑Living - 생활백서";
+			pageTitle.innerHTML = "생활백서";
+		} else if(pageFstName === "community"){
+			document.title = "똑똑 :: 커뮤니티";
+			pageTitle.innerHTML = "커뮤니티";
+		} else if(pageFstName === "qna"){
+			document.title = "똑똑 :: QnA - 커뮤니티";
+			pageTitle.innerHTML = "QnA";
+		} else{
+			document.title = "똑똑";
+			pageTitle.innerHTML = "똑똑";
+		};
+		pageTitle.append(" : 등록");
+		break;
 	case "myPage" : 
 		document.title = "똑똑 :: 마이페이지";
 		pageTitle.innerHTML = "마이페이지";
@@ -220,11 +247,11 @@ function pageName(){
 		break;
 	case "sample" : 
 		document.title = "똑똑";
-		pageTitle.innerHTML = "당신의 더 나은 생활을 위한 라이프 서포트 ‘똑똑’";
+		pageTitle.innerHTML = "똑똑";
 		break;
 	default : 
 		document.title = "똑똑";
-	pageTitle.innerHTML = "당신의 더 나은 생활을 위한 라이프 서포트 ‘똑똑’";
+		pageTitle.innerHTML = "똑똑";
 	};
 };
 pageName();
