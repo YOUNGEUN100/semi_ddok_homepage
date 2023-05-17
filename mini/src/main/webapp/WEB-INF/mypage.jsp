@@ -90,7 +90,7 @@
 		 <div id="app" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="images/Sample_User_Icon.png">
-                <a href="/modify.do" class="edit" title="회원정보 수정은 여길 누르세요">{{sessionName}}님 환영합니다</a>
+                <div class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()">{{sessionName}}님 환영합니다</div>
                 
             </div>
             <div class="contentBox"> <!--아래-->
@@ -135,10 +135,74 @@ var app = new Vue({
     data: {
     	list : []
 		, sessionName : "${sessionName}"
-		, sessionId : "${sessionId}"	
+		, sessionId : "${sessionId}"
+		, sessionPw : "${map.sessionPw}"
+		
     }
     , methods : {
+    	
+    	fnUserEdit : function(){
+    		var self = this;
+    		var pw = prompt("회원정보 수정을 하려면 비밀번호를 입력해주세요","");
+    		var nparmap = {pw : self.sessionPw}
+    		console.log(self.map.sessionPw);
+    		$.ajax({
+                url:"/modify.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                
+                    
+                }
+            });
     		
+    		
+    	},
+    	fnUpdateUser : function(){
+    		var self = this;
+	      	var nparmap = {id : self.id};     	
+	        $.ajax({
+	            url:"/pwUpdate.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log(data);
+					
+	            }
+	        }); 
+    	},
+    	
+    	pageChange : function(url, param) {
+     		var target = "_self";
+     		if(param == undefined){
+     		//	this.linkCall(url);
+     			return;
+     		}
+     		var form = document.createElement("form"); 
+     		form.name = "dataform";
+     		form.action = url;
+     		form.method = "post";
+     		form.target = target;
+     		for(var name in param){
+ 				var item = name;
+ 				var val = "";
+ 				if(param[name] instanceof Object){
+ 					val = JSON.stringify(param[name]);
+ 				} else {
+ 					val = param[name];
+ 				}
+ 				var input = document.createElement("input");
+ 	    		input.type = "hidden";
+ 	    		input.name = item;
+ 	    		input.value = val;
+ 	    		form.insertBefore(input, null);
+ 			}
+     		document.body.appendChild(form);
+     		form.submit();
+     		document.body.removeChild(form);
+     	}
 		   	 
 	}	
     , created: function () {

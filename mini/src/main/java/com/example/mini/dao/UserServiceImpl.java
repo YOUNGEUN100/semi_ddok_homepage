@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
 		if(cnt > 0) {
 			User user = userMapper.selectUserInfo(map);
 			//로그인 성공
-			if(user != null) {
+			if(user != null) {				
 				resultMap.put("user", user);
 				resultMap.put("result", "success");
 				resultMap.put("message", user.getName()+"님 환영합니다.");
@@ -81,6 +81,18 @@ public class UserServiceImpl implements UserService{
 	public User searchUserPw(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return userMapper.selectUserPw(map);
+	}
+	//회원정보
+	@Override
+	public User searchUser(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return userMapper.selectUser(map);
+	}
+	//회원정보변경
+	@Override
+	public void editUser(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		userMapper.updateUser(map);
 	}
 	
 

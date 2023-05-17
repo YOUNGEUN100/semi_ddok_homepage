@@ -148,28 +148,31 @@ public class UserController {
 	
 	//회원 정보 수정
 	@RequestMapping("/modify.do") 
-    public String mypage(Model model) throws Exception{
-		
+    public String mypageEdit(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		request.setAttribute("map", map);
+    	request.setAttribute("sessionId", session.getAttribute("sessionId"));
+    	request.setAttribute("sessionPw", session.getAttribute("sessionPw"));
+    	request.setAttribute("sessionName", session.getAttribute("sessionName"));
         return "/modify";
     }
-	
-	@RequestMapping(value = "/modify.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	//회원정보
+	@RequestMapping(value = "/modify/view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String UserList(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+	public String viewUser(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap = userService.searchUserInfo(map);
-		HashMap<String, Object> list = userService.searchUserInfo(map);
-		String result = (String) resultMap.get("result");
-		if(result.equals("success")) {
-			User user = (User) resultMap.get("user");
-			session.setAttribute("sessionId", user.getUserId());
-			session.setAttribute("sessionName", user.getName());
-			session.setAttribute("sessionNick", user.getNick());
-			
-		}
+		resultMap.put("user", userService.searchUser(map));
+		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
-		
-    }
+	}
+	//회원정보변경
+	@RequestMapping(value = "/modify/user.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String updateUser(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		userService.editUser(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
 	
 	@RequestMapping("/payment.do") 
     public String payment(Model model) throws Exception{

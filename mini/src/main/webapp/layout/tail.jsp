@@ -11,6 +11,7 @@ var app = new Vue({
       , info : {}
       , sessionId : "${sessionId}"
       , sessionStatus : "${sessionStatus}"
+      , sessionNick : "${sessionNick}"
       , logFlg : false
      
     }   

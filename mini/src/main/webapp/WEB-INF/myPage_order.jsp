@@ -91,7 +91,7 @@
 		 <div id="app" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="/./images/Sample_User_Icon.png">
-                <div class="edit" title="회원정보 수정은 여길 누르세요">{{sessionName}}님 환영합니다</div>
+                <a href="/modify.do" class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()>{{sessionName}}님 환영합니다</a>
                 
             </div>
             <div class="contentBox"> <!--아래-->
@@ -122,10 +122,60 @@
 var app = new Vue({ 
     el: '#app',
     data: {
-    	sessionName : "${sessionName}"	
+    	list : [],
+    	sessionName : "${sessionName}",
+    	sessionId : "${sessionId}"
     }
     , methods : {
+    	
+    	fnUserEdit : function(){
+    		var self = this;
+    		var pw = prompt("회원정보 수정을 하려면 비밀번호를 입력해주세요","");
+    		if(pw == ''){
+    			alert("비밀번호를 입력해주세요");
+    			return;
+    		}
+    		if(self.list.pw == self.pw ){
+    			self.pageChange("/modify.do", {id : self.sessionId});
+    		}
+    		else if(self.list.pw != self.pw){
+    			alert("비밀번호가 일치하지 않습니다");
+    			self.pw = '';
+    			return;
+    		}
     		
+    	},
+    	pageChange : function(url, param) {
+     		var target = "_self";
+     		if(param == undefined){
+     		//	this.linkCall(url);
+     			return;
+     		}
+     		var form = document.createElement("form"); 
+     		form.name = "dataform";
+     		form.action = url;
+     		form.method = "post";
+     		form.target = target;
+     		for(var name in param){
+ 				var item = name;
+ 				var val = "";
+ 				if(param[name] instanceof Object){
+ 					val = JSON.stringify(param[name]);
+ 				} else {
+ 					val = param[name];
+ 				}
+ 				var input = document.createElement("input");
+ 	    		input.type = "hidden";
+ 	    		input.name = item;
+ 	    		input.value = val;
+ 	    		form.insertBefore(input, null);
+ 			}
+     		document.body.appendChild(form);
+     		form.submit();
+     		document.body.removeChild(form);
+     	}
+		   	 
+	}
 		   	 
 	}	
     , created: function () {

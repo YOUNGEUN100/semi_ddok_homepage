@@ -14,6 +14,6 @@ public interface MyMapper {
 	//레시피 저장
 	List<Recipe> selectLikeRecipe(HashMap<String, Object>map);
 	
-	//펀딩 리스트
+	//참여한 펀딩 리스트
 	List<Funding> selectAttendFunding(HashMap<String,Object>map);
 }

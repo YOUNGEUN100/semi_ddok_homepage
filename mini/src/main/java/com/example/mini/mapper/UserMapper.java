@@ -33,4 +33,10 @@ public interface UserMapper {
 	//비밀번호를 잊어 비밀번호 업데이트
 	void updatePw(HashMap<String, Object>map);
 	
+	//회원정보 
+	User selectUser(HashMap<String, Object>map);
+	
+	//회원정보 변경
+	void updateUser(HashMap<String, Object>map);
+	
 }

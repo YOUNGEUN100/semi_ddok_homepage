@@ -75,8 +75,8 @@ public class MyController {
 		public String searchFundingList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();
 			List<Funding> list = myService.searchAttendFunding(map);
-			resultMap.put("list", list);
 			resultMap.put("result", "success");
+			resultMap.put("list", list);
 			return new Gson().toJson(resultMap);
 		}
 		

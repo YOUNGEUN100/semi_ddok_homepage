@@ -79,12 +79,32 @@
 			WHERE USER_ID  = #{id} AND NAME = #{name} AND PW_Q = #{pwQ} AND PW_A =#{pwA}
 		</update> 
 		
-		<select id="selectLikeRecipe" parameterType="HashMap" resultType="com.example.mini.model.User">
-			SELECT RECIPE_NAME, HASHTAG, IMG_PATH
-			FROM T4_RECIPE R
-			INNER JOIN 
-				T4_R_IMAGE I ON R.RECIPE_NO = I.RECIPE_NO
-			WHERE R.RECIPE_NO = #{recipeNo} AND THUMBNAIL_YN = 'Y'
+		<select id="selectUser" parameterType="hashmap" resultType="com.example.mini.model.User">
+			SELECT	
+				USER_ID,
+				PASSWORD,
+				NAME,
+				NICK,
+				EMAIL,
+				GENDER,
+				BIRTH,
+				HP,
+				LIVING_YEAR,
+				STATUS,
+				ADDR,
+				ADDR2,
+				JOINDATE,
+				PW_Q,
+				PW_A
+			FROM T4_USER
+			WHERE USER_ID = #{id}
 		</select>
+		
+		<update id="updateUser" parameterType="HashMap">
+			UPDATE T4_USER 
+			SET 
+				NICK = #{nick}, EMAIL = #{email}, GENDER = #{gender}, HP = #{hp}, ADDR = #{addr}, ADDR2 = #{addr2}, LIVING_YEAR = #{livingYear}
+			WHERE USER_ID = #{id} 
+		</update>
 		
 	</mapper>

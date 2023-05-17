@@ -14,8 +14,10 @@
 
       .myArea .userBox{
            width: 20%; height: 100%;
-           border:0; 
-           text-align: center;  
+           border:0; margin-bottom:20px;
+           text-align: center;
+           display: flex; flex-direction: column; justify-content: center;
+           align-items: center;  
        }
       .myArea .userBox div{color: black;}
       .myArea .userBox img{width: 60px; height: 60px; }
@@ -79,7 +81,7 @@
 		 <div id="app" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="/./images/Sample_User_Icon.png">
-                <div class="edit" title="회원정보 수정은 여길 누르세요">{{sessionName}}님 환영합니다</div>       
+                <a href="/modify.do" class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()">{{sessionName}}님 환영합니다</a>       
             </div>
             <div class="contentBox"> <!--아래-->
                 <div class="menuBox"> <!--메뉴버튼-->
@@ -134,6 +136,7 @@ var app = new Vue({
             });
 
         }
+        
 		   	 
 	}	
     , created: function () {

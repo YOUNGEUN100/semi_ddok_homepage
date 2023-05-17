@@ -30,5 +30,9 @@ public interface UserService {
 	//비번 분실로 비번 변경
 	void editPw(HashMap<String, Object>map);
 	
+	//회원정보
+	User searchUser(HashMap<String, Object>map);
 	
+	//회원 정보 변경
+	void editUser(HashMap<String, Object>map);
 }

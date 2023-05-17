@@ -94,49 +94,74 @@
 	<div class="wrapper">
 	
 		<div id="app" class="joinArea">
+		
             <span class="captionEssential">표시는 필수입력</span>
+            
             <div class="joinBox" >
+            
                 <div class="captionBox">
+                
                     <div class="markEssential id">아이디</div><div v-if="info.id == ''"></div>
 	                    <template v-else-if="info.id != '' && info.id.length >= 20"> <!-- 20자 초과시 -->
 	                    	<span class="disableId" >20자를 초과하였습니다.</span> 
 	                    </template>
+	                    
 	                    <template v-else-if="info.id != '' && !idValid"> <!-- 한글로 아이디 칠때 -->
 	                    	<span class="disableId" >올바른 형식의 아이디가 아닙니다.</span> 
 	                    </template>
+	                    
 	                    <template v-else-if="info.id != '' && idCk " ><!--중복체크-->
 	                      <span class="ableId" v-if="idFlg">사용할 수 있는 아이디입니다</span>
 	                      <span class="disableId" v-else>이미 사용중인 아이디입니다</span> 
 	                    </template>
+	                    
 	                 <div v-else></div>
-                    <input type="text" v-model="info.id"maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
+	                 
+                    <input type="text" v-model="info.id" maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
                 </div> 
+                
                 <div class="captionBox">
                     <div class="markEssential pw">비밀번호</div><div v-if="info.pw == ''"></div>
+                    
                     <template v-else-if="info.pw != '' && info.pw.length >= 20">  
                     	<span class="captionCheck disableId">20자 이내의 비밀번호를 입력해주세요</span>
                     </template>
+                    
                     <div v-else></div>
+                    
                     <input type="password" v-model="info.pw" class="w100" maxlength="20" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
                 </div>
+                
                 <div class="captionBox">
                     <div class="markEssential pwck">비밀번호 확인</div> <div v-if="info.pw == ''"></div>
+                    
                     <template v-else>
                     	<span class="ableId" v-if="info.pw == info.pwck">비밀번호가 일치합니다.</span>
                     	<span class="disableId" v-else>비밀번호가 일치하지않습니다.</span>
-                	</template>
+                	</template>	
                 </div>
+                
                 <input type="password" class="w100" placeholder="비밀번호 재입력" v-model="info.pwck">
+                
+                
                 <p class="markEssential">이름</p>
                 <input type="text" class="w100" placeholder="이름을 입력해 주세요" v-model="info.name">
+                
+                
                 <div class="markEssential nick">닉네임</div><div v-if="info.nick == ''"></div>
+                
                 <template v-else>
                 	<span class="ableId" v-if="nickFlg">사용 가능한 닉네임입니다.</span>
                 	<span class="disableId" v-else>이미 사용중인 닉네임입니다.</span>
                 </template>
+                
                 <input type="text" @keypress="fnNickCheck" class="w100" placeholder="활동할 닉네임을 입력해 주세요" v-model="info.nick">
+                
+                
                 <p class="markEssential">전화번호</p>
                 <input type="tel" id="tel" @keyup="fnHypen()" class="w100" maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
+                
+                
                 <p>이메일주소</p>
                 <input type="email" class="w50" placeholder="이메일 주소" v-model="info.email">@ 
                 <select class="mail" v-model="info.domain">
@@ -151,14 +176,20 @@
 					    <option>nate.com</option>
                     </div>
                 </select> 
+                
+                
                 <p class="markEssential daumMap">주소</p>
                 <input type="number" v-model="info.zipCode" class="w60 zipCode" placeholder="우편번호" @click="fnSearchAddr" readonly="readonly"><button class="zipcodeBtn" @click="fnSearchAddr">우편번호 찾기</button>
                 <input type="text" v-model="info.addr" class="w100 addr" placeholder="주소" >
                 <input type="text" v-model="info.addr2" class="w100 addr2" placeholder="상세주소 입력" >
+                
+                
                 <div>
                     <span class="markEssential">생년월일</span><span class="accountFind">※계정찾기에 활용됩니다</span>
                     <input type="date" name="birth" v-model="info.birth" class="date w100">
                 </div>
+                
+                
                 <div>
                     <span class="markEssential">비밀번호 질문</span><span class="accountFind">※계정찾기에 활용됩니다</span>
                     <select class="hint" v-model="info.pwQ">
@@ -171,11 +202,15 @@
                         <option>자신이 두번째로 존경하는 인물은?</option>
                         <option>다시 태어나면 되고 싶은 것은?</option>
                     </select>
+                    
                     <input type="text" v-model="info.pwA" class="w100" placeholder="선택한 질문에 대한 답변 입력">
                 </div>
+                
+                
                 <p>자취경력</p>
                 <input type="text" class="w90" v-model="info.livingYear" placeholder="자취경력 햇수 입력"> 년차
            	</div>
+           	
 	            <div class="btnBox">
 	                <button class="joinBtn" @click="fnJoin">가입하기</button>
 	            </div>

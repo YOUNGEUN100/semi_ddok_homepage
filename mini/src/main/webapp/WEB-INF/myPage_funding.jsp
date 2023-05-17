@@ -59,14 +59,15 @@
       .myArea .contentBox .fundingBox{
           width: 100%; box-shadow: 0 0 5px #ccc;
           display: flex; flex-direction: row; border-radius: 20px;
-          justify-content: space-between; align-items: center; margin-top: 30px
+          margin-top: 30px
       }
       .myArea .contentBox .fundingBox img{
           width: 100%; border: 1px solid #ccc;
           border-radius: 50%; margin: 5px; cursor: pointer;
+          
       }
       .myArea .contentBox .fundingBox .fundContent{
-          width: 70%;
+          width: 70%; margin-left:20px;
       }
       .myArea .contentBox .fundingBox .fundContent h1{
           font-size: 1.8em; margin-bottom: 20px; cursor: pointer; margin-top:15px;
@@ -100,7 +101,7 @@
 		 <div id="app" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="/./images/Sample_User_Icon.png">
-                <div class="edit" title="회원정보 수정은 여길 누르세요">{{sessionName}}님 환영합니다</div>
+                <div class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()">{{sessionName}}님 환영합니다</div>
                 
             </div>
             <div class="contentBox"> <!--아래-->
@@ -111,13 +112,13 @@
                     <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
           
-                <div class="fundingBox" ><!-- 참여한 펀딩내역 요약 -->
-                <div v-for="(item, index) in list">
+                <div class="fundingBox" v-for="(item, index) in list"><!-- 참여한 펀딩내역 요약 -->
+                
                     <div class="fundImg">
-                        <img :src="item.imgPath2">
+                        <a href="/funding/view/open.do"><img :src="item.imgPath"></a>
                     </div>
                     <div class="fundContent">
-                        <h1>{{item.fundingName}}</h1>
+                        <a href="/funding/view/open.do"><h1>{{item.fundingName}}</h1></a>
                         <div class="fundnIfo">{{item.fundingSummary}}</div>
                         <div class="fundDetail"><p>{{item.fundingGoalCnt}}명 중 {{item.cnt}}명</p><p>{{item.dDay}}시 남음</p></div>
                         <div>
@@ -125,7 +126,7 @@
                         </div>
                         <div class="fundPrice"><p>공구가</p><p>{{item.fundingPrice2}}원</p></div>
                     </div>
-                </div>
+                
                	</div> 
             </div>
 
@@ -139,13 +140,12 @@
 
 <script type="text/javascript">
 
-//버튼 누를때 알맞은 화면보이기
-
 var app = new Vue({ 
     el: '#app',
     data: {
     	list : [],
-    	sessionName : "${sessionName}"	
+    	sessionName : "${sessionName}",
+    	sessionId : "${sessionId}"	
     }
     , methods : {
     	
@@ -153,20 +153,18 @@ var app = new Vue({
             var self = this;
             var nparmap = {userId : self.sessionId};
             $.ajax({
-                url:"/recipe/like.dox",
+                url:"/funding/attend.dox",
                 dataType:"json",
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
-                	console.log(self.sessionId);
                 	self.list = data.list;
-                	console.log(data.list);
-                	console.log(self.list);
                     
                 }
             });
 
         }
+    	
 		   	 
 	}	
     , created: function () {
