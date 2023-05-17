@@ -253,7 +253,7 @@ var app = new Vue({
     	, roadFullAddr : ""
     	, idCk : false
     	, nickFlg : true
-    	
+    	, sessionId : "${sessionId}"
    		
     }
     
@@ -327,6 +327,7 @@ var app = new Vue({
 	           	 	location.href="/login.do";
 	            }
 	        }); 
+    		
    	 },
    	 //아이디 중복체크
    	 	fnCheck : function(){

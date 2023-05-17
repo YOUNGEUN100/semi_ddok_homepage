@@ -67,7 +67,7 @@
     .findArea .resultBox input{
         border: 0; border-bottom: 1px solid black;
         margin: 13px 5px; padding-left: 10px;
-        margin-bottom: 30px; font-size: 0.88em;
+        margin-bottom: 30px; font-size: 0.88em; border-radius:0;
     	}
    	.findArea .resultBox .ableId{
 	      	font-size: 0.7em; color: #5EA152;
@@ -210,7 +210,8 @@ var app = new Vue({
 	            dataType:"json",	
 	            type : "POST", 
 	            data : nparmap,
-	            success : function(data) {  
+	            success : function(data) {
+	            	console.log(data);
 	            	self.changePw = true;
 					
 	            }

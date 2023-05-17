@@ -66,6 +66,7 @@ public class UserController {
 	@RequestMapping("/join.do") 
     public String add(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
     	request.setAttribute("map", map);
+    	
         return "/join";
     }
 	//회원가입
@@ -75,6 +76,7 @@ public class UserController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		userService.addUser(map);
 		resultMap.put("result", "success");
+		
 		return new Gson().toJson(resultMap);
 	}
 	//아이디중복체크
@@ -165,7 +167,7 @@ public class UserController {
 		return new Gson().toJson(resultMap);
 	}
 	//회원정보변경
-	@RequestMapping(value = "/modify/user.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/user/modify.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String updateUser(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();

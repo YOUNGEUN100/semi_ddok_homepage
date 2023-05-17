@@ -102,21 +102,21 @@
             </div> 
            
             <div class="captionBox">
-                <div class="markEssential pw">비밀번호</div> <div v-if="pw == ''"></div>
-                <template v-else-if="pw != '' && pw.length >= 20"> 
+                <div class="markEssential pw">비밀번호</div> <div v-if="info.pw == ''"></div>
+                <template v-else-if="info.pw != '' && info.pw.length >= 20"> 
                 	<span class="captionCheck" >20자 이내의 비밀번호를 입력해주세요</span>
                 </template>
-                <input type="password" class="w100" placeholder="변경할 비밀번호 입력(영문,숫자,특수문자 포함 8~20자)" v-model="pw" maxlength="20">
+                <input type="password" class="w100" placeholder="변경할 비밀번호 입력(영문,숫자,특수문자 포함 8~20자)" v-model="info.pw" maxlength="20">
             </div>
            
             <div class="captionBox">
-                <div class="markEssential pwck">비밀번호 확인</div> <div v-if="pwck == ''"></div>
+                <div class="markEssential pwck">비밀번호 확인</div> <div v-if="info.pwck == ''"></div>
 	                <template v-else>
-	                	<span class="ableId" v-if="pw == pwck">비밀번호가 일치합니다</span>
+	                	<span class="ableId" v-if="info.pw == info.pwck">비밀번호가 일치합니다</span>
 	                	<span class="disableId" v-else>비밀번호가 일치하지않습니다.</span>
 	            	</template>
             </div>
-            <input type="password" class="w100" placeholder="비밀번호 재입력" v-model="pwck">
+            <input type="password" class="w100" placeholder="비밀번호 재입력" v-model="info.pwck">
            
             <p class="markEssential">이름</p>
             <div class="unchangeable">{{user.name}}<small>(변경은 고객센터로 문의해주세요)</small></div>
@@ -124,15 +124,15 @@
             <p class="markEssential">닉네임</p>
             <div class="unchangeable nickChange" v-if="nickChange" @click="fnChage">{{user.nick}}<small> (변경하려면 클릭)</small></div>
             <div v-else>
-            	<input type="text" class="w100" placeholder="변경할 닉네임을 입력해 주세요" v-model="nick">
+            	<input type="text" class="w100" placeholder="변경할 닉네임을 입력해 주세요" v-model="info.nick">
             </div>
            
             <p class="markEssential">전화번호</p>
-            <input type="tel" class="w100" placeholder="변경할 휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="hp">
+            <input type="tel" class="w100" placeholder="변경할 휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
             
             <p>이메일주소</p>
-            <input type="email" class="w50" placeholder="이메일 주소" v-model="email">@ 
-            <select class="mail" v-model="domain">
+            <input type="email" class="w50" placeholder="이메일 주소" v-model="info.email">@ 
+            <select class="mail" v-model="info.domain">
                 <div>
                     <option>naver.com</option>
                     <option>gmail.com</option>
@@ -146,13 +146,13 @@
             </select> 
             
             <p class="markEssential">주소</p>
-            <input type="text" class="w60 zipCode" @click="fnSearchAddr" placeholder="우편번호" v-model="zipCode" readonly="readonly"><button class="zipcodeBtn" @click="fnSearchAddr">우편번호 찾기</button>
-            <input type="text" class="w100 addr" placeholder="주소" v-model="addr">
-            <input type="text" class="w100 addr2" placeholder="상세주소 입력" v-model="addr2">
+            <input type="text" class="w60 zipCode" @click="fnSearchAddr" placeholder="우편번호" v-model="info.zipCode" readonly="readonly"><button class="zipcodeBtn" @click="fnSearchAddr">우편번호 찾기</button>
+            <input type="text" class="w100 addr" placeholder="주소" v-model="info.addr">
+            <input type="text" class="w100 addr2" placeholder="상세주소 입력" v-model="info.addr2">
             
             <p class="gender" >성별</p>
-            <label for="M" class="genderBox"><input type="radio" id="M" name="gender" class="genderValue" v-model="gender" value="m">남성</label>
-            <label for="F" class="genderBox"><input type="radio" id="F" name="gender" class="genderValue" v-model="gender" value="f">여성</label>
+            <label for="M" class="genderBox"><input type="radio" id="M" name="gender" class="genderValue" v-model="info.gender" value="m">남성</label>
+            <label for="F" class="genderBox"><input type="radio" id="F" name="gender" class="genderValue" v-model="info.gender" value="f">여성</label>
             
             <div>
                 <p class="markEssential">생년월일</p>
@@ -160,12 +160,12 @@
             </div>
             
             <p>자취경력</p>
-            <input type="text" class="w90" placeholder="자취경력 햇수 입력" v-model="livingYear"> 년차
+            <input type="text" class="w90" placeholder="자취경력 햇수 입력" v-model="info.livingYear"> 년차
             
         </div>
         
         <div class="btnBox">
-            <button class="joinBtn" @click="fnUpdateUser">변경하기</button>
+            <button class="joinBtn" @click="fnEditUser">변경하기</button>
         </div>
         
     </div>
@@ -185,8 +185,8 @@ var app = new Vue({
     el: '#app',
     data: {
     	user : [],
-
-    		pw:"",
+    	info:{
+    		pw:"${sessionPw}",
     		pwck:"",
     		nick:"",
     		hp:"",
@@ -196,9 +196,9 @@ var app = new Vue({
     		addr:"",
     		addr2:"",
     		gender:"",
-    		birth:"",
     		livingYear:""
-    	,
+    	},
+    	
     	sessionId : "${sessionId}",
     	sessionPw : "${sessionPw}",
     	nickChange: true
@@ -215,29 +215,46 @@ var app = new Vue({
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
+                	if(self.sessionId == ''){
+                		alert("로그인을 해주세요");
+                		location.href = "/login.do";
+                		return;
+                	} else{
+                	console.log(self.sessionId);
                 	self.user = data.user;
                 	console.log(data.user);
-                	console.log(data.user.userId);
+                	console.log(data.user.userId);}
                 	
                     
                 }
             });
 
-        },/*
-        fnUpdateUser : function(){
-    		var self = this;
-	      	var nparmap = {pw : self.pw, nick : self.nick, hp : self.hp, email:self.info.email+"@"+self.info.domain, addr : self.info.addr, addr2 : self.info.addr2, gender : self.info.gender, livingYear : self.info.livingYear};     	
-	      	$.ajax({
-	            url:"/modify/user.dox",
+        },
+        fnEditUser : function(data) {
+            var self = this;
+            var nparmap = self.info;
+
+            console.log(nparmap.id);
+            console.log(self.info);
+	        $.ajax({
+	            url:"/user/modify.dox",
 	            dataType:"json",	
 	            type : "POST", 
 	            data : nparmap,
-	            success : function(data) {  
-	            	self.changePw = true;
-					
+	            success : function(data) { 
+	            	
+	            	console.log(data);
+	            	
+	            	
+	            	
+	           		
+	           	 	
 	            }
 	        }); 
-    	}*/,
+        },
+        
+        
+    	
         fnChage : function(){
         	var self = this;
         	self.nickChange = !self.nickChange;
