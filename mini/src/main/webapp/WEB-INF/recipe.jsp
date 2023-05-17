@@ -14,7 +14,7 @@
 			    <i class="search-icon fa-solid fa-magnifying-glass fa-lg" @click="fnGetRecipeAll()"></i>
 			</section>
 			<section class="r-category">
-			    <div class="category-circle active" id="all-btn">
+			    <div class="category-circle active" id="all-btn" @click="fnGetRecipeAll()">
 			        <img src="/images/recipe_icon01.png" alt="">
                 	<p class="circle-title">전체</p>
 			    </div>
@@ -128,22 +128,18 @@ var recipeList = new Vue({
 		 keycnt : 0,
 		 codeList : ${map.codeList},
 		 rkind : "전체",
-		 rUrl : "", 
+		 pageUrl : "", 
 		 recipe_code : "",
-		 // 페이징 추가5
-		 selectPage : 1,
-		 pageCount : 1,
+		 selectPage : 1, // 클릭한 페이지 번호
+		 pageCount : 1, // 페이지 수
 		 sessionId: "${sessionId}",    
-	     sessionStatus : "${sessionStatus}",
-	     pageUrl : "/recipe/all.dox"
+	     sessionStatus : "${sessionStatus}"
 	}, methods: {
 		// 전체 레시피 리스트 가져오기
 		fnGetRecipeAll : function() {
 			var self = this;
 			self.rkind = "전체";
-			// 페이징 추가6
 			var startNum = ((self.selectPage-1) * 12);
-			console.log(self.keyword);
 			var nparmap = {keyword : self.keyword, startNum : startNum};
 			$.ajax({
 				url: "/recipe/all.dox",
@@ -154,22 +150,27 @@ var recipeList = new Vue({
 					 self.list = data.list;
 					 self.cnt = data.cnt;
 					 self.keycnt = data.list.length;
-					 console.log(self.list);
 					 self.pageCount = Math.ceil(self.cnt / 12);
 				}
 			})
 		}
-		// 페이징 추가7
+		// 페이징 메소드
 		,fnSearch : function(pageNum) {
 			var self = this;
 			self.selectPage = pageNum;
 			var startNum = ((self.selectPage-1) * 12);
-			var nparmap = {startNum : startNum};
+			var nparmap = {recipe_code : self.recipe_code, startNum : startNum};
 			
-			if (self.rkind == '전체') {self.pageUrl = "/recipe/all.dox"}
-			if (self.category == 'R_PURPOSE') {self.pageUrl = "/recipe/list/purpose.dox"}
-			if (self.category == 'HOWTO') {self.pageUrl = "/recipe/list/howto.dox"}
-			if (self.category == 'TOOL') {self.pageUrl = "/recipe/list/tool.dox"}
+			if (self.category == 'R_PURPOSE') {
+				self.pageUrl = "/recipe/list/purpose.dox"
+			} else if (self.category == 'HOWTO') {
+				self.pageUrl = "/recipe/list/howto.dox"
+			}else if (self.category == 'TOOL') {
+				self.pageUrl = "/recipe/list/tool.dox"
+			}else if (self.rkind == '전체'){
+				self.pageUrl = "/recipe/all.dox"
+			}
+			
 			$.ajax({
 				url: self.pageUrl,
 				dataType: "json",
@@ -178,7 +179,11 @@ var recipeList = new Vue({
 				success : function(data) {
 					 self.list = data.list;
 					 self.cnt = data.cnt;
+					 console.log(self.list);
+					 console.log(self.cnt);
 					 self.pageCount = Math.ceil(self.cnt / 12);
+					
+					 self.selectPage = "1"; // 선택 페이지 초기화
 				}
 			})
 			
@@ -189,8 +194,7 @@ var recipeList = new Vue({
 			self.recipe_code = item.code;
 			self.rkind = item.name;
 			self.category = item.kind;
-			console.log(self.category);
-			// 페이징 추가6
+			
 			var startNum = ((self.selectPage-1) * 12);
 			var nparmap = {recipe_code : self.recipe_code, startNum : startNum};
 			$.ajax({
@@ -201,8 +205,6 @@ var recipeList = new Vue({
 				success : function(data) {
 					 self.list = data.list;
 					 self.cnt = data.cnt;
-					 console.log("목적별 리스트 갯수");
-					 console.log(self.cnt);
 					 self.pageCount = Math.ceil(self.cnt / 12);
 				}
 			})
@@ -212,8 +214,7 @@ var recipeList = new Vue({
 			var self = this;
 			self.recipe_code = item.code;
 			self.rkind = item.name;
-			self.category = item.kind;
-			console.log(self.category);
+			self.category = item.kind;;
 			// 페이징 추가6
 			var startNum = ((self.selectPage-1) * 12);
 			var nparmap = {recipe_code : self.recipe_code, startNum : startNum};
@@ -235,7 +236,6 @@ var recipeList = new Vue({
 			self.recipe_code = item.code;
 			self.rkind = item.name;
 			self.category = item.kind;
-			console.log(self.category);
 			// 페이징 추가6
 			var startNum = ((self.selectPage-1) * 12);
 			var nparmap = {recipe_code : self.recipe_code, startNum : startNum};
