@@ -64,32 +64,32 @@
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 <script type="text/javascript">
-$(function() {   //jQuery = $
+$(function() {
     $("#btn1").on("click",function(){
         $(".slidelist").css("transform", "translateX(0%)");
     })
 })
-$(function() {   //jQuery = $
+$(function() {
     $("#btn2").on("click",function(){
         $(".slidelist").css("transform", "translateX(-100%)");
     })
 })
-$(function() {   //jQuery = $
+$(function() {
     $("#btn3").on("click",function(){
         $(".slidelist").css("transform", "translateX(-200%)");
     })
 })
-$(function() {   //jQuery = $
+$(function() {
     $("#btn4").on("click",function(){
         $(".slidelist").css("transform", "translateX(-300%)");
     })
 })
-$(function() {   //jQuery = $
+$(function() {
     $("#btn5").on("click",function(){
         $(".slidelist").css("transform", "translateX(-400%)");
     })
 })
-$(function() {   //jQuery = $
+$(function() {
     $("#btn6").on("click",function(){
         $(".slidelist").css("transform", "translateX(-500%)");
     })
