@@ -1,6 +1,7 @@
 package com.example.mini.model;
 
 public class Cart {
+	private Integer productNo;
 	private String productName;
 	private Integer productPrice;
 	private String imgPath;
@@ -10,6 +11,12 @@ public class Cart {
 	
 	
 	
+	public Integer getProductNo() {
+		return productNo;
+	}
+	public void setProductNo(Integer productNo) {
+		this.productNo = productNo;
+	}
 	public String getProductName() {
 		return productName;
 	}

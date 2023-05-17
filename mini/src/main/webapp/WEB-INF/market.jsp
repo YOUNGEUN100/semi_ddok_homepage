@@ -348,7 +348,9 @@
 		list2 : [],
 		codeList : ${map.codeList},
 		cnt : "",
-		pkind : "전체"
+		pkind : "전체",
+		product_kind : ""
+		
     }
 	, filters: {
 	    numberFormat: (value, numFix) => {
@@ -361,6 +363,7 @@
     	fnGetList : function(){
     		var self = this;
     		var nparmap = {product_kind : self.product_kind};
+    		
     		
     		//상품리스트
     		$.ajax({
@@ -382,6 +385,7 @@
 		}
 	    , fnGetList2 : function(item){
 			var self = this;
+			
 			self.product_kind = item.code;
 			self.pkind = item.name;
 			self.fnGetList();

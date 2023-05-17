@@ -89,10 +89,24 @@ public class SmartMarketController {
 	
 	//주문페이지
 	@RequestMapping("/order.do") 
-    public String order(Model model) throws Exception{
-
+    //public String order(Model model) throws Exception{
+	public String order(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		request.setAttribute("map", map);
         return "/order";
     }
+	
+	
+
+	//주문 등록
+	@RequestMapping(value = "/addOrder.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String addOrder(Model model, @RequestParam  HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		map.put("userid", session.getAttribute("sessionId"));
+		smartmarketService.addOrder(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
 	
 
 	

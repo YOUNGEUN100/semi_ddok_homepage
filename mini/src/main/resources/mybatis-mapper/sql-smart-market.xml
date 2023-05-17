@@ -142,7 +142,8 @@
 		
 		<select id="selectCartList" parameterType="hashmap" resultType="com.example.mini.model.Cart">
 			SELECT 
-				B.PRODUCT_NAME
+				B.PRODUCT_NO
+				, B.PRODUCT_NAME
 			    , B.PRODUCT_PRICE
 			    , C.IMG_PATH
 			    , A.PRODUCT_CNT
@@ -155,7 +156,7 @@
 			ON A.PRODUCT_NO = C.PRODUCT_NO
 			WHERE 1=1
 			AND C.THUMBNAIL_YN='Y'
-			AND A.USER_ID = #{userid}		
+			AND A.USER_ID = #{userid} 		
 		</select>
 		
 		
@@ -221,18 +222,36 @@
 		<select id="selectSmartMarketKind" parameterType="hashmap" resultType="com.example.mini.model.Code">	
 			SELECT 
 				KIND,
+				CODE,
 				NAME,
 				IMG
 			FROM T4_CODE
 			WHERE KIND = 'PKIND'
 		</select>
 		
+		<!-- 카트 등록  -->
 		<insert id="insertCart" parameterType="hashmap" >
 			INSERT INTO T4_CART
 				(USER_ID, PRODUCT_NO, PRODUCT_CNT)
 			VALUES
 				(#{userid}, #{productNo}, #{productCnt})
 		</insert>
+		
+		<!-- 주문 등록  -->
+		<insert id="insertOrder" parameterType="hashmap" >
+			INSERT INTO T4_ORDER
+				(PRODUCT_NO
+				, PRODUCT_CNT
+				, ORDER_DATE
+				, PAYMENT
+				, ORDER_PRICE
+				, DELIVERY_FEE
+				, DELIVERY_STATUS
+				, USER_ID)
+			VALUES
+				(#{productNo}, #{productCnt},DEFAULT , '카드',#{productPrice},0,'1', #{userid} )
+		</insert>
+
 		
 		<update id="updateCart" parameterType="hashmap" >
 			UPDATE T4_CART

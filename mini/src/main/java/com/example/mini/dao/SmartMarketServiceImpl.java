@@ -114,6 +114,12 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		return resultmap;
 	}
 
+	@Override
+	public void addOrder(HashMap<String, Object> map) {
+		smartmarketMapper.insertOrder(map);
+		
+	}
+
 	
 	
 	

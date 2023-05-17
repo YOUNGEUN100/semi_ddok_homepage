@@ -356,7 +356,7 @@
             </div>
             <div class="smart_empth4"></div>
             <div class="smart_button">
-                <button class="btn_buy">구매하기</button>
+                <button class="btn_buy" @click="fnOrder">구매하기</button>
                 <button class="btn_cart" @click="fnCart(info.productNo)">장바구니담기</button>
                 <a href="javascript:clip2();"><img class="share" src="/images/share.png" ></a>
             </div>
@@ -447,6 +447,7 @@ Vue.component('paginate', VuejsPaginate)
 	        , sessionId : "${sessionId}"
 	        , productName : ""
 	        , isOpen : false
+	        , selectedItems : []
 	        , productCnt : 1
 	        
 	        	<!-- 페이징 추가 5-->
@@ -520,7 +521,7 @@ Vue.component('paginate', VuejsPaginate)
     	    	var nparmap = {productNo : self.productNo, productCnt : self.productCnt};
 
     	    	
-    	    	if(self.sessionId=="" || self.sessionId =="defind" ){
+    	    	if(self.sessionId=="" || self.sessionId =="undefind" ){
     	    		alert("장바구니담기를 하시려면 로그인해주세요");
     	    		return;
     	    	}
@@ -535,6 +536,35 @@ Vue.component('paginate', VuejsPaginate)
     	           		location.href="/cart.do";
     	            }
     	        });    	    	
+    	    	
+    	    	
+    		}
+        	
+        	//구매하기
+        	, fnOrder : function(){
+    	    	var self = this;
+    	    	var nparmap = {productNo : self.productNo, productCnt : self.productCnt};
+    	    	var selectedItems = [];
+
+    	    	
+    	    	if(self.sessionId=="" || self.sessionId =="undefind" ){
+    	    		alert("구매하시려면 로그인해주세요");
+    	    		return;
+    	    	}
+    	    	
+    	    	nparmap = {productNo : Number(self.productNo)
+    	    			, productCnt : self.productCnt
+    	    			, productPrice : self.info.productPrice
+    	    			, imgPath : self.info.imgPath
+    	    			, productName : self.info.productName
+    	    	};
+    	    	selectedItems.push(nparmap);
+    	    	
+    	    	
+    	    	//console.log("상품번호 : ",self.productNo);
+    	    	//console.log("============",selectedItems);
+    	    	
+    	    	self.pageChange("/order.do", {selectedItems : selectedItems});
     	    	
     	    	
     		}

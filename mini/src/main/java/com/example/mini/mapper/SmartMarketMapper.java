@@ -49,6 +49,9 @@ public interface SmartMarketMapper {
 	//카트 등록
 	void insertCart(HashMap<String, Object> map);
 	
+	//주문 등록
+	void insertOrder(HashMap<String, Object> map);
+	
 	//카트 수정(구매하기)
 	void updateCart(HashMap<String, Object> map);
 	

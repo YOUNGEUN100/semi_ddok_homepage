@@ -32,7 +32,9 @@ public interface SmartMarketService {
 	// 사용자 정보
 	HashMap<String, Object> searchUserInfo(HashMap<String, Object> map);
 		
-		
+	
+	//주문 등록
+	void addOrder(HashMap<String, Object> map);
 	
 	//카트 등록
 	void addCart(HashMap<String, Object> map);
