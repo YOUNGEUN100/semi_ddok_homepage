@@ -13,7 +13,6 @@
             width: 1200px;
             position: relative;
             margin: auto;
-
         }
 
         .box1 {
@@ -27,9 +26,9 @@
         	flex-direction: column;
     		align-items: center;
             width: 1200px;
-            height: 1000px;
             margin-top: 80px;
             max-height: 700px;
+            overflow:hidden;
         }
 
         .fund_img {
@@ -158,24 +157,19 @@
 
                         <div>
                             <button class="apply_button" @click="fnApply">신청하기</button>
-                            <button class="share_button" @click="fnClip"><i
-                                    class="fa-solid fa-share-nodes fa-2xl"></i></button>
+                            <button class="share_button" @click="fnClip"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
                         </div>
                     </div>
 
-                    <div class="box2" id="detail_box" v-for="(item, index) in imgInfo">
-                        <img :src="item.imgPathDetail">
-                    </div>
+                    <div class="box2" id="box2">
+						<div id="detail_box" v-for="(item, index) in imgInfo">
+	                        <img :src="item.imgPathDetail">
+	                    </div>
+					</div>
 
                     <div id="button_box1">
-                        <button onclick="show()" class="show_button">펼쳐보기</button>
+                        <button @click="show" class="show_button" id="show_button">펼쳐보기</button>
                     </div>
-
-                    <div id="button_box2">
-                        <button onclick="fold()" class="show_button">접기</button>
-                    </div>
-
-
 
                 </div>
 
@@ -188,16 +182,18 @@
 
 
     <script type="text/javascript">
+    	var btn = "N";
         function show() {
-            document.getElementById('detail_box').style.overflow = 'visible';
-            document.getElementById('button_box1').style.display = 'none';
-            document.getElementById('button_box2').style.display = 'block';
-        }
-
-        function fold() {
-            document.getElementById('detail_box').style.overflow = 'hidden';
-            document.getElementById('button_box1').style.display = 'block';
-            document.getElementById('button_box2').style.display = 'none';
+        	if(btn == "N"){
+        		self.btn = "Y";
+        		document.getElementById('box2').style.maxHeight = '100%';
+            	show_button.innerText = "접기";
+            	
+        	} else {
+        		document.getElementById('box2').style.maxHeight = '700px';
+            	show_button.innerText = "펼쳐보기";
+            	self.btn = "N";
+        	}
         }
 
         var app = new Vue({
@@ -206,7 +202,8 @@
                 info: {},
                 imgInfo: [],
                 fundingNo: "${map.fundingNo}",
-                sessionId: "${sessionId}"
+                sessionId: "${sessionId}",
+                btn: "N"
 
             },
             methods: {
@@ -287,11 +284,12 @@
 
                 }
              	
+             	
             }
-                ,
-                created: function () {
-                    var self = this;
-                    self.fnGetFunding();
-                }
-            });
+            ,
+            created: function () {
+                var self = this;
+                self.fnGetFunding();
+            }
+        });
     </script>
