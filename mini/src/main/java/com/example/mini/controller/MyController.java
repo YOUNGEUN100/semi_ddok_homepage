@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.mini.dao.MyService;
 import com.example.mini.model.Funding;
 import com.example.mini.model.Recipe;
+import com.example.mini.model.SmartMarket;
 import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
@@ -31,10 +32,21 @@ public class MyController {
 	
 	//마이페이지
 	@RequestMapping("/myPage.do") 
-    public String mypage(Model model) throws Exception{
-
+    public String mypage(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		request.setAttribute("map", map);
+    	request.setAttribute("sessionId", session.getAttribute("sessionId"));
         return "/mypage";
     }
+	
+	@RequestMapping(value = "/order/product.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String viewOrder(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SmartMarket> list = myService.searchOderList(map);
+		resultMap.put("result", "success");
+		resultMap.put("list", list);
+		return new Gson().toJson(resultMap);
+	}
 	
 	//찜한레시피
 	@RequestMapping("/myPage/recipe.do") 
@@ -61,6 +73,9 @@ public class MyController {
 	    	request.setAttribute("sessionId", session.getAttribute("sessionId"));
 	        return "/myPage_order";
 	    }
+		
+		
+		
 		//참여한 펀딩 리스트
 		@RequestMapping("/myPage/funding.do") 
 	    public String mypageFunding(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam HashMap<String, Object> map) throws Exception{

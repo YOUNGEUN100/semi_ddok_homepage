@@ -245,6 +245,8 @@ var app = new Vue({
     	            data : nparmap,
     	            success : function(data) { 
     	            	console.log(data)
+    	            	alert("정보수정이 완료되었습니다.");
+    	            	location.href="/myPage.do";
     	            }
     	        }); 
 	        

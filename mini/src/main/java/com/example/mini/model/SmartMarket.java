@@ -19,7 +19,16 @@ public class SmartMarket {
 	private Float satisfactionGrade;
 	private Float repurchaseGrade;
 	private Float deliveryGrade;
-	
+	private String orderDate;
+	private int orderPrice;
+	private String orderPrice2;
+	private String orderNo;
+	private Integer orderCnt;
+	private String userId;
+	private String weight; // productWeight + productVolumn 결합 해놓음.
+	private String productPrice2; //세자리 수마다 , 찍는 역할.
+	private String perPrice;
+	private String name;
 	
 	
 	public Integer getProductNo() {
@@ -109,6 +118,72 @@ public class SmartMarket {
 	}
 	public String getImgName() {
 		return imgName;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	public void setOrderPrice(int orderPrice) {
+		this.orderPrice = orderPrice;
+	}
+	public Integer getOrderPrice() {
+		return orderPrice;
+	}
+	public void setOrderPrice(Integer orderPrice) {
+		this.orderPrice = orderPrice;
+	}
+	
+	public Integer getOrderCnt() {
+		return orderCnt;
+	}
+	public void setOrderCnt(Integer orderCnt) {
+		this.orderCnt = orderCnt;
+	}
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+	public String getOrderPrice2() {
+		return orderPrice2;
+	}
+	public void setOrderPrice2(String orderPrice2) {
+		this.orderPrice2 = orderPrice2;
+	}
+	public String getWeight() {
+		return weight;
+	}
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+	public String getProductPrice2() {
+		return productPrice2;
+	}
+	public void setProductPrice2(String productPrice2) {
+		this.productPrice2 = productPrice2;
+	}
+	public String getPerPrice() {
+		return perPrice;
+	}
+	public void setPerPrice(String perPrice) {
+		this.perPrice = perPrice;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public void setImgName(String imgName) {
 		this.imgName = imgName;

@@ -91,15 +91,15 @@
 		 <div id="app" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="/./images/Sample_User_Icon.png">
-                <a href="/modify.do" class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()>{{sessionName}}님 환영합니다</a>
+                 <div class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()">{{sessionName}}님 환영합니다</div>
                 
             </div>
             <div class="contentBox"> <!--아래-->
                 <div class="menuBox"> <!--메뉴버튼-->
-                    <div class="menu" id="order" >주문내역</div>
-                    <div class="menu" id="recipe" >찜한 레시피</div>
-                    <div class="menu" id="funding" >펀딩내역</div>
-                    <div class="menu" id="review" >리뷰관리</div>
+                    <a class="menu" id="order" href="/myPage.do">주문내역</a>
+                    <a class="menu" id="recipe" href="/myPage/recipe.do">찜한 레시피</a>
+                    <a class="menu" id="funding" href="/myPage/funding.do">펀딩내역</a>
+                    <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
                 
                 <div class="orderBox" id="orderBox"><!-- 주문내역 요약 -->
@@ -128,22 +128,12 @@ var app = new Vue({
     }
     , methods : {
     	
+    	
+    		
+    	
     	fnUserEdit : function(){
     		var self = this;
-    		var pw = prompt("회원정보 수정을 하려면 비밀번호를 입력해주세요","");
-    		if(pw == ''){
-    			alert("비밀번호를 입력해주세요");
-    			return;
-    		}
-    		if(self.list.pw == self.pw ){
-    			self.pageChange("/modify.do", {id : self.sessionId});
-    		}
-    		else if(self.list.pw != self.pw){
-    			alert("비밀번호가 일치하지 않습니다");
-    			self.pw = '';
-    			return;
-    		}
-    		
+    		self.pageChange("/modify.do", {sessionId : self.sessionId});
     	},
     	pageChange : function(url, param) {
      		var target = "_self";
@@ -175,7 +165,7 @@ var app = new Vue({
      		document.body.removeChild(form);
      	}
 		   	 
-	}
+	
 		   	 
 	}	
     , created: function () {

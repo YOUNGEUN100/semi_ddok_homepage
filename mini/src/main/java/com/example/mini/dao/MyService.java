@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.mini.model.Funding;
 import com.example.mini.model.Recipe;
+import com.example.mini.model.SmartMarket;
 
 public interface MyService {
 	
@@ -13,4 +14,7 @@ public interface MyService {
 	
 	//펀딩참여이력
 	List<Funding> searchAttendFunding(HashMap<String, Object>map);
+	
+	//주문내역
+	List<SmartMarket> searchOderList(HashMap<String, Object>map);
 }

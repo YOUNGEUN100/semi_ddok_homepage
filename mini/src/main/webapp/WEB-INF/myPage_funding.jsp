@@ -120,7 +120,7 @@
                     <div class="fundContent">
                         <a href="/funding/view/open.do"><h1>{{item.fundingName}}</h1></a>
                         <div class="fundnIfo">{{item.fundingSummary}}</div>
-                        <div class="fundDetail"><p>{{item.fundingGoalCnt}}명 중 {{item.cnt}}명</p><p>{{item.dDay}}시 남음</p></div>
+                        <div class="fundDetail"><p>{{item.fundingGoalCnt}}명 중 {{item.cnt}}명</p><p>{{item.dDay}}일 남음</p></div>
                         <div>
                             <progress max="100" value="13"></progress>
                         </div>
@@ -163,7 +163,41 @@ var app = new Vue({
                 }
             });
 
-        }
+        },
+        fnUserEdit : function(){
+    		var self = this;
+    		self.pageChange("/modify.do", {sessionId : self.sessionId});
+    	},
+    	
+    	pageChange : function(url, param) {
+     		var target = "_self";
+     		if(param == undefined){
+     		//	this.linkCall(url);
+     			return;
+     		}
+     		var form = document.createElement("form"); 
+     		form.name = "dataform";
+     		form.action = url;
+     		form.method = "post";
+     		form.target = target;
+     		for(var name in param){
+ 				var item = name;
+ 				var val = "";
+ 				if(param[name] instanceof Object){
+ 					val = JSON.stringify(param[name]);
+ 				} else {
+ 					val = param[name];
+ 				}
+ 				var input = document.createElement("input");
+ 	    		input.type = "hidden";
+ 	    		input.name = item;
+ 	    		input.value = val;
+ 	    		form.insertBefore(input, null);
+ 			}
+     		document.body.appendChild(form);
+     		form.submit();
+     		document.body.removeChild(form);
+     	}
     	
 		   	 
 	}	

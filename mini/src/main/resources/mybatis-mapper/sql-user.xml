@@ -103,7 +103,6 @@
 		<update id="updateUser" parameterType="HashMap">
 			UPDATE T4_USER 
 			SET 
-				PASSWORD = #{pw}
 				NICK = #{nick}, 
 				EMAIL = #{email}, 
 				GENDER = #{gender}, 
