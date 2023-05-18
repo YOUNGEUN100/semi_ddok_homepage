@@ -27,7 +27,7 @@
 	      }
      .joinArea .joinBox template{display: inline-block;}
      .joinArea .joinBox .ableId{
-	      	font-size: 0.7em; color: #5EA152;
+	      	font-size: 0.8em; color: #5EA152;
 	      }
      .joinArea .joinBox .captionBox .id{font-weight: bold; font-size: 0.95em; display : inline-block;}
      .joinArea .joinBox .captionBox .pw{font-weight: bold; font-size: 0.95em; display : inline-block;}
@@ -105,10 +105,10 @@
 	                    <template v-else-if="info.id != '' && info.id.length >= 20"> <!-- 20자 초과시 -->
 	                    	<span class="disableId" >20자를 초과하였습니다.</span> 
 	                    </template>
-	                    
-	                    <template v-else-if="info.id != '' && !idValid"> <!-- 한글로 아이디 칠때 -->
+	                    <!-- 한글로 아이디 칠때 -->
+	                   <!--  <template v-else-if="info.id != '' && !idValid"> 
 	                    	<span class="disableId" >올바른 형식의 아이디가 아닙니다.</span> 
-	                    </template>
+	                    </template>  -->
 	                    
 	                    <template v-else-if="info.id != '' && idCk " ><!--중복체크-->
 	                      <span class="ableId" v-if="idFlg">사용할 수 있는 아이디입니다</span>
@@ -254,6 +254,7 @@ var app = new Vue({
     	, idCk : false
     	, nickFlg : true
     	, sessionId : "${sessionId}"
+    	, idValid : false
    		
     }
     
@@ -269,6 +270,9 @@ var app = new Vue({
     			alert("아이디 중복체크를 해주세요")
     			return;
     		}
+    		else if (self.info.id.search(/\s/) !== -1) {
+    	        alert("아이디에 공백은 불가능합니다.")
+    	        return false
     		if(self.info.pw == ""){
     			alert("비밀번호를 입력해주세요");
     			return;

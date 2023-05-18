@@ -32,11 +32,13 @@ public class UserController {
 	@RequestMapping("/login.do") 
     public String main(Model model) throws Exception{
     	String id = (String) session.getAttribute("sessionId");
+    	String pw = (String) session.getAttribute("sessionPw");
     	String name = (String) session.getAttribute("sessionName");
     	String nick = (String) session.getAttribute("sessionNick");
     	String status = (String) session.getAttribute("sessionStatus");
     	
     	session.removeAttribute(id);
+    	session.removeAttribute(pw);
     	session.removeAttribute(name);
     	session.removeAttribute(nick);
     	session.removeAttribute(status);
@@ -55,6 +57,7 @@ public class UserController {
 		if(result.equals("success")) {
 			User user = (User) resultMap.get("user");
 			session.setAttribute("sessionId", user.getUserId());
+			session.setAttribute("sessionPw", user.getPassword());
 			session.setAttribute("sessionName", user.getName());
 			session.setAttribute("sessionNick", user.getNick());
 			session.setAttribute("sessionStatus", user.getStatus());

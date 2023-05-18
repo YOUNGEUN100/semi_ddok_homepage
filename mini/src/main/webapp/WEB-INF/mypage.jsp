@@ -136,43 +136,16 @@ var app = new Vue({
     	list : []
 		, sessionName : "${sessionName}"
 		, sessionId : "${sessionId}"
-		, sessionPw : "${map.sessionPw}"
+
 		
     }
     , methods : {
-    	
+    	//회원정보수정 이동
     	fnUserEdit : function(){
     		var self = this;
-    		
-    		
-    		console.log(self.map.sessionPw);
-    		$.ajax({
-                url:"/modify.dox",
-                dataType:"json",
-                type : "POST",
-                data : nparmap,
-                success : function(data) {
-                locaion.href="/modify.do";
-                    
-                }
-            });
-    		
-    		
+    		self.pageChange("/modify.do", {sessionId : self.sessionId});
     	},
-    	fnUpdateUser : function(){
-    		var self = this;
-	      	var nparmap = {id : self.id};     	
-	        $.ajax({
-	            url:"/pwUpdate.dox",
-	            dataType:"json",	
-	            type : "POST", 
-	            data : nparmap,
-	            success : function(data) {  
-	            	console.log(data);
-					
-	            }
-	        }); 
-    	},
+    	
     	
     	pageChange : function(url, param) {
      		var target = "_self";

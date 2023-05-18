@@ -103,9 +103,11 @@
            
             <div class="captionBox">
                 <div class="markEssential pw">비밀번호</div> <div v-if="info.pw == ''"></div>
-                <template v-else-if="info.pw != '' && info.pw.length >= 20"> 
-                	<span class="captionCheck" >20자 이내의 비밀번호를 입력해주세요</span>
+                <template v-else> 
+                	<span class="captionCheck" v-if="info.pw.length >= 20">20자 이내의 비밀번호를 입력해주세요</span>
+                	<span v-else></span>
                 </template>
+                
                 <input type="password" class="w100" placeholder="변경할 비밀번호 입력(영문,숫자,특수문자 포함 8~20자)" v-model="info.pw" maxlength="20">
             </div>
            
@@ -151,8 +153,8 @@
             <input type="text" class="w100 addr2" placeholder="상세주소 입력" v-model="info.addr2">
             
             <p class="gender" >성별</p>
-            <label for="M" class="genderBox"><input type="radio" id="M" name="gender" class="genderValue" v-model="info.gender" value="m">남성</label>
-            <label for="F" class="genderBox"><input type="radio" id="F" name="gender" class="genderValue" v-model="info.gender" value="f">여성</label>
+            <label for="M" class="genderBox"><input type="radio" id="M" name="gender" class="genderValue" v-model="info.gender" value="M">남성</label>
+            <label for="F" class="genderBox"><input type="radio" id="F" name="gender" class="genderValue" v-model="info.gender" value="F">여성</label>
             
             <div>
                 <p class="markEssential">생년월일</p>
@@ -186,7 +188,8 @@ var app = new Vue({
     data: {
     	user : [],
     	info:{
-    		pw:"${sessionPw}",
+    		id:"",
+    		pw:"",
     		pwck:"",
     		nick:"",
     		hp:"",
@@ -205,7 +208,7 @@ var app = new Vue({
     	
     }
     , methods : {
-    	
+    	//기존 정보 보여주기
     	fnUserList : function(){
             var self = this;
             var nparmap = {id : self.sessionId, pw: self.sessionPw};
@@ -223,34 +226,28 @@ var app = new Vue({
                 	console.log(self.sessionId);
                 	self.user = data.user;
                 	console.log(data.user);
-                	console.log(data.user.userId);}
-                	
-                    
+                	}
+
                 }
             });
 
         },
-        fnEditUser : function(data) {
+        //입력한 정보로 업데이트
+        fnEditUser : function() {
             var self = this;
+            self.info.id = self.sessionId;
+            self.info.pw = self.sessionPw;
             var nparmap = self.info;
-
-            console.log(nparmap.id);
-            console.log(self.info);
-	        $.ajax({
-	            url:"/user/modify.dox",
-	            dataType:"json",	
-	            type : "POST", 
-	            data : nparmap,
-	            success : function(data) { 
-	            	
-	            	console.log(data);
-	            	
-	            	
-	            	
-	           		
-	           	 	
-	            }
-	        }); 
+            	$.ajax({
+    	            url:"/user/modify.dox",
+    	            dataType:"json",	
+    	            type : "POST", 
+    	            data : nparmap,
+    	            success : function(data) { 
+    	            	console.log(data)
+    	            }
+    	        }); 
+	        
         },
         
         

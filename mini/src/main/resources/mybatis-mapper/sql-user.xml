@@ -103,6 +103,7 @@
 		<update id="updateUser" parameterType="HashMap">
 			UPDATE T4_USER 
 			SET 
+				PASSWORD = #{pw}
 				NICK = #{nick}, 
 				EMAIL = #{email}, 
 				GENDER = #{gender}, 
@@ -110,7 +111,7 @@
 				ADDR = #{addr}, 
 				ADDR2 = #{addr2}, 
 				LIVING_YEAR = #{livingYear}
-			WHERE USER_ID = #{id} AND PASSWORD = #{pw}
+			WHERE USER_ID = #{id}
 		</update>
 		
 	</mapper>
