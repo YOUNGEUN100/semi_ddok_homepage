@@ -28,5 +28,56 @@ public class LivingServiceImpl implements LivingService{
 	}
 	
 	
+	@Override // 정책 리스트
+	public HashMap<String, Object> searchPolList(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();	
+		resultMap.put("list", livingMapper.selectPolList(map));
+		resultMap.put("cnt", livingMapper.selectPolCnt(map));
+		resultMap.put("result","success");
+		return resultMap;
+	}
+	
+	
+	@Override // 정책 글보기
+	public HashMap<String, Object> searchPolInfo(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("info", livingMapper.selectPolInfo(map));
+		if(resultMap.get("info") != null) {
+			livingMapper.updatePolCnt(map);
+		}
+		return resultMap;
+	}
+	
+	@Override // 댓글 리스트 글보기
+	public HashMap<String, Object> selectComment(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("list", livingMapper.selectComment(map));
+		return resultMap;
+	}
+		
+	@Override // 댓글 쓰기
+	public void addComment(HashMap<String, Object> map) {
+		livingMapper.insertComment(map);	
+	}	
+	
+	@Override // 커뮤니티 글쓰기
+	public void addPol(HashMap<String, Object> map) {
+		livingMapper.insertPol(map);	
+	}
+	
+	@Override // 커뮤니티 글수정
+	public void modifyPol(HashMap<String, Object> map) {
+		livingMapper.updatePol(map);
+	}	
+	
+	@Override // 정책 글 삭제
+	public void removePol(HashMap<String, Object> map) {
+		livingMapper.deletePol(map);
+	}
+	@Override // 정책 댓글 삭제
+	public void removeComment(HashMap<String, Object> map) {
+		livingMapper.deleteComment(map);
+	}
+
 
 }

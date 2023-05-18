@@ -76,6 +76,9 @@ public interface FundingService {
 	// 펀딩 등록	
 	void addFunding(HashMap<String, Object> map);
 	
+	// 펀딩 수정
+	void modifyFunding(HashMap<String, Object> map);
+	
 	// 펀딩 썸네일 이미지 등록
 	void addFundingImg(HashMap<String, Object> map);
 	

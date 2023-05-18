@@ -431,8 +431,7 @@
 				
 				<if test = "moreBtn2 == 'off'">
 				LIMIT 2
-				</if>
-			 
+				</if>			 
 		</select>
 		
 		<!--오픈된 펀딩 상세-->
@@ -464,8 +463,7 @@
 						WHERE THUMBNAIL_YN = 'Y'
 						GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
 
-			WHERE A.FUNDING_NO = #{fundingNo}
-			 
+			WHERE A.FUNDING_NO = #{fundingNo}			 
 		</select>
 		
 		<!--준비중 펀딩 상세-->		
@@ -512,7 +510,6 @@
 							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
 									
 				WHERE A.FUNDING_NO = #{fundingNo};				
-			 
 		</select>
 		
 		<!-- 펀딩 상세 이미지 -->
@@ -564,18 +561,32 @@
 			INSERT INTO T4_FUNDING
 			VALUES
 				(NULL,
-				#{title},
-				#{summary},
+				#{fundingName},
+				#{fundingSummary},
 				#{content},
-				#{openDate},
-				#{endDate},
+				#{fundingStartDt},
+				#{fundingEndDt},
 				'N',				
-				#{goal},
-				#{price},
+				#{fundingGoalCnt},
+				#{fundingPrice},
 				NOW(),
 				NOW()
 				)
 		</insert>
+		
+		<!-- 펀딩 수정 -->
+		<update id="editFunding" parameterType="hashmap">
+			UPDATE T4_FUNDING
+			SET FUNDING_NAME = #{fundingName},
+				FUNDING_SUMMARY = #{fundingSummary},
+				FUNDING_SCRIPT = #{content},
+				FUNDING_START_DT = #{fundingStartDt},
+				FUNDING_END_DT = #{fundingEndDt},
+				FUNDING_GOAL_CNT = #{fundingGoalCnt},
+				FUNDING_PRICE = #{fundingPrice},
+				UDATETIME = NOW()
+			WHERE FUNDING_NO = #{fundingNo}
+		</update>
 		
 		<!-- 펀딩 썸네일 이미지 등록 -->
 		<insert id="insertFundingImg" parameterType="hashmap">

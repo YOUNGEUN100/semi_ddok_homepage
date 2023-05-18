@@ -13,7 +13,7 @@ public interface CommunityService {
 		// 댓글 리스트
 		HashMap<String, Object> selectComment(HashMap<String, Object> map);
 		
-		// 커뮤니티 글 등록
+		// 커뮤니티 댓글 등록
 		void addComment(HashMap<String,Object>map);
 		
 		// 커뮤니티 글 등록

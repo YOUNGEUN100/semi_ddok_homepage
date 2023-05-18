@@ -92,6 +92,9 @@ public interface FundingMapper {
 	// 펀딩 등록
 	void insertFunding(HashMap<String, Object> map);
 	
+	// 펀딩 수정
+	void editFunding(HashMap<String, Object> map);
+	
 	// 펀딩 썸네일 이미지 등록
 	void insertFundingImg(HashMap<String, Object> map);
 	

@@ -188,6 +188,7 @@
             	//게시글 수정용 데이터 불러오기
             	fnGetFlea: function () {
                     var self = this;
+                    //boardNo있으면 수정 없으면 등록
                     if (self.boardNo == "") {
                     	return;
                     }

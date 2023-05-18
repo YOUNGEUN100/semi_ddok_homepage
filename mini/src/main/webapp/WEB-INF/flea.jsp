@@ -363,20 +363,19 @@
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
+                        	console.log(data.list);
                             self.list2 = data.list;
                             self.cnt2 = data.cnt;
-                            self.pageCount2 = Math.ceil(self.cnt2 / 10);  
-                            console.log(data.list);
+                            self.pageCount2 = Math.ceil(self.cnt2 / 10);          
                         }
                     });
                 }
             	
-            		<!-- 페이징 추가 7-->
+            	<!-- 페이징 추가 7-->
         		, fnSearch : function(pageNum){
         			var self = this;
         			self.selectPage = pageNum;
         			var startNum = ((pageNum-1) * 10);
-        			console.log(startNum);
         			var nparmap = {moreBtn : self.moreBtn, orderValue : self.orderValue, startNum : startNum};
         			$.ajax({
         				url : "/fleamarket/list.dox",
@@ -419,12 +418,12 @@
             	        document.getElementById('page').style.display = 'flex';  
             	        self.moreBtn = "on"
             	        self.fnGetFleaList();
-            	        moreBtn.innerHTML = "접기";
+            	        moreBtn.innerText = "접기";
             	    } else if (self.moreBtn == "on") {
             	        document.getElementById('page').style.display = 'none';    
             	        self.moreBtn = "off"
             	        self.fnGetFleaList();
-            	        moreBtn.innerHTML = "더보기";
+            	        moreBtn.innerText = "더보기";
             	    }
             	}
             	
@@ -435,12 +434,12 @@
                     	document.getElementById('page2').style.display = 'flex';  
                     	self.moreBtn2 = "on";
                     	self.fnGetFleaList2();
-                    	moreBtn2.innerHTML = "접기";
+                    	moreBtn2.innerText = "접기";
                     } else if (self.moreBtn2 == "on") {
-                    	document.getElementById('page2').style.display = 'flex';  
+                    	document.getElementById('page2').style.display = 'none';  
                     	self.moreBtn2 = "off";
                         self.fnGetFleaList2();
-                        moreBtn2.innerHTML = "더보기";
+                        moreBtn2.innerText = "더보기";
                     }
             	}
             	

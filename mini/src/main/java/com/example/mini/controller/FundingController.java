@@ -53,7 +53,8 @@ public class FundingController {
 
 	// 2-1. 랜선펀딩 등록 및 수정
 	@RequestMapping("/funding/edit.do")
-	public String funding3(Model model) throws Exception {
+	public String funding3(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("map", map);
 		return "/funding_edit";
 	}
 
@@ -305,6 +306,17 @@ public class FundingController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	// 펀딩 수정
+	@RequestMapping(value = "/funding/edit.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String modifyFunding(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.modifyFunding(map);
+		//resultMap.put("fundingNo", map.get("id"));
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
 	// 랜선장터 첨부파일
 		@RequestMapping("/fileUpload1.dox")
 		    public String result1(@RequestParam("file1") MultipartFile multi, @RequestParam("boardNo") int boardNo, HttpServletRequest request,HttpServletResponse response, Model model)
@@ -351,7 +363,7 @@ public class FundingController {
 		        }catch(Exception e) {
 		            System.out.println(e);
 		        }
-		        return "redirect:bbs.do";
+		        return "redirect:flea.do";
 		    }
 	
 		// 펀딩 썸네일 첨부파일
@@ -398,7 +410,7 @@ public class FundingController {
 		        }catch(Exception e) {
 		            System.out.println(e);
 		        }
-		        return "redirect:bbs.do";
+		        return "redirect:funding.do";
 		    }
 	// 펀딩 상세 첨부파일
 	@RequestMapping("/fileUpload3.dox")
@@ -444,7 +456,7 @@ public class FundingController {
 	        }catch(Exception e) {
 	            System.out.println(e);
 	        }
-	        return "redirect:bbs.do";
+	        return "redirect:funding.do";
 	    }
 	    
 	    // 현재 시간을 기준으로 파일 이름 생성

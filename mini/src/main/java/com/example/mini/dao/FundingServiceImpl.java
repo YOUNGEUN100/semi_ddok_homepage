@@ -172,6 +172,11 @@ public class FundingServiceImpl implements FundingService {
 		fundingMapper.insertFunding(map);		
 	}
 	
+	@Override // 펀딩 수정
+	public void modifyFunding(HashMap<String, Object> map) {
+		fundingMapper.editFunding(map);		
+	}
+	
 	@Override // 펀딩 썸네일 이미지 등록
 	public void addFundingImg(HashMap<String, Object> map) {
 		fundingMapper.insertFundingImg(map);
