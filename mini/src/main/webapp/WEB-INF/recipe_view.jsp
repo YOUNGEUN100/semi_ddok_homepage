@@ -254,21 +254,21 @@
            
             <div class="big-box">
                 <div class="recipe-info">
-                    <div class="recipe-name">
-                        <div>{{info.hashtag}}</div>
-                        <div><strong>{{info.recipeName}}</strong></div>
-                    </div>
+					<div class="recipe-name">
+					    <div>{{info.hashtag}}</div>
+					    <div><strong>{{info.recipeName}}</strong></div>
+					</div>
                     <hr>
                     <div class="recipe-simple-info">
                         <div class="box2">
-                            <img class="re-icon" src="/images/icon_recipe01.png">
-                            <div>조리도구</div>
-                            <div>{{info.tname}}</div>
+							<img class="re-icon" src="/images/icon_recipe01.png">
+							<div>조리도구</div>
+							<div>{{info.tname}}</div>
                         </div>
                         <div class="box2">
-                            <img class="re-icon" src="/images/icon_recipe02.png">
-                            <div>조리시간</div>
-                            <div>{{info.time}}</div>
+							<img class="re-icon" src="/images/icon_recipe02.png">
+							<div>조리시간</div>
+							<div>{{info.time}}</div>
                         </div>
                         <div class="box2">
                             <img class="re-icon" src="/images/icon_recipe03.png">
@@ -286,28 +286,28 @@
         </div>
         
         <!-- 레시피 만드는 방법 시작 -->
-        <div class="ingredient">
-             <div class="ingre-name">
-                <img class="re-icon" src="/images/icon_recipe04.png">
-                <span>레시피 재료</span>
-            </div>
-            <div class="ingre-info">{{info.cookIngre}}</div>
-        </div>
-
-        <div class="ingredient">
-            <div class="ingre-name">
-                <img class="re-icon" src="/images/icon_recipe05.png">
-                <div>만드는 방법</div>
-            </div>
-                
-            <div class="recipe-index" v-for="(item, index) in list" >
-                <img class="img-index" :src="item.imgPath">
-                <div class="text-index">
-                    <div><strong>Step {{item.cookIndex}}</strong></div>
-                    <div>{{item.cookContent}}</div>
-                </div>
-            </div>
-        </div> 
+		<div class="ingredient">
+		     <div class="ingre-name">
+		        <img class="re-icon" src="/images/icon_recipe04.png">
+		        <span>레시피 재료</span>
+		    </div>
+		    <div class="ingre-info">{{info.cookIngre}}</div>
+		</div>
+		
+		<div class="ingredient">
+		    <div class="ingre-name">
+		        <img class="re-icon" src="/images/icon_recipe05.png">
+		        <div>만드는 방법</div>
+		    </div>
+		        
+		    <div class="recipe-index" v-for="(item, index) in list" >
+		        <img class="img-index" :src="item.imgPath">
+		        <div class="text-index">
+		            <div><strong>Step {{item.cookIndex}}</strong></div>
+		            <div>{{item.cookContent}}</div>
+		        </div>
+		    </div>
+		</div> 
        <!-- 레시피 만드는 방법 끝 -->
 
        <div class="market-item">

@@ -13,7 +13,6 @@
 /***** (todayEat_store), (todayEat_recipe) --- START *****/
 #pageContent.todayEat .formContainer {display:flex; flex-flow:column wrap; justify-content:center; align-items:center;}
 #pageContent.todayEat .selectArea {width:100%; margin-bottom:2em;}
-#pageContent.todayEat .typeBoxArea {padding:1.75em 3.5em 1.25em;}
 
 #pageContent.todayEat .selectTitle {font-size:1.5em; margin-bottom:0.75em;}
 #pageContent.todayEat .selectBox {width:100%; display:flex; flex-flow:row wrap; justify-content:flex-start; align-items:stretch;}

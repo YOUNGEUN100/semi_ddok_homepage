@@ -9,25 +9,25 @@
 <div id="pageContent" class="recipe typeEdit">
 	<div class="wrapper">
 		<div id="recipeEdit" class="recipeEditContainer">
-            <fieldset class="fieldset-area styleBoxRound styleBoxShadow">
+            <fieldset class="fieldset-area typeBoxArea styleBoxRound styleBoxShadow">
             	<h3 class="area-title">레시피 정보</h3>
-                <ul>
-					<li>
+                <ul class="area-list">
+					<li class="no">
 						<label for="recipe_no" class="enrol-re" >레시피 번호</label>
-						<input id="recipe_no" name="recipe_no" type="number" min="1" v-model="info.recipeNo" placeholder=" 레시피 번호를 입력하세요" required>
+						<input id="recipe_no" name="recipe_no" type="number" min="1" max="999999" v-model="info.recipeNo" placeholder="숫자만 입력가능" required>
 						<button id="no_btn" @click="fnCheck()">레시피번호 중복 확인</button>
 					</li>
-					<li>
+					<li class="name">
 						<label for="recipe_name" class="enrol-re">레시피 제목</label>
 						<input id="recipe_name" name="recipe_name" v-model="info.recipeName" type="text" required>
 					</li>
-					<li>
+					<li class="img">
 						<label for="recipe_img" class="enrol-re">대표 사진</label>
-						<form action="">
+						<form action="" class="filebox">
 							<input type="file" id="file1" name="file1">
 						</form>
 					</li>
-					<li>
+					<li class="cate">
 						<label class="enrol-re">카테고리</label>
 						<select class="sel" name="purpose" id="purpose" v-model="info.pcode">
 						    <option value="" selected="selected" disabled hidden>목적별</option>
@@ -53,10 +53,10 @@
 						    <option value="ETC">기타</option>
 						</select>
 					</li>
-				 	<li>
+					<li class="type">
 	                    <label class="enrol-re">요리정보</label>
-						<span>
-							<span>시간</span>
+						<span class="time">
+							<strong>시간</strong>
 							<select class="sel" name="time" id="time" v-model="info.time">
 								<option value="" selected disabled hidden>시간</option>
 								<option value="5분이내">5분이내</option>
@@ -70,8 +70,8 @@
 								<option value="2시간이상">2시간이상</option>
 							</select>
 						</span>
-						<span>
-							<span>난이도</span>
+						<span class="level">
+							<strong>난이도</strong>
 							<select class="sel" name="difficult" id="difficult" v-model="info.difficulty">
 								<option value="" selected disabled hidden>난이도</option>
 								<option value="핵쉬움">핵쉬움</option>
@@ -82,7 +82,7 @@
 							</select>
 						</span>
 					</li>
-					<li>
+					<li class="ingre">
 						<label class="enrol-re">재료분류</label>
 						<label class="ingre-ch"><input type="checkbox" value="POT"> 감자/고구마</label>
 						<label class="ingre-ch"><input type="checkbox" value="VEG"> 채소</label>
@@ -95,35 +95,41 @@
 						<label class="ingre-ch"><input type="checkbox" value="HAM"> 햄</label>
 						<label class="ingre-ch"><input type="checkbox" value="RAM"> 라면</label>
 					</li>
-					<li>
+					<li class="more">
 						<label for="recipe-ingre" class="enrol-re">재료상세</label> 
 						<input id="recipe-ingre" name="recipe-ingre" type="text" v-model="info.cookIngre">
 					</li>
 				</ul>
 			</fieldset>
-            <fieldset class="fieldset-area styleBoxRound styleBoxShadow">
+            <fieldset class="fieldset-area typeBoxArea styleBoxRound styleBoxShadow">
             	<h3 class="area-title">레시피 순서</h3>
 				<div id="recipe-step">
-					<div id="step-num"><b>Step1</b></div>
-					<div id="re-img">
-						<label>레시피 이미지</label>
-						<form action="">
-							<input type="file" id="fileR" name="fileR">
-						</form>
-					</div>
-					<div id="re-info">
-						<label class="recipe-info">레시피 단계 설명</label>
-						<textarea id="memo" cols="140" rows="5"></textarea>
+					<div class="step-box">
+						<p id="step-num">Step 1</p>
+						<div id="re-img">
+							<label class="recipe-img">레시피 이미지</label>
+							<form action="" class="filebox">
+								<input type="file" id="fileR" name="fileR">
+							</form>
+						</div>
+						<div id="re-info">
+							<label class="recipe-info">레시피 단계 설명</label>
+							<textarea id="memo" rows="5"></textarea>
+						</div>
 					</div>
 				</div>
-				<div id="add-area" class="btn" @click="fnAddIndex()">
-					<i class="fa-solid fa-circle-plus fa-xl"></i>
-					<button id="add-btn">Step 추가</button>
-				</div>
+				<button id="add-btn" class="btn" @click="fnAddIndex()">
+					<i class="fa-solid fa-circle-plus"></i>
+					<span>Step 추가</span>
+				</button>
 			</fieldset>
-			<div class="btn_box">
-				<button class="btn" @click="fnEnroll()">등록</button>
+			
+			<!-- btnArea -- Don't touch -->
+			<div class="btnArea">
+				<button class="addBtn" @click="fnEnroll()">등록</button>
+				<button class="cancelBtn" @click="">취소</button>
 			</div>
+			<!-- btnArea -- Don't touch -->
         </div>
 	</div>
 </div>
@@ -191,18 +197,19 @@ var recipeEdit = new Vue({
 	       	console.log(self.cnt);
 	       	
 	       	document.getElementById("recipe-step").innerHTML += 
-				`<div id="step-num"><b>Step ${cnt}</b></div>
-			     <div>
-			        <label>레시피 이미지</label>
-			        <form action="">
-			            <input type="file">
-			            <input type="submit">
-			        </form>
-			     </div>
-			     <div>
-			        <label class="recipe-info">레시피 단계 설명</label>
-			        <textarea id="memo" cols="100" rows="5"></textarea>
-			     </div> `
+				` <div class="step-box">
+					<p id="step-num">Step ${cnt}</p>
+					<div id="re-img">
+						<label class="recipe-img">레시피 이미지</label>
+						<form action="" class="filebox">
+							<input type="file" id="fileR" name="fileR">
+						</form>
+					</div>
+					<div id="re-info">
+						<label class="recipe-info">레시피 단계 설명</label>
+						<textarea id="memo" rows="5"></textarea>
+					</div>
+				</div> `
        },
        // 파일 업로드
        upload : function(){
