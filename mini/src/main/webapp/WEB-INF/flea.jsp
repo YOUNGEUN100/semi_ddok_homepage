@@ -170,14 +170,14 @@
 
                 <div class="container">
                     <div class="market_category">
-                        <button class="category_btn">중고판매</button>
-                        <button class="category_btn">중고나눔</button>
+                        <button class="category_btn"><a href="#tradeHeader">중고판매</a></button>
+                        <button class="category_btn"><a href="#donateHeader">중고나눔</a></button>
                     </div>
 
                     <div class="box1">
 
                         <div class="board_title">
-                            <h1>거래할 분을 찾고 있어요!</h1>
+                            <h1 id="tradeHeader">거래할 분을 찾고 있어요!</h1>
                             <select v-model="orderValue" @change="fnChangeOrder">
                                 <option value = "recent">최신순</option>
                                 <option value = "viewCnt">조회수</option>
@@ -237,7 +237,7 @@
                     <div class="box2">
 
                         <div class="board_title">
-                            <h1>나눔할 분을 찾고 있어요!</h1>
+                            <h1 id="donateHeader">나눔할 분을 찾고 있어요!</h1>
                             <select v-model = "orderValue2" @change = "fnChangeOrder2">
                                 <option value = "recent">최신순</option>
                                 <option value = "viewCnt">조회수</option>
