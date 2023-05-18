@@ -72,7 +72,8 @@
     
     
               <div class="btn_box">
-                <button class="btn" @click="fnEnroll()">등록</button>
+                <button v-if="info.title" class="btn" @click="fnModify()">수정</button>
+                <button v-else class="btn" @click="fnEnroll()">등록</button>
             </div>
     
        
@@ -135,11 +136,6 @@
             // 관리자가 작성한 글이면 공지글로
             if (self.sessionStatus=='A') {
             	self.info.category = 2;
-            }
-            // 작성일이 있다면 수정 함수 호출
-            if (self.info.cdatetime) {
-            	self.fnModify();
-            	return;
             }
             
             var nparmap = self.info;

@@ -15,7 +15,7 @@
                     <span class="boxItem"><input type="radio" id="ref" v-model="r_purpose" value="ref"><label for="ref">냉장고털이</label></span>
                     <span class="boxItem"><input type="radio" id="han" v-model="r_purpose" value="han"><label for="han">해장</label></span>
                     <span class="boxItem"><input type="radio" id="die" v-model="r_purpose" value="die"><label for="die">다이어트</label></span>
-                    <span class="boxItem"><input type="radio" id="sna" v-model="r_purpose" value="sna"><label for="sna">간단</label></span>
+                    <span class="boxItem"><input type="radio" id="sna" v-model="r_purpose" value="sna"><label for="sna">간식</label></span>
                     <span class="boxItem"><input type="radio" id="nig" v-model="r_purpose" value="nig"><label for="nig">야식</label></span>
                 </div>
             </div>

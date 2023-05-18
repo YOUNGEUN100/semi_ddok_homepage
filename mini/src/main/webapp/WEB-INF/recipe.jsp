@@ -179,8 +179,6 @@ var recipeList = new Vue({
 				success : function(data) {
 					 self.list = data.list;
 					 self.cnt = data.cnt;
-					 console.log(self.list);
-					 console.log(self.cnt);
 					 self.pageCount = Math.ceil(self.cnt / 12);
 					
 					 self.selectPage = "1"; // 선택 페이지 초기화

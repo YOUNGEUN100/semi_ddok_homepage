@@ -11,6 +11,7 @@
         padding: 16px;
         table-layout: fixed;
     }
+    .comTable .myboard {color: var(--main-colorGreen);font-weight:bold}
     th {border-bottom:1px solid black;}
     .comBtn {
        font-size: medium;
@@ -59,6 +60,7 @@
 	.pagination li.active a {color:#fff;}
     /* 페이징 추가 끝 */
 	#page {text-align:center;}
+	
 </style>
 
 
@@ -91,7 +93,10 @@
                         <td class="no">{{item.boardNo}}</td>
 	                   <template>
 	                         <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
-	                        <td colspan=3 class="title" v-if="item.status=='C'" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
+	                         <template v-if="item.status=='C'">
+	                       		  <td colspan=3 class="title myboard" v-if="item.userId==sessionId" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
+	                       		  <td colspan=3 class="title"  v-else @click="fnViewCom(item.boardNo)">{{item.title}}</td>
+	                         </template>
                         </template>
    	                    <td class="writer">{{item.nick}}</td>
        	                <td class="date">{{item.cdatetime}}</td>
@@ -142,7 +147,7 @@
      		 pageCount : 1,
      	     sessionId: "${sessionId}",    
      		 sessionStatus : "${sessionStatus}",
-     		 order : ""
+     		 order : "recent"
             }
             , methods: {
             	// 커뮤니티 리스트
@@ -161,6 +166,7 @@
                         	console.log(data.list);
                         	self.list = data.list;
                             self.cnt = data.cnt;
+                            console.log("게시글의 개수는 :" + self.cnt);
       					 	self.pageCount = Math.ceil(self.cnt / 10);
                         }
                     });
@@ -174,7 +180,8 @@
         			var self = this;
         			self.selectPage = pageNum;
         			var startNum = ((pageNum-1) * 10);
-        			var nparmap = {startNum : startNum};
+        			console.log(startNum);
+        			var nparmap = {startNum : startNum, order : self.order};
         			$.ajax({
         				url : "/community/list.dox",
         				dataType : "json",
@@ -182,6 +189,7 @@
         				data : nparmap,
         				success : function(data) {
         					self.list = data.list;
+        					console.log(self.list);
         					self.cnt = data.cnt;
         					self.pageCount = Math.ceil(self.cnt / 10);
         				}
@@ -242,6 +250,7 @@
             , created: function () {
             	var self = this;
                 self.fnGetComList();
+                
             }
         });
 </script>
