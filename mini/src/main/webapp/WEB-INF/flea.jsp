@@ -170,8 +170,8 @@
 
                 <div class="container">
                     <div class="market_category">
-                        <button class="category_btn"><a href="#tradeHeader">중고판매</a></button>
-                        <button class="category_btn"><a href="#donateHeader">중고나눔</a></button>
+                        <button class="category_btn" id="category_btn">중고판매</button>
+                        <button class="category_btn" id="category_btn2">중고나눔</button>
                     </div>
 
                     <div class="box1">
@@ -306,6 +306,24 @@
 
 
     <script type="text/javascript">
+    //거래게시판으로 스크롤 이동
+    $(function() {
+        $("#category_btn").on("click",function(){
+        	var offset = $("#tradeHeader").offset();
+        	offset.top -=150
+        	$("html, body").animate({scrollTop: offset.top},400);
+            console.log(offset);
+        })
+    })
+    //나눔게시판으로 스크롤 이동
+    $(function() {
+        $("#category_btn2").on("click",function(){
+        	var offset = $("#donateHeader").offset();
+        	offset.top -=150
+        	$("html, body").animate({scrollTop: offset.top},400);
+            console.log(offset);
+        })
+    })
     
     	<!-- 페이징 추가 4-->
     	Vue.component('paginate', VuejsPaginate)
