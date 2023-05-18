@@ -102,7 +102,7 @@
 					<div id="adminBox" class="styleBoxShadow">
 						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
 						<div class="btnSet">
-							<button class="addBtn" @click="fnGoEdit()" v-if="sessionStatus=='A'">등록</button>
+							<button class="addBtn" @click="fnGoEdit()">등록</button>
 						</div>
 					</div>
 				</div>
