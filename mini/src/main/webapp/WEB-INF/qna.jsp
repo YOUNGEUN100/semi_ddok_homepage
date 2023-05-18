@@ -139,7 +139,7 @@ var app = new Vue({
    		 pageCount : 1,
    	     sessionId: "${sessionId}",    
    		 sessionStatus : "${sessionStatus}",
-   		 order : ""
+   		 order : "recent"
           }
           , methods: {
           	// 커뮤니티 리스트
@@ -157,7 +157,8 @@ var app = new Vue({
                       success: function (data) {
                       	console.log(data.list);
                       	self.list = data.list;
-                          self.cnt = data.cnt;
+                         self.cnt = data.cnt;
+                         console.log(self.cnt);
     					 	self.pageCount = Math.ceil(self.cnt / 10);
                       }
                   });
@@ -171,7 +172,7 @@ var app = new Vue({
       			var self = this;
       			self.selectPage = pageNum;
       			var startNum = ((pageNum-1) * 10);
-      			var nparmap = {startNum : startNum};
+      			var nparmap = {startNum : startNum, order : self.order};
       			$.ajax({
       				url : "/qna/list.dox",
       				dataType : "json",

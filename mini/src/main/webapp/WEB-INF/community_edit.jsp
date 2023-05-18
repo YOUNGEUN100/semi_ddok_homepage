@@ -72,7 +72,7 @@
     
     
               <div class="btn_box">
-                <button v-if="info.title" class="btn" @click="fnModify()">수정</button>
+                <button v-if="info.cdatetime" class="btn" @click="fnModify()">수정</button>
                 <button v-else class="btn" @click="fnEnroll()">등록</button>
             </div>
     
@@ -107,6 +107,7 @@
         content : "",
         boardNo : "${map.boardNo}",
         sessionStatus : "${sessionStatus}",
+        sessionId : "{sessionId}"
     }
     // 4. 컴포넌트 추가
     , components: {VueEditor}
@@ -146,7 +147,6 @@
 	            data : nparmap,
 	            success : function(data) {  
 	            	console.log(data);
-	            	alert("등록되었습니다!");
 	            	
 	            	var form = new FormData();
 	       	        form.append( "file1",  $("#file1")[0].files[0] );
@@ -156,7 +156,7 @@
 	       	     	if ($("#file1")[0].files[0] ) {
 	       	     		self.upload(form); 
 	       	     	}
-	           		
+	       	     	alert("등록되었습니다!");
 	           	 	location.href="/community.do";
 	            }
 	        }); 

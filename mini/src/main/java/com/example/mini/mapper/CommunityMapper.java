@@ -48,6 +48,9 @@ public interface CommunityMapper {
 	// QNA 리스트
 	List<Community>selectQnaList(HashMap<String, Object> map);
 	
+	// 커뮤니티 리스트 개수
+	int selectQnaCnt(HashMap<String, Object> map);
+	
 	// QNA 글 등록
 	void insertQna(HashMap<String,Object>map);
 	

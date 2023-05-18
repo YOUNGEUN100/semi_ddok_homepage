@@ -81,7 +81,7 @@ public class CommunityServiceImpl implements CommunityService{
 	public HashMap<String, Object> searchQnaList(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();	
 		resultMap.put("list", communityMapper.selectQnaList(map));
-		resultMap.put("cnt", communityMapper.selectComCnt(map));
+		resultMap.put("cnt", communityMapper.selectQnaCnt(map));
 		resultMap.put("result","success");
 		return resultMap;
 	}
