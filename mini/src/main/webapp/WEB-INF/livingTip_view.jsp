@@ -6,10 +6,13 @@
 
 	<style>
         .slidewrap {
+        	position:relative;
             max-width: 1200px;
             margin:0 auto;
             overflow:hidden;
-        }
+        }        
+        .PreBtn {position:absolute;top:50%;left:3%;}
+        .NextBtn {position:absolute;top:50%;right:3%;}
         .slidelist {
             width:100%;
             white-space: nowrap;
@@ -38,21 +41,17 @@
 	<div class="wrapper">
 		 <div id="app">
 		  	<div class="slidewrap" >
-                    <ul class="slidelist">
-                        <li class="lili" v-for="(item, index) in list">
-                            <a>
-                                <img :src="item.imgPath">
-                            </a>                        
-                        </li>                 
-                    </ul>
-              </div>
-		  	
-		  	<button id="btn1">1</button>
-		  	<button id="btn2">2</button>
-		  	<button id="btn3">3</button>
-		  	<button id="btn3">4</button>
-		  	<button id="btn3">5</button>
-		  	<button id="btn3">6</button>
+            	<ul class="slidelist">
+                	<li class="lili" v-for="(item, index) in list">
+                    	<a>
+                        	<img :src="item.imgPath">
+                    	</a>                        
+                	</li>                 
+             	</ul>
+             	<div class="PreBtn" @click="fnPreBtn"><i class="fa-solid fa-chevron-left fa-2xl"></i></div>
+		  		<div class="NextBtn" @click="fnNextBtn"><i class="fa-solid fa-chevron-right fa-2xl"></i></div>
+             </div>
+		  		
 		  	
 		 	
 		 </div>
@@ -64,7 +63,7 @@
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 <script type="text/javascript">
-$(function() {
+/* $(function() {
     $("#btn1").on("click",function(){
         $(".slidelist").css("transform", "translateX(0%)");
     })
@@ -93,7 +92,7 @@ $(function() {
     $("#btn6").on("click",function(){
         $(".slidelist").css("transform", "translateX(-500%)");
     })
-})
+}) */
 
 /* document.querySelector("#btn1").addEventListener('click', function () {
         document.querySelector(".slidelist").style.transform = "translateX(0%)";
@@ -117,7 +116,9 @@ var app = new Vue({
     data: {
     	list : [],
     	sessionId : "${sessionId}",
-    	cardNo : "${map.cardNo}"
+    	cardNo : "${map.cardNo}",
+    	num : "",
+    	page: 0
 
     }
     , methods : {
@@ -132,6 +133,8 @@ var app = new Vue({
                 data : nparmap,
                 success : function(data) {
                 	self.list = data.list;
+                	self.num = data.list.length;
+                	console.log(self.num);
                 	console.log(data.list);
                 	
                     
@@ -140,6 +143,26 @@ var app = new Vue({
 
         }
     
+    , fnPreBtn: function() {
+    	var self = this;
+    	
+    	if(self.page > 0) {
+    		self.page--;
+    		$(".slidelist").css("transform", "translateX(-" + self.page + "00%)");
+    		console.log(self.page);
+    	}
+    }
+    
+    , fnNextBtn: function() {
+    	var self = this;
+    	if(self.page < self.num-1) {
+    		self.page++;
+    		$(".slidelist").css("transform", "translateX(-" + self.page + "00%)");
+    		console.log(self.page);
+    	}
+    		  	    		
+    }
+     
     
     
     
