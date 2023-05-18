@@ -508,10 +508,16 @@
 		            }
 		      	});
     	    } */
-    	      
     	    
+    	    if(cnt<1){
+    	    	alert("구매할 상품을 선택하세요~");
+    	    	return;
+    	    }
     	    
-    		//self.pageChange("/order.do", {selectedItems : self.selectedItems});
+    	    if(cnt>0){
+    	    	self.pageChange("/order.do", {selectedItems : self.selectedItems});	
+    	    }
+    		
     	      
     	      
     	   }

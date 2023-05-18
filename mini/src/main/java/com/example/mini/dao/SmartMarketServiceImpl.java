@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.mini.mapper.SmartMarketMapper;
 import com.example.mini.model.Code;
+import com.example.mini.model.OrderNo;
 
 @Service
 public class SmartMarketServiceImpl implements SmartMarketService{
@@ -106,6 +107,7 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		
 	}
 
+	//사용자 정보가져오기
 	@Override
 	public HashMap<String, Object> searchUserInfo(HashMap<String, Object> map) {
 		HashMap<String, Object> resultmap = new HashMap<String, Object>();
@@ -114,10 +116,27 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		return resultmap;
 	}
 
+	//주문 등록
 	@Override
-	public void addOrder(HashMap<String, Object> map) {
-		smartmarketMapper.insertOrder(map);
+	public void addOrder(List<HashMap<String, Object>> list) {
+		OrderNo orderNo = smartmarketMapper.createOrderNo(null);
+		for(HashMap<String, Object> map : list) {			
+			map.put("orderNo", orderNo.getOrderNo());
+			smartmarketMapper.insertOrder(map);//주문정보 채우기
+			smartmarketMapper.deleteCart(map);//장바구니 비우기
+		}
+		//smartmarketMapper.insertOrder(map);
 		
+	}
+	
+	
+
+	//주문번호 생성하기
+	@Override
+	public HashMap<String, Object> searchOrderNo(HashMap<String, Object> map) {
+		HashMap<String, Object> resultmap = new HashMap<String, Object>();
+		resultmap.put("info", smartmarketMapper.createOrderNo(map));
+		return resultmap;
 	}
 
 	

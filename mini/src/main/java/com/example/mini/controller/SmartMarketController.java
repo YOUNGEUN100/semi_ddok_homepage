@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.SmartMarketService;
 import com.example.mini.model.Code;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import ch.qos.logback.core.model.Model;
@@ -100,13 +102,30 @@ public class SmartMarketController {
 	//주문 등록
 	@RequestMapping(value = "/addOrder.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String addOrder(Model model, @RequestParam  HashMap<String, Object> map) throws Exception {
+	public String addOrder(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		map.put("userid", session.getAttribute("sessionId"));
-		smartmarketService.addOrder(map);
+		//map.put("userid", session.getAttribute("sessionId"));
+		String json = map.get("list").toString();
+		ObjectMapper mapper = new ObjectMapper();
+	    List<HashMap<String, Object>> list = mapper.readValue(json, new TypeReference<List<HashMap<String, Object>>>(){});
+		map.put("list", list);
+	    smartmarketService.addOrder(list);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
+	
+	//주문 번호 생성
+	@RequestMapping(value = "/createOrderNo.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String createOrderNo(Model model, @RequestParam  HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = smartmarketService.searchOrderNo(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	
+	
 	
 
 	
@@ -207,8 +226,6 @@ public class SmartMarketController {
 			 request.setAttribute("map", map);
 			return "/market_edit";
 		}
-		
-		
 		
 		
 		

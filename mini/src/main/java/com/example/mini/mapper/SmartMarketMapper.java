@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.mini.model.Cart;
 import com.example.mini.model.Code;
+import com.example.mini.model.OrderNo;
 import com.example.mini.model.SmartMarket;
 import com.example.mini.model.SmartMarket2;
 import com.example.mini.model.SmartReview;
@@ -51,6 +52,9 @@ public interface SmartMarketMapper {
 	
 	//주문 등록
 	void insertOrder(HashMap<String, Object> map);
+
+	//주문번호 생성
+	OrderNo createOrderNo(HashMap<String, Object> map);
 	
 	//카트 수정(구매하기)
 	void updateCart(HashMap<String, Object> map);

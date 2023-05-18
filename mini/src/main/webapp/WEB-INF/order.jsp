@@ -370,6 +370,7 @@ IMP.init(userCode);
         , selectedItems : [${map.selectedItems}]
         , selectAll: false
         , total_productPrice : 0
+        , orderNo : ""
         
         
          
@@ -587,76 +588,56 @@ IMP.init(userCode);
 	  , requestPay: function () {
 		  	var self = this;
 		  	
-		  	
-	        IMP.request_pay({ // param
-	            pg: "html5_inicis.INIBillTst",
-	            pay_method: "card",
-	            merchant_uid: "order_no_0001",
-	            name: "주문자:결제테스트",
-	            amount: 100,
-	            buyer_email: "gildong@gmail.com",
-	            buyer_name: "홍길동",
-	            buyer_tel: "010-4242-4242",
-	            buyer_addr: "서울특별시 강남구 신사동",
-	            buyer_postcode: "01181"
-	          }, 
-	          rsp => { // callback
-	            if (rsp.success) {
-	              console.log(rsp);
-	              // 결제 성공 시 로직,
-	              
-	            } else {
-	            	console.log(rsp);
-	              // 결제 실패 시 로직,
-	              
-	            }
-	          });
-	        
+		  	console.log(JSON.stringify({ x: 5, y: 6 }));
+		 // Expected output: "{"x":5,"y":6}"		  	
+		  	console.log("test == ", self.selectedItems[0]);
     		
-    		cnt = self.selectedItems[0].length;
-    		
-    		if(cnt>0){
-    			for(i=0; i<cnt; i++){
-    				//self.total_productPrice = self.total_productPrice + (self.selectedItems[0][i].productPrice * self.selectedItems[0][i].productCnt);
-    				var nparmap = {productNo : self.selectedItems[0][i].productNo
-    							, productCnt : self.selectedItems[0][i].productCnt
-    							, productPrice : self.selectedItems[0][i].productPrice    							
-    				};
-    				
-    				//console.log("상품리스트: ",nparmap);
- 
-    				$.ajax({
-    		            url:"/addOrder.dox",
-    		            dataType:"json",
-    		            type : "POST",
-    		            data : nparmap,
-    		            success : function(data) {
-    		            	//location.href="/main.do";
-    		            }
-    		        });
     				
     				
-    				nparmap = {};
-    				nparmap = {cartNo : self.selectedItems[0][i].cartNo};
-  		    	  //console.log(nparmap);
-  		    	  $.ajax({
-  	    	            url:"/cart-remove.dox",
-  	    	            dataType:"json",
-  	    	            type : "POST",
-  	    	            data : nparmap,
-  	    	            success : function(data) {  	    	            	
-  	    	            }
-  	    	      });
-  		    	  
-    			}
-    			
-    			alert("주문완료되었습니다.");
-    			location.href="/main.do";
-    			
-    		}
+    			//결제시스템 가져오기
+        		IMP.request_pay({ // param
+    	            pg: "html5_inicis.INIBillTst",
+    	            pay_method: "card",
+    	            merchant_uid: "order_no_0001",
+    	            name: "주문자:결제테스트",
+    	            amount: 100,
+    	            buyer_email: "gildong@gmail.com",
+    	            buyer_name: "홍길동",
+    	            buyer_tel: "010-4242-4242",
+    	            buyer_addr: "서울특별시 강남구 신사동",
+    	            buyer_postcode: "01181"
+    	          }, 
+    	          rsp => { // callback
+    	            if (rsp.success) {
+    	              console.log(rsp);
+    	              // 결제 성공 시 로직,
+    	              
+    	            } else {
+    	            	console.log(rsp);
+    	              // 결제 실패 시 로직,
 
-	        
-	        }
+    	            	cnt = self.selectedItems[0].length;
+    	        		if(cnt > 0){//상품이 있으면
+    	        			var nparmap = {list : JSON.stringify(self.selectedItems[0])};
+    	        			console.log("상품리스트: ",nparmap);
+    	        				//구매하기 후 주문 등록
+    	        			$.ajax({
+    	        	            url:"/addOrder.dox",	
+    	        	            dataType:"json",
+    	        	            type : "POST",
+    	        	            data : nparmap,
+    	        	            success : function(data) {
+    	        	            	alert("주문되었습니다.");
+    	        	            	location.href="/main.do";
+    	        	            }
+    	        	        });    	              
+    	        		}
+    	            }
+    	          });     				
+    				
+    				
+    		
+	    }
     
     
     }
