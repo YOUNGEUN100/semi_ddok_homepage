@@ -79,7 +79,13 @@
             font-weight: bold;
             margin-top : auto;
         }
-
+		.comment_wrap button {
+			width: 50px;
+    		height: 30px;
+    		font-size: small;
+    		margin-left: 5px;
+    		background-color: white;
+		}
         .comment_header {            
             margin-top: 30px;
             height: 80px;
@@ -103,7 +109,7 @@
 
         .commenter span {margin-right: 15px;}
         
-        .commenter button {height : 40px;}
+        .commenter button {}
 
         .comment_content {
             font-size: 15px;    
@@ -209,7 +215,10 @@
                                 	<span class="hits"><i class="fa-solid fa-eye fa-lg"></i> {{info.hits}}</span>
                             	</div>		                            
                             </div>
-                            <pre class="content_box" v-html="info.content"></pre>
+                            <div v-for="(item, index) in imgList">
+                            	<pre class="content_box" v-html="info.content"><img :src="item.filePath"></pre>    
+                            </div>
+                                     
                         </div>
 
 

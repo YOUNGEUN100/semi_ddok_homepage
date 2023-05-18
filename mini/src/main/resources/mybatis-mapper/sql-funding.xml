@@ -163,8 +163,14 @@
 		
 		<!-- 랜선장터 이미지 -->
 		<select id="selectFleaImg" parameterType="hashmap" resultType="com.example.mini.model.Funding">
-			SELECT BOARD_NO,
-			CONCAT(FILE_PATH, SAVE_NAME) AS FILE_PATH
+			SELECT		 FILE_NO,
+			BOARD_NO,
+            ORLG_NAME,
+            SAVE_NAME,
+			CONCAT(FILE_PATH, SAVE_NAME) AS FILE_PATH,
+            FILE_SIZE,
+            FILE_KIND,
+            CDATETIME
 			FROM T4_FILES
 			WHERE BOARD_NO = #{boardNo}
 		</select>

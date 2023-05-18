@@ -48,8 +48,8 @@
                     	</a>                        
                 	</li>                 
              	</ul>
-             	<div class="PreBtn" @click="fnPreBtn"><i class="fa-solid fa-chevron-left fa-2xl"></i></div>
-		  		<div class="NextBtn" @click="fnNextBtn"><i class="fa-solid fa-chevron-right fa-2xl"></i></div>
+             	<div class="PreBtn" @click="fnPreBtn"><i class="fa-solid fa-circle-chevron-left"></i></div>
+		  		<div class="NextBtn" @click="fnNextBtn"><i class="fa-solid fa-circle-chevron-right"></i></div>
              </div>
 		  		
 		  	

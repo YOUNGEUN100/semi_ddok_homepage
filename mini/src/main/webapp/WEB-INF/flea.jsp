@@ -450,7 +450,9 @@
             	
             	// 거래글 카테고리 변경
             	, fnChangeOrder: function () {
-                    var self = this;                    
+                    var self = this;
+                   
+                    //$(".pagination li").first().css("active");
                     self.fnGetFleaList();
                 }
             	

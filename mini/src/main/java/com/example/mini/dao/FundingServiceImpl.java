@@ -42,10 +42,10 @@ public class FundingServiceImpl implements FundingService {
 		return resultMap;
 	}
 	
-	@Override // 랜선장터 나눔 리스트
+	@Override // 랜선장터 이미지
 	public List<Funding> searchFleaImg(HashMap<String, Object> map) {
-		List<Funding> list = fundingMapper.selectFleaImg(map);
-		return list;
+		List<Funding> imgList = fundingMapper.selectFleaImg(map);
+		return imgList;
 	}
 	
 	@Override // 랜선장터 게시글 등록

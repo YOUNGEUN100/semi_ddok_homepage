@@ -23,6 +23,11 @@ public class Funding {
 	private int commentNo;
 	private int reCommentNo;
 	private int commentReno;
+	private String filePath;
+	private String orlgName;
+	private String saveName;
+	private String fileSize;
+	private String fileKind;
 	//---랜선마켓 게시판 모델 끝---
 	
 	//---펀딩용 모델 시작---
@@ -347,6 +352,36 @@ public class Funding {
 	}
 	public void setImgPathDetail2(String imgPathDetail2) {
 		this.imgPathDetail2 = imgPathDetail2;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	public String getOrlgName() {
+		return orlgName;
+	}
+	public void setOrlgName(String orlgName) {
+		this.orlgName = orlgName;
+	}
+	public String getSaveName() {
+		return saveName;
+	}
+	public void setSaveName(String saveName) {
+		this.saveName = saveName;
+	}
+	public String getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(String fileSize) {
+		this.fileSize = fileSize;
+	}
+	public String getFileKind() {
+		return fileKind;
+	}
+	public void setFileKind(String fileKind) {
+		this.fileKind = fileKind;
 	}
 	
 	

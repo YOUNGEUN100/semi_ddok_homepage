@@ -252,7 +252,7 @@
 							}
 								
                             alert("등록되었습니다.");
-                            //location.href = "/flea.do";
+                            location.href = "/flea.do";
                             
                         }
                     });
