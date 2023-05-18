@@ -403,7 +403,11 @@
             	// 거래글 카테고리 변경
             	, fnChangeOrder: function () {
                     var self = this;                    
-                   
+                    var liList = $(".pagination").children();
+                    for(var i=0; i<liList.length; i++){
+                    	liList.eq(i).removeClass("active");
+                    }
+                    liList.eq(1).addClass("active");
                     //$(".pagination li").first().css("active");
                     self.fnGetFleaList();
                 }
