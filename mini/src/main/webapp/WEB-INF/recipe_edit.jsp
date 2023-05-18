@@ -9,8 +9,8 @@
 <div id="pageContent" class="recipe typeEdit">
 	<div class="wrapper">
 		<div id="recipeEdit" class="recipeEditContainer">
-            <fieldset>
-            	<legend>레시피 정보</legend>
+            <fieldset class="fieldset-area styleBoxRound styleBoxShadow">
+            	<h3 class="area-title">레시피 정보</h3>
                 <ul>
 					<li>
 						<label for="recipe_no" class="enrol-re" >레시피 번호</label>
@@ -101,8 +101,8 @@
 					</li>
 				</ul>
 			</fieldset>
-			<fieldset>
-				<legend>요리 순서</legend>
+            <fieldset class="fieldset-area styleBoxRound styleBoxShadow">
+            	<h3 class="area-title">레시피 순서</h3>
 				<div id="recipe-step">
 					<div id="step-num"><b>Step1</b></div>
 					<div id="re-img">

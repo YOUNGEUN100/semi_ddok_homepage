@@ -9,7 +9,7 @@ public class TodayEat {
 	private String tool;
 	private String cookIngre;
 	private String imgPathT;
-	private String imgPathC;
+	private String imgPathR;
 	
 	private int menuNo;
 	private String menuName;
@@ -17,7 +17,6 @@ public class TodayEat {
 	private String situation;
 	private String[] nation;
 	private String[] location;
-	
 	
 	public int getRecipeNo() {
 		return recipeNo;
@@ -67,13 +66,12 @@ public class TodayEat {
 	public void setImgPathT(String imgPathT) {
 		this.imgPathT = imgPathT;
 	}
-	public String getImgPathC() {
-		return imgPathC;
+	public String getImgPathR() {
+		return imgPathR;
 	}
-	public void setImgPathC(String imgPathC) {
-		this.imgPathC = imgPathC;
+	public void setImgPathR(String imgPathR) {
+		this.imgPathR = imgPathR;
 	}
-	
 	
 	public int getMenuNo() {
 		return menuNo;
@@ -111,5 +109,4 @@ public class TodayEat {
 	public void setLocation(String[] location) {
 		this.location = location;
 	}
-	
 }

@@ -23,7 +23,7 @@
 				<div class="recipeArea">
 					<h4 class="areaTitle"><span>{{info.recipeName}}</span>, 이렇게만 하면 맛보장</h4>
 					<div class="recipeImg styleBoxRound styleBoxShadow styleHoverShadow" @click="fnRecipeView(info.recipeNo)">
-						<img class="img" :src="info.imgPathC">
+						<img class="img" :src="info.imgPathR">
 					</div>
 				</div>
 				<div class="marketArea">
@@ -68,7 +68,7 @@ var result = new Vue({
                     console.log(self.info);
                     
                     self.info.imgPathT = "../" + data.info.imgPathT;
-                    self.info.imgPathC = "../" + data.info.imgPathC;
+                    self.info.imgPathR = "../" + data.info.imgPathR;
                 }
             }); 
 		}
