@@ -44,8 +44,6 @@
         	
         	WHERE BOARD_KIND = 'T_LAN' AND DELETE_YN = 'N']]>
         	
-        	
-        	
         	<if test = "orderValue == 'recent'">
         	ORDER BY CDATETIME DESC
         	</if>
@@ -53,9 +51,14 @@
         	<if test = "orderValue == 'viewCnt'">
         	ORDER BY HITS DESC
         	</if>
-        	  	
-        	LIMIT #{startNum} , #{lastNum}
         	
+        	<if test = "moreBtn == 'off'">
+			LIMIT 5
+			</if>
+        	
+        	<if test = "moreBtn == 'on'">
+        	LIMIT #{startNum}, 10
+        	</if>
 
 		</select>
 		

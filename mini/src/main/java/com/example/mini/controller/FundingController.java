@@ -84,10 +84,8 @@ public class FundingController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		String startNum = (String) map.get("startNum");
-		String lastNum = (String) map.get("lastNum");
 		
 		map.put("startNum", Integer.parseInt(startNum));
-		map.put("lastNum", Integer.parseInt(lastNum));
 		
 		resultMap = fundingService.searchTradeFleaList(map);
 		
