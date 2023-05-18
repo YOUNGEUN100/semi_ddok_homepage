@@ -5,82 +5,80 @@
 
 <style>
 	.myArea{
-         background-color: #fff;
-         margin: 0 auto;
-         padding: 30px 80px; 
-         display: flex; flex-direction: column; justify-content: center;
-         align-items: center;
-        }
+           background-color: #fff;
+           margin: 0 auto;
+           padding: 30px 80px;
+           display: flex; flex-direction: column; justify-content: center;
+           align-items: center;
+       }
 
-      .myArea .userBox{
+       .myArea .userBox{
            width: 20%; height: 100%;
-           border:0; 
+           border:0;
            text-align: center;  
        }
-      .myArea .userBox div{color: black;}
-      .myArea .userBox img{width: 60px; height: 60px; }
-      .myArea .userBox .edit{
-         margin-bottom: 20px; font-size: 1.2em;
-      }
-      .myArea .userBox .edit:hover{color: #5EA152; cursor: pointer;}
+       .myArea .userBox div{color: black;}
+       .myArea .userBox img{width: 60px; height: 60px; }
+       .myArea .userBox .edit{
+          margin-bottom: 20px; font-size: 1.2em;
+       }
+       .myArea .userBox .edit:hover{color: #5EA152; cursor: pointer;}
 
-      .myArea .contentBox{
-          width: 80%;  display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-      }
-      
-      .myArea .contentBox .menuBox{
-          width: 100%; display: flex; flex-flow: row nowrap; 
-          justify-content: center;
-      }
-      .myArea .contentBox .menuBox .menu{
-          width: 25%; text-align: center; padding: 10px;
-          box-shadow: 0 0 4px 0 #ccc; cursor: pointer;
-      }
-      .myArea .contentBox .menuBox .menu:first-child{
-          border-top-left-radius: 5px; 
-          border-bottom-left-radius: 5px;
-          box-shadow: -2px 0 5px 0 #ccc;
-      }
-      .myArea .contentBox .menuBox .menu:last-child{
-          border-top-right-radius: 5px; 
-          border-bottom-right-radius: 5px;
-          box-shadow: 2px 0 5px 0 #ccc;
-      }
-      .myArea .contentBox .menuBox .menu:hover{
-          background-color: #eee; color: black;
-      }
-      .myArea .contentBox .menuBox .menu:visited{
-          background-color: #ccc; color: black;
-      }
+       .myArea .contentBox{
+           width: 80%;  display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+       }
+       .myArea .contentBox .menuBox{
+         width: 100%; display: flex; flex-flow: row nowrap;
+         justify-content: center;
+       }
+       .myArea .contentBox .menuBox .menu{
+         width: 25%; text-align: center; padding: 10px;
+         box-shadow: 0 0 4px 0 #ccc; cursor: pointer;
+       }
+       .myArea .contentBox .menuBox .menu:first-child{
+         border-top-left-radius: 5px;
+         border-bottom-left-radius: 5px;
+         box-shadow: -2px 0 5px 0 #ccc;
+       }
+       .myArea .contentBox .menuBox .menu:last-child{
+         border-top-right-radius: 5px;
+         border-bottom-right-radius: 5px;
+         box-shadow: 2px 0 5px 0 #ccc;
+       }
+       .myArea .contentBox .menuBox .menu:hover{
+         background-color: #eee; color: black;
+       }
+       .myArea .contentBox .menuBox .menu:visited{
+         background-color: #ccc; color: black;
+       }
 
+       .myArea .contentBox .orderBox{
+         width: 100%; box-shadow: 0 0 5px #ccc;
+         border-radius: 20px; padding: 10px 30px;
+          margin-top: 30px; 
+       }
+       .myArea .contentBox .orderBox h1{font-size: 1.4em; margin:20px; padding: 5px; }
+       .myArea .contentBox .orderBox .orderContent{padding: 15px; box-shadow: 0 0 5px #ccc; border-radius: 20px;}
+       .myArea .contentBox .orderBox #orderTop{
+	        display: flex; flex-direction: row; justify-content: space-between; 
+	        margin: 20px; border-bottom: 1px solid black; padding: 10px;
+       }
+       .myArea .contentBox .orderBox .orderCenter{display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; 
+        	align-items: center; margin:0 auto;  padding: 5px; margin-left: 20px;}
+       .myArea .contentBox .orderBox .orderCenter img{
+        	width: auto; height: 200px; margin: 20px;
+     	}
+       .myArea .contentBox .orderBox .orderCenter .orderDetail{text-align: center; width: 70%;}
+       .myArea .contentBox .orderBox .orderCenter .orderDetail div:first-child{font-size: 1.4em; font-weight: bold;}
 
-      .myArea .contentBox .orderBox{
-          width: 100%; box-shadow: 0 0 5px #ccc;
-          border-radius: 20px; padding: 10px 30px;
-           margin-top: 30px;
-      }
-      .myArea .contentBox .orderBox .orderTop{
-          display: flex; flex-direction: row; justify-content: space-between;
-          margin: 10px; font-size: 0.85em; padding: 10px 60px;
-      }
-      .myArea .contentBox .orderBox .orderCenter{
-          width: 80%; margin: 0 auto;
-          display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center;
-          margin-bottom: 20px; justify-content: space-between;
-      }
-      .myArea .contentBox .orderBox .orderCenter img{
-          width: 25%; height: 25%; margin: 10px 30px; cursor: pointer;
-      }
-      .myArea .contentBox .orderBox .orderCenter .detail{
-          text-align: center; margin: 0 30px; cursor: pointer;
-      }
-      .myArea .contentBox .orderBox .orderCenter div:first-child{
-          font-size: 1.2em; cursor: pointer; font-weight: bold;
-          margin-bottom: 20px;
-      }
+       .myArea .contentBox .orderBox .orderBottom .orderHistory div{ padding: 10px;}
+       .myArea .contentBox .orderBox .orderBottom .orderHistory .orderHistoryList{padding: 10px; box-shadow: 0 0 5px #ccc; border-radius: 20px; }
+
+       .myArea .contentBox .orderBox .payMent div{padding: 5px; } 
+       .myArea .contentBox .orderBox .payMent .orderPayment{padding: 15px; box-shadow: 0 0 5px #ccc; border-radius: 20px; margin-bottom: 30px;}
       
 </style>
 
@@ -92,8 +90,8 @@
             <div class="userBox"> <!--위-->
                 <img src="/./images/Sample_User_Icon.png">
                  <div class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()">{{sessionName}}님 환영합니다</div>
-                
             </div>
+            
             <div class="contentBox"> <!--아래-->
                 <div class="menuBox"> <!--메뉴버튼-->
                     <a class="menu" id="order" href="/myPage.do">주문내역</a>
@@ -102,9 +100,43 @@
                     <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
                 
-                <div class="orderBox" id="orderBox"><!-- 주문내역 요약 -->
-                       
-                </div>                         
+                <div class="orderBox">
+               		<div><h1>주문내역</h1></div>
+               	<div class="orderContent">
+	               	<div id="orderTop">
+	                   <div>2023.05.13 주문</div><div>주문번호 700017960845</div><div>배송완료 </div>
+	               	</div>  
+               
+                <div class="orderCenter">
+                    <img src="/images/product_chillisauce_thumb.jpg">
+                    <div class="orderDetail">
+                        <div>몬 스위트칠리소스, 250ml</div>
+                        <div>3,010원 (100ml당 1,254원)</div>
+                        <div>수량 : 1개</div>
+                        <div>총 결제금액 : 4,250원</div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="orderBottom">
+                    <div class="orderHistory">
+                        <h1>받는 사람 정보</h1>
+                        <div class="orderHistoryList">
+                            <div>받는 사람 : 최현정</div>
+                            <div>연락처 : 010-9579-0917</div>
+                            <div>받는 주소 : 서울특별시 관악구 신림동  569-22 신건텔 304호</div>
+                        </div>
+                    </div>
+
+                    <div class="payMent">
+                        <h1>결제정보</h1>
+                        <div class="orderPayment">
+                            <div>결제 수단</div>
+                            <div>총 결제금액 30,390원</div>
+                        </div>
+                    </div>
+               	</div>
+           		</div>                         
             </div>
 
         </div>

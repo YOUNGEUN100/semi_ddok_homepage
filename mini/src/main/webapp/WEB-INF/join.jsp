@@ -231,30 +231,7 @@
 		app.fnResult(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo);
 	} 
 	
-	//비밀번호 유효성
-	function chkPW(){
-
-	 var pw = $("#password").val();
-	 var num = pw.search(/[0-9]/g);
-	 var eng = pw.search(/[a-z]/ig);
-	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 	
-	 if(pw.length < 8 || pw.length > 20){
-	
-	  	alert("8자리 ~ 20자리 이내로 입력해주세요.");
-	  	return false;
-	 }else if(pw.search(/\s/) != -1){
-	  	alert("비밀번호는 공백 없이 입력해주세요.");
-	  	return false;
-	 }else if(num < 0 || eng < 0 || spe < 0 ){
-	  	alert("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
-	  	return false;
-	 }else {
-		console.log("통과"); 
-	    return true;
-	 }
-	
-	}
 var app = new Vue({ 
     el: '#app',
     data: {
@@ -381,7 +358,7 @@ var app = new Vue({
 		        }
 	        }); 
    	 	
-   	 	},
+   	 	   },
    	 	//닉네임 중복체크
 		   	 fnNickCheck : function(){
 		 		var self = this;
@@ -411,8 +388,8 @@ var app = new Vue({
 	 		var self = this;
 	 		var option = "width = 500, height = 500, top = 100, left = 200, location = no"
 	 		window.open("addr.do", "test", option);
-	 	},
-	 	fnResult : function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+	 	 },
+	 	 fnResult : function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
     		var self = this;
     		self.roadFullAddr = roadFullAddr;
     		// 콘솔 통해 각 변수 값 찍어보고 필요한거 가져다 쓰면 됩니다.
@@ -422,7 +399,7 @@ var app = new Vue({
     		console.log(roadAddrPart1);
     		console.log(addrDetail);
     		console.log(engAddr);
-    	}
+    	 }
     
     	,
     	//핸드폰번호 자동 '-'
@@ -442,12 +419,12 @@ var app = new Vue({
    	            res = phoneNumber;
    	        }
    	        else { 
-               if(phoneNumber.length > 10) { //010-1234-5678
+               if(phoneNumber.length > 10) { 
                   res = phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 4) + '-' + phoneNumber.substr(7)
                }
   	        
    	        }
-    	
+   		}
     	//아이디 유효성
     	
     	
