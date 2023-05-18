@@ -165,12 +165,13 @@ var recipeEdit = new Vue({
 	// 4. 컴포넌트 추가
 	, components: {VueEditor}
 	, methods: {
+		// 레시피 등록
 		fnEnroll : function() {
 			var self = this;
-			if (!enrollFlg){
-				alert("레시피 번호가 중복되었습니다.");
-			}
-			return;
+			if (self.enrollFlg==false){alert("레시피번호 중복 확인을 해주세요.");return;} 
+			console.log($("#file1")[0].files[0]);
+   	     	if (!$("#file1")[0].files[0]) {alert("레시피 사진을 등록해주세요.");return;} 
+   	     	if (!self.info.recipeName) {alert("레시피 이름을 작성해주세요."); return;}
 			
 			var nparmap = self.info;
 			$.ajax({
@@ -183,7 +184,7 @@ var recipeEdit = new Vue({
 					alert("등록되었습니다!");
 					
 					var form = new FormData();
-					form.append( "file1",  $("#file1")[0].files[0] );
+					form.append( "file1",  $("#file1")[0].files[0]);
 					form.append( "recipeNo",  data.recipeNo); // pk
 					self.upload(form); 
 					
@@ -215,7 +216,7 @@ var recipeEdit = new Vue({
        upload : function(){
     	   var self = this;
 	        $.ajax({
-	        	url : "/fileUpload.dox",
+	        	url : "/recipe/fileUpload.dox",
 	        	type : "POST",
 	        	processData : false,
 	        	contentType : false,

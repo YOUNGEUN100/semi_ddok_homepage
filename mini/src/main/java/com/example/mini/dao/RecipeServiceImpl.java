@@ -96,13 +96,17 @@ public class RecipeServiceImpl implements RecipeService{
 		recipeMapper.insertPurposeCode(map);
 		recipeMapper.insertHowtoCode(map);
 		recipeMapper.insertToolCode(map);
+	}
+	// 레시피 이미지 등록
+	@Override
+	public void AddRecipeImg(HashMap<String, Object> map) {
 		recipeMapper.insertRecipeImg(map);
 	}
-
 	@Override
 	public int searchRecipeNoCnt(HashMap<String, Object> map) {
 		return recipeMapper.selectRecipeNoCnt(map);
 	}
+	
 	
 	
 

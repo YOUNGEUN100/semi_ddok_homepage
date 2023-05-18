@@ -64,7 +64,7 @@
                   <li>
                     <label for="board_content" class="enrol_re">내용</label> 
                     <div id="content">
-                   		 <vue-editor  v-model="info.content"></vue-editor>
+                   		 <vue-editor  v-model="info.content"> </vue-editor>
                     </div>
                     
                   </li>

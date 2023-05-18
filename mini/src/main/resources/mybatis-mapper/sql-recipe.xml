@@ -284,16 +284,20 @@
 				CODE)
 			VALUES(#{recipeNo}, #{tcode})
 		</insert>
-		<!-- 레시피 사진 INSERT -->
-		<insert id="insertRecipeImg" parameterType="HashMap">
+		<!-- 레시피 썸네일 사진 INSERT -->
+		<insert id="insertRecipeImg" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="recipe_no">
 			INSERT INTO T4_R_IMAGE(
 				IMG_NO,
 				RECIPE_NO,
+				IMG_ORG_NAME,
+				IMG_NAME,
 				IMG_PATH,
-				THUMBNAIL_YN)
-			VALUES(50, #{recipeNo}, "../images/recipe_5.jpg", "Y")
+				THUMBNAIL_YN,
+				COOK_INDEX)
+			VALUES(NULL, #{recipeNo}, #{orlgName}, , #{saveName}, , #{images}, "Y", 0)
 		</insert>
 	
+		
 		<!-- 중복 레시피 번호 확인 -->
 		<select id="selectRecipeNoCnt" parameterType="HashMap" resultType="int">
 			SELECT COUNT(*) AS CNT
