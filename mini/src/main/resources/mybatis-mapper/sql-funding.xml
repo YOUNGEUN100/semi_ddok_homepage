@@ -113,6 +113,10 @@
         	<if test = "moreBtn2 == 'off'">
 			LIMIT 5
 			</if>
+			
+			<if test = "moreBtn2 == 'on'">
+        	LIMIT #{startNum}, 10
+        	</if>
 		</select>
 		
 		<!-- 페이징 용 카운트 -->
@@ -120,6 +124,13 @@
 			SELECT COUNT(*) AS CNT
             FROM T4_BOARD
             WHERE BOARD_KIND = 'T_LAN';
+		</select>
+		
+		<!-- 페이징 용 카운트 -->
+		<select id="fleaPagingCnt2" parameterType="hashmap" resultType="int">
+			SELECT COUNT(*) AS CNT
+            FROM T4_BOARD
+            WHERE BOARD_KIND = 'D_LAN';
 		</select>
 		
 		

@@ -84,11 +84,9 @@ public class FundingController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		String startNum = (String) map.get("startNum");
-		
 		map.put("startNum", Integer.parseInt(startNum));
 		
 		resultMap = fundingService.searchTradeFleaList(map);
-		
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}	
@@ -98,8 +96,11 @@ public class FundingController {
 	@ResponseBody
 	public String searchFleaList2(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Funding> list = fundingService.searchDonateFleaList(map);
-		resultMap.put("list", list);
+		
+		String startNum = (String) map.get("startNum");
+		map.put("startNum", Integer.parseInt(startNum));
+		
+		resultMap = fundingService.searchDonateFleaList(map);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}

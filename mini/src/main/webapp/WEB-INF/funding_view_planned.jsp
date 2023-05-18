@@ -24,10 +24,12 @@
         }
 
         .box2 {
+        	display : flex;
+        	flex-direction: column;
+    		align-items: center;
             width: 1200px;
             height: 1000px;
             margin-top: 80px;
-            background-color: #ebebeb;
             max-height: 700px;
             overflow: hidden;
         }
@@ -162,10 +164,13 @@
                             <button class="share_button" @click="fnClip"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
                         </div>
                     </div>
-
-                    <div class="box2" id="detail_box" v-for="(item, index) in imgInfo">
-                        <img :src="item.imgPathDetail">
-                    </div>
+					
+					<div class="box2">
+						<div id="detail_box" v-for="(item, index) in imgInfo">
+	                        <img :src="item.imgPathDetail">
+	                    </div>
+					</div>
+                    
 
                     <div id="button_box1">
                         <button onclick="show()" class="show_button">펼쳐보기</button>

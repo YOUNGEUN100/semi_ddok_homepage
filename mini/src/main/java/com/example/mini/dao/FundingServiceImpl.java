@@ -24,9 +24,11 @@ public class FundingServiceImpl implements FundingService {
 	}
 	
 	@Override // 랜선장터 나눔 리스트
-	public List<Funding> searchDonateFleaList(HashMap<String, Object> map) throws Exception {
-		List<Funding> list = fundingMapper.selectDonateFleaList(map);
-		return list;
+	public HashMap<String, Object> searchDonateFleaList(HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("cnt", fundingMapper.fleaPagingCnt2(map));
+		resultMap.put("list",fundingMapper.selectDonateFleaList(map));
+		return resultMap;
 	}
 	
 	@Override // 랜선장터 글보기

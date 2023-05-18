@@ -23,12 +23,13 @@
         }
 
         .box2 {
+            display : flex;
+        	flex-direction: column;
+    		align-items: center;
             width: 1200px;
             height: 1000px;
             margin-top: 80px;
-            background-color: #ebebeb;
             max-height: 700px;
-            overflow: hidden;
         }
 
         .fund_img {

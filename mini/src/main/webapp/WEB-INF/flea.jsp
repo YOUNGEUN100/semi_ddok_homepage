@@ -211,7 +211,7 @@
 	                                </tr>                                 
     	                        </tbody>        	                       
                             </table>
-                             <!-- 페이징 추가 3-->
+                            <!-- 페이징 추가 3-->
 							<template>
 								<paginate id="page"
 											:page-count="pageCount"
@@ -259,17 +259,31 @@
                             	<tbody>
                             		<tr v-for="(item, index) in list2">
                                     	<template v-if="item.boardKind=='D_LAN'">
-                                        	<td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.boardKind2}}</td>                                            
-                                        	<td id="sale_flg" v-else>{{item.boardKind2}}</td>
-                                        	<td id="address">{{item.addr}}</td>
+                                        	<td class="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.boardKind2}}</td>                                            
+                                        	<td class="sale_flg" v-else>{{item.boardKind2}}</td>
+                                        	<td class="address">{{item.addr}}</td>
                                         	<td class="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
-                                        	<td id="id">{{item.nick}}</td>
-                                        	<td id="date">{{item.cdatetime2}}</td>
-                                        	<td id="viewCnt">{{item.hits}}</td>
+                                        	<td class="id">{{item.nick}}</td>
+                                        	<td class="date">{{item.cdatetime2}}</td>
+                                        	<td class="viewCnt">{{item.hits}}</td>
                                     	</template>
                                 	</tr>
                             	</tbody>                                
-                            </table>                            
+                            </table>
+                            <!-- 페이징 추가 3-->
+							<template>
+								<paginate id="page2"
+											:page-count="pageCount2"
+											:page-range="3"
+											:margin-pages="2"
+											:click-handler="fnSearch2"
+											:prev-text="'<'"
+											:next-text="'>'"
+											:container-class="'pagination2'"
+											:page-class="'page-item'" style="display:none;">
+								</paginate>
+							</template>
+							<!-- 3끝 -->                           
                             <div class="writeBtn"><button @click="fnAddFlea">글쓰기</button></div>
                         </div>
 
@@ -310,7 +324,10 @@
             	//<!-- 페이징 추가 5-->
         		selectPage: 1,
         		pageCount: 1,
-        		cnt : 0
+        		cnt : 0,
+        		selectPage2: 1,
+        		pageCount2: 1,
+        		cnt2 : 0,
         		//<!-- 5-->
             }
             , methods: {
@@ -337,14 +354,18 @@
             
             	, fnGetFleaList2: function () {
                     var self = this;
-                    var nparmap = {moreBtn2 : self.moreBtn2, orderValue2 : self.orderValue2};
+                 	// <!-- 페이징 추가 6-->     		
+            		var startNum = ((self.selectPage-1) * 10);
+                    var nparmap = {moreBtn2 : self.moreBtn2, orderValue2 : self.orderValue2, startNum : startNum};
                     $.ajax({
                         url: "/fleamarket/list2.dox",
                         dataType: "json",
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
-                            self.list2 = data.list;                            
+                            self.list2 = data.list;
+                            self.cnt2 = data.cnt;
+                            self.pageCount2 = Math.ceil(self.cnt2 / 10);  
                             console.log(data.list);
                         }
                     });
@@ -370,6 +391,27 @@
         			});
         		}
         		<!--  7-->
+        		
+        		<!-- 페이징 추가 7-->
+        		, fnSearch2 : function(pageNum){
+        			var self = this;
+        			self.selectPage2 = pageNum;
+        			var startNum = ((pageNum-1) * 10);
+        			var nparmap = {moreBtn2 : self.moreBtn2, orderValue2 : self.orderValue2, startNum : startNum};
+        			$.ajax({
+        				url : "/fleamarket/list2.dox",
+        				dataType : "json",
+        				type : "POST",
+        				data : nparmap,
+        				success : function(data) {
+        					self.list2 = data.list;
+        					self.cnt2 = data.cnt;
+        					self.pageCount2 = Math.ceil(self.cnt2 / 10);
+        				}
+        			});
+        		}
+        		<!--  7-->
+        		
             	// 거래글 더보기 버튼
             	, fnShowMore: function() {
             	    var self = this;
@@ -390,10 +432,12 @@
             	, fnShowMore2: function() {
             		var self = this;
                     if (self.moreBtn2 == "off") {
+                    	document.getElementById('page2').style.display = 'flex';  
                     	self.moreBtn2 = "on";
                     	self.fnGetFleaList2();
                     	moreBtn2.innerHTML = "접기";
                     } else if (self.moreBtn2 == "on") {
+                    	document.getElementById('page2').style.display = 'flex';  
                     	self.moreBtn2 = "off";
                         self.fnGetFleaList2();
                         moreBtn2.innerHTML = "더보기";
@@ -408,13 +452,23 @@
                     	liList.eq(i).removeClass("active");
                     }
                     liList.eq(1).addClass("active");
-                    //$(".pagination li").first().css("active");
+                    self.selectPage = 1,
+            		self.pageCount = 1,
+            		self.cnt = 0,
                     self.fnGetFleaList();
                 }
             	
             	// 나눔글 카테고리 변경
             	, fnChangeOrder2: function () {
-                    var self = this;                    
+                    var self = this;
+                    var liList = $(".pagination2").children();
+                    for(var i=0; i<liList.length; i++){
+                    	liList.eq(i).removeClass("active");
+                    }
+                    liList.eq(1).addClass("active");
+                    self.selectPage2 = 1,
+            		self.pageCount2 = 1,
+            		self.cnt2 = 0,
                     self.fnGetFleaList2();
                 }
             	

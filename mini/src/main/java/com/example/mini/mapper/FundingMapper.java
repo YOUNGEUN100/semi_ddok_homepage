@@ -18,6 +18,9 @@ public interface FundingMapper {
 	// 랜선장터 페이징용 카운트
 	int fleaPagingCnt(HashMap<String, Object> map);
 	
+	// 랜선장터 페이징용 카운트
+	int fleaPagingCnt2(HashMap<String, Object> map);
+	
 	// 랜선장터 글보기
 	Funding selectFleaInfo(HashMap<String, Object> map);
 	

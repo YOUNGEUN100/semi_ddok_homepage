@@ -219,7 +219,7 @@
 								self.upload2(form);
 							}                            
         	       	     	
-                           	//location.href = "/funding.do";
+                           	location.href = "/funding.do";
                             
                         }
                     });

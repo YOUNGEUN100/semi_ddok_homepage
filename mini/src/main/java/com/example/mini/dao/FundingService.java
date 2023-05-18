@@ -11,7 +11,7 @@ public interface FundingService {
 	HashMap<String, Object> searchTradeFleaList(HashMap<String, Object> map) throws Exception;
 	
 	// 랜선마켓 나눔 리스트
-	List<Funding> searchDonateFleaList(HashMap<String, Object> map) throws Exception;
+	HashMap<String, Object> searchDonateFleaList(HashMap<String, Object> map) throws Exception;
 	
 	// 랜선장터 글보기
 	HashMap<String, Object> searchFleaInfo(HashMap<String, Object> map);

@@ -215,8 +215,8 @@
                                 	<span class="hits"><i class="fa-solid fa-eye fa-lg"></i> {{info.hits}}</span>
                             	</div>		                            
                             </div>
-                            <div v-for="(item, index) in imgList">
-                            	<pre class="content_box" v-html="info.content"><img :src="item.filePath"></pre>    
+                            <div>
+                            	<pre class="content_box" v-html="info.content"></pre>    
                             </div>
                                      
                         </div>
