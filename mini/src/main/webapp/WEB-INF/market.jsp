@@ -175,7 +175,7 @@
         #wrapper{
             width: 1200px;
             height: 1500px;
-            border: 1px solid #ccc;
+            /*border: 1px solid #ccc;*/
            /* background-image: url(/images/smart_market.jpg);*/
             
             background-position: center;
@@ -199,6 +199,8 @@
             width: 210px;
             height: 220px;
         }
+        
+        
         /*정렬*/
         #box1{
             margin-top: 50px;
@@ -232,6 +234,11 @@
             background-color: #f1eee8;
             width: 210px;
             height: 100px;
+            text-overflow:ellipsis;
+        }
+        .recommendtitle{
+        	font-size:1.125em; text-align:left; word-break:keep-all; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; 
+        	-webkit-line-clamp:2; -webkit-box-orient:vertical;
         }
         .gap1{
             border: 1px;
@@ -244,7 +251,7 @@
             margin-top: 80px;
             font-size: 23px;
             font-weight: bold;
-            background-color: #777;
+            /*background-color: #777;*/
         }
         .product_list{
             display: flex;
@@ -254,14 +261,14 @@
             margin-top: 50px;
             font-size: 23px;
             font-weight: bold;
-            background-color: #777;
+            /*background-color: #777;*/
             width: 80%;
         }
         .product_vege_cnt{
             width: 10%;
             
             padding-right: 5px;
-            background-color: #ccc;
+            /*background-color: #ccc;*/
             position: absolute; /*브라우저를 기준으로 고정*/
             right: 2px;
             bottom: 1px;
@@ -284,6 +291,9 @@
 		 <!-- wrap START -->
          <div id="wrapper" >
             <div id="app">
+				<div class="add_box">
+                    <button class="add_btn" v-if="sessionStatus == 'A'" @click="fnAddproduct">등록</button>
+                </div>            
                 <div class="smart_market" id="box1">
                     <div v-for="(item, index) in codeList"><a href="javascript:;" id="veg"><img :src="item.img" class="circle" @click="fnGetList2(item)"></a></div>
                 </div>
@@ -295,9 +305,9 @@
                     <div v-for="(item2, index) in list2">
                     	<a href="javascript:;" @click="fnView(item2.productNo)">
 	                        <img :src="item2.imgPath" class="box">
-	                        <div class="gap2 box4">
+	                        <div class="box4">
 	                            <p>현재 {{item2.productStock}}개 남았어요!</p>
-	                            <p>{{item2.productName}}</p>
+	                            <h4 class="recommendtitle" >{{item2.productName}}</h4>
 	                            <p>{{item2.productPrice | numberFormat()}}원 (100{{item2.productVolume}}당 {{item2.productPrice*100 / item2.productWeight*item2.productEa | numberFormat()}}원)</p>
 	                            <p><img class="star" src="images/star.png"> {{(item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)/3 |  numberFormat(1)}} </p>
 	                        </div>
@@ -318,9 +328,9 @@
                     <div v-for="(item, index) in list">
                         <a href="javascript:;" @click="fnView(item.productNo)">
                             <img :src="item.imgPath" class="box">
-                            <div class="gap2 box4">
+                            <div class="box4">
                                 <p>현재 {{item.productStock}}개 남았어요!</p>
-                                <p>{{item.productName}}</p>
+                                <h4 class="recommendtitle" >{{item.productName}}</h4>
                                 <p>{{item.productPrice | numberFormat()}}원 (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</p>
                                 <p><img class="star" src="images/star.png"> {{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}} </p>
                             </div>
@@ -349,7 +359,8 @@
 		codeList : ${map.codeList},
 		cnt : "",
 		pkind : "전체",
-		product_kind : ""
+		product_kind : "",
+		sessionStatus : "${sessionStatus}"
 		
     }
 	, filters: {
@@ -437,6 +448,10 @@
     		document.body.appendChild(form);
     		form.submit();
     		document.body.removeChild(form);
+    	}
+	 	// 상품 등록
+      	, fnAddproduct : function(){
+    		location.href = "/market/edit.do";
     	}
     }   
     , created: function () {

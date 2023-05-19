@@ -1,470 +1,301 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <script src="js/jquery.js"></script>
-    <script src="js/vue.js"></script>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>�ȶ� : "�޴����� �Է��� �ּ���."</title>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+    <jsp:include page="/layout/head.jsp"></jsp:include>
+    <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>    
+
     <style>
         /* style START */
-    /* setting * don't touch */
-        @font-face {
-            font-family: 'Pretendard-Regular';
-            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-            font-weight: 400;
-            font-style: normal;
-        }
-        * {margin:0; padding:0; box-sizing:border-box;}
-        html, body {font-family:'Pretendard-Regular'; font-size:15px; line-height:1.5;}
-        a {color:inherit; text-decoration:none;}
-        input {outline:0; border-radius:0; border-width:1px; padding:5px;}
-        select {outline:0; border-radius:0; border-width:1px; padding:4px;}
-        img {width:100%; max-width:100%; display:inline-block;}
-        ol, ul ,li {list-style:none;}
-        
-        #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-        #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:70px;}
-        #footer {margin-top:150px;}
-        #wrapper {max-width:1200px; min-height:calc(100vh - 500px); margin:0 auto;}
+        /* * {
+    border: 1px dotted rgb(223, 60, 141);
+} */
 
-
-
-        #wrapper{
-            
+        .container {
             width: 1200px;
-            height: 2600px;
-            border: 1px solid #ccc;
-            /*background-image: url(./images/smart_market_view.jpg);*/
-            background-position: center;
-            opacity: 1;
-            
+            position: relative;
+            margin: auto;
+
         }
 
-        .smart_img{
-            margin-top: 65px;
-            width: 500px;
-            height: 524px;
-            float: left;
-        }
-        #smart_img{
-            width: 500px;
-            height: 524px;
-        }
-        .smart_txt{
-            float: left;
-            margin-top: 42px;
-            width: 695px;
-            height: 524px;
+        h1 {
+            text-align: center;
         }
 
-        .smart_empth1{
-            height: 70px;
+        .input_form {
+            border: 1px solid #999999 ;
+            border-radius: 10px;
+            width: 1100px;
+            margin: 50px auto;
+            padding: 26px;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0px 0px 20px 5px #e7e6e6;
         }
 
-        .smart_title{
-            height: 150px;  
-            margin-left: 73px;
-            background-color: rgb(245, 240, 240);
+        .input_form div {
+            margin-top: 16px;
         }
-        .font_title{
-            font-size: 35px;
-            font-weight: bold;
+
+        .input_box {
+            border: 1px solid #999999;
+            border-radius: 10px;
+            padding: 16px;
         }
-        .star{
-            width: 20px;
-        }
-        .star_position{
-            margin-top: 10px;
-        }
-        .font_grade{
+
+        .input_box span {
+            display: inline-block;
+            width: 15%;
             font-size: 18px;
         }
-        .font_script{
+
+        .input_box input {
+            border: 1px solid #999999;
+            border-radius: 10px;
+            height: 40px;
+        }
+
+        .title,
+        .summary {
+            width: 50%;
+        }
+
+        .file_box {
+            border: 1px solid #999999;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .content_box,
+        .file_box p {
             font-size: 18px;
-            margin-top: 25px;            
-        }
-        .smart_empth2{
-            height: 55px;
-        }
-        .smart_price{
-            height: 35px;
-            margin-left: 73px;
-            background-color: #eee;
-        }
-        .font_price1{
-            font-weight: bold;
-            font-size: 20px;
-        }
-        .font_price2{
-            font-weight: bold;
-            font-size: 25px;
-            color: rgb(117, 158, 57);
         }
 
-        .font_price3{
-            font-weight: bold;
-            font-size: 20px;
-            
-        }
-        .smart_empth3{
-            height: 27px;
-        }
-        .smart_cnt{
-            height: 40px;
-            margin-left: 73px;
-            margin-top: 5px;
-            background-color: #eee;
-        }
-        .font_cnt{
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .input_cnt{            
-            padding-left: 130px;
-            font-size: 30px;                        
-        }
-        .font_cnt2{
-            font-size: 20px;
-            padding-left: 20px;
-        }
-        
-        .smart_empth4{
-            height: 70px;            
-        }
-        .smart_button{
-            height: 70px;
-            margin-left: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: aliceblue;
-        }
-        .btn_buy{
-            
-            margin-top: 10px;
-            width: 280px;
-            height: 60px;
-            background-color: green;
-            color: white;
-            font-size: 23px;
-            font-weight: bold;
-            border-radius: 15px;
-        }
-
-        .btn_cart{
-            margin-left: 20px;
-            margin-top: 10px;
-            width: 280px;
-            height: 60px;
-            background-color: gray;
-            color: white;
-            font-size: 23px;
-            font-weight: bold;
-            border-radius: 15px;
-            
-        }
-        .share{
-            width: 40px;
-            height: 40px;
-            margin-left: 20px;
-            vertical-align:auto;
-            
-            
-        }
-
-        .product_review_title{
-            margin-top: 80px;
-            height: 62px;
+        .content {
             width: 100%;
-            float: left;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-         
-        }
-
-        .product_review_title .btn_product_script{
-            font-size: 20px;
-            font-weight: bold;
-            background-color: #ccc;
-            width: 100px;
-            
-        }
-        .product_review_title .btn_review_script{
-            font-size: 20px;
-            font-weight: bold;
-            background-color: #ccc;
-            width: 100px;
-        }
-
-        .product_script{
-            
-            margin-top: 28px;
-            height: 900px;
-            width: 100%;
-            float: left;
-        }
-        
-        .btn_all_view{
-            margin-top: 10px;
-            float: left;
-            width: 100%;
-            height: 70px;
-        }
-        #btn_all_view{
-            width:100%;
-            height: 70px;
+            border: 1px solid #999999;
             border-radius: 10px;
-            font-size: 30px;
+            padding : 16px;
+        }
+
+        .btn_box button {
+            border: none;
+            width: 100px;
+            height: 40px;
+            margin-left: 16px;
+            border-radius: 15px;
+            background-color: #999999;
             color: white;
-            background-color: #777;
-        }
-        .product_script_detail{
-            float: left;
-            display: none;
-        }
-
-        #btn_all_hidden{
-            width:100%;
-            height: 70px;
-            border-radius: 10px;
-            font-size: 30px;
-            color: white;
-            background-color: #777;
-            display: none;
-        }
-        .smart_empth5{
-            height: 50px;
-            width: 100%;            
-            float: left;
-        }
-
-        table, td, th {
-          
-          border-collapse: collapse;
-          background: #eee;
-        }
-        td, th {
-          padding:10px 20px;
-        }
-        td{
-          width:1200px;
-        }
-        tr{
-            height: 130px;
-        }
-
-        .table1{
-            padding-top: 20px;
-            
-        }
-        
-        .img_rec{        	
-	        position: absolute;
-	        clip: rect( 0px, 780px, 900px, 0px );
+            font-size: 20px;
+            font-weight: bold;
         }
 
         /* style END */
-    </style>    
-</head>
-<body>
-    <header id="header">&lt;header&gt;</header>
-    <div id="subVisual">&lt;subVisual&gt;</div>
-    <!-- wrap START -->
-    <div id="wrapper" >
+    </style>
 
+
+    <!-- pageContent -- START -->
+    <div id="pageContent">
         <div id="app">
+            <div class="wrapper">
+                <div class="container">
+                    <div class="input_form">
+                        <div class="input_box">
+                            <div class="title_box">
+                                <span>상품종류</span>
+                                <select class="sel" name="productKind" id="productKind" v-model="info.productKind">
+                                	<option value="" selected="selected">:::상품종류선택:::</option>
+								    <option v-for="(info, index) in codeList" :value="info.code">{{info.name}}</option>								    
+								</select>
+                            </div>
+                            <div class="title_box">
+                                <span>상품명</span> <input class="title" type="text" v-model="info.productName"> ex) 국내산 로메인 (텍스트)
+                            </div>
+                            <div class="weight_box">
+                                <span>상품 무게</span> <input class="title" type="number" v-model="info.productWeight"> ex) 2000 (숫자)
+                            </div>
+                            <div class="ea_box">
+                                <span>상품 개수</span> <input class="title" type="number" v-model="info.productEa"> ex) 5 (숫자)
+                            </div>
+                            <div class="volume_box">
+                                <span>상품 용량</span> 
+                                <select class="sel" name="productVolume" id="productVolume" v-model="info.productVolume">
+                                	<option value="" selected>:::용량선택:::</option>								    								    
+                                	<option value="g" >그램(g)</option>
+                                	<option value="ml" >밀리리터(ml)</option>
+								</select>                                 
+                            </div>
+                            <div class="product_title_box">
+                                <span>상품명 타이틀설명</span> <input class="title" type="text" v-model="info.title">
+                            </div>
+                            <div class="price_box">
+                                <span>상품 가격</span> <input class="title" type="number" min="0" v-model="info.productPrice"> ex) 3000 (숫자 : 컴마없이 숫자만)
+                            </div>
+                            <div class="stock_box">
+                                <span>상품 재고수량</span> <input class="title" type="number" min="0" v-model="info.productStock"> ex) 5 (숫자)
+                            </div>
+                            <div class="open_date_box">
+                                <span>할인여부</span>
+                                <select class="sel" name="discountYN" id="discountYN" v-model="info.discountYN">
+                                	<option value="" selected>:::선택:::</option>								    								    
+                                	<option value="Y" >예</option>
+                                	<option value="N" >아니요</option>
+								</select>
+                                
+                            </div>
+                            <div class="price_box">
+                                <span>상품 상세내용</span> 
+                                <vue-editor v-model="info.content"></vue-editor>
+                            </div>
 
-        <div class="smart_img"><img id="smart_img" src="images/food1.jpg"></div>
-        <div class="smart_txt">
-            <div class="smart_empth1"></div>
-            <div class="smart_title">
-                <span class="font_title">{{info.productName}}</span>
-                <div class="star_position">
-                    <img class="star" src="images/star.png">
-                    <span class="font_grade">{{(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)/3 |  numberFormat(1)}}</span>
+                        </div>
+
+                        <div class="file_box">
+
+                            <div class="thumb_box">
+                            	<p>썸네일 이미지</p>
+                                <input type="file" id="file1" name="file1">
+                                <p>상세 이미지</p>
+                                <input type="file" id="file2" name="file2" multiple>                                 
+                            </div>
+                            
+
+                        </div>
+
+                        <div class="btn_box">
+                            <button @click="fnaddProduct">등록</button>
+                            <button @click="upload">파일등록</button>
+                            <button>수정</button>
+                        </div>
+
+
+
+                    </div>
+
                 </div>
-                <div class="font_script">{{info.title}}</div>
-            </div>
-            <div class="smart_empth2"></div>
-            <div class="smart_price">
-                <span class="font_price1">�ǸŰ�</span>
-                <span class="font_price2">{{info.productPrice | numberFormat()}}�� </span>
-                <span class="font_price3">(100{{info.productVolume}}�� {{info.productPrice*100 / info.productWeight*info.productEa | numberFormat()}}��)</span>
-            </div>   
-            <div class="smart_empth3"></div>
-            <div class="smart_cnt">
-                <span class="font_cnt">���� </span><input class="input_cnt" type="number" min="1" max="3">
-                <span class="font_cnt2"> ���� {{info.productStock}}�����Ҿ��!</span>
-            </div>
-            <div class="smart_empth4"></div>
-            <div class="smart_button">
-                <button class="btn_buy">�����ϱ�</button>
-                <button class="btn_cart">��ٱ��ϴ��</button>
-                <a href="javascript:clip2();"><img class="share" src="images/share.png" ></a>
-            </div>
-        </div>
-        
-        <div class="product_review_title">
-            <div class="btn_product_script"><a id="product_discript_move" href="#product_discript">��ǰ����</a></div>
-            <div class="btn_review_script">�ı�<a name="product_review"></a></div>
-        </div>
-        <!--  div class="product_script"><img src="images/1_VER.jpg" class="img_rec" style="width:780px;"></div-->
-        <div class="product_script" v-for="(item, index) in imglist">
-        	<img  :src="item.imgPath" class="img_rec" style="width:780px;">
-        	{{item.imgPath}}
-        </div>
-        
-        <div class="btn_all_view"><button id="btn_all_view">���ĺ���</button></div>
-        <div class="product_script_detail" id="product_script_detail">
-            <pre>
-            
-            </pre>
-        </div>
-        <div class="btn_all_hidden"><button id="btn_all_hidden">�����</button></div>
 
-
-        <div class="product_review_title" >
-            <div class="btn_product_script"><a name="product_discript">��ǰ����</a></div>
-            <div class="btn_review_script"><a href="#product_review">�ı�</a></div>
-        </div>
-        <div class="smart_empth5"></div>
-        <div class="table1">
-            <table> 
-                <tr v-for="(item, index) in list" >
-                    <td>{{item.date}}</td>
-                    <td>{{item.product}}</td>
-                    <td>{{item.star}}</td>
-                    <td>{{item.user}}</td>                    
-                </tr>
-            </table>
+            </div>
         </div>
     </div>
-        
-        
-        
-    </div>
-    <!-- wrap END -->
-    <footer id="footer">&lt;footer&gt;</footer>
-</body>
-</html>
-<style>
-    /* setting * don't touch */
-    @font-face {
-        font-family: 'Pretendard-Regular';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    }
-    * {margin:0; padding:0; box-sizing:border-box;}
-    html, body {font-family:'Pretendard-Regular'; font-size:15px; line-height:1.5;}
-    #header, #footer, #subVisual {width:100%; height:100px; background:#eee; display:flex; justify-content:center; align-items:center;}
-    #subVisual {height:300px; border-top:1px dotted #777; margin-bottom:70px;}
-    #footer {margin-top:150px;}
-    #wrapper_smart {max-width:1200px; min-height:calc(100vh - 500px); margin:0 auto;}
-</style>
+    <!-- pageContent -- END -->
 
-<script>
+    <jsp:include page="/layout/tail.jsp"></jsp:include>
 
-var app = new Vue({ 
-    el: '#app',
-    data: {
-       list : [] 
-	   , info : {}
-	   , imglist : {}
-       , productNo : "${map.productNo}"
-       , productName : ""
-       	
-    },
-	filters: {
-	    numberFormat: (value, numFix) => {
-	        value = parseFloat(value);
-	        if (!value) return '0';
-	        return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-	    },
-	}   
-    , methods: {
+    <script type="text/javascript">     
+    	console.log(Vue);
+    	Vue.use(Vue2Editor);
+    	const VueEditor = Vue2Editor.VueEditor;
     	
-    	fnGetList : function(){
-    		var self = this;
-    		var nparmap = {productNo : self.productNo};
-    		
-    		
-    		//��ǰ����
-    		$.ajax({
-                url:"/smartmarket-view.dox",
-                dataType:"json",
-                type : "POST",
-                data : nparmap,
-                success : function(data) {
-                	console.log(data.imgList.list);
-                	self.info = data.info;
-                	self.imglist = data.imgList.list;
+        var app = new Vue({
+            el: '#app',
+            data: {
+                info: {
+                		productNo: "",
+                		productName: "",
+                		productKind: "",
+                		productWeight: "",
+                		productEa: "",
+                		productVolume: "",
+                		title:"",
+                		content:"",
+                		productPrice:"",
+                		productStock:"",
+                		productCnt:"",
+                		discountYN:"",
+                		deleteYN:""
                 	
+                },                
+                sessionId: "${sessionId}",
+                codeList : ${map.codeList}        		
+        	}
+            , components: {VueEditor}
+            , methods: {
+            	fnGetList : function(){
+            		var self = this;
+            		var nparmap = {product_kind : self.product_kind};
+            		
+            		
+            		//상품리스트
+            		$.ajax({
+                        url:"/smartmarket-list.dox",
+                        dataType:"json",
+                        type : "POST",
+                        data : nparmap,
+                        success : function(data) {
+                        	console.log(data.list);
+                        	self.cnt = data.list.length;
+                        	self.list = data.list;
+                        }
+                    });
+
+            	}
+	           	 //상품등록
+	            ,fnaddProduct : function(info){
+	    	    	var self = this;
+	    	        var nparmap = self.info;
+	    	        //console.log("test===",nparmap);
+	    	        $.ajax({
+                        url:"/addProduct.dox",
+                        dataType:"json",
+                        type : "POST",
+                        data : nparmap,
+                        success : function(data) {
+                        	console.log("=============2222결과 : ",data.productNo);
+                        	//self.list = data.list;
+                        	
+
+                        	// 썸네일 이미지
+                            var form = new FormData();
+                            form.append( "file1",  $("#file1")[0].files[0] );								
+							form.append( "productNo",  data.productNo);// pk							
+							self.upload(form);
+                            
+							// 상세 이미지
+                            for(var i = 0; i<$("#file2")[0].files.length; i++) {
+								//append는 이어붙이는 명령어라 첫번째 파일을 보내고 다시 폼을 만들어 두번째 파일을 보내줘야함
+								var form = new FormData(); 
+								form.append( "file2",  $("#file2")[0].files[i] );								
+								form.append( "productNo",  data.productNo);// pk
+								self.upload2(form);
+							}                              	
+                        	
+                        	
+                        	
+                        }
+                    });
+	    		}
+	            , upload : function(form){
+	    			var self = this;
+	         		$.ajax({
+	            	 	url : "/fileUpload_product2.dox"
+	           		, type : "POST"
+	           		, processData : false
+	           		, contentType : false
+	           		, data : form
+	          	 	, success:function(response) { 
+	        	   	
+	          		 }
+	           
+	       			});
+				}
+            
+            	, upload2 : function(form){
+    	    		var self = this;
+    	         	$.ajax({
+    	             	url : "/fileUpload_product3.dox"
+    	           	, type : "POST"
+    	           	, processData : false
+    	           	, contentType : false
+    	           	, data : form
+    	           	, success:function(response) { 
+    	        	   	
+    	          	 }
+    	           
+    	       		});
+    			}
+            }
+                ,
+                created: function () {
+                    var self = this;
+                	self.fnGetList();
                 }
             });
-
-    	}
-    
-	    
-    }   
-    , created: function () {
-    	var self = this;
-    	self.fnGetList();
-    	
-	}
-});
-
-
-
-const clip2 = async () => {
-	navigator.clipboard.writeText(window.location.href);
-	alert("URL �ּҰ� ����Ǿ����ϴ�.");
-}
-
-
-
-    let isOpen = false;
-    
-    let view  = document.querySelector("#btn_all_view");    
-    view.addEventListener("click", function(){
-        if(isOpen ==false){
-            //document.querySelector("#product_script_detail").style.display="block";
-            document.querySelector(".img_rec").style.clip="auto";
-            document.querySelector(".product_script").style.height="3570px";            
-            
-            document.querySelector("#btn_all_hidden").style.display = "block";
-            document.querySelector("#btn_all_view").style.display="none";
-            isOpen = true;
-        }
-    });
-
-    let hidden  = document.querySelector("#btn_all_hidden");
-    hidden.addEventListener("click", function(){
-        if(isOpen ==true){
-            //document.querySelector("#product_script_detail").style.display = "none";
-            document.querySelector(".img_rec").style.clip="rect( 0px, 780px, 900px, 0px )";            
-            document.querySelector(".product_script").style.height="900px";
-            
-            document.querySelector("#btn_all_hidden").style.display = "none";
-            document.querySelector("#btn_all_view").style.display="block";
-            
-            
-            document.querySelector("#product_discript_move").href="#product_discript"
-            
-            isOpen = false; 
-        }
-    });
-
-
-    
-    
-
-
-
-</script>
+    </script>

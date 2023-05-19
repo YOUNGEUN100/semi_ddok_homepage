@@ -34,10 +34,21 @@ public interface SmartMarketService {
 	
 	// 주문번호 생성
 	HashMap<String, Object> searchOrderNo(HashMap<String, Object> map);
-		
+
+	// 상품 등록번호 추출(마지막 번호)
+	HashMap<String, Object> searchProductLastNo(HashMap<String, Object> map);
 	
 	//주문 등록
 	void addOrder(List<HashMap<String, Object>> list);	
+	
+	//상품 등록
+	HashMap<String, Object> addProduct(HashMap<String, Object> map);
+	
+	//상품 이미지 등록
+	void addProductImage(HashMap<String, Object> map);
+	
+	//상품 이미지 등록
+	void addProductImage2(HashMap<String, Object> map);
 	
 	//카트 등록
 	void addCart(HashMap<String, Object> map);

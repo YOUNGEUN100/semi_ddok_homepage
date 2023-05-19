@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.mini.mapper.SmartMarketMapper;
 import com.example.mini.model.Code;
 import com.example.mini.model.OrderNo;
+import com.example.mini.model.Product;
 
 @Service
 public class SmartMarketServiceImpl implements SmartMarketService{
@@ -122,11 +123,9 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		OrderNo orderNo = smartmarketMapper.createOrderNo(null);
 		for(HashMap<String, Object> map : list) {			
 			map.put("orderNo", orderNo.getOrderNo());
-			smartmarketMapper.insertOrder(map);//주문정보 채우기
-			smartmarketMapper.deleteCart(map);//장바구니 비우기
+			smartmarketMapper.insertOrder(map);//주문정보 입력
+			smartmarketMapper.deleteCart(map);//장바구니 삭제
 		}
-		//smartmarketMapper.insertOrder(map);
-		
 	}
 	
 	
@@ -137,6 +136,38 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		HashMap<String, Object> resultmap = new HashMap<String, Object>();
 		resultmap.put("info", smartmarketMapper.createOrderNo(map));
 		return resultmap;
+	}
+
+	
+	//상품 등록 및 이미지 등록
+	@Override
+	public HashMap<String, Object> addProduct(HashMap<String, Object> map) {
+		HashMap<String, Object> resultmap = new HashMap<String, Object>();
+		smartmarketMapper.insertProduct(map);//상품등록
+		//Product ProductNo = smartmarketMapper.selectProductLastNo(null); //상품등록번호 추출(마지막 번호)
+		//resultmap.put("ProductNo", ProductNo.getProductNo());
+		//smartmarketMapper.insertProduct(map);//이미지 등록
+		return resultmap;
+		
+	}
+
+	//상품 등록번호 추출(마지막 번호)
+	@Override
+	public HashMap<String, Object> searchProductLastNo(HashMap<String, Object> map) {
+		HashMap<String, Object> resultmap = new HashMap<String, Object>();
+		resultmap.put("info", smartmarketMapper.selectProductLastNo(map));
+		return resultmap;
+	}
+
+	@Override
+	public void addProductImage(HashMap<String, Object> map) {
+		smartmarketMapper.insertProductImage(map);//상품등록		
+	}
+
+	@Override
+	public void addProductImage2(HashMap<String, Object> map) {
+		smartmarketMapper.insertProductImage2(map);//상품등록
+		
 	}
 
 	
