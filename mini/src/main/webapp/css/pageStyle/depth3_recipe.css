@@ -11,7 +11,7 @@
 /* r-category */
 #pageContent.recipe .r-category {display:flex; flex-flow:row wrap; justify-content:center; margin-bottom:3em;}
 #pageContent.recipe .r-category .category-circle {width:120px; height:120px; border-radius:50%; background:var(--base-colorBasicGray); display:flex; flex-flow:column wrap; align-items:center; justify-content:center; cursor:pointer; font-weight:700; margin:0 0.75em; border:1px solid var(--base-colorBasicGray); transition:all 0.15s ease-in;}
-#pageContent.recipe .r-category .category-circle img {filter:grayscale(1);}
+#pageContent.recipe .r-category .category-circle img {filter:grayscale(1); transition:all 0.2s ease-in;}
 #pageContent.recipe .r-category .category-circle.active {background:var(--base-colorWhite); border-color:var(--main-colorRed); color:var(--main-colorRed); font-weight:800;}
 #pageContent.recipe .r-category .category-circle.active img {filter:grayscale(0);}
 #pageContent.recipe .r-category .category-circle:not(.active):hover {background:var(--base-colorWhite); border-color:var(--base-colorDeepGray);}

@@ -9,11 +9,17 @@
 <div id="pageContent" class="funding">
 	<div class="wrapper">
 		<div id="fundingList" class="fundingListContainer">
-			<div class="fund_category">
-				<button class="category_btn styleBoxRound styleBoxShadow active">진행중</button>
-				<button class="category_btn styleBoxRound styleBoxShadow">오픈예정</button>
-			</div>
-			<div class="fund_box">
+			<section class="fund_category">
+				<button class="category_btn typeOpen styleBoxRound styleBoxShadow active">
+			        <img src="/images/funding_icon01.png" alt="">
+					<p>진행중</p>
+				</button>
+				<button class="category_btn typePlanned styleBoxRound styleBoxShadow">
+			        <img src="/images/funding_icon02.png" alt="">
+					<p>오픈예정</p>
+				</button>
+			</section>
+			<section class="fund_section">
 			    <div class="fund_title">
 			        <h3 id="fund_open_title">현재 진행중인 랜선펀딩</h3>
 			        <select v-model="orderValue" @change="fnChangeOrder">
@@ -26,31 +32,36 @@
 			    <div class="open_list_box">
 			        <ul>
 			            <li>
-			                <div class="open_list typeBoxArea styleBoxRound styleBoxShadow" v-for="(item, index) in list">
-			                    <div class="fund_img"><img :src="item.imgPath" @click="fnViewFunding(item.fundingNo)"></div>
+			                <div class="list_thumb open_list styleBoxRound typeMore styleBoxShadow styleHoverShadow" v-for="(item, index) in list" @click="fnViewFunding(item.fundingNo)">
+			                    <div class="fund_img"><img :src="item.imgPath"></div>
 			                    <div class="fund_content">
 			                        <h4 class="fund_name" @click="fnViewFunding(item.fundingNo)">{{item.fundingName}}</h4>
 			                        <p class="fund_summary">{{item.fundingSummary}}</p>
-			                        <span class="fund_cnt">{{item.fundingGoalCnt}}명 중 {{item.cnt}}명</span>
-			                        <span class="fund_time" v-if="item.dDay > 0">{{item.dDay}}일 남음</span>
-			                        <span class="fund_time" v-else style="color:red;">금일 {{item.endTime}}시 종료</span>
-			                        <p></p>
-			                        <progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
+			                        <div class="prog_box">
+			                        	<div class="fund_cnt">
+			                        		<span class="goal">{{item.fundingGoalCnt}}명</span> 중 <span class="cnt">{{item.cnt}}명</span>
+			                        	</div>
+				                        <template>
+					                        <div class="fund_time" v-if="item.dDay > 0">{{item.dDay}}일 남음</div>
+					                        <div class="fund_time" v-else style="color:red;">금일 {{item.endTime}}시 종료</div>
+				                        </template>
+				                        <progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
+			                        </div>
 			                        <div class="price_box">
-			                            <span>공구가</span>
+			                            <span>펀딩가</span>
 			                            <span class="fund_price">{{item.fundingPrice2}}원</span>
 			                        </div>
 			                    </div>
 			                </div>
 			            </li>
 			            <li class="open_more">
-			                <button id="moreBtn" @click="fnShowMore">더보기</button>
+			                <button id="moreBtn" class="styleHoverShadow" @click="fnShowMore">더보기</button>
 			            </li>
 			        </ul>
 			    </div>
-			</div>
+			</section>
 			
-			<div class="fund_box">
+			<section class="fund_section">
 			    <div class="fund_title">
 			        <h3>오픈 예정 펀딩</h3>
 			        <select v-model="orderValue2" @change="fnChangeOrder2">
@@ -63,15 +74,16 @@
 			    <div class="planned_list_box">
 			        <ul>
 			            <li>
-			                <div class="planned_list typeBoxArea styleBoxRound styleBoxShadow" v-for="(item, index) in list2">
-			                    <div class="fund_img"><img :src="item.imgPath" @click="fnViewFunding2(item.fundingNo)"></div>
+			                <div class="list_thumb planned_list styleBoxRound typeMore styleBoxShadow styleHoverShadow" v-for="(item, index) in list2"  @click="fnViewFunding2(item.fundingNo)">
+			                    <div class="fund_img"><img :src="item.imgPath"></div>
 			                    <div class="fund_content">
 			                        <h4 class="fund_name" @click="fnViewFunding2(item.fundingNo)">{{item.fundingName}}</h4>
 			                        <p class="fund_summary">{{item.fundingSummary}}</p>
-			                        <span class="fund_cnt">최소 {{item.fundingGoalCnt}}명 중 {{item.cnt}}명 </span>
-			                        <span class="fund_time">{{item.sDay}}{{item.dow}}{{item.sTime}}시 오픈예정</span>
-			                        <p></p>
-			                        <progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
+			                        <div class="prog_box">
+				                        <span class="fund_cnt">최소 {{item.fundingGoalCnt}}명 중 {{item.cnt}}명 </span>
+				                        <span class="fund_time">{{item.sDay}}{{item.dow}}{{item.sTime}}시 오픈예정</span>
+			                        	<progress :value="item.cnt" :max="item.fundingGoalCnt" class="fund_progress"></progress>
+			                        </div>
 			                        <div class="price_box">
 			                            <span>펀딩예정가</span>
 			                            <span class="fund_price">{{item.fundingPrice2}}원</span>
@@ -80,11 +92,11 @@
 			                </div>
 			            </li>
 			            <li class="open_more">
-			                <button id="moreBtn2" @click="fnShowMore2">더보기</button>
+			                <button id="moreBtn2" class="styleHoverShadow" @click="fnShowMore2">더보기</button>
 			            </li>
 			        </ul>
 			    </div>
-			</div>
+			</section>
 			
 			<!-- adminCtrlBox -- Don't touch -->
 			<template>

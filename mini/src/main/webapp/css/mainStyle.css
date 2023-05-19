@@ -1,12 +1,5 @@
 @charset "UTF-8";
 
-/*** temp --- START ***/
-section#mainContent .mctArea .mctThumb .imgBox {background:var(--base-colorBasicGray);}
-section#mainContent .mctArea .mctThumb .imgBox::after {content:'imgThumb'; width:100%; height:100%; display:flex; justify-content:center; align-items:center; position:absolute; top:0; left:0;}
-section#mainContent.nth4 .mctArea .mctThumb .imgBox {background:var(--base-colorWhite);}
-section#mainContent.nth4 .mctArea .mctThumb .imgBox img {opacity:0;}
-/*** temp --- END ***/
-
 /*** mainVisual --- START ***/
 #mainVisual {width:100%; max-width:1910px; margin-left:auto; margin-right:auto;}
 #mainVisual .slide {background:var(--base-colorBasicGray);}

@@ -1,0 +1,70 @@
+@charset "UTF-8"; 
+
+/***** (funding) --- START *****/
+
+#pageContent.funding select {width:120px; position:absolute; right:0; top:0; background:url("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99761B495C84AA8716") no-repeat 95% 50%; padding:0.8em 0.5em; border:0; border-radius:0; appearance:none;}
+
+/* fund_category */
+#pageContent.funding .fund_category {display:flex; flex-flow:row wrap; justify-content:center; margin-bottom:3em;}
+#pageContent.funding .fund_category .category_btn {width:120px; height:120px; border-radius:50%; background:var(--base-colorBasicGray); display:flex; flex-flow:column wrap; align-items:center; justify-content:center; cursor:pointer; font-weight:700; margin:0 0.75em; border:1px solid var(--base-colorBasicGray); transition:all 0.15s ease-in;}
+#pageContent.funding .fund_category .category_btn img {filter:grayscale(1); transition:all 0.2s ease-in;}
+#pageContent.funding .fund_category .category_btn.active {background:var(--base-colorWhite); border-color:var(--base-colorDeepGray); font-weight:800;}
+#pageContent.funding .fund_category .category_btn.typeOpen.active {border-color:var(--main-colorGreen); color:var(--main-colorGreen);}
+#pageContent.funding .fund_category .category_btn.typePlanned:hover {background:var(--base-colorWhite); border-color:var(--main-colorRed); color:var(--main-colorRed);}
+#pageContent.funding .fund_category .category_btn.active img {filter:grayscale(0);}
+#pageContent.funding .fund_category .category_btn:hover img {filter:grayscale(0);}
+
+
+/* fund_section */
+#pageContent.funding .fund_section {margin-bottom:6em;}
+#pageContent.funding .fund_section .fund_title {position:relative; padding:0 1.5em 0.5em;}
+#pageContent.funding .fund_section .fund_title #fund_open_title {font-size:1.675em;}
+
+
+/* fund_section > list_thumb */
+#pageContent.funding .fund_section .list_thumb {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:center; margin-bottom:2em; padding:2em 2.5em; cursor:pointer;}
+#pageContent.funding .fund_section .list_thumb .fund_img {width:250px; height:250px; overflow:hidden; border-radius:50%;  border:1px solid var(--base-colorBasicGray);}
+#pageContent.funding .fund_section .list_thumb .fund_img img {width:100%; display:block;}
+#pageContent.funding .fund_section .list_thumb .fund_content {width:calc(100% - 250px); padding-top:1em; padding-left:2.5em;}
+#pageContent.funding .fund_section .list_thumb .fund_content .fund_name {font-size:1.375em; text-align:left; word-break:keep-all; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical;}
+#pageContent.funding .fund_section .list_thumb .fund_content .fund_summary {color:var(--base-colorCharcoal); margin:0.75em 0 1.5em;}
+#pageContent.funding .fund_section .list_thumb .fund_content .prog_box {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:center; margin-bottom:1.5em;}
+#pageContent.funding .fund_section .list_thumb .fund_content .prog_box .fund_cnt {font-wieght:400; line-height:1; margin-bottom:0.5em;}
+#pageContent.funding .fund_section .list_thumb .fund_content .prog_box .fund_cnt .goal {font-weight:500;}
+#pageContent.funding .fund_section .list_thumb .fund_content .prog_box .fund_cnt .cnt {font-weight:800; color:var(--main-colorGreen);}
+#pageContent.funding .fund_section .list_thumb .fund_content .prog_box .fund_time {}
+#pageContent.funding .fund_section .list_thumb .fund_content .prog_box .fund_progress {width:100%;}
+#pageContent.funding .fund_section .list_thumb .fund_content .prog_box progress {height:8px; border-radius:4px; overflow:hidden; -webkit-appearance:none;}
+#pageContent.funding .fund_section .list_thumb .fund_content .prog_box progress::-webkit-progress-bar {background:var(--base-colorDeepGray);}
+#pageContent.funding .fund_section .list_thumb .fund_content .prog_box progress::-webkit-progress-value {background:var(--main-colorGreen);}
+#pageContent.funding .fund_section .list_thumb.planned_list .fund_content .prog_box progress::-webkit-progress-value {background:var(--main-colorRed);}
+#pageContent.funding .fund_section .list_thumb .fund_content .price_box {font-weight:800; font-size:1.125em; line-height:1;}
+#pageContent.funding .fund_section .list_thumb .fund_content .price_box .fund_price {color:var(--main-colorGreen); font-weight:700; font-size:1.5em; padding-left:4px;}
+#pageContent.funding .fund_section .list_thumb.planned_list .fund_content .price_box .fund_price {color:var(--main-colorRed);}
+
+
+/* fund_section > open_more */
+#pageContent.funding .fund_section .open_more {text-align:center; margin-top:3em;}
+#pageContent.funding .fund_section .open_more button {border:0; width:200px; height:60px; border-radius:20px; background:var(--base-colorDarkGray); color:var(--base-colorWhite); font-size:1.25em; font-weight:600; cursor:pointer;}
+#pageContent.funding .fund_section .open_more button:hover {background:var(--base-colorCharcoal);}
+
+
+@media screen and (max-width: 1240px) {
+	#pageContent.funding .fund_section .list_thumb .fund_img {width:200px; height:200px;}
+	#pageContent.funding .fund_section .list_thumb .fund_content {width:calc(100% - 200px);}
+}
+@media screen and (max-width: 1024px) {
+	#pageContent.funding .fund_section .list_thumb .fund_img {width:180px; height:180px;}
+	#pageContent.funding .fund_section .list_thumb .fund_content {width:calc(100% - 180px);}
+}
+@media screen and (max-width: 820px) {
+	#pageContent.funding .fund_section .list_thumb .fund_img {width:140px; height:140px;}
+	#pageContent.funding .fund_section .list_thumb .fund_content {width:calc(100% - 140px); margin-top:0;}
+}
+@media screen and (max-width: 450px) {
+	#pageContent.funding .fund_section .list_thumb .fund_img {width:120px; height:120px;}
+	#pageContent.funding .fund_section .list_thumb .fund_content {width:calc(100% - 120px);}
+}
+
+
+/***** (funding) --- END *****/
