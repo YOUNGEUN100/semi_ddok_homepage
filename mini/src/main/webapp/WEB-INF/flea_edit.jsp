@@ -58,6 +58,7 @@
             border: 1px solid #999999;
             border-radius: 10px;
             padding: 16px;
+            height : auto;
         }
 
 
@@ -253,7 +254,7 @@
 							}
 								
                             alert("등록되었습니다.");
-                            //location.href = "/flea.do";
+                            location.href = "/flea.do";
                             
                         }
                     });

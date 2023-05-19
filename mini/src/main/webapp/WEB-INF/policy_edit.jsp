@@ -167,7 +167,7 @@
 	       	     		self.upload(form); 
 	       	     	}
 	       	     	alert("등록되었습니다!");
-	           	 	//location.href="/policy.do";
+	           	 	location.href="/policy.do";
 	            }
 	        }); 
         }
@@ -210,7 +210,7 @@
 	       	     	}
 	       	     	
 		       	    alert("수정되었습니다!");
-	           	 	//location.href="/policy.do"; 
+	           	 	location.href="/policy.do"; 
 	            }
 	        }); 
         }

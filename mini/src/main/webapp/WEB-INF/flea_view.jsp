@@ -61,11 +61,12 @@
         .content_box {
             border: 1px solid #999999;
             border-radius: 10px;
+            min-height: 500px;
             margin-top: 30px;
             padding: 16px;
             font-size: 20px;
             display : flex;
-            justify-content: center;
+            justify-content: flex-start;
     		flex-direction: column;
         }
 

@@ -15,6 +15,7 @@
 	<div id="pageContent">
 		<div class="wrapper">
 		 	<div id="app">
+		 		<button @click="fnAddTip">등록</button>
 		
 		 		<div class="card_list" >
                 	<div class="card" v-for="(item, index) in list">
@@ -94,6 +95,11 @@ var app = new Vue({
     		document.body.appendChild(form);
     		form.submit();
     		document.body.removeChild(form);
+    	}
+    	
+    	, fnAddTip : function() {
+    		var self = this;
+    		location.href = "/livingTip/edit.do";
     	}
     	    
 	}	

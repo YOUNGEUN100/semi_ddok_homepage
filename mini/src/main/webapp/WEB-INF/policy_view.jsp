@@ -134,7 +134,6 @@
            
            <div class="btns">
                <span>
-                   <button @click="fnAddCom()" style="background-color: #E4DBD6;">글쓰기</button>
                    <button @click="fnGoModify()" v-if="info.userId==sessionId || sessionStatus=='A'">수정</button>
                    <button @click="fnRemove()" v-if="info.userId==sessionId || sessionStatus=='A'">삭제</button>
                </span>
