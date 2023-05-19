@@ -160,6 +160,7 @@ public class LivingController {
 	public String modifyPol(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		livingService.modifyPol(map);
+		resultMap.put("boardNo", map.get("id2"));
 		return new Gson().toJson(resultMap);
 	}
 	
@@ -169,7 +170,6 @@ public class LivingController {
 	public String removePol(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		livingService.removePol(map);
-		resultMap.put("boardNo", map.get("id"));
 		return new Gson().toJson(resultMap);
 	}
 	// 댓글 삭제
@@ -230,7 +230,7 @@ public class LivingController {
 	        }catch(Exception e) {
 	            System.out.println(e);
 	        }
-	        return "redirect:../community.do";
+	        return "redirect:../policy.do";
 	    }
 	    
 	    // 현재 시간을 기준으로 파일 이름 생성

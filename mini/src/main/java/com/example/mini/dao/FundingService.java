@@ -79,11 +79,17 @@ public interface FundingService {
 	// 펀딩 수정
 	void modifyFunding(HashMap<String, Object> map);
 	
+	// 펀딩 이미지 리스트
+	List<Funding> searchFundingImg(HashMap<String, Object> map);
+	
 	// 펀딩 썸네일 이미지 등록
 	void addFundingImg(HashMap<String, Object> map);
 	
 	// 펀딩 상세 이미지 등록
 	void addFundingImg2(HashMap<String, Object> map);
+	
+	// 펀딩 이미지 삭제
+	void removeFundingImg(HashMap<String, Object> map);
 	
 	// 랜선펀딩 첨부파일 등록
 	void addFleaFile(HashMap<String, Object> map);

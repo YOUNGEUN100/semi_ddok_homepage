@@ -142,11 +142,8 @@
     	<div class="mctArea typeLeft">
 	        	<h2 class="mctTitle">알쓸정책</h2>
 	        	<button class="moreBtn" @click="fnMorePolicy()">더보기 <i class="fa-solid fa-circle-chevron-down fa-rotate-270"></i></button>
-        	<ul class="mctList">
-        		<li><span class="cateBox">#생활</span><h4 class="title"><a href="javaScript:;" target="_self">1인가구에 '스마트초인종·가정용CCTV' 안심장비 지원</a></h4></li>
-        		<li><span class="cateBox">#생활</span><h4 class="title"><a href="javaScript:;" target="_self">고립·은둔청년 찾아 사회복귀 돕는다! 원스톱 지원</a></h4></li>
-        		<li><span class="cateBox">#문화</span><h4 class="title"><a href="javaScript:;" target="_self">'문화가 흐르는 예술마당' 개막…린, 원슈타인 공연 열린다</a></h4></li>
-        		<li><span class="cateBox">#경제</span><h4 class="title"><a href="javaScript:;" target="_self">글로벌기업·국제기구 84곳에서 '청년인턴 직무캠프' 운영</a></h4></li>
+        	<ul class="mctList" v-for="(item, index) in polList">
+        		<li><span class="cateBox"><span>#</span>{{item.category}}</span><h4 class="title"><a @click="fnViewPol(item.boardNo)" href="javaScript:;" target="_self">{{item.title}}</a></h4></li>
         	</ul>
     	</div>
     	<div class="mctArea typeRight">
@@ -167,7 +164,8 @@ var app = new Vue({
     data: {
     	fundingList : [],
    		recipeList : [],
-		recommendList : []
+		recommendList : [],
+		polList : []
 
     }
 	, filters: {
@@ -276,6 +274,28 @@ var app = new Vue({
 		, fnMorePolicy : function() {
     		location.href = "./policy.do";
 		}
+		
+		// 정책 리스트
+		, fnGetPol : function() {
+    		var self = this;    		
+	      	var nparmap = {};
+	        $.ajax({
+	            url:"/index/policy.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log(data.list);
+					self.polList = data.list;
+	            }
+	        }); 
+   	 	}
+		
+		// 정책 보기
+		, fnViewPol : function(boardNo) {
+			var self = this;
+			self.pageChange("./policy/view.do", {boardNo : boardNo});
+		}
     	
     		
     		
@@ -285,6 +305,7 @@ var app = new Vue({
     	self.fnGetFunding();
     	self.fnGetRecipe();
     	self.fnGetRecommend();
+    	self.fnGetPol();
 	}
 });
 </script>

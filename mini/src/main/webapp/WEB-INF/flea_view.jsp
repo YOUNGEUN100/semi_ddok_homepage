@@ -62,10 +62,11 @@
             border: 1px solid #999999;
             border-radius: 10px;
             margin-top: 30px;
-            height: 700px;
             padding: 16px;
             font-size: 20px;
-            display : flex;     
+            display : flex;
+            justify-content: center;
+    		flex-direction: column;
         }
 
         .content_box button {            
@@ -215,8 +216,12 @@
                                 	<span class="hits"><i class="fa-solid fa-eye fa-lg"></i> {{info.hits}}</span>
                             	</div>		                            
                             </div>
-                            <div>
-                            	<pre class="content_box" v-html="info.content"></pre>    
+                            <div class="content_box" >
+                            	<div v-for="(item, index) in imgList">
+                            		<img :src="item.filePath">
+                            	</div>
+                            	
+                            	<pre v-html="info.content"></pre>    
                             </div>
                                      
                         </div>

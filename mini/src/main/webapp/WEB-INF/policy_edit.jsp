@@ -51,6 +51,17 @@
         <div id="app">
             <h1>글쓰기</h1>
             <fieldset>
+            	<li>
+					<label for="category" class="enrol_re">카테고리</label>
+                            <select id="category" name="category" v-model="info.category">
+                            	<option value="" selected>종류</option>
+                                <option value="생활">생활글</option>
+                                <option value="경제">경제글</option>
+                                <option value="문화">문화글</option>
+                            </select>
+
+                </li>
+            		
                   <li>
                     <label for="board_name" class="enrol_re">제목</label>
                     <input id="boarde_name" name="board_name" type="text" v-model="info.title" required >
@@ -101,7 +112,7 @@
    	    	,title : ""
    	    	,content : ""
    	    	,cdatetime: ""
-   	    	,category : 1
+   	    	,category : ""
     	},
         cnt : 1,
         content : "",
@@ -135,9 +146,6 @@
         ,fnEnroll : function() {
             var self = this;
             // 관리자가 작성한 글이면 공지글로
-            if (self.sessionStatus=='A') {
-            	self.info.category = 2;
-            }
             
             var nparmap = self.info;
 	        $.ajax({
@@ -191,10 +199,9 @@
 	            	var form = new FormData();
 	       	        form.append( "file1",  $("#file1")[0].files[0] );
 	       	     	form.append( "boardNo",  data.boardNo); // pk
-	       	     	if ($("#file1")[0].files[0] ) {
-	       	     		self.upload(form); 
-	       	     	}
-		       	     alert("수정되었습니다!");
+	       	     	self.upload(form); 
+	       	     	
+		       	    alert("수정되었습니다!");
 	           	 	location.href="/policy.do"; 
 	            }
 	        }); 

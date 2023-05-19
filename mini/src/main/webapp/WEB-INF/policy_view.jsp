@@ -204,7 +204,7 @@
 			            });
 			
 			        }
-            	 // 댓글 글 삭제
+            	 //  글 삭제
                 , fnRemove : function() {
                     var self = this;
                     var nparmap = {boardNo : self.boardNo};

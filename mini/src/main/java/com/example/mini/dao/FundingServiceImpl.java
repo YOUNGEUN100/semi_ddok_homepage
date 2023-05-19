@@ -177,6 +177,12 @@ public class FundingServiceImpl implements FundingService {
 		fundingMapper.editFunding(map);		
 	}
 	
+	@Override // 펀딩 이미지 리스트
+	public List<Funding> searchFundingImg(HashMap<String, Object> map) {
+		List<Funding> imgList = fundingMapper.selectFundingImg(map);
+		return imgList;
+	}
+	
 	@Override // 펀딩 썸네일 이미지 등록
 	public void addFundingImg(HashMap<String, Object> map) {
 		fundingMapper.insertFundingImg(map);
@@ -185,6 +191,11 @@ public class FundingServiceImpl implements FundingService {
 	@Override // 펀딩 상세 이미지 등록
 	public void addFundingImg2(HashMap<String, Object> map) {
 		fundingMapper.insertFundingImg2(map);
+	}
+	
+	@Override // 펀딩 이미지 삭제
+	public void removeFundingImg(HashMap<String, Object> map) {
+		fundingMapper.deleteFundingImg(map);
 	}
 
 	@Override// 랜선마켓 첨부파일 등록

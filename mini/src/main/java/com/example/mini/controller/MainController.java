@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.MainService;
 import com.example.mini.dao.UserService;
+import com.example.mini.model.Community;
 import com.example.mini.model.Funding;
 import com.example.mini.model.Recipe;
 import com.google.gson.Gson;
@@ -65,6 +66,15 @@ public class MainController {
 	public String recipeList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<Recipe> list = mainService.searchRandRecipeList(map);
+		resultMap.put("list", list);	
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/index/policy.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchRanPolList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<Community> list = mainService.searchRanPolList(map);
 		resultMap.put("list", list);	
 		return new Gson().toJson(resultMap);
 	}

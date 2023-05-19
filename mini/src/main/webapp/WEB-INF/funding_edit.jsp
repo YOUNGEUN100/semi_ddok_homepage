@@ -15,6 +15,18 @@
             margin: auto;
             padding: 24px;
         }
+        
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px 20px;
+        }
 
         h1 {
             text-align: center;
@@ -35,13 +47,13 @@
             margin-top: 16px;
         }
 
-        .input_box {
+        .input_box, .file_list {
             border: 1px solid #999999;
             border-radius: 10px;
             padding: 16px;
         }
 
-        .input_box span {
+        .input_box span, .file_list span {
             display: inline-block;
             width: 15%;
             font-size: 18px;
@@ -132,6 +144,34 @@
                             </div>
 
                         </div>
+                        
+                        <div class="file_list" v-if="fundingNo != ''">
+                        	<span>첨부파일</span>
+								<table>                            
+									<thead>
+								  		<tr>
+								  			<th>체크</th>
+								  			<th>이미지 번호</th>
+								  			<th>이미지 이름</th>
+								  			<th>이미지 종류</th>
+								  			<th>등록일</th>
+								  		</tr>
+								  	</thead>
+								  
+								  	<tbody>
+								   		<tr v-for="(item, index) in imgList">
+								        	<template>
+								           		<td><input type="checkbox" :value="item.imgNo" v-model="selectedItems"></td>
+								            	<td>{{item.imgNo}}</td>
+								            	<td><a :href="item.imgPath">{{item.imgOrgName}}</a></td>
+								            	<td>{{item.thumbnailYn2}}</td>
+								            	<td>{{item.cdatetime}}</td>
+								          	</template> 
+								    	</tr>                                 
+									</tbody>        	                       
+								</table>
+								<button @click="fndelete">삭제</button>
+                        </div>
 
                         <div class="file_box">
 
@@ -181,9 +221,9 @@
                 		fundingEndDt: "",
                 		fundingPrice: "",
                 		content:""
-                	
                 },
-                imgInfo: [],
+                selectedItems: [],
+                imgList: [],
                 sessionId: "${sessionId}",
                 fundingNo: "${map.fundingNo}"
 
@@ -208,10 +248,10 @@
                         data: nparmap,
                         success: function (data) {
                             self.info = data.info;
-                            self.imgInfo = data.imgInfo;
+                            self.imgList = data.imgList;
                             console.log(data.info);
-                            console.log(data.imgInfo);
-
+                            console.log(data.imgList);
+							
                         }
                     });
                 }
@@ -336,7 +376,7 @@
             	, upload : function(form){
 	    			var self = this;
 	         		$.ajax({
-	            	 	url : "/fileUpload2.dox"
+	            	 	url : "/funding/fileUpload2.dox"
 	           		, type : "POST"
 	           		, processData : false
 	           		, contentType : false
@@ -352,7 +392,7 @@
             	, upload2 : function(form){
     	    		var self = this;
     	         	$.ajax({
-    	             	url : "/fileUpload3.dox"
+    	             	url : "/funding/fileUpload3.dox"
     	           	, type : "POST"
     	           	, processData : false
     	           	, contentType : false
@@ -363,6 +403,28 @@
     	           
     	       		});
     			}
+            	
+            	, fndelete : function () {
+            		var self = this;
+            		if (!confirm("삭제하시겠습니까?")) {
+            			return;
+            		}
+            		
+            		console.log(self.selectedItems);
+            		var nparmap = {
+                            selectedItems : JSON.stringify(self.selectedItems)
+                    };
+                    $.ajax({
+                        url: "/funding/removeimg.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            alert("삭제완료");
+                            self.fnGetFunding();
+                        }
+                    });
+            	}
 				
          		
              	

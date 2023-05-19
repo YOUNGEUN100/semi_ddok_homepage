@@ -107,7 +107,7 @@
              </table>
            </div>
            
-           <button class="comBtn" @click="fnAddCom()">글쓰기</button>
+           <button class="comBtn" @click="fnAddCom()" v-if="sessionStatus == 'A'">글쓰기</button>
            
             <!-- 페이징 추가3 -->
             <div id="page">

@@ -95,11 +95,17 @@ public interface FundingMapper {
 	// 펀딩 수정
 	void editFunding(HashMap<String, Object> map);
 	
+	// 펀딩 이미지 리스트
+	List<Funding> selectFundingImg(HashMap<String, Object> map);
+	
 	// 펀딩 썸네일 이미지 등록
 	void insertFundingImg(HashMap<String, Object> map);
 	
 	// 펀딩 상세 이미지 등록
 	void insertFundingImg2(HashMap<String, Object> map);
+	
+	// 펀딩 이미지 삭제
+	void deleteFundingImg(HashMap<String, Object> map);
 	
 	// 랜선장터 첨부파일 등록
 	void insertFleaFile(HashMap<String, Object> map);

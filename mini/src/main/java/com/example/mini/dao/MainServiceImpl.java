@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.mini.mapper.MainMapper;
+import com.example.mini.model.Community;
 import com.example.mini.model.Funding;
 import com.example.mini.model.Recipe;
 
@@ -26,6 +27,12 @@ public class MainServiceImpl implements MainService{
 	@Override
 	public List<Recipe> searchRandRecipeList(HashMap<String, Object> map) throws Exception {
 		List<Recipe> list = mainMapper.selectRandRecipeList(map);
+		return list;
+	}
+
+	@Override
+	public List<Community> searchRanPolList(HashMap<String, Object> map) throws Exception {
+		List<Community> list = mainMapper.selectRanPolList(map);
 		return list;
 	}
 

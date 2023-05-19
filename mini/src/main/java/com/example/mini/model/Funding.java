@@ -31,6 +31,7 @@ public class Funding {
 	//---랜선마켓 게시판 모델 끝---
 	
 	//---펀딩용 모델 시작---
+	private int[] selectedItems;
 	private int fundingNo;
 	private String fundingName;
 	private String fundingSummary;
@@ -57,6 +58,7 @@ public class Funding {
 	private String imgName;
 	private int imgSize;
 	private String thumbnailYn;
+	private String thumbnailYn2;
 	private int fundingIndex;	
 	
 	//---펀딩용 모델 끝---
@@ -382,6 +384,18 @@ public class Funding {
 	}
 	public void setFileKind(String fileKind) {
 		this.fileKind = fileKind;
+	}
+	public String getThumbnailYn2() {
+		return thumbnailYn2;
+	}
+	public void setThumbnailYn2(String thumbnailYn2) {
+		this.thumbnailYn2 = thumbnailYn2;
+	}
+	public int[] getSelectedItems() {
+		return selectedItems;
+	}
+	public void setSelectedItems(int[] selectedItems) {
+		this.selectedItems = selectedItems;
 	}
 	
 	

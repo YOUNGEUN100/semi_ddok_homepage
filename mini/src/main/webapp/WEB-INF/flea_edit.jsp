@@ -253,7 +253,7 @@
 							}
 								
                             alert("등록되었습니다.");
-                            location.href = "/flea.do";
+                            //location.href = "/flea.do";
                             
                         }
                     });
@@ -262,7 +262,7 @@
             	, upload : function(form){
     	    		var self = this;
     	         	$.ajax({
-    	             	url : "/fileUpload1.dox"
+    	             	url : "/fleamarket/fileUpload1.dox"
     	           	, type : "POST"
     	           	, processData : false
     	           	, contentType : false
