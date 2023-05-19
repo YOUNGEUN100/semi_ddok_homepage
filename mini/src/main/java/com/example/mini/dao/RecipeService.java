@@ -9,6 +9,9 @@ import com.example.mini.model.Recipe;
 public interface RecipeService {
 	
 	// 마이페이지 레시피 저장
+	void removeRecipe(HashMap<String, Object>map);
+
+	// 마이페이지 레시피 저장
 	void AddMypageRecipe(HashMap<String, Object>map);
 	// 마이페이지 중복 레시피 번호 확인
 	int checkRecipeNo(HashMap<String, Object> map);
@@ -37,6 +40,10 @@ public interface RecipeService {
 	
 	// 레시피 썸네일 이미지 등록
 	void AddRecipeImg(HashMap<String, Object>map);
+	// 레시피 과정 이미지 등록
+	void AddCookImg(HashMap<String, Object>map);
+	// 레시피 과정 글 등록
+	void AddCookContent(HashMap<String, Object>map);
 	
 	// 중복 레시피 번호 확인
 	int searchRecipeNoCnt(HashMap<String, Object> map);

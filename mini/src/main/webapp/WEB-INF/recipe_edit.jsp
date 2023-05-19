@@ -108,19 +108,33 @@
             <fieldset class="fieldset-area typeBoxArea styleBoxRound styleBoxShadow">
             	<h3 class="area-title">레시피 순서</h3>
 				<div id="recipe-step">
-					<div class="step-box">
+					<!-- <div class="step-box">
 						<p id="step-num">Step 1</p>
 						<div id="re-img">
-							<label class="recipe-img">레시피 이미지</label>
+							<label class="recipe-img">요리 이미지</label>
 							<form action="" class="filebox">
-								<input type="file" id="fileR" name="fileR">
+								<input type="file" :id="'file' + index" class="file2" name="file2">
 							</form>
 						</div>
 						<div id="re-info">
 							<label class="recipe-info">레시피 단계 설명</label>
-							<textarea id="memo" rows="5"></textarea>
+							<textarea id="memo" rows="5" v-model="cookContent"></textarea>
+						</div>
+					</div> -->
+					<div class="step-box" v-for="n in indexNum">
+						<p id="step-num">Step {{n}}</p>
+						<div id="re-img">
+							<label class="recipe-img">레시피 이미지</label>
+							<form action="" class="filebox">
+								<input type="file" :id="'file' + (n + 1)" name="file2">
+							</form>
+						</div>
+						<div id="re-info">
+							<label class="recipe-info">레시피 단계 설명</label>
+							<textarea id="memo" rows="5" :id="'cookContent' + (n + 1)" v-model="cookContent"></textarea>
 						</div>
 					</div>
+					
 				</div>
 				<button id="add-btn" class="btn" @click="fnAddIndex()">
 					<i class="fa-solid fa-circle-plus"></i>
@@ -131,7 +145,7 @@
 			<!-- btnArea -- Don't touch -->
 			<div class="btnArea">
 				<button class="addBtn" @click="fnEnroll()">등록</button>
-				<button class="cancelBtn" @click="">취소</button>
+				<button class="cancelBtn" onclick="location.href='/recipe.do'">취소</button>
 			</div>
 			<!-- btnArea -- Don't touch -->
         </div>
@@ -153,7 +167,7 @@ var recipeEdit = new Vue({
 	 	info : {
 			recipeNo : "",
 			recipeName : "",
-			hashtag ; "",
+			hashtag : "",
 			pcode : "",
 			hcode : "",
 			tcode : "",
@@ -164,8 +178,9 @@ var recipeEdit = new Vue({
 			imgNo : ""
 		},
 		cnt : 1,
-		content : "",
-		enrollFlg : false
+		cookContent : "",
+		enrollFlg : false,
+		indexNum : 1
 	}
 	// 4. 컴포넌트 추가
 	, components: {VueEditor}
@@ -174,7 +189,7 @@ var recipeEdit = new Vue({
 		fnEnroll : function() {
 			var self = this;
 			if (self.enrollFlg==false){alert("레시피번호 중복 확인을 해주세요.");return;} 
-			console.log($("#file1")[0].files[0]);
+			//console.log($("#file1")[0].files[0]);
    	     	if (!$("#file1")[0].files[0]) {alert("레시피 사진을 등록해주세요.");return;} 
    	     	if (!self.info.recipeName) {alert("레시피 이름을 작성해주세요."); return;}
 			
@@ -185,40 +200,53 @@ var recipeEdit = new Vue({
 				type : "POST", 
 				data : nparmap,
 				success : function(data) {  
-					console.log(data);
-					alert("등록되었습니다!");
 					
 					var form = new FormData();
 					form.append( "file1",  $("#file1")[0].files[0]);
 					form.append( "recipeNo",  data.recipeNo); // pk
 					self.upload(form); 
 					
-					location.href="/recipe.do";
+					for(var i=2; i<self.indexNum+2; i++){
+						var form = new FormData();
+						form.append( "file2",  $("#file" + i)[0].files[0]);
+						form.append( "recipeNo",  data.recipeNo); // pk
+						//form.append("cookIndex", self.cnt);
+						//form.append("cookContent", self.cookContent);
+						//console.log(form);
+						console.log("fnEnroll의 i");
+						console.log(i);
+						self.uploadCook(form, i-1); 
+					}
+					
+					alert("등록되었습니다!");
+					
+					//location.href="/recipe.do";
 				}
 			});
 		},
 		fnAddIndex : function() {
 	       	var self = this;
 	       	self.cnt += 1;
+	       	self.indexNum += 1;
 	       	console.log(self.cnt);
 	       	
-	       	document.getElementById("recipe-step").innerHTML += 
+	       	/* document.getElementById("recipe-step").innerHTML += 
 				` <div class="step-box">
 					<p id="step-num">Step ${cnt}</p>
 					<div id="re-img">
 						<label class="recipe-img">레시피 이미지</label>
 						<form action="" class="filebox">
-							<input type="file" id="fileR" name="fileR">
+							<input type="file" id="'file2'" name="file2">
 						</form>
 					</div>
 					<div id="re-info">
 						<label class="recipe-info">레시피 단계 설명</label>
-						<textarea id="memo" rows="5"></textarea>
+						<textarea id="memo" rows="5" v-model="cookContent"></textarea>
 					</div>
-				</div> `
+				</div> ` */
        },
        // 파일 업로드
-       upload : function(){
+       upload : function(form){
     	   var self = this;
 	        $.ajax({
 	        	url : "/recipe/fileUpload.dox",
@@ -231,6 +259,42 @@ var recipeEdit = new Vue({
 	        	}
 	        });
 	    },
+	 // 요리과정 이미지 업로드
+    	uploadCook : function(form, num){
+    		var self = this;
+         	$.ajax({
+            	url : "/cook/fileUpload.dox",
+	           	type : "POST",
+	           	processData : false,
+	           	contentType : false,
+	           	data : form,
+	           	success:function(response) { 
+	           		console.log("uploadCook의 num");
+	           		console.log(num);
+	           		self.fnCookContent(num);
+          		 }
+       		});
+         	
+		},
+		// 요리과정 글 업로드
+		fnCookContent : function(num) {
+            var self = this;
+            var cookNum = num;
+            console.log("cookNum은");
+            console.log(cookNum);
+            var nparmap = {recipeNo: self.info.recipeNo, cookIndex: cookNum, cookContent: self.cookContent}
+	        $.ajax({
+	            url: "/cook/content.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log("fnCookContent의 num");
+	            	console.log(num);
+	            }
+	        }); 
+        },
+		// 레시피 번호 중복 확인
 	    fnCheck : function(){
 	   	 	var self = this;
 	   	 	var nparmap = {recipeNo : self.info.recipeNo};

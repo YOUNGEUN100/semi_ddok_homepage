@@ -16,6 +16,12 @@ public class RecipeServiceImpl implements RecipeService{
 	@Autowired //Mapper와 연결
 	private RecipeMapper recipeMapper;
 	
+	// 레시피 삭제
+	@Override
+	public void removeRecipe(HashMap<String, Object> map) {
+		recipeMapper.deleteRecipe(map);
+	}
+	
 	// 레시피 등록
 	@Override
 	public void AddMypageRecipe(HashMap<String, Object> map) {
@@ -102,10 +108,21 @@ public class RecipeServiceImpl implements RecipeService{
 	public void AddRecipeImg(HashMap<String, Object> map) {
 		recipeMapper.insertRecipeImg(map);
 	}
+	// 요리과정 이미지 등록
+	@Override
+	public void AddCookImg(HashMap<String, Object> map) {
+		recipeMapper.insertCookImg(map);
+	}
+	// 요리과정 글 등록
+	@Override
+	public void AddCookContent(HashMap<String, Object> map) {
+		recipeMapper.updateCookContent(map);
+	}
 	@Override
 	public int searchRecipeNoCnt(HashMap<String, Object> map) {
 		return recipeMapper.selectRecipeNoCnt(map);
 	}
+	
 	
 	
 	

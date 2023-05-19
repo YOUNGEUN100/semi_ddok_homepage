@@ -101,6 +101,15 @@ public class RecipeController {
 		request.setAttribute("map", map);
 		return "/recipe_view";
 	}
+	// 레시피 글삭제
+	@RequestMapping(value = "/recipe/remove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String recipeRemove(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		recipeService.removeRecipe(map);
+		return new Gson().toJson(resultMap);
+	}
+		
 
 	// 레시피 상세정보
 	@RequestMapping(value = "/recipe/view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -153,7 +162,7 @@ public class RecipeController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		recipeService.addRecipe(map);
 		resultMap.put("result", "success");
-		resultMap.put("recipeNo", map.get("id"));
+		 resultMap.put("recipeNo", map.get("id"));
 		return new Gson().toJson(resultMap);
 	}
 
@@ -190,13 +199,14 @@ public class RecipeController {
 			String path2 = System.getProperty("user.dir");
 			System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
 			if (!multi.isEmpty()) {
-				File file = new File(path2 + "\\src\\main\\webapp\\images", saveName);
+				File file = new File(path2 + "\\src\\main\\webapp\\images", orlgName);
 				multi.transferTo(file);
 
 				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("images", "../images/" + saveName);
+				map.put("images", "../images/" + orlgName);
 				map.put("recipeNo", recipeNo);
 				map.put("orlgName", orlgName);
+				
 				map.put("saveName", saveName);
 				map.put("filePath", filePath);
 				map.put("fileSize", fileSize);
@@ -218,6 +228,66 @@ public class RecipeController {
 		return "redirect:../recipe.do";
 	}
 
+		// 요리 과정 이미지 첨부파일
+		@RequestMapping("/cook/fileUpload.dox")
+		public String cookImgInput(@RequestParam("file2") MultipartFile multi, @RequestParam("recipeNo") int recipeNo,HttpServletRequest request, HttpServletResponse response, Model model) {
+			String url = null;
+			String path = "c:\\images";
+			try {
+
+				// String uploadpath = request.getServletContext().getRealPath(path);
+				String filePath = path;
+				String orlgName = multi.getOriginalFilename();
+				String extName = orlgName.substring(orlgName.lastIndexOf("."), orlgName.length());
+				long fileSize = multi.getSize();
+				String saveName = genSaveFileName(extName);
+
+				System.out.println("filePath : " + filePath);
+				System.out.println("orlgName : " + orlgName);
+				System.out.println("extName : " + extName);
+				System.out.println("size : " + fileSize);
+				System.out.println("saveName : " + saveName);
+				String path2 = System.getProperty("user.dir");
+				System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
+				if (!multi.isEmpty()) {
+					File file = new File(path2 + "\\src\\main\\webapp\\images", orlgName);
+					multi.transferTo(file);
+
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					map.put("images", "../images/" + orlgName);
+					map.put("recipeNo", recipeNo);
+					map.put("orlgName", orlgName);
+					
+					map.put("saveName", saveName);
+					map.put("filePath", filePath);
+					map.put("fileSize", fileSize);
+					map.put("fileKind", extName);
+
+					// insert 쿼리 실행
+					recipeService.AddCookImg(map);
+
+					model.addAttribute("orlgName", multi.getOriginalFilename());
+					model.addAttribute("saveName", saveName);
+					model.addAttribute("images", file.getAbsolutePath());
+					model.addAttribute("fileSize", fileSize);
+
+					//return "filelist";
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			return "redirect:../recipe.do";
+		}
+
+	// 레시피 요리과정 글 등록
+	@RequestMapping(value = "/cook/content.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String cookContentInput(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		recipeService.AddCookContent(map);
+		return new Gson().toJson(resultMap);
+	}	
+		
 	// 현재 시간을 기준으로 파일 이름 생성
 	private String genSaveFileName(String extName) {
 		String fileName = "";

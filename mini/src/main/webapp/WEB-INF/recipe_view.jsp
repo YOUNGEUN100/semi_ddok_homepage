@@ -5,6 +5,8 @@
 
 <link rel="stylesheet" href="/css/pageStyle/depth3_recipe.css">
 
+<style></style>
+
 <!-- pageContent -- START -->
 <div id="pageContent" class="recipe typeView">
 	<div class="wrapper">
@@ -80,7 +82,7 @@
 						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
 						<div class="btnSet">
 							<button class="modBtn" @click="">수정</button>
-							<button class="delBtn" @click="">삭제</button>
+							<button class="delBtn" @click="fnRemoveRecipe()">삭제</button>
 						</div>
 					</div>
 				</div>
@@ -178,6 +180,22 @@
 				window.print();
 				$('body').css('display','block');
 				printDiv.css('display','none');
+			}
+			// 레시피 삭제
+			, fnRemoveRecipe : function() {
+				 var self = this;
+        		 if (!confirm("레시피를 삭제하시겠습니까?")) return;
+                 var nparmap = {recipeNo : self.recipeNo};
+     	        $.ajax({
+     	            url:"/recipe/remove.dox",
+     	            dataType:"json",	
+     	            type : "POST", 
+     	            data : nparmap,
+     	            success : function(data) { 
+     	            	alert("레시피가 삭제되었습니다.");
+     	            	location.href="/recipe.do";
+     	            }
+     	        }); 
 			}
 	    
 	        

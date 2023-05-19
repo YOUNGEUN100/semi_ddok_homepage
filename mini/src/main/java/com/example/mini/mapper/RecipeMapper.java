@@ -11,6 +11,9 @@ import com.example.mini.model.Recipe;
 @Mapper
 public interface RecipeMapper {
 	
+	// 레시피 삭제
+	void deleteRecipe(HashMap<String,Object>map);
+		
 	// 마이페이지 레시피 저장
 	void insertMypageRecipe(HashMap<String,Object>map);
 	
@@ -59,6 +62,9 @@ public interface RecipeMapper {
 	void insertHowtoCode(HashMap<String,Object>map);
 	void insertToolCode(HashMap<String,Object>map);
 	void insertRecipeImg(HashMap<String,Object>map);
+	
+	void insertCookImg(HashMap<String,Object>map);
+	void updateCookContent(HashMap<String,Object>map);
 	
 	// 중복 레시피 번호 확인
 	int selectRecipeNoCnt(HashMap<String, Object> map);

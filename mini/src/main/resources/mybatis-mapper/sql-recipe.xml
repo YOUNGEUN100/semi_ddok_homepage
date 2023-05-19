@@ -5,6 +5,13 @@
 
 	<mapper namespace="com.example.mini.mapper.RecipeMapper">
 	
+	<!-- 커뮤니티 게시글 삭제 -->
+	<update id="deleteRecipe" parameterType="hashmap">
+		UPDATE T4_RECIPE
+		SET DELETE_YN = 'Y'
+		WHERE RECIPE_NO = #{recipeNo}
+	</update>
+		
 	<!-- 레시피 마이페이지 저장 -->
 	<insert id="insertMypageRecipe" parameterType="HashMap">
 			INSERT INTO T4_USER_RECIPE 
@@ -37,9 +44,10 @@
 				FROM T4_R_IMAGE
 				WHERE THUMBNAIL_YN = 'Y') I 
 				ON I.RECIPE_NO = R.RECIPE_NO 
-			<if test="keyword != '' and keyword != null">
-			WHERE RECIPE_NAME LIKE CONCAT('%', #{keyword}, '%')
-			</if>
+			WHERE DELETE_YN = 'N'
+				<if test="keyword != '' and keyword != null">
+				AND RECIPE_NAME LIKE CONCAT('%', #{keyword}, '%')
+				</if>
 			LIMIT #{startNum}, 12
 		</select>
 		
@@ -79,8 +87,9 @@
 					ON I.RECIPE_NO = R.RECIPE_NO
 				) R
 			LEFT JOIN T4_R_PURPOSE P ON P.RECIPE_NO = R.RECIPE_NO
+			WHERE DELETE_YN = 'N'
 			<if test="recipe_code !='' and recipe_code != null">
-			WHERE CODE = #{recipe_code}
+			AND CODE = #{recipe_code}
 			</if>
 			LIMIT #{startNum}, 12
 		</select>
@@ -124,8 +133,9 @@
 					ON I.RECIPE_NO = R.RECIPE_NO
 				) R
 			LEFT JOIN T4_HOWTO H ON H.RECIPE_NO = R.RECIPE_NO
+			WHERE DELETE_YN = 'N'
 			<if test="recipe_code !='' and recipe_code != null">
-			WHERE H.CODE = #{recipe_code}
+			AND H.CODE = #{recipe_code}
 			</if>
 			LIMIT #{startNum}, 12
 		</select>
@@ -169,9 +179,10 @@
 					ON I.RECIPE_NO = R.RECIPE_NO
 				) R
             LEFT JOIN T4_TOOL T ON T.RECIPE_NO = R.RECIPE_NO
-			<if test="recipe_code !='' and recipe_code != null">
-			WHERE T.CODE = #{recipe_code}
-			</if>
+            WHERE DELETE_YN = 'N'
+				<if test="recipe_code !='' and recipe_code != null">
+				AND T.CODE = #{recipe_code}
+				</if>
 			LIMIT #{startNum}, 12
 		</select>
 		
@@ -232,7 +243,7 @@
 		<if test="recipeNo !='' and recipeNo != null">
 			WHERE R.RECIPE_NO = #{recipeNo}
 		</if>
-			LIMIT 1
+			ORDER BY RAND() LIMIT 1
 		</select>
 	
 		<!--레시피 과정 보기-->
@@ -296,13 +307,29 @@
 				IMG_NO,
 				RECIPE_NO,
 				IMG_ORG_NAME,
-				IMG_NAME,
 				IMG_PATH,
 				THUMBNAIL_YN,
 				COOK_INDEX)
-			VALUES(NULL, #{recipeNo}, #{orlgName}, , #{saveName}, , #{images}, "Y", 0)
+			VALUES(NULL, #{recipeNo}, #{orlgName}, #{images}, 'Y', 0)
 		</insert>
-	
+		<!-- 요리과정 사진 INSERT -->
+		<insert id="insertCookImg" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="recipe_no">
+			INSERT INTO T4_R_IMAGE(
+				IMG_NO,
+				RECIPE_NO,
+				IMG_ORG_NAME,
+				IMG_PATH,
+				THUMBNAIL_YN)
+			VALUES(NULL, #{recipeNo}, #{orlgName}, #{images}, 'N')
+		</insert>
+		<!-- 요리과정 글 INSERT -->
+		<update id="updateCookContent" parameterType="hashmap">
+		UPDATE T4_R_IMAGE
+		SET
+			COOK_INDEX = #{cookIndex}, 
+			COOK_CONTENT = #{cookContent}
+		WHERE RECIPE_NO = #{recipeNo} AND THUMBNAIL_YN = 'N'
+		</update>
 		
 		<!-- 중복 레시피 번호 확인 -->
 		<select id="selectRecipeNoCnt" parameterType="HashMap" resultType="int">
