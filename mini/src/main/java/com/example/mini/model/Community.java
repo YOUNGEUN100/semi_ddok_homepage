@@ -11,7 +11,7 @@ public class Community {
 	private int hits;
 	private String boardKind;
 	private String finishYn;
-	private int category;
+	private String category;
 	private String cdatetime;
 	private String udatetime;
 	private String deleteYn;
@@ -121,10 +121,11 @@ public class Community {
 	public void setFinishYn(String finishYn) {
 		this.finishYn = finishYn;
 	}
-	public int getCategory() {
+	
+	public String getCategory() {
 		return category;
 	}
-	public void setCategory(int category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 	public String getCdatetime() {

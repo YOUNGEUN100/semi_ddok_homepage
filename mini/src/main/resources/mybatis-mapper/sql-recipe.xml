@@ -257,10 +257,16 @@
 			INSERT INTO T4_RECIPE(
 				RECIPE_NO,
 				RECIPE_NAME,
+				HASHTAG,
 				TIME,
 				DIFFICULTY,
-				COOK_INGRE)
-			VALUES(#{recipeNo}, #{recipeName}, #{time}, #{difficulty}, #{cookIngre})
+				COOK_INGRE,
+				RECIPE_HITS,
+				DELETE_YN,
+				CDATETIME,
+				UDATETIME
+				)
+			VALUES(#{recipeNo}, #{recipeName}, #{hashtag}, #{time}, #{difficulty}, #{cookIngre}, 0, 'N', NOW(), NOW())
 		</insert>
 		
 		<!-- 레시피 목적 코드 INSERT -->

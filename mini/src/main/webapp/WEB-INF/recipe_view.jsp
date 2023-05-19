@@ -5,6 +5,8 @@
 
 <link rel="stylesheet" href="/css/pageStyle/depth3_recipe.css">
 
+<style></style>
+
 <!-- pageContent -- START -->
 <div id="pageContent" class="recipe typeView">
 	<div class="wrapper">
@@ -168,7 +170,16 @@
 			}
 			// 레시피 인쇄
 			, fnPrint : function() {
+				const html = $('html');
+				const printContents =  $('#recipeView').html();
+				const printDiv = $("<div class='print_page';></div>");
+
+				html.append(printDiv);
+				printDiv.html(printContents);
+				$('body').css('display','none');
 				window.print();
+				$('body').css('display','block');
+				printDiv.css('display','none');
 			}
 	    
 	        
@@ -179,4 +190,8 @@
 	        self.fnGetCookMethod();
 	    }
 	});
+	
+
+	
+	
 </script>

@@ -21,6 +21,10 @@
 						<label for="recipe_name" class="enrol-re">레시피 제목</label>
 						<input id="recipe_name" name="recipe_name" v-model="info.recipeName" type="text" required>
 					</li>
+					<li class="hashtag">
+						<label for="recipe_hashtag" class="enrol-re">해시태그</label>
+						<input id="recipe_hashtag" name="recipe_hashtag" v-model="info.hashtag" type="text" required>
+					</li>
 					<li class="img">
 						<label for="recipe_img" class="enrol-re">대표 사진</label>
 						<form action="" class="filebox">
@@ -149,6 +153,7 @@ var recipeEdit = new Vue({
 	 	info : {
 			recipeNo : "",
 			recipeName : "",
+			hashtag ; "",
 			pcode : "",
 			hcode : "",
 			tcode : "",
