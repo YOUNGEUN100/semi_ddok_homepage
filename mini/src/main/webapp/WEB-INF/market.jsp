@@ -190,7 +190,7 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            box-shadow: 1px 1px 10px 2px gray;            
+            box-shadow: 1px 1px 5px 1px gray;            
             /*그림자주기 1위치(좌우) 2.위치(상하) 3흐리기 4크기 5색깔*/
         }
         .box{
