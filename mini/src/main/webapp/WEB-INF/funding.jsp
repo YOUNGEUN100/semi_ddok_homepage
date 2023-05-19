@@ -10,11 +10,11 @@
 	<div class="wrapper">
 		<div id="fundingList" class="fundingListContainer">
 			<section class="fund_category">
-				<button class="category_btn typeOpen styleBoxRound styleBoxShadow active">
+				<button class="category_btn typeOpen styleBoxRound styleBoxShadow active" id="category_btn">
 			        <img src="/images/funding_icon01.png" alt="">
 					<p>진행중</p>
 				</button>
-				<button class="category_btn typePlanned styleBoxRound styleBoxShadow">
+				<button class="category_btn typePlanned styleBoxRound styleBoxShadow" id="category_btn2">
 			        <img src="/images/funding_icon02.png" alt="">
 					<p>오픈예정</p>
 				</button>
@@ -63,7 +63,7 @@
 			
 			<section class="fund_section">
 			    <div class="fund_title">
-			        <h3>오픈 예정 펀딩</h3>
+			        <h3 id="fund_planned_title">오픈 예정 펀딩</h3>
 			        <select v-model="orderValue2" @change="fnChangeOrder2">
 			            <option value="" selected>정렬순</option>
 			            <option value="startDate" selected>시작일순</option>
@@ -120,7 +120,24 @@
 
 
 <script type="text/javascript">
-
+//거래게시판으로 스크롤 이동
+$(function() {
+    $("#category_btn").on("click",function(){
+    	var offset = $("#fund_open_title").offset();
+    	offset.top -=150
+    	$("html, body").animate({scrollTop: offset.top},400);
+        console.log(offset);
+    })
+})
+//나눔게시판으로 스크롤 이동
+$(function() {
+    $("#category_btn2").on("click",function(){
+    	var offset = $("#fund_planned_title").offset();
+    	offset.top -=150
+    	$("html, body").animate({scrollTop: offset.top},400);
+        console.log(offset);
+    })
+})
 var fundingList = new Vue({
     el: '#fundingList',
     data: {

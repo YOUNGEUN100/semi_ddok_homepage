@@ -126,7 +126,7 @@
 		</update>
 		
 		<!-- 첨부파일 등록 -->
-		<insert id="insertFile" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="board_no">
+		<insert id="insertFile" parameterType="HashMap">
 			INSERT INTO T4_FILES (
 				FILE_NO, 
 				BOARD_NO, 

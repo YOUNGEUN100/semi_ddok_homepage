@@ -146,13 +146,14 @@
 			VALUES ('POL', NULL, #{userId}, #{title}, #{content}, #{category}, now(), now(),'N',0)
 		</insert>
 		
-				<!-- 정책 글 수정 -->
-		<update id="updatePol" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id2" keyColumn="board_no">
+		<!-- 정책 글 수정 -->
+		<update id="updatePol" parameterType="HashMap">
 			UPDATE T4_BOARD
-			SET TITLE = #{title},
+			SET	CATEGORY = #{category},
+				TITLE = #{title},
 				CONTENT = #{content},
 				UDATETIME = NOW(),
-				BOARD_NO = #{boardNo}
+				BOARD_NO = #{boardNo}	
 			WHERE BOARD_NO = #{boardNo}
 		</update>
 		

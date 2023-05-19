@@ -608,16 +608,16 @@
 		
 		<!-- 펀딩 썸네일 이미지 등록 -->
 		<insert id="insertFundingImg" parameterType="hashmap">
-		INSERT INTO T4_F_IMAGE
-		VALUES
-			(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'Y', NULL, NOW(), NOW(),'N' )
+			INSERT INTO T4_F_IMAGE
+			VALUES
+				(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'Y', NULL, NOW(), NOW(),'N' )
 		</insert>
 		
 		<!-- 펀딩 상세 이미지 등록 -->
 		<insert id="insertFundingImg2" parameterType="hashmap">
-		INSERT INTO T4_F_IMAGE
-		VALUES
-			(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'N', NULL, NOW(), NOW(),'N' )
+			INSERT INTO T4_F_IMAGE
+			VALUES
+				(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'N', NULL, NOW(), NOW(),'N' )
 		</insert>
 		
 		<!-- 펀딩이미지 삭제 -->

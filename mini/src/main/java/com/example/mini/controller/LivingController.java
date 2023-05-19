@@ -157,10 +157,9 @@ public class LivingController {
 	// 정책 글수정
 	@RequestMapping(value = "/policy/modify.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String modifyPol(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+	public String modifyPol(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		livingService.modifyPol(map);
-		resultMap.put("boardNo", map.get("id2"));
 		return new Gson().toJson(resultMap);
 	}
 	

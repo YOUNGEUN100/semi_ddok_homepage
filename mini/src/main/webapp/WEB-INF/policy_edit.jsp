@@ -154,7 +154,9 @@
 	            type : "POST", 
 	            data : nparmap,
 	            success : function(data) {  
-	            	console.log(data);
+	            	console.log(data.boardNo);
+	            	
+	            	
 	            	
 	            	var form = new FormData();
 	       	        form.append( "file1",  $("#file1")[0].files[0] );
@@ -165,7 +167,7 @@
 	       	     		self.upload(form); 
 	       	     	}
 	       	     	alert("등록되었습니다!");
-	           	 	location.href="/policy.do";
+	           	 	//location.href="/policy.do";
 	            }
 	        }); 
         }
@@ -188,6 +190,7 @@
      	// 커뮤니티 글 수정
         , fnModify : function() {
             var self = this;
+            console.log(self.info);
             var nparmap = self.info;
 	        $.ajax({
 	            url:"/policy/modify.dox",
@@ -195,14 +198,19 @@
 	            type : "POST", 
 	            data : nparmap,
 	            success : function(data) {  
-	            	console.log(data);
+	            	
+	            	
 	            	var form = new FormData();
 	       	        form.append( "file1",  $("#file1")[0].files[0] );
-	       	     	form.append( "boardNo",  data.boardNo); // pk
-	       	     	self.upload(form); 
+	       	     	form.append( "boardNo",  self.boardNo); // pk
+	       	     	// 첨부파일이 있으면 파일 업로드 함수 실행
+	       	     	console.log($("#file1")[0].files[0] );
+	       	     	if ($("#file1")[0].files[0] ) {
+	       	     		self.upload(form); 
+	       	     	}
 	       	     	
 		       	    alert("수정되었습니다!");
-	           	 	location.href="/policy.do"; 
+	           	 	//location.href="/policy.do"; 
 	            }
 	        }); 
         }
