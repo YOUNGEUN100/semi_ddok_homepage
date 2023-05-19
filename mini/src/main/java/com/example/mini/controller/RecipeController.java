@@ -197,13 +197,13 @@ public class RecipeController {
 			System.out.println("size : " + fileSize);
 			System.out.println("saveName : " + saveName);
 			String path2 = System.getProperty("user.dir");
-			System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
+			System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images\\recipe\\");
 			if (!multi.isEmpty()) {
-				File file = new File(path2 + "\\src\\main\\webapp\\images", orlgName);
+				File file = new File(path2 + "\\src\\main\\webapp\\images\\recipe\\", orlgName);
 				multi.transferTo(file);
 
 				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("images", "../images/" + orlgName);
+				map.put("images", "../images/recipe/" + orlgName);
 				map.put("recipeNo", recipeNo);
 				map.put("orlgName", orlgName);
 				
