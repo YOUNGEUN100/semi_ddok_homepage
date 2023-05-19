@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.TodayEatService;
+import com.example.mini.model.Product;
 import com.example.mini.model.TodayEat;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -82,6 +83,21 @@ public class TodayEatController {
 	    hmap.put("ingredient", list);
 		TodayEat info = todayEatService.searchRecipeInfo(hmap);
 		resultMap.put("info", info);
+		resultMap.put("message", "성공");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 구매유도 리스트
+	@RequestMapping(value = "/todayEat/recipe/product.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchProduct(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		String json = map.get("ingList").toString();
+		ObjectMapper mapper = new ObjectMapper();
+	    List<Object> ingList = mapper.readValue(json, new TypeReference<List<Object>>(){});
+	    map.put("ingList", ingList);
+		List<TodayEat> list = todayEatService.searchProduct(map);
+		resultMap.put("list", list);
 		resultMap.put("message", "성공");
 		return new Gson().toJson(resultMap);
 	}

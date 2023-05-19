@@ -14,6 +14,7 @@ public class Product {
 	private Integer productCnt; 
 	private String discountYN; 
 	private String deleteYN;
+	private String[] ingList;//투데잇 상품 추천용 리스트
 	
 	
 	
@@ -94,6 +95,12 @@ public class Product {
 	}
 	public void setDeleteYN(String deleteYN) {
 		this.deleteYN = deleteYN;
+	}
+	public String[] getIngList() {
+		return ingList;
+	}
+	public void setIngList(String[] ingList) {
+		this.ingList = ingList;
 	}
 	
 }

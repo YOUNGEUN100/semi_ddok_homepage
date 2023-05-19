@@ -51,7 +51,10 @@ var result = new Vue({
 			howto : "${hmap.howto}",
 			ingredient : ${hmap.ingredient},
 			tool : "${hmap.tool}"
-		}
+		},
+		ingList : [],
+		productList : [],
+		code : ""
 	}, methods: {
 		fnGetRecipeResult : function() {
             var self = this;
@@ -65,12 +68,35 @@ var result = new Vue({
                 data : nparmap,
                 success : function(data) {
                     self.info = data.info;
+                    self.code = data.info.code;
                     console.log(self.info);
-                    
                     self.info.imgPathT = "../" + data.info.imgPathT;
                     self.info.imgPathR = "../" + data.info.imgPathR;
+                    
+                    //재료 자르기
+                    self.ingList = self.info.cookIngre.split(',');
+					self.fnGetProduct();
+					console.log("split 결과 = " + self.ingList);
                 }
             }); 
+		}
+	
+		, fnGetProduct : function() {
+			var self = this;
+			
+			var nparmap = {ingList : JSON.stringify(self.ingList), code : self.code};
+			console.log(self.code);
+			$.ajax({
+                url:"/todayEat/recipe/product.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                    self.productList = data.list;
+                    console.log(data.list);
+					
+                }
+            });
 		}
 		, pageChange : function(url, param) {
 			var target = "_self";
@@ -115,6 +141,7 @@ var result = new Vue({
 	, created: function () {
 		var self = this;
 		self.fnGetRecipeResult();
+		
 	}
 }); 
 </script>
