@@ -5,6 +5,13 @@
 
 	<mapper namespace="com.example.mini.mapper.RecipeMapper">
 	
+	<!-- 커뮤니티 게시글 삭제 -->
+	<update id="deleteRecipe" parameterType="hashmap">
+		UPDATE T4_RECIPE
+		SET DELETE_YN = 'Y'
+		WHERE RECIPE_NO = #{recipeNo}
+	</update>
+		
 	<!-- 레시피 마이페이지 저장 -->
 	<insert id="insertMypageRecipe" parameterType="HashMap">
 			INSERT INTO T4_USER_RECIPE 
@@ -36,29 +43,30 @@
 				(SELECT RECIPE_NO, IMG_PATH
 				FROM T4_R_IMAGE
 				WHERE THUMBNAIL_YN = 'Y') I 
-			ON I.RECIPE_NO = R.RECIPE_NO 
-			<if test="keyword != '' and keyword != null">
-			WHERE RECIPE_NAME LIKE CONCAT('%', #{keyword}, '%')
-			</if>
+				ON I.RECIPE_NO = R.RECIPE_NO 
+			WHERE DELETE_YN = 'N'
+				<if test="keyword != '' and keyword != null">
+				AND RECIPE_NAME LIKE CONCAT('%', #{keyword}, '%')
+				</if>
 			LIMIT #{startNum}, 12
 		</select>
 		
 		<!--레시피 리스트 개수 -->
 		<select id="selectRecListCnt" parameterType="hashmap" resultType="int">
-	      SELECT  
+	        SELECT  
 				COUNT(*) AS CNT
 			FROM T4_RECIPE R
 			INNER JOIN 
-				(SELECT RECIPE_NO, IMG_PATH
-				FROM T4_R_IMAGE
-				WHERE THUMBNAIL_YN = 'Y') I 
-			ON I.RECIPE_NO = R.RECIPE_NO 
+					(SELECT RECIPE_NO, IMG_PATH
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'Y') I 
+					ON I.RECIPE_NO = R.RECIPE_NO 
 		</select>
 		
 		
 		<!--목적별 레시피 리스트-->
 		<select id="selectRecListPur" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
-			SELECT P.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, P.CODE AS PCODE
+			SELECT P.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, CODE AS CODE, HASHTAG
 			FROM 
 			(	SELECT  
 					R.RECIPE_NO AS RECIPE_NO,
@@ -79,14 +87,32 @@
 					ON I.RECIPE_NO = R.RECIPE_NO
 				) R
 			LEFT JOIN T4_R_PURPOSE P ON P.RECIPE_NO = R.RECIPE_NO
+			WHERE DELETE_YN = 'N'
 			<if test="recipe_code !='' and recipe_code != null">
-			WHERE P.CODE = #{recipe_code}
+			AND CODE = #{recipe_code}
+			</if>
+			LIMIT #{startNum}, 12
+		</select>
+		
+		<!--목적별 레시피 리스트 개수 -->
+		<select id="selectPurListCnt" parameterType="hashmap" resultType="int">
+	        SELECT  
+				COUNT(*) AS CNT
+			FROM T4_RECIPE R
+			INNER JOIN 
+					(SELECT RECIPE_NO, IMG_PATH
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'Y') I 
+					ON I.RECIPE_NO = R.RECIPE_NO 
+			<if test="recipe_code !='' and recipe_code != null">
+			INNER JOIN T4_R_PURPOSE P ON P.RECIPE_NO = R.RECIPE_NO
+			WHERE CODE = #{recipe_code};
 			</if>
 		</select>
 		
 		<!--방법별 레시피 리스트-->
 		<select id="selectRecListHow" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
-			SELECT H.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, H.CODE AS HCODE
+			SELECT H.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, H.CODE AS HCODE, HASHTAG
 			FROM 
 			(	SELECT  
 					R.RECIPE_NO AS RECIPE_NO,
@@ -107,14 +133,32 @@
 					ON I.RECIPE_NO = R.RECIPE_NO
 				) R
 			LEFT JOIN T4_HOWTO H ON H.RECIPE_NO = R.RECIPE_NO
+			WHERE DELETE_YN = 'N'
 			<if test="recipe_code !='' and recipe_code != null">
-			WHERE H.CODE = #{recipe_code}
+			AND H.CODE = #{recipe_code}
+			</if>
+			LIMIT #{startNum}, 12
+		</select>
+		
+		<!--방법별 레시피 리스트 개수 -->
+		<select id="selecHowListCnt" parameterType="hashmap" resultType="int">
+	        SELECT  
+				COUNT(*) AS CNT
+			FROM T4_RECIPE R
+			INNER JOIN 
+					(SELECT RECIPE_NO, IMG_PATH
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'Y') I 
+					ON I.RECIPE_NO = R.RECIPE_NO 
+			<if test="recipe_code !='' and recipe_code != null">
+			INNER JOIN T4_HOWTO H ON H.RECIPE_NO = R.RECIPE_NO
+			WHERE CODE = #{recipe_code};
 			</if>
 		</select>
 		
 		<!--도구별 레시피 리스트-->
 		<select id="selectRecListTool" parameterType="hashmap" resultType="com.example.mini.model.Recipe">	
-			SELECT T.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, T.CODE AS TCODE
+			SELECT T.RECIPE_NO, RECIPE_NAME, TIME, DIFFICULTY, RECIPE_HITS, IMG_PATH, T.CODE AS TCODE, HASHTAG
 			FROM 
 			(	SELECT  
 					R.RECIPE_NO AS RECIPE_NO,
@@ -135,8 +179,26 @@
 					ON I.RECIPE_NO = R.RECIPE_NO
 				) R
             LEFT JOIN T4_TOOL T ON T.RECIPE_NO = R.RECIPE_NO
+            WHERE DELETE_YN = 'N'
+				<if test="recipe_code !='' and recipe_code != null">
+				AND T.CODE = #{recipe_code}
+				</if>
+			LIMIT #{startNum}, 12
+		</select>
+		
+		<!--도구별 레시피 리스트 개수 -->
+		<select id="selectToolListCnt" parameterType="hashmap" resultType="int">
+	        SELECT  
+				COUNT(*) AS CNT
+			FROM T4_RECIPE R
+			INNER JOIN 
+					(SELECT RECIPE_NO, IMG_PATH
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'Y') I 
+					ON I.RECIPE_NO = R.RECIPE_NO 
 			<if test="recipe_code !='' and recipe_code != null">
-			WHERE T.CODE = #{recipe_code}
+			INNER JOIN T4_TOOL T ON T.RECIPE_NO = R.RECIPE_NO
+			WHERE CODE = #{recipe_code};
 			</if>
 		</select>
 		
@@ -181,6 +243,7 @@
 		<if test="recipeNo !='' and recipeNo != null">
 			WHERE R.RECIPE_NO = #{recipeNo}
 		</if>
+			ORDER BY RAND() LIMIT 1
 		</select>
 	
 		<!--레시피 과정 보기-->
@@ -205,10 +268,16 @@
 			INSERT INTO T4_RECIPE(
 				RECIPE_NO,
 				RECIPE_NAME,
+				HASHTAG,
 				TIME,
 				DIFFICULTY,
-				COOK_INGRE)
-			VALUES(#{recipeNo}, #{recipeName}, #{time}, #{difficulty}, #{cookIngre})
+				COOK_INGRE,
+				RECIPE_HITS,
+				DELETE_YN,
+				CDATETIME,
+				UDATETIME
+				)
+			VALUES(#{recipeNo}, #{recipeName}, #{hashtag}, #{time}, #{difficulty}, #{cookIngre}, 0, 'N', NOW(), NOW())
 		</insert>
 		
 		<!-- 레시피 목적 코드 INSERT -->
@@ -232,16 +301,36 @@
 				CODE)
 			VALUES(#{recipeNo}, #{tcode})
 		</insert>
-		<!-- 레시피 사진 INSERT -->
-		<insert id="insertRecipeImg" parameterType="HashMap">
+		<!-- 레시피 썸네일 사진 INSERT -->
+		<insert id="insertRecipeImg" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="recipe_no">
 			INSERT INTO T4_R_IMAGE(
 				IMG_NO,
 				RECIPE_NO,
+				IMG_ORG_NAME,
+				IMG_PATH,
+				THUMBNAIL_YN,
+				COOK_INDEX)
+			VALUES(NULL, #{recipeNo}, #{orlgName}, #{images}, 'Y', 0)
+		</insert>
+		<!-- 요리과정 사진 INSERT -->
+		<insert id="insertCookImg" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="recipe_no">
+			INSERT INTO T4_R_IMAGE(
+				IMG_NO,
+				RECIPE_NO,
+				IMG_ORG_NAME,
 				IMG_PATH,
 				THUMBNAIL_YN)
-			VALUES(50, #{recipeNo}, "../images/recipe_5.jpg", "Y")
+			VALUES(NULL, #{recipeNo}, #{orlgName}, #{images}, 'N')
 		</insert>
-	
+		<!-- 요리과정 글 INSERT -->
+		<update id="updateCookContent" parameterType="hashmap">
+		UPDATE T4_R_IMAGE
+		SET
+			COOK_INDEX = #{cookIndex}, 
+			COOK_CONTENT = #{cookContent}
+		WHERE RECIPE_NO = #{recipeNo} AND THUMBNAIL_YN = 'N'
+		</update>
+		
 		<!-- 중복 레시피 번호 확인 -->
 		<select id="selectRecipeNoCnt" parameterType="HashMap" resultType="int">
 			SELECT COUNT(*) AS CNT

@@ -3,30 +3,13 @@
 <jsp:include page="/layout/head.jsp"></jsp:include>
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
-<style>
-.resultMenu {text-align:center; margin-bottom:5em;}
-.resultMenuTitle {font-size:1.75em;}
-.resultMenuTitle span {font-size:1.25em;}
-.imgBox {width:400px; height:400px; border-radius:50%; margin:1em auto 2em; position:relative; overflow:hidden;}
-.imgBox img {width:auto; max-width:inherit; height:100%; position:absolute; top:50%; left:70%; transform:translate(-50%, -50%);}
-.replayBtn {font-weight:600; cursor:pointer}
-.replayBtn i {margin-right:0.2em;}
-
-.resultMore {width:100%; position:relative; display:flex; flex-flow:row wrap; justify-content:space-between; align-items:stretch;}
-.resultMore .recipeArea {width:calc(100% - 660px);}
-.resultMore .recipeArea .recipeImg {cursor:pointer;}
-.resultMore .recipeArea .recipeImg img {display:block;}
-.resultMore .marketArea {width:600px;}
-.areaTitle {font-size:1.625em; font-weight:500; margin-bottom:0.5em;}
-.areaTitle span {font-weight:700;}
-</style>
-
+<link rel="stylesheet" href="/css/pageStyle/depth1_todayEat.css">
 
 <!-- pageContent -- START -->
-<div id="pageContent">
+<div id="pageContent" class="todayEat">
 	<div class="wrapper">
 		<jsp:include page="/layout/includeLoading.jsp"></jsp:include>
-		<div id="app" class="resultContainer">
+		<div id="result" class="resultContainer">
 			<div class="resultMenu">
 	 			<h3 class="resultMenuTitle">
 					오늘 ‘<span id="menuName">{{info.recipeName}}</span>’ 어때요?
@@ -40,7 +23,7 @@
 				<div class="recipeArea">
 					<h4 class="areaTitle"><span>{{info.recipeName}}</span>, 이렇게만 하면 맛보장</h4>
 					<div class="recipeImg styleBoxRound styleBoxShadow styleHoverShadow" @click="fnRecipeView(info.recipeNo)">
-						<img class="img" :src="info.imgPathC">
+						<img class="img" :src="info.imgPathR">
 					</div>
 				</div>
 				<div class="marketArea">
@@ -55,12 +38,11 @@
 </div>
 <!-- pageContent -- END -->
 
-
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 <script type="text/javascript">
-var app = new Vue({ 
-	el: '#app',
+var result = new Vue({ 
+	el: '#result',
 	data: {
 		list : [], 
 		info : {},
@@ -69,7 +51,10 @@ var app = new Vue({
 			howto : "${hmap.howto}",
 			ingredient : ${hmap.ingredient},
 			tool : "${hmap.tool}"
-		}
+		},
+		ingList : [],
+		productList : [],
+		code : ""
 	}, methods: {
 		fnGetRecipeResult : function() {
             var self = this;
@@ -83,12 +68,35 @@ var app = new Vue({
                 data : nparmap,
                 success : function(data) {
                     self.info = data.info;
+                    self.code = data.info.code;
                     console.log(self.info);
-                    
                     self.info.imgPathT = "../" + data.info.imgPathT;
-                    self.info.imgPathC = "../" + data.info.imgPathC;
+                    self.info.imgPathR = "../" + data.info.imgPathR;
+                    
+                    //재료 자르기
+                    self.ingList = self.info.cookIngre.split(',');
+					self.fnGetProduct();
+					console.log("split 결과 = " + self.ingList);
                 }
             }); 
+		}
+	
+		, fnGetProduct : function() {
+			var self = this;
+			
+			var nparmap = {ingList : JSON.stringify(self.ingList), code : self.code};
+			console.log(self.code);
+			$.ajax({
+                url:"/todayEat/recipe/product.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                    self.productList = data.list;
+                    console.log(data.list);
+					
+                }
+            });
 		}
 		, pageChange : function(url, param) {
 			var target = "_self";
@@ -133,6 +141,7 @@ var app = new Vue({
 	, created: function () {
 		var self = this;
 		self.fnGetRecipeResult();
+		
 	}
 }); 
 </script>

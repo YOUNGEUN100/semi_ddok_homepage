@@ -21,13 +21,13 @@
 	       margin-bottom: 10px;
 	      }
 
-  	 .joinArea .joinBox .id{display : inline-block;}	
+  	 	
      .joinArea .joinBox .disableId{
 	       font-size: 0.8em; color: red;
 	      }
      .joinArea .joinBox template{display: inline-block;}
      .joinArea .joinBox .ableId{
-	      	font-size: 0.7em; color: #5EA152;
+	      	font-size: 0.8em; color: #5EA152;
 	      }
      .joinArea .joinBox .captionBox .id{font-weight: bold; font-size: 0.95em; display : inline-block;}
      .joinArea .joinBox .captionBox .pw{font-weight: bold; font-size: 0.95em; display : inline-block;}
@@ -52,6 +52,7 @@
      .joinArea .joinBox .mail{border: 1px solid #ccc;  
           border-radius: 5px; padding: 8px; font-weight: bold; 
           width: 45%; margin-left: 6px; padding-left: 10px;}
+     .joinArea .joinBox .zipCode{margin-bottom:5px;}
      .joinArea .joinBox .addr{margin-bottom:5px;}
      .joinArea .joinBox .zipcodeBtn{
           border-radius: 5px; border: 0.7px solid black;
@@ -63,7 +64,7 @@
      .joinArea .joinBox .accountFind{font-size: 0.8em; color: #5EA152;}
      .joinArea .joinBox .w100{width: 100%;}
      .joinArea .joinBox .w90{width: 85%; margin-right: 15px; }
-     .joinArea .joinBox .w80{width: 75%; margin-right: 8px;}
+     .joinArea .joinBox .w80{width: 72%; margin-right: 8px;}
      .joinArea .joinBox .w50{width: 45%; margin-right: 7px;}
      .joinArea .joinBox .w60{width: 55%; margin-right: 10px;}
 
@@ -84,7 +85,7 @@
          width: 76%; margin-left: 30px;}
      
      .joinArea .joinBox input::placeholder{
-     	font-size:0.9em;
+     	font-size:0.85em;
      	}
 </style>
 
@@ -94,49 +95,76 @@
 	<div class="wrapper">
 	
 		<div id="app" class="joinArea">
+		
             <span class="captionEssential">표시는 필수입력</span>
+            
             <div class="joinBox" >
+            
                 <div class="captionBox">
+                
                     <div class="markEssential id">아이디</div><div v-if="info.id == ''"></div>
 	                    <template v-else-if="info.id != '' && info.id.length >= 20"> <!-- 20자 초과시 -->
 	                    	<span class="disableId" >20자를 초과하였습니다.</span> 
 	                    </template>
-	                    <template v-else-if="info.id != '' && !idValid"> <!-- 한글로 아이디 칠때 -->
-	                    	<span class="disableId" >올바른 형식의 아이디가 아닙니다.</span> 
-	                    </template>
+	                   
 	                    <template v-else-if="info.id != '' && idCk " ><!--중복체크-->
-	                      <span class="ableId" v-if="idFlg">사용할 수 있는 아이디입니다</span>
+	                      <span class="ableId" v-if="idFlg">사용가능한 아이디입니다</span>
 	                      <span class="disableId" v-else>이미 사용중인 아이디입니다</span> 
 	                    </template>
-	                 <div v-else></div>
-                    <input type="text" v-model="info.id"maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
+	                    	
+	                    <div v-else></div>
+
+                    <input type="text" v-model="info.id" id="password" maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
                 </div> 
+                
                 <div class="captionBox">
-                    <div class="markEssential pw">비밀번호</div><div v-if="info.pw == ''"></div>
-                    <template v-else-if="info.pw != '' && info.pw.length >= 20">  
-                    	<span class="captionCheck disableId">20자 이내의 비밀번호를 입력해주세요</span>
+
+                    <div class="markEssential pw">비밀번호</div> <div  v-if="info.pw == ''"></div>
+               		<template v-else> 
+	                	<span class="disableId" v-if="info.pw.length >= 20">20자 이내의 비밀번호를 입력해주세요</span>
+	                	<span v-else></span>
+                	</template>
+                    
+                    <template v-else-if="info.pw != '' && 20 > info.pw.length">
+                    	<span class="ableId" v-if="pwValid">올바른 형식의 비밀번호입니다</span>
+                    	<span class="disableId" v-else>올바른 형식의 비밀번호가 아닙니다</span>
                     </template>
-                    <div v-else></div>
-                    <input type="password" v-model="info.pw" class="w100" maxlength="20" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
+                    
+                    <input type="password" id="password" v-model="info.pw" class="w100" maxlength="20" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
                 </div>
+                
                 <div class="captionBox">
                     <div class="markEssential pwck">비밀번호 확인</div> <div v-if="info.pw == ''"></div>
+                    
                     <template v-else>
-                    	<span class="ableId" v-if="info.pw == info.pwck">비밀번호가 일치합니다.</span>
-                    	<span class="disableId" v-else>비밀번호가 일치하지않습니다.</span>
-                	</template>
+                    	<span class="disableId"  v-if="info.pw != info.pwck">비밀번호가 일치하지않습니다.</span>
+                    	<span class="ableId" v-else>비밀번호가 일치합니다.</span>
+                	</template>	
                 </div>
-                <input type="password" class="w100" placeholder="비밀번호 재입력" v-model="info.pwck">
+                
+                <input type="password" class="w100"  placeholder="비밀번호 재입력" v-model="info.pwck">
+                
+                
                 <p class="markEssential">이름</p>
                 <input type="text" class="w100" placeholder="이름을 입력해 주세요" v-model="info.name">
-                <div class="markEssential nick">닉네임</div><div v-if="info.nick == ''"></div>
-                <template v-else>
+                
+                
+                <div class="markEssential nick">닉네임</div><div  v-if="info.nick == ''"></div>
+                
+                <template v-else-if="info.nick != '' && nickCk">
                 	<span class="ableId" v-if="nickFlg">사용 가능한 닉네임입니다.</span>
                 	<span class="disableId" v-else>이미 사용중인 닉네임입니다.</span>
                 </template>
-                <input type="text" @keypress="fnNickCheck" class="w100" placeholder="활동할 닉네임을 입력해 주세요" v-model="info.nick">
+                
+                <div  v-else></div>
+                
+                <input type="text" class="w80" placeholder="활동할 닉네임을 입력해 주세요" v-model="info.nick"><button class="duplicationBtn" @click="fnNickCheck">중복 체크</button>
+                
+                
                 <p class="markEssential">전화번호</p>
-                <input type="tel" id="tel" @keyup="fnHypen()" class="w100" maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
+                <input type="tel" id="tel" class="w100" @keypress="getPhoneMask" maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
+                
+                
                 <p>이메일주소</p>
                 <input type="email" class="w50" placeholder="이메일 주소" v-model="info.email">@ 
                 <select class="mail" v-model="info.domain">
@@ -151,14 +179,20 @@
 					    <option>nate.com</option>
                     </div>
                 </select> 
+                
+                
                 <p class="markEssential daumMap">주소</p>
                 <input type="number" v-model="info.zipCode" class="w60 zipCode" placeholder="우편번호" @click="fnSearchAddr" readonly="readonly"><button class="zipcodeBtn" @click="fnSearchAddr">우편번호 찾기</button>
                 <input type="text" v-model="info.addr" class="w100 addr" placeholder="주소" >
                 <input type="text" v-model="info.addr2" class="w100 addr2" placeholder="상세주소 입력" >
+                
+                
                 <div>
                     <span class="markEssential">생년월일</span><span class="accountFind">※계정찾기에 활용됩니다</span>
                     <input type="date" name="birth" v-model="info.birth" class="date w100">
                 </div>
+                
+                
                 <div>
                     <span class="markEssential">비밀번호 질문</span><span class="accountFind">※계정찾기에 활용됩니다</span>
                     <select class="hint" v-model="info.pwQ">
@@ -171,11 +205,15 @@
                         <option>자신이 두번째로 존경하는 인물은?</option>
                         <option>다시 태어나면 되고 싶은 것은?</option>
                     </select>
+                    
                     <input type="text" v-model="info.pwA" class="w100" placeholder="선택한 질문에 대한 답변 입력">
                 </div>
+                
+                
                 <p>자취경력</p>
                 <input type="text" class="w90" v-model="info.livingYear" placeholder="자취경력 햇수 입력"> 년차
            	</div>
+           	
 	            <div class="btnBox">
 	                <button class="joinBtn" @click="fnJoin">가입하기</button>
 	            </div>
@@ -192,6 +230,8 @@
 	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
 		app.fnResult(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo);
 	} 
+	
+	
 var app = new Vue({ 
     el: '#app',
     data: {
@@ -218,8 +258,11 @@ var app = new Vue({
     	, roadFullAddr : ""
     	, idCk : false
     	, nickFlg : true
-    	
-   		
+    	, nickCk : false
+    	, sessionId : "${sessionId}"
+    	, idValid : false
+    	, pwValid : false
+   		, pwFlg : false
     }
     
     , methods : {
@@ -292,9 +335,10 @@ var app = new Vue({
 	           	 	location.href="/login.do";
 	            }
 	        }); 
-   	 },
+    		
+   	 }
    	 //아이디 중복체크
-   	 	fnCheck : function(){
+   	 	, fnCheck : function(){
 	   	 	var self = this;
 	   	 	var nparmap = {id : self.info.id};
 	        $.ajax({
@@ -311,12 +355,12 @@ var app = new Vue({
 	            		self.idCk = true;
 	            		self.idFlg = true;
 	            	}
-	            }
-        }); 
+		        }
+	        }); 
    	 	
-   	 	},
+   	 	   },
    	 	//닉네임 중복체크
-		   	 fnNickCheck : function(data){
+		   	 fnNickCheck : function(){
 		 		var self = this;
 		 		var nparmap ={nick : self.info.nick};
 		 		$.ajax({
@@ -329,20 +373,23 @@ var app = new Vue({
 		            	if(data.cnt > 0){
 		            		console.log(data.cnt);
 		            		self.nickFlg = false;
+		            		self.nickCk = true;
 		            	}
 		            	else{
+		            		self.nickCk = true;
 		            		self.nickFlg = true;
 		            	}
-		            }
-	        }); 
-	 	},
+			        }
+		        }); 
+		 	},
+		
 	 	//주소
 		 fnSearchAddr : function(){
 	 		var self = this;
 	 		var option = "width = 500, height = 500, top = 100, left = 200, location = no"
 	 		window.open("addr.do", "test", option);
-	 	},
-	 	fnResult : function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+	 	 },
+	 	 fnResult : function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
     		var self = this;
     		self.roadFullAddr = roadFullAddr;
     		// 콘솔 통해 각 변수 값 찍어보고 필요한거 가져다 쓰면 됩니다.
@@ -352,15 +399,36 @@ var app = new Vue({
     		console.log(roadAddrPart1);
     		console.log(addrDetail);
     		console.log(engAddr);
-    	}
+    	 }
     
     	,
     	//핸드폰번호 자동 '-'
-    	
-    	
+    	getPhoneMask(val) {
+    		var self = this;
+        	let res = self.getMask(val);
+	        self.info.hp = res;
+	        //서버 전송 값에는 '-' 를 제외하고 숫자만 저장
+	        self.model.info.hp = self.info.hp.replace(/[^0-9]/g, '');
+   		},
+   		getMask( phoneNumber ) {
+   	        if(!phoneNumber) return phoneNumber;
+   	        phoneNumber = phoneNumber.replace(/[^0-9]/g, '');
+   	        
+   	        let res = '';
+   	        if(phoneNumber.length < 3) {
+   	            res = phoneNumber;
+   	        }
+   	        else { 
+               if(phoneNumber.length > 10) { 
+                  res = phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 4) + '-' + phoneNumber.substr(7)
+               }
+  	        
+   	        }
+   		}
     	//아이디 유효성
     	
-    		
+    	
+    	
     		
     }   
     , created: function () {

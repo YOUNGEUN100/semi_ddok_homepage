@@ -59,61 +59,18 @@
             <li><a href="javaScript:;">가공식품</a></li>
         </ul>
         <div class="mctArea type5">
-            <div class="mctThumb typeCol">
-                <a href="javaScript:;" class="imgBox">
-                    <!-- <img src="" alt=""> -->
+            <div class="mctThumb typeCol" v-for="(item2, index) in recommendList">
+                <a href="javaScript:;" class="imgBox" @click="fnView(item2.productNo)">
+                    <img :src="item2.imgPath" alt="">
               </a>
-              <a href="javaScript:;" class="cartBtn"><i class="fa-solid fa-cart-plus"></i></a>
-              <a href="javaScript:;" class="txtBox">
-                  <p class="text">현재 3개 남았어요!</p>
-                  <h4 class="title">국내산 감자(햇)</h4>
-                  <div class="price"><span class="amount">3,750원</span> (100g당 750원)</div>
-              </a>
-          </div>
-          <div class="mctThumb typeCol">
-              <a href="javaScript:;" class="imgBox">
-                  <!-- <img src="" alt=""> -->
-              </a>
-              <a href="javaScript:;" class="cartBtn"><i class="fa-solid fa-cart-plus"></i></a>
-              <a href="javaScript:;" class="txtBox">
-                  <p class="text"></p>
-                  <h4 class="title">돌 바나나, 1.2kg</h4>
-                  <div class="price"><span class="amount">4,290원</span> (100g당 358원)</div>
+              <a href="javaScript:;" class="cartBtn"><i class="fa-solid fa-cart-plus" @click="fnView(item2.productNo)"></i></a>
+              <a href="javaScript:;" class="txtBox" @click="fnView(item2.productNo)">
+                  <p class="text">현재 {{item2.productStock}}개 남았어요!</p>
+                  <h4 class="title">{{item2.productName}}</h4>
+                  <div class="price"><span class="amount">{{item2.productPrice | numberFormat()}}원</span> (100{{item2.productVolume}}당 {{item2.productPrice*100 / item2.productWeight*item2.productEa | numberFormat()}}원)</div>
               </a>
           </div>
-          <div class="mctThumb typeCol">
-              <a href="javaScript:;" class="imgBox">
-                  <!-- <img src="" alt=""> -->
-              </a>
-              <a href="javaScript:;" class="cartBtn"><i class="fa-solid fa-cart-plus"></i></a>
-              <a href="javaScript:;" class="txtBox">
-                  <p class="text">현재 1개 남았어요!</p>
-                  <h4 class="title">서울우유 1급A우유, 2300ml</h4>
-                  <div class="price"><span class="amount">6,280원</span> (100ml당 273원)</div>
-              </a>
-          </div>
-          <div class="mctThumb typeCol">
-              <a href="javaScript:;" class="imgBox">
-                  <!-- <img src="" alt=""> -->
-              </a>
-              <a href="javaScript:;" class="cartBtn"><i class="fa-solid fa-cart-plus"></i></a>
-              <a href="javaScript:;" class="txtBox">
-                  <p class="text"></p>
-                  <h4 class="title">잇츠베러 마요, 245g</h4>
-                  <div class="price"><span class="amount">5,500원</span> (100g당 2,245원)</div>
-              </a>
-          </div>
-          <div class="mctThumb typeCol">
-              <a href="javaScript:;" class="imgBox">
-                  <!-- <img src="" alt=""> -->
-                </a>
-                <a href="javaScript:;" class="cartBtn"><i class="fa-solid fa-cart-plus"></i></a>
-                <a href="javaScript:;" class="txtBox">
-                    <p class="text"></p>
-                    <h4 class="title">동서 포스트 콘푸라이트 시리얼, 530g</h4>
-                    <div class="price"><span class="amount">3,880원</span> (100g당 732원)</div>
-                </a>
-            </div>
+          
         </div>
     </div>
 </section>
@@ -127,12 +84,12 @@
             <li><a href="javaScript:;">디저트</a></li>
         </ul>
         <div class="mctArea type3">
-		    <div class="mctThumb typeCol" v-for="(item, index) in recipeList" >
+		    <div class="mctThumb typeCol" v-for="(item, index) in recipeList" >		    	
 		        <a href="javaScript:;" class="imgBox" @click="fnViewRecipe(item.recipeNo)">
 		        	<img :src="item.imgPath" alt="레시피 이미지">
 		        </a>
 				<a href="javaScript:;" class="txtBox">
-				    <p class="text">#요리초보 #요린이 #봄나물 #제철나물 #나물요리</p>
+				    <p class="text">{{item.hashtag}}</p>
 				    <h4 class="title">{{item.recipeName}}</h4>
 				</a>
 			</div>
@@ -150,33 +107,31 @@
         </div>
         <div class="mctArea mainContentSlider">
             <div class="mctThumb typeCol">
-                  <img src="/images/news1_1.jpg" alt="카드">
+                  <img src="/images/news1.jpg" alt="카드1">
                 <a href="javaScript:;" class="txtBox">
-                	<p class="text">요리를 하려는데 계량 기구가 없다면?</p>
-                    <h4 class="title">한 눈으로 살펴보는 간단한 계량팁</h4>
+                	<p class="text">5월부터 시작</p>
+                    <h4 class="title">이직 중도퇴사자 연말정산 방법</h4>
                 </a>
             </div>
             <div class="mctThumb typeCol">
-                <img src="/images/news2_1.jpg" alt="">
+                <img src="/images/news2.jpg" alt="카드2">
                 <a href="javaScript:;" class="txtBox">
-                	<p class="text">작정하고 출시했다는</p>
-                    <h4 class="title">다*소 피크닉 신상템 모음집</h4>
+                	<p class="text">각종 색바랜 옷</p>
+                    <h4 class="title">완벽하게 되살리는 방법</h4>
                 </a>
             </div>
             <div class="mctThumb typeCol">
-                 <img src="/images/news3_1.jpg" alt="">
+                 <img src="/images/news3.jpg" alt="카드3">
                 <a href="javaScript:;" class="txtBox">
-                	<p class="text">경제·재테크 꿀팁!</p>
-                    <h4 class="title">운동하고 5만원도 받는 1석2조 제도</h4>
+                	<p class="text">전세 월세집 재계약할 때</p>
+                    <h4 class="title">필수 체크리스트</h4>
                 </a>
             </div>
             <div class="mctThumb typeCol">
-                <a href="javaScript:;" class="imgBox">
-                    <img src="" alt="">
-                </a>
+                 <img src="/images/news4.jpg" alt="카드4">
                 <a href="javaScript:;" class="txtBox">
-                	<p class="text">(추가) 경제·재테크 꿀팁!</p>
-                    <h4 class="title">운동하고 5만원도 받는 1석2조 제도</h4>
+                	<p class="text">2023년 연차 쓰기 좋은</p>
+                    <h4 class="title">남은 연휴 총정리</h4>
                 </a>
             </div>
         </div>
@@ -187,11 +142,8 @@
     	<div class="mctArea typeLeft">
 	        	<h2 class="mctTitle">알쓸정책</h2>
 	        	<button class="moreBtn" @click="fnMorePolicy()">더보기 <i class="fa-solid fa-circle-chevron-down fa-rotate-270"></i></button>
-        	<ul class="mctList">
-        		<li><span class="cateBox">#생활</span><h4 class="title"><a href="javaScript:;" target="_self">1인가구에 '스마트초인종·가정용CCTV' 안심장비 지원</a></h4></li>
-        		<li><span class="cateBox">#생활</span><h4 class="title"><a href="javaScript:;" target="_self">고립·은둔청년 찾아 사회복귀 돕는다! 원스톱 지원</a></h4></li>
-        		<li><span class="cateBox">#문화</span><h4 class="title"><a href="javaScript:;" target="_self">'문화가 흐르는 예술마당' 개막…린, 원슈타인 공연 열린다</a></h4></li>
-        		<li><span class="cateBox">#경제</span><h4 class="title"><a href="javaScript:;" target="_self">글로벌기업·국제기구 84곳에서 '청년인턴 직무캠프' 운영</a></h4></li>
+        	<ul class="mctList" v-for="(item, index) in polList">
+        		<li><span class="cateBox"><span>#</span>{{item.category}}</span><h4 class="title"><a @click="fnViewPol(item.boardNo)" href="javaScript:;" target="_self">{{item.title}}</a></h4></li>
         	</ul>
     	</div>
     	<div class="mctArea typeRight">
@@ -211,10 +163,18 @@ var app = new Vue({
     el: '#app',
     data: {
     	fundingList : [],
-   		recipeList : []	
+   		recipeList : [],
+		recommendList : [],
+		polList : []
 
     }
-    
+	, filters: {
+	    numberFormat: (value, numFix) => {
+	        value = parseFloat(value);
+	        if (!value) return '0';
+	        return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+	    },
+	}
     , methods : {
     	// 펀딩 리스트
     	fnGetFunding : function() {
@@ -267,6 +227,28 @@ var app = new Vue({
                 	var self = this;
                 	self.pageChange("./funding/view/open.do", {fundingNo : fundingNo});
         }
+	   	 
+   	 	//똑똑한 마켓 구매하기
+   	 	, fnView : function(productNo){
+		    	var self = this;	    	
+		    	self.pageChange("/market/view.do", {productNo : productNo});
+			}
+	   	// 똑똑한마켓 리스트
+	   	 	, fnGetRecommend : function() {
+				var self = this;    		
+		      	var nparmap = {};
+		      	//추천상품
+	    		$.ajax({
+	                url:"/smartmarket-recommend-list.dox",
+	                dataType:"json",
+	                type : "POST",
+	                data : nparmap,
+	                success : function(data) {
+	                	self.recommendList = data.list;
+	                }
+	            }); 
+			 }
+   	
    		// 레시피 리스트
    	 	, fnGetRecipe : function() {
 			var self = this;    		
@@ -292,6 +274,28 @@ var app = new Vue({
 		, fnMorePolicy : function() {
     		location.href = "./policy.do";
 		}
+		
+		// 정책 리스트
+		, fnGetPol : function() {
+    		var self = this;    		
+	      	var nparmap = {};
+	        $.ajax({
+	            url:"/index/policy.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log(data.list);
+					self.polList = data.list;
+	            }
+	        }); 
+   	 	}
+		
+		// 정책 보기
+		, fnViewPol : function(boardNo) {
+			var self = this;
+			self.pageChange("./policy/view.do", {boardNo : boardNo});
+		}
     	
     		
     		
@@ -300,6 +304,8 @@ var app = new Vue({
     	var self = this;
     	self.fnGetFunding();
     	self.fnGetRecipe();
+    	self.fnGetRecommend();
+    	self.fnGetPol();
 	}
 });
 </script>

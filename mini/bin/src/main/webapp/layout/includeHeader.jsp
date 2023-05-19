@@ -6,6 +6,7 @@
 	        <a href="/main.do"><img src="/images/logo.png" alt="DDokDDok"></a>
 	    </h1>
 	    <nav id="gnbMenu" class="nav typeMenu">
+	    	<button class="menuBtn"><i class="fa-solid fa-bars"></i></button>
 	        <ul class="depth1">
 	            <li class="menu01">
 	                <a href="/todayEat.do">‘투데잇’ <small>Today-Eat</small></a>
@@ -50,8 +51,8 @@
 		        <li><a href="/login.do" >로그인</a></li>
 		        <li><a href="/join.do">회원가입</a></li>
 			</template>
-	        <template v-if="sessionId != ''">
-		        <li class="helloText">{{sessionNick}}님, 안녕하세요😊<li>
+	        <template v-else>
+		        <li class="helloText">{{sessionNick}}님, 안녕하세요😊</li>
 		        <li><a href="/login.do" @click="fnLogout">로그아웃</a></li>
 		        <li><a href="/myPage.do" >마이페이지</a></li>
 	        </template>
@@ -59,84 +60,3 @@
 	    </ul>
 	</div>
 </header>
-<script type="text/javascript">
-var app = new Vue({ 
-    el: '#gnbUser',
-    data: {
-      list : []
-      , info : {}
-      , sessionId : "${sessionId}"
-      , sessionStatus : "${sessionStatus}"
-      , sessionNick : "${sessionNick}"
-      , logFlg : false
-     
-    }   
-    , methods: {
-         fnMain : function(){
-             var self = this;
-             var nparmap = {id : self.sessionId };
-             $.ajax({
-                 url:"/main/session.dox",
-                 dataType:"json",	
-                 type : "POST", 
-                 data : nparmap,
-                 success : function(data) { 
-                	console.log(data);
-                	lacation.href = "main.do";
- 	               /* self.list = data.bbslist;
- 	                self.logFlg =  true;*/
-                 }
-             });
-    	 },
-    	 fnChange :function(){
-    		 var self = this;
-    		 if(sesstionId == null){
-    			 self.logFlg = false;
-    		 }
-    		 else{
-    			 self.logFlg = true;
-    		 }
-         	 
-    	 },
-    	 fnLogout : function(){
-             var self = this;
-             self.logFlg = !self.logFlg;
-             self.sessionId = "";
-    	 },
-    	 pageChange : function(url, param) {
-     		var target = "_self";
-     		if(param == undefined){
-     		//	this.linkCall(url);
-     			return;
-     		}
-     		var form = document.createElement("form"); 
-     		form.name = "dataform";
-     		form.action = url;
-     		form.method = "post";
-     		form.target = target;
-     		for(var name in param){
- 				var item = name;
- 				var val = "";
- 				if(param[name] instanceof Object){
- 					val = JSON.stringify(param[name]);
- 				} else {
- 					val = param[name];
- 				}
- 				var input = document.createElement("input");
- 	    		input.type = "hidden";
- 	    		input.name = item;
- 	    		input.value = val;
- 	    		form.insertBefore(input, null);
- 			}
-     		document.body.appendChild(form);
-     		form.submit();
-     		document.body.removeChild(form);
-     	}
-     	
-    	 
-  	}   
-    , created: function () {
-    	
-	}
-});
-</script>

@@ -5,19 +5,14 @@
 <mapper namespace="com.example.mini.mapper.TodayEatMapper">
 
  	<select id="selectRecipeInfo" parameterType="hashmap" resultType="com.example.mini.model.TodayEat">
-		SELECT R.RECIPE_NO, RECIPE_NAME, COOK_INGRE, IMGT.IMG_PATH AS IMG_PATH_T, IMGC.IMG_PATH AS IMG_PATH_C
+ 		SELECT R.RECIPE_NO AS RECIPE_NO, RECIPE_NAME, COOK_INGRE, I_T.IMG_PATH AS IMG_PATH_T, I_R.IMG_PATH AS IMG_PATH_R, I.CODE
 		FROM T4_RECIPE AS R
 		INNER JOIN T4_R_PURPOSE AS P ON R.RECIPE_NO = P.RECIPE_NO
 		INNER JOIN T4_HOWTO AS H ON R.RECIPE_NO = H.RECIPE_NO
 		INNER JOIN T4_INGREDIENT AS I ON R.RECIPE_NO = I.RECIPE_NO
 		INNER JOIN T4_TOOL AS T ON R.RECIPE_NO = T.RECIPE_NO
-		INNER JOIN (SELECT RECIPE_NO, IMG_PATH
-					FROM T4_R_IMAGE
-					WHERE THUMBNAIL_YN = 'Y') AS IMGT ON R.RECIPE_NO = IMGT.RECIPE_NO 
-		INNER JOIN (SELECT RECIPE_NO, IMG_PATH
-					FROM T4_R_IMAGE
-					ORDER BY COOK_INDEX DESC
-					LIMIT 1) AS IMGC ON R.RECIPE_NO = IMGC.RECIPE_NO 
+		INNER JOIN T4_R_IMAGE AS I_T ON R.RECIPE_NO = I_T.RECIPE_NO
+		INNER JOIN T4_R_IMAGE AS I_R ON R.RECIPE_NO = I_R.RECIPE_NO
 		WHERE DELETE_YN = 'N' AND
 			  P.CODE = #{r_purpose} AND
 			  H.CODE = #{howto} AND
@@ -26,12 +21,14 @@
 			  	<foreach collection="ingredient"  index="index" item="item" open="(" close=")" separator=",">
 					#{item}
 				</foreach> AND
-			  T.CODE = #{tool}
-		ORDER BY RAND() LIMIT 1
+			  T.CODE = #{tool} AND
+		      I_T.THUMBNAIL_YN = 'Y' AND
+		      I_R.THUMBNAIL_YN = 'N'
+		ORDER BY I_R.COOK_INDEX DESC, RAND()
+		LIMIT 1
 	</select>
 
  	<select id="selectStoreInfo" parameterType="hashmap" resultType="com.example.mini.model.TodayEat">
-
 		SELECT M.MENU_NO, MENU_NAME
 		FROM T4_MENU AS M
 		INNER JOIN T4_PURPOSE AS P ON M.MENU_NO = P.MENU_NO
@@ -46,6 +43,27 @@
 			  	#{item}
 			  </foreach>
 		ORDER BY RAND() LIMIT 1
+	</select>
+	
+	<select id="selectProduct" parameterType="hashmap" resultType="com.example.mini.model.TodayEat">
+		SELECT 	A.PRODUCT_NO, 
+				PRODUCT_NAME,
+		        PRODUCT_WEIGHT,
+		        PRODUCT_EA,
+		        PRODUCT_VOLUME,
+		        PRODUCT_PRICE,
+		        PRODUCT_STOCK
+		FROM T4_PRODUCT A
+		LEFT JOIN (SELECT P_IMAGE_NO
+					PRODUCT_NO,
+					IMG_PATH
+					FROM T4_P_IMAGE
+            		WHERE THUMBNAIL_YN = 'Y') B ON A.PRODUCT_NO = B.PRODUCT_NO
+		WHERE PRODUCT_KIND != #{code} AND ( 
+		<foreach collection="ingList" index="index" item="item" close=")" separator="OR">
+			PRODUCT_NAME LIKE CONCAT('%',#{search},'%')
+		</foreach>
+		ORDER BY RAND() LIMIT 2 
 	</select>
 	
 </mapper>

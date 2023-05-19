@@ -72,14 +72,18 @@
           margin-bottom: 20px; justify-content: space-between;
       }
       .myArea .contentBox .orderBox .orderCenter img{
-          width: 25%; height: 25%; margin: 10px 30px; cursor: pointer;
+          width: auto; height: 200px; margin: 10px 20px; cursor: pointer;
       }
       .myArea .contentBox .orderBox .orderCenter .detail{
-          text-align: center; margin: 0 30px; cursor: pointer;
+          text-align: center; margin: 0 20px; cursor: pointer;
       }
-      .myArea .contentBox .orderBox .orderCenter div:first-child{
+      .myArea .contentBox .orderBox .orderCenter .connection{
           font-size: 1.2em; cursor: pointer; font-weight: bold;
           margin-bottom: 20px;
+      }
+      .myArea .contentBox .orderBox .orderCenter div{
+          cursor: auto; 
+         
       }
 </style>
 
@@ -90,7 +94,7 @@
 		 <div id="app" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="images/Sample_User_Icon.png">
-                <div class="edit" title="회원정보 수정은 여길 누르세요">님 환영합니다</div>
+                <div class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()">{{sessionName}}님 환영합니다</div>
                 
             </div>
             <div class="contentBox"> <!--아래-->
@@ -101,17 +105,17 @@
                     <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
                 
-                <div class="orderBox"><!-- 주문내역 요약 -->
+                <div class="orderBox" v-for="(item, index) in list"><!-- 주문내역 요약 -->
                         <div class="orderTop">
-                            <div class="order">2023.05.12 주문</div><a class="order" href="/myPagee/order.do">주문상세보기 >></a>
+                            <div class="order">{{item.orderDate}} {{item.name}}</div><a class="order" href="/myPage/order.do">주문상세보기 >></a>
                         </div>
                         <div class="orderCenter">
-                            <img src="images/product_apple_thumb.jpg" name="상품이미지">
+                            <a href="/market/view.do"><img :src="item.imgPath" name="상품이미지" ></a>
                             <div class="detail">
-                                <div>첫 출하 빨간 가정용 햇 사과 5KG</div>
-                                <div>19,900원(100g당 398원)</div>
-                                <div>수량 : 3개</div>
-                                <div>총 결제금액 : 59,700원</div>
+                                <a  href="/market/view.do"><div class="connection">{{item.productName}}</div></a>
+                                <div>{{item.productPrice2}}원 (100{{item.volume}}당 {{item.perPrice}}원)</div>
+                                <div>수량 : {{item.orderCnt}}개</div>
+                                <div>총 결제금액 : {{item.orderPrice}}원</div>
                             </div>
                         </div>    
                 </div>  
@@ -133,14 +137,79 @@
 var app = new Vue({ 
     el: '#app',
     data: {
-    		
+    	list : []
+		, sessionName : "${sessionName}"
+		, sessionId : "${sessionId}"
+
+		
     }
     , methods : {
-    		
+    	
+    	//회원정보수정 이동
+    	fnUserEdit : function(){
+    		var self = this;
+    		self.pageChange("/modify.do", {sessionId : self.sessionId});
+    	},
+    	
+    	fnOrderProduct : function(){
+            var self = this;
+            var nparmap = {id : self.sessionId};
+            $.ajax({
+                url:"/order/product.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                	console.log(data);
+                	if(self.sessionId == ''){
+                		alert("로그인을 해주세요");
+                		location.href="/login.do";
+                		return;
+                	}
+                	else{
+                		self.list = data.list;
+                	}
+                	
+                    
+                }
+            });
+
+        },
+    	
+    	pageChange : function(url, param) {
+     		var target = "_self";
+     		if(param == undefined){
+     		//	this.linkCall(url);
+     			return;
+     		}
+     		var form = document.createElement("form"); 
+     		form.name = "dataform";
+     		form.action = url;
+     		form.method = "post";
+     		form.target = target;
+     		for(var name in param){
+ 				var item = name;
+ 				var val = "";
+ 				if(param[name] instanceof Object){
+ 					val = JSON.stringify(param[name]);
+ 				} else {
+ 					val = param[name];
+ 				}
+ 				var input = document.createElement("input");
+ 	    		input.type = "hidden";
+ 	    		input.name = item;
+ 	    		input.value = val;
+ 	    		form.insertBefore(input, null);
+ 			}
+     		document.body.appendChild(form);
+     		form.submit();
+     		document.body.removeChild(form);
+     	}
 		   	 
 	}	
     , created: function () {
-    
+    	var self = this;
+    	self.fnOrderProduct();
 	}
 });
 	

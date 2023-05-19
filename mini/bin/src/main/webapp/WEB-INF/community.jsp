@@ -5,14 +5,11 @@
 
 <style>
 	<!--스타일 입력 --> 
-	table { width : 100%;}
-    table, td,th {
-        border-collapse: collapse;
-        padding: 16px;
-        table-layout: fixed;
-    }
+	.comTable { width : 100%;}
+    .comTable, td,th {border-collapse: collapse; padding: 16px; table-layout: fixed;}
+    .comTable .myboard {color: var(--main-colorGreen);font-weight:bold}
     th {border-bottom:1px solid black;}
-    button {
+    .comBtn {
        font-size: medium;
        padding: 5px 10px;
        margin-right:10px;
@@ -23,7 +20,7 @@
        height: 40px;
        background-color: #E4DBD6;
     }
-    button:hover {cursor: pointer;}
+    .comBtn:hover {cursor: pointer;}
 	.comlist {
 		display: flex;
 	    flex-direction: column;
@@ -37,15 +34,11 @@
         box-shadow: 0px 0px 20px 5px #e7e6e6;
 	}
 	.comlist .center{text-align:center; }
-	.comlist .title:hover{cursor: pointer;}
-	.comlist .no{width:10%; }
-	.comlist .title{width:50%; text-align:left;}
-	.comlist .writer{width:10%;}
-	.comlist .date{width:20%;}
-	.comlist .view{width:10%;}
+	.comlist .title:hover{cursor: pointer; text-decoration: underline;}
+	.comlist .title{text-align:left;}
 	
 	/* 페이징 추가2 */
-	.pagination { margin:24px;display: inline-flex;}
+	.pagination {    margin: 24px auto; display: flex; justify-content: center;}
     ul { text-align: center; }
 	.pagination li {
 	    min-width:32px;
@@ -62,54 +55,55 @@
 	.pagination li.active {background-color : #E7AA8D;color:#fff;}
 	.pagination li.active a {color:#fff;}
     /* 페이징 추가 끝 */
-	#page {text-align:center;}
+	
 </style>
 
 
 <!-- pageContent -- START -->
 <div id="pageContent">
 	<div class="wrapper">
-		 <!-- 작업한 본문 입력 -->
-	<div id="app">
+		<div id="communityList">
        
-        <select v-model = "order" @change = "fnChangeOrder()">
-        <option value = "" selected disabled>정렬</option>
-         <option value = "recent">최신순</option>
-         <option value = "view">조회수</option>
-        </select>
-      
-          <div class="comlist">
-             <table>                            
-             	<thead>
-             		<tr>
-             			<th>글번호</th>
-             			<th>제목</th>
-             			<th>작성자</th>
-             			<th>작성일</th>
-             			<th>조회수</th>
-             		</tr>
-             	</thead>
-             	
-             	<tbody>
-	              	<tr class="center" v-for="(item, index) in list" >
-                        <td class="no">{{item.boardNo}}</td>
-	                   <template>
-	                         <td class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
-	                        <td class="title" v-if="item.status=='C'" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
-                        </template>
-   	                    <td class="writer">{{item.nick}}</td>
-       	                <td class="date">{{item.cdatetime}}</td>
-               	        <td class="view">{{item.hits}}</td>
-	                  </tr>                                 
-              </tbody>        	                       
-             </table>
-           </div>
-           
-           <button @click="fnAddCom()">글쓰기</button>
-           
-            <!-- 페이징 추가3 -->
-            <div id="page">
-            <template >
+	        <select v-model = "order" @change = "fnChangeOrder()">
+		         <option value = "" selected disabled>정렬</option>
+		         <option value = "recent">최신순</option>
+		         <option value = "view">조회수</option>
+	        </select>
+	      
+	        <div class="comlist">
+	           <table class="comTable">                            
+		           	<thead>
+		           		<tr>
+		           			<th>글번호</th>
+		           			<th colspan=3>제목</th>
+		           			<th>작성자</th>
+		           			<th>작성일</th>
+		           			<th>조회수</th>
+		           		</tr>
+		           	</thead>
+	           	
+		           	<tbody>
+		             	<tr class="center" v-for="(item, index) in list" >
+		                      <td class="no">{{item.boardNo}}</td>
+		                  <template>
+		                        <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></strong></td>
+		                        <template v-if="item.status=='C'">
+		                      		  <td colspan=3 class="title myboard" v-if="item.userId==sessionId" @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i> </td>
+		                      		  <td colspan=3 class="title"  v-else @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></td>
+		                        </template>
+	         	 		  </template>
+		 	                    <td class="writer">{{item.nick}}</td>
+		     	                <td class="date">{{item.cdatetime}}</td>
+		             	        <td class="view">{{item.hits}}</td>
+	                 	</tr>                                 
+		            </tbody>        	                       
+	           </table>
+	         </div>
+	           
+	         <button class="comBtn" @click="fnAddCom()">글쓰기</button>
+	     
+	        
+	         <template>
 				  <paginate id="page"
 				    :page-count="pageCount"
 				    :page-range="3"
@@ -120,11 +114,10 @@
 				    :container-class="'pagination'"
 				    :page-class="'page-item'">
 				  </paginate>
-				</template>         
-			</div>
-           
- 
-	</div>
+			</template>         
+			
+	        
+		</div>
 	</div>
 </div>
 <!-- pageContent -- END -->
@@ -136,8 +129,8 @@
  // 자바 스크립트 입력 
  Vue.component('paginate', VuejsPaginate)
  
-  var app = new Vue({
-            el: '#app',
+  var communityList = new Vue({
+            el: '#communityList',
             data: {
               list : [],
               cnt : 0,
@@ -146,7 +139,7 @@
      		 pageCount : 1,
      	     sessionId: "${sessionId}",    
      		 sessionStatus : "${sessionStatus}",
-     		 order : ""
+     		 order : "recent"
             }
             , methods: {
             	// 커뮤니티 리스트
@@ -165,6 +158,7 @@
                         	console.log(data.list);
                         	self.list = data.list;
                             self.cnt = data.cnt;
+                            console.log("게시글의 개수는 :" + self.cnt);
       					 	self.pageCount = Math.ceil(self.cnt / 10);
                         }
                     });
@@ -178,7 +172,8 @@
         			var self = this;
         			self.selectPage = pageNum;
         			var startNum = ((pageNum-1) * 10);
-        			var nparmap = {startNum : startNum};
+        			console.log(startNum);
+        			var nparmap = {startNum : startNum, order : self.order};
         			$.ajax({
         				url : "/community/list.dox",
         				dataType : "json",
@@ -186,6 +181,7 @@
         				data : nparmap,
         				success : function(data) {
         					self.list = data.list;
+        					console.log(self.list);
         					self.cnt = data.cnt;
         					self.pageCount = Math.ceil(self.cnt / 10);
         				}
@@ -246,6 +242,7 @@
             , created: function () {
             	var self = this;
                 self.fnGetComList();
+                
             }
         });
 </script>

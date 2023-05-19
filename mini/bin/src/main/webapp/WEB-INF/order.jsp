@@ -274,32 +274,23 @@
 							<div class="delivery_content" v-for="(item, index) in list">
 	                            <table class="table11" >
 	                                <tr id="tr11">
-	                                    <td id="td11" rowspan="2"><input type="checkbox" :value="item" v-model="selectedItems" @click="fncheckChange(item)"></td>	
+	                                    <td id="td11" rowspan="2"></td>		
 	                                    <td id="td12" rowspan="2"><img :src="item.imgPath" id="img_size"></td>
 	                                    <td id="td13">{{item.productName}}</td>
 	                                    <td id="td14" rowspan="2"><input type="text" id="item.cartNo" :value="item.productPrice*item.productCnt | numberFormat()" size="5" disabled></td>
-	                                    <td id="td15" rowspan="2">2500원</td>
-	                                    <td id="td16" rowspan="2"><button @click="fnRemove(item)" >삭제</button></td>
+	                                    <td id="td16" rowspan="2">0원</td>
 	                                </tr>
 	                                <tr id="tr11">
-	                                    <td>{{item.productPrice*item.productCnt | numberFormat()}}원  
-	                                    	<input type="number" size="5" min="1" max="5" v-model="item.productCnt" @input="fnsearchChange($event)">
+	                                    <td>{{item.productPrice | numberFormat()}}원  /  수량 : {{item.productCnt}}개
 	                                    </td>
 	                                </tr>
 	                            </table>
 	                        </div>
 	                        
-	                    <div class="cart_product_deleteyn">
-                            <table>
-                                <tr>
-                                    <td width="100"><input type="checkbox" v-model="selectAll">전체선택</td>
-                                    <td width="200"><button @click="getSelectedItems">선택삭제</button></td>
-                                </tr>
-                            </table>
-                        </div>
+	                    
                         
                         <div class="cart_product_payment">
-                            <div class="cart_product_payment_val"><span>상품가격 <input type="text" v-model="total_productPrice"> 원  + 배송비 0원 = 주문금액 4,900원</div>
+                            <div class="cart_product_payment_val">총상품가격 {{total_productPrice | numberFormat()}} 원  + 배송비 0원 = {{total_productPrice | numberFormat()}} 원</div>
                         </div>
                         <div class="line">
                             <hr>
@@ -315,15 +306,15 @@
                         <table class="table1">  
                             <tr id="tr1">
                                 <td id="td1">총상품가격</td>
-                                <td id="td2">홍길동</td>
+                                <td id="td2">{{total_productPrice | numberFormat()}} 원</td>
                             </tr>
                             <tr id="tr2">
                                 <td id="td1">배송비</td>
-                                <td id="td2">서울 특별시 구로구 구로디지털로 100</td>
+                                <td id="td2">0원</td>
                             </tr>
                             <tr id="tr2">
                                 <td id="td1">총결제금액</td>
-                                <td id="td2">010-0000-0000</td>
+                                <td id="td2">{{total_productPrice | numberFormat()}} 원</td>
                             </tr>
                             <tr id="tr2">
                                 <td id="td1">결제방법</td>
@@ -376,9 +367,13 @@ IMP.init(userCode);
         , productNo : ""
         , productCnt : ""
         , sessionId : "${sessionId}"
-        , selectedItems : []
+        , selectedItems : [${map.selectedItems}]
         , selectAll: false
         , total_productPrice : 0
+        , orderNo : ""
+        
+        
+         
 
     }
     
@@ -393,6 +388,7 @@ IMP.init(userCode);
     ,
     watch: {
       selectAll(value) {
+    	console.log(value);
         if (value) {
           // 전체 선택 체크박스가 선택되었을 때 모든 항목을 선택합니다.
           this.selectedItems = this.list.map(item => item);	
@@ -401,26 +397,47 @@ IMP.init(userCode);
           this.selectedItems = [];
         }
       }
+      
+      //주문 상품 선택 확인하기
+      , selectedItems(item){
+    	  var self = this;
+    	  self.total_productPrice = 0;
+    	  
+    	  //console.log("test-------", item[0]);
+    	  //console.log(item.length);
+    	  
+		  cnt = item.length;
+    	  
+    	  if(cnt > 0){
+			 for (var i = 0; i < cnt; i += 1) { 
+		    	  self.total_productPrice = self.total_productPrice + (item[i].productPrice*Number(item[i].productCnt));
+  	      	 } 		    	  
+      	  }       	  
+    	  
+    	  
+    	  
+      }
+      
     }
     
     , methods: {
     	fnGetList : function(){
     		var self = this;
+    		var orderCnt = "";
+    		var sum = 0;
     		var nparmap = {productNo : self.productNo, productCnt : self.productCnt};
     		
+    		cnt = self.selectedItems[0].length;    		 
+    		self.list = self.selectedItems[0];
     		
-    		//장바구니 리스트
-    		$.ajax({
-                url:"/cart-list.dox",
-                dataType:"json",
-                type : "POST",
-                data : nparmap,
-                success : function(data) {
-                	console.log(data.list);
-                	//self.cnt = data.list.length;
-                	self.list = data.list;
-                }
-            });
+    		console.log(self.selectedItems);
+    		
+    		if(cnt>0){
+    			for(i=0; i<cnt; i++){
+    				self.total_productPrice = self.total_productPrice + (self.selectedItems[0][i].productPrice * self.selectedItems[0][i].productCnt);   
+    			}
+    			
+    		}
     		
     		
     	}
@@ -453,23 +470,24 @@ IMP.init(userCode);
     	//	console.log(event.target.value) // 상품의 갯수가 변경되는지 이벤트를 받아온다
     	//}
     	//갯수 변경 합계 구하기
-    	, fnsearchChange : function(event){
+    	, fnsearchChange : function(event, item){
     		var self = this;
 			var cnt = 0;
+			self.total_productPrice =0;
 			
-			
-    		console.log(event.target.value) // 상품의 갯수가 변경되는지 이벤트를 받아온다
+    		//console.log(event.target.value) // 상품의 갯수가 변경되는지 이벤트를 받아온다
 		      
-		      console.log(self.selectedItems);
+		      //console.log(item);
+    		  //console.log("체크박스개수 : ", self.selectedItems.length);
 		      cnt = self.selectedItems.length;
 
 		      if(cnt > 0){
-					for (var i = 0; i < cnt; i += 1) {
-				    	  console.log(self.selectedItems[i].productPrice);
-				    	  console.log(Number(self.selectedItems[i].productCnt));
-				    	  self.total_productPrice = self.selectedItems[i].productPrice*Number(self.selectedItems[i].productCnt); 
-				    	  
-				    	}		    	  
+				for (var i = 0; i < cnt; i += 1) {
+			    	  console.log(self.selectedItems[i].productPrice);
+			    	  console.log(Number(self.selectedItems[i].productCnt));
+			    	  self.total_productPrice = self.total_productPrice + self.selectedItems[i].productPrice*Number(self.selectedItems[i].productCnt); 
+			    	  
+			    	}		    	  
 		      }
 		      
   	    		
@@ -484,7 +502,7 @@ IMP.init(userCode);
 			/* console.log(e) */
 			
 			  
-	        console.log(self.selectedItems);
+	        console.log(item);
 	        cnt = self.selectedItems.length;
 	        console.log("test==", cnt);
 
@@ -492,8 +510,15 @@ IMP.init(userCode);
 				/* for (var i = 0; i < cnt; i += 1) { */
 			    	  /* console.log(self.selectedItems[i].productPrice);
 			    	  console.log(Number(self.selectedItems[i].productCnt)); */
-    	  self.total_productPrice = self.total_productPrice + (item.productPrice*Number(item.productCnt)); 
-    	  console.log("test2 == ", self.total_productPrice);
+			    	  
+			    	  
+			    	  
+	    	  //self.total_productPrice = self.total_productPrice + (item.productPrice*Number(item.productCnt)); 
+	    	  //console.log("test2 == ", self.total_productPrice);
+	    	  //console.log(item.productPrice*Number(item.productCnt));
+	    	  
+	    	  
+	    	  
 			    	/* } */		    	  
 	       /* } */    		    		
     	}
@@ -563,31 +588,56 @@ IMP.init(userCode);
 	  , requestPay: function () {
 		  	var self = this;
 		  	
-		  	
-	        IMP.request_pay({ // param
-	            pg: "html5_inicis.INIBillTst",
-	            pay_method: "card",
-	            merchant_uid: "order_no_0001",
-	            name: "주문자:결제테스트",
-	            amount: 100,
-	            buyer_email: "gildong@gmail.com",
-	            buyer_name: "홍길동",
-	            buyer_tel: "010-4242-4242",
-	            buyer_addr: "서울특별시 강남구 신사동",
-	            buyer_postcode: "01181"
-	          }, 
-	          rsp => { // callback
-	            if (rsp.success) {
-	              console.log(rsp);
-	              // 결제 성공 시 로직,
-	              
-	            } else {
-	            	console.log(rsp);
-	              // 결제 실패 시 로직,
-	              
-	            }
-	          });
-	        }
+		  	console.log(JSON.stringify({ x: 5, y: 6 }));
+		 // Expected output: "{"x":5,"y":6}"		  	
+		  	console.log("test == ", self.selectedItems[0]);
+    		
+    				
+    				
+    			//결제시스템 가져오기
+        		IMP.request_pay({ // param
+    	            pg: "html5_inicis.INIBillTst",
+    	            pay_method: "card",
+    	            merchant_uid: "order_no_0001",
+    	            name: "주문자:결제테스트",
+    	            amount: 100,
+    	            buyer_email: "gildong@gmail.com",
+    	            buyer_name: "홍길동",
+    	            buyer_tel: "010-4242-4242",
+    	            buyer_addr: "서울특별시 강남구 신사동",
+    	            buyer_postcode: "01181"
+    	          }, 
+    	          rsp => { // callback
+    	            if (rsp.success) {
+    	              console.log(rsp);
+    	              // 결제 성공 시 로직,
+    	              
+    	            } else {
+    	            	console.log(rsp);
+    	              // 결제 실패 시 로직,
+
+    	            	cnt = self.selectedItems[0].length;
+    	        		if(cnt > 0){//상품이 있으면
+    	        			var nparmap = {list : JSON.stringify(self.selectedItems[0])};
+    	        			console.log("상품리스트: ",nparmap);
+    	        				//구매하기 후 주문 등록
+    	        			$.ajax({
+    	        	            url:"/addOrder.dox",	
+    	        	            dataType:"json",
+    	        	            type : "POST",
+    	        	            data : nparmap,
+    	        	            success : function(data) {
+    	        	            	alert("주문되었습니다.");
+    	        	            	location.href="/main.do";
+    	        	            }
+    	        	        });    	              
+    	        		}
+    	            }
+    	          });     				
+    				
+    				
+    		
+	    }
     
     
     }

@@ -12,6 +12,7 @@ $(document).ready(function(){
         dots: true,
 	    arrows: false,
 	    infinite: true,
+	    draggable: true,
 	    fade: true,
 		speed: 500,
 		cssEase: 'linear'
@@ -43,15 +44,22 @@ $(document).ready(function(){
     });
     
     // scollBtn clickEvent
-	$(window).scroll(function(){
+	/*$(window).scroll(function(){
 		if ($(this).scrollTop() > 300){
 			$("#scrollBtn").fadeIn();
 		} else{
 			$("#scrollBtn").fadeOut();
 		}
-	});
+	});*/
 	$("#scrollBtn").click(function(){
 		$('html, body').animate({scrollTop:0},400);
 		return false;
+	});
+	
+	// adminCtrlBox Title
+    $("#adminCtrlArea #adminBox .boxTitle .pageName").text(document.getElementById("pageTitle").innerText);
+	$("#adminBox").hide();
+	$("#adminBtn").click(function(){
+		$("#adminBox").fadeToggle();
 	});
 });

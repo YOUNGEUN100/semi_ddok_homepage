@@ -31,6 +31,17 @@ public class TodayEatController {
 	public String todayEat(Model model) throws Exception{
 		return "/todayEat";
 	}
+	// 전체 메뉴 랜덤 추천
+	@RequestMapping(value = "/todayEat/menu/result.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String menuRandon(Model model, @RequestParam HashMap <String, Object> hmap) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		TodayEat menu = todayEatService.searchMenuRandom(hmap);
+		resultMap.put("menu", menu);
+		resultMap.put("message", "성공");
+		return new Gson().toJson(resultMap);
+	}
 	
 	// 맛집메뉴 추천 페이지
 	@RequestMapping("/todayEat/store.do")

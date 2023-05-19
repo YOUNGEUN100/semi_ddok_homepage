@@ -13,7 +13,7 @@
 	                <li class="caption">* 토, 일, 공휴일은 휴무입니다.</li>
 	            </ul>
 	        </div>
-	        <a href="javaScript:;" class="qnaBtn">문의 게시판</a>
+	        <a href="/qna.do" class="qnaBtn">문의 게시판</a>
 	    </div>
 	    <div class="btmArea">
 	        <div class="logo typeFooter"><img src="/images/logo.png" alt="DDokDDok"></div>

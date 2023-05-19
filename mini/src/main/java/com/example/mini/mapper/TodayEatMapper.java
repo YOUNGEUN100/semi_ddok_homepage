@@ -13,6 +13,9 @@ public interface TodayEatMapper {
 	//맛집메뉴 추천
 	TodayEat selectStoreInfo(HashMap<String, Object> hmap);
 	
+	//맛집메뉴 랜덤 추천
+	TodayEat selectMenuRandom(HashMap<String, Object> hmap);
+	
 	//레시피 추천
 	TodayEat selectRecipeInfo(HashMap<String, Object> hmap);
 	

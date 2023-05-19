@@ -10,6 +10,9 @@ public interface TodayEatService {
 	//맛집메뉴 추천
 	TodayEat searchStoreInfo(HashMap<String, Object> hmap);
 	
+	//전체 메뉴 랜덤 추천
+	TodayEat searchMenuRandom(HashMap<String, Object> hmap);
+	
 	//레시피 추천
 	TodayEat searchRecipeInfo(HashMap<String, Object> hmap);
 	

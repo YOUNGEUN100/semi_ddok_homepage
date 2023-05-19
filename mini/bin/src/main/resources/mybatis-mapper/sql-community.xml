@@ -8,7 +8,7 @@
 	<!--커뮤니티 전체 리스트-->
 		<select id="selectComList" parameterType="hashmap" resultType="com.example.mini.model.Community">
 			SELECT 
-				BOARD_NO, 
+				B.BOARD_NO AS BOARD_NO,
 				B.USER_ID AS USER_ID,
 				U.NICK AS NICK, 
 				U.STATUS AS STATUS,
@@ -16,18 +16,19 @@
 				CONTENT, 
 				HITS, 
 				CATEGORY, 
-				DATE_FORMAT(CDATETIME,'%Y-%m-%d') AS CDATETIME, 
-				DATE_FORMAT(UDATETIME,'%Y-%m-%d') AS UDATETIME, 
-				DELETE_YN
+				DATE_FORMAT(B.CDATETIME,'%Y-%m-%d') AS CDATETIME, 
+				DATE_FORMAT(B.UDATETIME,'%Y-%m-%d') AS UDATETIME, 
+				DELETE_YN,
+				FILE_PATH
 			FROM T4_BOARD B
 			LEFT JOIN (SELECT USER_ID, NICK, STATUS FROM T4_USER) U ON U.USER_ID = B.USER_ID
+			LEFT JOIN T4_FILES F ON F.BOARD_NO = B.BOARD_NO
 			WHERE BOARD_KIND = 'COM' AND DELETE_YN = 'N'
-			ORDER BY CATEGORY DESC
 			<if test = "order == 'recent'">
-        	,CDATETIME DESC
+			ORDER BY CATEGORY DESC ,CDATETIME DESC
         	</if>
         	<if test = "order == 'view'">
-        	,HITS DESC
+        	ORDER BY CATEGORY DESC ,HITS DESC
         	</if>
 			LIMIT #{startNum}, 10
 		</select>
@@ -49,7 +50,7 @@
 		<!--커뮤니티 글보기-->
 		<select id="selectComInfo" parameterType="hashmap" resultType="com.example.mini.model.Community">
 			  SELECT 
-				BOARD_NO, 
+				B.BOARD_NO, 
 				B.USER_ID AS USER_ID,
 				U.NICK AS NICK, 
 				U.STATUS AS STATUS,
@@ -57,14 +58,16 @@
 				CONTENT, 
 				HITS, 
 				CATEGORY, 
-				CDATETIME, 
-				UDATETIME, 
-				DELETE_YN
+				B.CDATETIME AS CDATETIME, 
+				B.UDATETIME AS UDATETIME, 
+				DELETE_YN,
+				FILE_PATH
 			FROM T4_BOARD B
 			LEFT JOIN (SELECT USER_ID, NICK, STATUS FROM T4_USER) U ON U.USER_ID = B.USER_ID
+			LEFT JOIN T4_FILES F ON F.BOARD_NO = B.BOARD_NO
 			WHERE BOARD_KIND = 'COM'
 			<if test="boardNo != '' and boardNo != null">
-			AND BOARD_NO = #{boardNo}
+			AND B.BOARD_NO = #{boardNo}
 			</if>
 			
 		</select>
@@ -108,8 +111,9 @@
 				CATEGORY, 
 				CDATETIME, 
 				UDATETIME,
-				DELETE_YN)
-			VALUES ('COM', NULL, #{userId}, #{title}, #{content}, #{category}, now(), now(),'N')
+				DELETE_YN,
+				HITS)
+			VALUES ('COM', NULL, #{userId}, #{title}, #{content}, #{category}, now(), now(),'N',0)
 		</insert>
 		
 		<!-- 커뮤니티 글 수정 -->
@@ -122,7 +126,7 @@
 		</update>
 		
 		<!-- 첨부파일 등록 -->
-		<insert id="insertFile" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="board_no">
+		<insert id="insertFile" parameterType="HashMap">
 			INSERT INTO T4_FILES (
 				FILE_NO, 
 				BOARD_NO, 
@@ -132,7 +136,7 @@
 				FILE_SIZE, 
 				FILE_KIND,
 				CDATETIME)
-			VALUES (NULL, #{boardNo}, #{orlgName}, #{saveName}, #{filePath}, #{fileSize}, #{fileKind}, now())
+			VALUES (NULL, #{boardNo}, #{orlgName}, #{saveName}, #{images}, #{fileSize}, #{fileKind}, now())
 		</insert>
 		
 		<!-- 커뮤니티 게시글 삭제 -->
@@ -150,5 +154,86 @@
 		</update>
 		
 		
-	
+		<!--     QNA             -->
+		<!--     QNA 쿼리 작성      -->
+		
+		
+		<!--qna 전체 리스트-->
+		<select id="selectQnaList" parameterType="hashmap" resultType="com.example.mini.model.Community">
+			SELECT 
+				BOARD_NO, 
+				B.USER_ID AS USER_ID,
+				U.NICK AS NICK, 
+				U.STATUS AS STATUS,
+				TITLE, 
+				CONTENT, 
+				HITS, 
+				CATEGORY, 
+				DATE_FORMAT(CDATETIME,'%Y-%m-%d') AS CDATETIME, 
+				DATE_FORMAT(UDATETIME,'%Y-%m-%d') AS UDATETIME, 
+				DELETE_YN
+			FROM T4_BOARD B
+			LEFT JOIN (SELECT USER_ID, NICK, STATUS FROM T4_USER) U ON U.USER_ID = B.USER_ID
+			WHERE BOARD_KIND = 'QNA' AND DELETE_YN = 'N'
+			<if test = "order == 'recent'">
+			ORDER BY CATEGORY DESC ,CDATETIME DESC
+        	</if>
+        	<if test = "order == 'view'">
+        	ORDER BY CATEGORY DESC ,HITS DESC
+        	</if>
+			LIMIT #{startNum}, 10
+		</select>
+		
+		<!--커뮤니티 글 리스트 개수 -->
+		<select id="selectQnaCnt" parameterType="hashmap" resultType="int">
+	        SELECT COUNT(*) AS CNT
+			FROM T4_BOARD
+			WHERE BOARD_KIND = 'QNA' AND DELETE_YN = 'N'
+		</select>
+		
+		<!-- qan 글등록 -->
+		<insert id="insertQna" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="board_no">
+			INSERT INTO T4_BOARD (
+				BOARD_KIND,
+				BOARD_NO, 
+				USER_ID, 
+				TITLE, 
+				CONTENT, 
+				CATEGORY, 
+				CDATETIME, 
+				UDATETIME,
+				DELETE_YN,
+				HITS)
+			VALUES ('QNA', NULL, #{userId}, #{title}, #{content}, #{category}, now(), now(),'N',0)
+		</insert>
+		
+		<!--QNA 글보기-->
+		<select id="selectQnaInfo" parameterType="hashmap" resultType="com.example.mini.model.Community">
+			  SELECT 
+				BOARD_NO, 
+				B.USER_ID AS USER_ID,
+				U.NICK AS NICK, 
+				U.STATUS AS STATUS,
+				TITLE, 
+				CONTENT, 
+				HITS, 
+				CATEGORY, 
+				CDATETIME, 
+				UDATETIME, 
+				DELETE_YN
+			FROM T4_BOARD B
+			LEFT JOIN (SELECT USER_ID, NICK, STATUS FROM T4_USER) U ON U.USER_ID = B.USER_ID
+			WHERE BOARD_KIND = 'QNA'
+			<if test="boardNo != '' and boardNo != null">
+			AND BOARD_NO = #{boardNo}
+			</if>
+		</select>
+		
+		<!--커뮤니티 조회수-->
+		<update id="updateQnaCnt" parameterType="hashmap">
+			UPDATE T4_BOARD
+			SET HITS = HITS + 1
+			WHERE BOARD_NO = #{boardNo}
+		</update>
+		
 	</mapper>

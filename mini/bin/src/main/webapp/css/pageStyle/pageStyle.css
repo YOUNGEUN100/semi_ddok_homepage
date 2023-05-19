@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+/***** (setting) --- START *****/
+#pageContent h3 {font-size:1.5em; margin-bottom:0.75em;}
+#pageContent input {position:relative; transition:all 0.2s ease-in;}
+#pageContent input[type="checkbox"] {width:1em; height:1em; vertical-align:middle; appearance:none; background:var(--base-colorWhite); outline:1px solid var(--base-colorDeepGray); cursor:pointer; border-radius:2px;}
+#pageContent input[type="radio"]:checked {outline-color:var(--main-colorRed); background:var(--main-colorRed);}
+#pageContent input[type="checkbox"]:checked {outline-color:var(--main-colorRed); background:var(--main-colorRed);}
+#pageContent input[type="checkbox" i]:checked:before {content:"✔"; font-size:0.875em; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:var(--base-colorWhite);}
+/***** (setting) --- END *****/
+
+
+/***** (boxArea) --- START *****/
+#pageContent .typeBoxArea {padding:1.75em 3.5em 1.25em;}
+#pageContent .styleBoxRound {border-radius:1.5em;}
+#pageContent .styleBoxRound.typeMore {border-radius:2.5em;}
+#pageContent .styleBoxShadow {box-shadow:0 0 10px 0 rgba(0,0,0,0.1);}
+#pageContent .styleHoverShadow {transition:all 0.2s ease-out;}
+#pageContent .styleHoverShadow:hover {box-shadow:0 2px 20px 0 rgba(0,0,0,0.15);}
+/***** (boxArea) --- END *****/
+
+
+/***** (btnArea) --- START *****/
+.btnArea {width:100%; display:flex; flex-flow:row wrap; align-items:center; justify-content:flex-end;}
+.btnArea button {margin-left:0.75em; border-radius:0; line-height:1; padding:10px 15px; border:0; background:var(--base-colorCharcoal); color:var(--base-colorWhite); font-weight:400;}
+.btnArea button.addBtn {background:var(--main-colorGreen);}
+/***** (btnArea) --- END *****/
+
+        
+/***** (pagination) --- START *****/
+.pagination {margin:24px auto; display:flex; justify-content:center;}
+.pagination ul {text-align:center;}
+.pagination li {min-width:34px; display:inline; border-radius:17px; border:1px solid var(--base-colorDeepGray); color:var(--base-colorCharcoal); font-weight:500; margin:0 2px; text-align:center; transition:all 0.2s ease-out;}
+.pagination li.active {background-color:var(--main-colorOrange); border-color:var(--main-colorOrange); color:var(--base-colorWhite); font-weight:700;}
+.pagination li:hover {background:var(--base-colorDeepGray); color:var(--base-colorWhite);}
+.pagination li.active:hover {background:var(--main-colorOrange);}
+.pagination a {width:100%; display:block; line-height:1; padding:8px;}
+/***** (pagination) --- END *****/
+/***** (pagination2) --- START *****/
+.pagination2 {margin:24px auto; display:flex; justify-content:center;}
+.pagination2 ul {text-align:center;}
+.pagination2 li {min-width:34px; display:inline; border-radius:17px; border:1px solid var(--base-colorDeepGray); color:var(--base-colorCharcoal); font-weight:500; margin:0 2px; text-align:center; transition:all 0.2s ease-out;}
+.pagination2 li.active {background-color:var(--main-colorOrange); border-color:var(--main-colorOrange); color:var(--base-colorWhite); font-weight:700;}
+.pagination2 li:hover {background:var(--base-colorDeepGray); color:var(--base-colorWhite);}
+.pagination2 li.active:hover {background:var(--main-colorOrange);}
+.pagination2 a {width:100%; display:block; line-height:1; padding:8px;}
+/***** (pagination2) --- END *****/

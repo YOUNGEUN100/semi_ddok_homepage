@@ -10,7 +10,7 @@
         legend {font-size: x-large; }
         fieldset {
             width: 100%;
-            height: 500px;
+            height: auto;
             border: 5px solid rgba(245, 243, 243, 0.959);
             box-shadow: 2px 2px 20px 0px #ece9e9;
             border-radius: 10px;
@@ -18,11 +18,11 @@
             margin: 40px 0;
         }
         fieldset li {display: flex; margin: 20px 5px; }
-        fieldset .enrol-re {float: left; width: 100px;font-weight: bold;  }
-        .recipe-file { display: flex; }
+        fieldset .enrol_re {float: left; width: 100px;font-weight: bold;  }
+        .recipe_file { display: flex; }
         fieldset > li > #boarde_name, #content {  border-radius: 5px;  width: 100%; }
         fieldset > li > #no_btn {  border-radius: 5px;  width: 15%; }
-        .enrol-no {border-radius: 5px; width : 30%;}
+        .enrol_no {border-radius: 5px; width : 30%;}
         .btn_box button {
             border: none;
             width: 100px;
@@ -34,17 +34,11 @@
             font-size: 20px;
             font-weight: bold;
         }
-        #add-area { text-align: center;margin:10px 0; }
-        #add-area #add-btn {
-            border: none;
-            background: none;
-            padding:5px;
-            font-size: medium;
-        }
-        #step-num{margin-right: 30px;}
-        #re-info {margin-bottom: 20px;}
-        #re-img { display: flex; }
-        #recipe-step label {float: left; width: 130px; }
+        #add_area { text-align: center;margin:10px 0; }
+        #step_num{margin-right: 30px;}
+        #re_info {margin-bottom: 20px;}
+        #re_img { display: flex; }
+        #recipe_step label {float: left; width: 130px; }
         .btn:hover {  cursor: pointer; }
 	 
 </style>
@@ -58,19 +52,19 @@
             <h1>글쓰기</h1>
             <fieldset>
                   <li>
-                    <label for="board_name" class="enrol-re">제목</label>
+                    <label for="board_name" class="enrol_re">제목</label>
                     <input id="boarde_name" name="board_name" type="text" v-model="info.title" required >
                   </li>
                   <li>
-	                  <label for="file1" class="enrol-re">첨부파일</label>
+	                  <label for="file1" class="enrol_re">첨부파일</label>
 	                   <form action="">
 	                        <input type="file" id="file1" name="file1">
 	                    </form>
                  </li>
                   <li>
-                    <label for="board_content" class="enrol-re">내용</label> 
+                    <label for="board_content" class="enrol_re">내용</label> 
                     <div id="content">
-                   		 <vue-editor  v-model="info.content"></vue-editor>
+                   		 <vue-editor  v-model="info.content"> </vue-editor>
                     </div>
                     
                   </li>
@@ -78,7 +72,8 @@
     
     
               <div class="btn_box">
-                <button class="btn" @click="fnEnroll()">등록</button>
+                <button v-if="info.cdatetime" class="btn" @click="fnModify()">수정</button>
+                <button v-else class="btn" @click="fnEnroll()">등록</button>
             </div>
     
        
@@ -112,6 +107,7 @@
         content : "",
         boardNo : "${map.boardNo}",
         sessionStatus : "${sessionStatus}",
+        sessionId : "{sessionId}"
     }
     // 4. 컴포넌트 추가
     , components: {VueEditor}
@@ -142,11 +138,6 @@
             if (self.sessionStatus=='A') {
             	self.info.category = 2;
             }
-            // 작성일이 있다면 수정 함수 호출
-            if (self.info.cdatetime) {
-            	self.fnModify();
-            	return;
-            }
             
             var nparmap = self.info;
 	        $.ajax({
@@ -156,45 +147,22 @@
 	            data : nparmap,
 	            success : function(data) {  
 	            	console.log(data);
-	            	alert("등록되었습니다!");
 	            	
 	            	var form = new FormData();
 	       	        form.append( "file1",  $("#file1")[0].files[0] );
 	       	     	form.append( "boardNo",  data.boardNo); // pk
-	       	     	if (form.file1) {
+	       	     	// 첨부파일이 있으면 파일 업로드 함수 실행
+	       	     	console.log($("#file1")[0].files[0] );
+	       	     	if ($("#file1")[0].files[0] ) {
 	       	     		self.upload(form); 
 	       	     	}
-	           		
+	       	     	alert("등록되었습니다!");
 	           	 	location.href="/community.do";
 	            }
 	        }); 
         }
-     // 커뮤니티 글 수정
-        , fnModify : function() {
-            var self = this;
-            var nparmap = self.info;
-	        $.ajax({
-	            url:"/community/modify.dox",
-	            dataType:"json",	
-	            type : "POST", 
-	            data : nparmap,
-	            success : function(data) {  
-	            	console.log(data);
-	            	alert("수정되었습니다!");
-	            	
-	            	var form = new FormData();
-	       	        form.append( "file1",  $("#file1")[0].files[0] );
-	       	     	form.append( "boardNo",  data.boardNo); // pk
-	       	     	if (form.file1) {
-	       	     		self.upload(form); 
-	       	     	}
-	           		
-	           	 	location.href="/community.do";
-	            }
-	        }); 
-        },
-        // 파일 업로드
-	    upload : function(form){
+     // 파일 업로드
+	    , upload : function(form){
 	    	var self = this;
 	        
 	         $.ajax({
@@ -209,7 +177,29 @@
 	           
 	       });
 		}
-		
+     	// 커뮤니티 글 수정
+        , fnModify : function() {
+            var self = this;
+            var nparmap = self.info;
+	        $.ajax({
+	            url:"/community/modify.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log(data);
+	            	var form = new FormData();
+	       	        form.append( "file1",  $("#file1")[0].files[0] );
+	       	     	form.append( "boardNo",  data.boardNo); // pk
+	       	     	if ($("#file1")[0].files[0] ) {
+	       	     		self.upload(form); 
+	       	     	}
+		       	     alert("수정되었습니다!");
+	           	 	location.href="/community.do"; 
+	            }
+	        }); 
+        }
+        
     } // 메소드 end
     , created: function () {
 		var self = this;

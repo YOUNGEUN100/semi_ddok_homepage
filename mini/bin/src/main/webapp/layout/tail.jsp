@@ -3,6 +3,7 @@
 <jsp:include page="/layout/includeFooter.jsp"></jsp:include>
 </body>
 </html>
+<script type="text/javascript" src="/js/baseScript.js"></script>
 <script type="text/javascript">
 var app = new Vue({ 
     el: '#gnbUser',
@@ -11,6 +12,7 @@ var app = new Vue({
       , info : {}
       , sessionId : "${sessionId}"
       , sessionStatus : "${sessionStatus}"
+      , sessionNick : "${sessionNick}"
       , logFlg : false
      
     }   

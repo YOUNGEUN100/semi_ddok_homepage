@@ -24,12 +24,13 @@
         }
 
         .box2 {
+        	display : flex;
+        	flex-direction: column;
+    		align-items: center;
             width: 1200px;
-            height: 1000px;
             margin-top: 80px;
-            background-color: #ebebeb;
             max-height: 700px;
-            overflow: hidden;
+            overflow:hidden;
         }
 
         .fund_img {            
@@ -162,21 +163,16 @@
                             <button class="share_button" @click="fnClip"><i class="fa-solid fa-share-nodes fa-2xl"></i></button>
                         </div>
                     </div>
-
-                    <div class="box2" id="detail_box">
-                        <img
-                            :src="info.imgPathDetail">
-                    </div>
-
+					
+					<div class="box2" id="box2">
+						<div id="detail_box" v-for="(item, index) in imgInfo">
+	                        <img :src="item.imgPathDetail">
+	                    </div>
+					</div>
+                    
                     <div id="button_box1">
-                        <button onclick="show()" class="show_button">펼쳐보기</button>
+                        <button onclick="show()" class="show_button" id="show_button">펼쳐보기</button>
                     </div>
-
-                    <div id="button_box2">
-                        <button onclick="fold()" class="show_button">접기</button>
-                    </div>
-
-
 
                 </div>
             </div>
@@ -189,23 +185,25 @@
 
 
     <script type="text/javascript">
+    var btn = "N";
     function show() {
-        document.getElementById('detail_box').style.overflow = 'visible';
-        document.getElementById('button_box1').style.display = 'none';
-        document.getElementById('button_box2').style.display = 'block';
+    	if(btn == "N"){
+    		self.btn = "Y";
+    		document.getElementById('box2').style.maxHeight = '100%';
+        	show_button.innerText = "접기";
+        	
+    	} else {
+    		document.getElementById('box2').style.maxHeight = '700px';
+        	show_button.innerText = "펼쳐보기";
+        	self.btn = "N";
+    	}
     }
-
-    function fold() {
-        document.getElementById('detail_box').style.overflow = 'hidden';
-        document.getElementById('button_box1').style.display = 'block';
-        document.getElementById('button_box2').style.display = 'none';
-    }
-    
     
     var app = new Vue({
 		el : '#app',
 		data : {    			
 			info : {},
+			imgInfo: [],
 			fundingNo : "${map.fundingNo}",
 			sDate : "",
 			remainTime : "",
@@ -224,7 +222,9 @@
 					data : nparmap,
 					success : function(data) {
 						self.info = data.info;
+						self.imgInfo = data.imgInfo;
 						console.log(data.info);
+						console.log(data.imgInfo);
 						console.log(data.info.startDate);
 						self.sDate = data.info.fundingStartDt;
 						self.fnTimeDiff();

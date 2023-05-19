@@ -1,34 +1,52 @@
 @charset "UTF-8";
 
 /*** header --- START ***/
-#header {width:100%; height:auto; min-height:140px; background:var(--base-colorWhite); border-bottom:0 solid var(--base-colorBasicGray); position:fixed; top:0; left:0; z-index:99999; transition:all 0.2s ease-in;}
+#header {width:100%; min-height:140px; background:var(--base-colorWhite); border-bottom:0 solid var(--base-colorBasicGray); position:fixed; top:0; left:0; z-index:99999; transition:all 0.2s ease-in;}
 #header.active {border-bottom-width:1px;}
 #header + * {margin-top:140px;}
-#header .wrapper {min-height:auto; display:flex; flex-flow:column nowrap; justify-content:space-between;}
+#header .wrapper {display:flex; flex-flow:column nowrap; justify-content:space-between;}
 
 #header #logo {order:2; align-self:center; margin-bottom:10px;}
 #header #logo img {height:33px;}
-#header #gnbMenu {order:3; justify-self:flex-end;}
-#header #gnbMenu::before {content:''; display:block; width:100%; height:1px; background:var(--base-colorBasicGray); opacity:0; position:relative; top:53px; left:0; transition:all 0.2s ease-in;}
-#header #gnbMenu.active::before {opacity:1;}
+#header #gnbMenu {order:3; justify-self:flex-end; position:relative; padding-top:7px;}
+#header #gnbMenu::after {content:''; display:block; width:100%; height:1px; background:var(--base-colorBasicGray); opacity:0; position:absolute; top:60px; left:0; transition:all 0.2s ease-in;}
+#header.active #gnbMenu::after {opacity:1;}
+#header #gnbMenu .menuBtn {background:none; border:0; border-radius:0; display:inline-block; padding:0 0.5em; margin:0.5em 0; position:absolute; top:0; left:0; display:none;}
+#header #gnbMenu .menuBtn i {font-size:1.875em; color:var(--main-colorGreen);}
 #header #gnbMenu ul.depth1 {width:100%; display:flex; flex-flow:row nowrap; justify-content:space-between; text-align:center;}
-#header #gnbMenu ul.depth1 > li > a {font-size:1.125em; padding:8px; margin-bottom:10px; position:relative; z-index:2;}
-#header #gnbMenu ul.depth2 {padding:15px 0;}
-#header #gnbMenu ul.depth1 > li > a::before {content:''; display:block; width:0; height:0; position:absolute; top:18%; left:-2%; background:var(--main-colorOrange); border-radius:50%;}
-#header #gnbMenu ul.depth1 > li.active > a::before {width:8px; height:8px;}
-#header #gnbMenu ul.depth2 > li > a {padding:8px;}
+#header #gnbMenu ul.depth1 > li > a {font-size:1.125em; padding:8px; margin-bottom:10px; position:relative; z-index:2; font-weight:600;}
+#header #gnbMenu ul.depth1 > li > a::before {content:''; display:block; width:0; height:0; position:absolute; top:22%; left:0; background:var(--main-colorRed); border-radius:50%;}
+#header #gnbMenu ul.depth1 > li.active > a::before {width:6px; height:6px;}
+#header #gnbMenu ul.depth1 ul.depth2 {padding:15px 0;}
+#header #gnbMenu ul.depth1 ul.depth2 > li > a {padding:8px;}
 
-#header #gnbUser {order:1; margin-top:10px; align-self:flex-end; display:flex; flex-flow:row nowrap; justify-content:space-between;}
-#header #gnbUser li::before {content:'｜'; font-weight:300;}
-#header #gnbUser li:first-child::before {display:none;}
-#header #gnbUser a {font-size:0.875em;}
+#header #gnbUser {order:1; margin-top:10px; display:flex; flex-flow:row nowrap; align-self:flex-end; justify-content:center;}
+#header #gnbUser li {font-size:0.875em; line-height:1; font-weight:500;}
+#header #gnbUser li::after {content:'｜'; font-weight:300;}
+#header #gnbUser li.helloText {font-weight:700; padding:2px; margin-right:1em;}
+#header #gnbUser li.helloText::after {display:none;}
+#header #gnbUser li:last-child::after {display:none;}
+#header #gnbUser li a {padding:2px;}
 #header a, #header a::before {transition:all 0.2s ease-in;}
 /*** header --- END ***/
 
 
-/*** footer --- START ***/
-#scrollBtn {width:2em; height:2em; background:var(--base-colorWhite); color:var(--base-colorCharcoal); border-radius:50%; cursor:pointer; display:none; font-size:2em; position:fixed; bottom:1em; right:1em; padding:0.5em 0; text-align:center; z-index:9999;}
+/*** admin --- START ***/
+#scrollBtn {width:2em; height:2em; background:var(--base-colorWhite); color:var(--base-colorCharcoal); border-radius:50%; cursor:pointer; font-size:1.5em; position:fixed; bottom:1em; right:1em; padding:0.5em 0; text-align:center; z-index:9999;}
+#adminBtn {order:2; width:2em; height:2em; background:var(--base-colorWhite); color:var(--base-colorCharcoal); border-radius:50%; cursor:pointer; display:block; font-size:1.5em; padding:0.5em 0; text-align:center;}
 
+#adminCtrlArea {display:flex; flex-flow:column wrap; align-items:flex-end; position:fixed; bottom:5.5em; right:1.5em; z-index:9999;}
+#adminCtrlArea #adminBox {order:1; width:auto; height:auto; background:var(--base-colorWhite); border-radius:1em; display:inline-block; text-align:center; overflow:hidden; margin-bottom:1em;}
+#adminCtrlArea #adminBox > div {font-size:0.875em; padding:0.375em 1.5em;}
+#adminCtrlArea #adminBox .boxTitle {background:var(--base-colorCharcoal); color:var(--base-colorWhite); font-weight:500;}
+#adminCtrlArea #adminBox .boxTitle .pageName {font-weight:700;}
+#adminCtrlArea #adminBox button {width:100%; line-height:1; background:none; border:0; border-bottom:1px dotted var(--base-colorCharcoal); border-radius:0; font-weight:600; transition:all 0.2s ease-in; font-weight:700;}
+#adminCtrlArea #adminBox button:last-child {border-bottom:0;}
+#adminCtrlArea #adminBox button:hover {color:var(--main-colorRed);}
+/*** admin --- END ***/
+
+
+/*** footer --- START ***/
 #footer {width:100%; height:400px; background:var(--base-colorLightGray); margin-top:7.5em; padding:2.5em 0; clear:both;}
 #footer .wrapper {min-height:auto; display:flex; flex-flow:column nowrap;}
 
@@ -37,10 +55,11 @@
 #footer .topArea .customerBox .tel a {margin-left:0.25em;}
 #footer .topArea .customerBox ul.time li strong {padding-right:0.25em;}
 #footer .topArea .customerBox ul.time li.caption {font-size:0.875em; margin-top:0.5em;}
-#footer .topArea .qnaBtn {display:flex; justify-content:center; align-items:center; padding:25px 60px; background:#555; color:var(--base-colorWhite); font-weight:500; font-size:1.125em;}
+#footer .topArea .qnaBtn {display:flex; justify-content:center; align-items:center; padding:25px 60px; background:#555; color:var(--base-colorWhite); font-weight:500; font-size:1.125em; transition:all 0.2s ease-in;}
+#footer .topArea .qnaBtn:hover {background:var(--main-colorGreen);}
 
 #footer .btmArea {width:100%; display:flex; flex-flow:column nowrap;}
-#footer .btmArea .logo img {width:inherit; height:44px;}
+#footer .btmArea .logo img {width:inherit; height:44px; filter:grayscale(1);}
 #footer .btmArea ul {display:flex; flex-flow:row wrap;}
 #footer .btmArea ul li {font-size:0.875em;}
 #footer .btmArea ul.infoBox {margin-top:1em;}

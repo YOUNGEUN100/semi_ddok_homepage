@@ -21,7 +21,12 @@ public class TodayEatServiceImpl implements TodayEatService{
 		TodayEat info = todayEatMapper.selectStoreInfo(hmap);
 		return info;
 	}
-
+	// 전체 메뉴 랜덤 추천
+	@Override
+	public TodayEat searchMenuRandom(HashMap<String, Object> hmap) {
+		TodayEat menu = todayEatMapper.selectMenuRandom(hmap);
+		return menu;
+	}
 	@Override
 	public TodayEat searchRecipeInfo(HashMap<String, Object> hmap) {
 		TodayEat info = todayEatMapper.selectRecipeInfo(hmap);

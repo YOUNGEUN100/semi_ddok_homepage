@@ -15,6 +15,18 @@
             margin: auto;
             padding: 24px;
         }
+        
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px 20px;
+        }
 
         h1 {
             text-align: center;
@@ -35,13 +47,13 @@
             margin-top: 16px;
         }
 
-        .input_box {
+        .input_box, .file_list {
             border: 1px solid #999999;
             border-radius: 10px;
             padding: 16px;
         }
 
-        .input_box span {
+        .input_box span, .file_list span {
             display: inline-block;
             width: 15%;
             font-size: 18px;
@@ -99,7 +111,8 @@
                 <div class="container">
 
                     <div>
-                        <h1>랜선펀딩 등록</h1>
+                        <h1 v-if="fundingNo==''">랜선펀딩 등록</h1>
+                        <h1 v-else>랜선펀딩 수정</h1>
                     </div>
 
                     <div class="input_form">
@@ -107,36 +120,66 @@
                         <div class="input_box">
 
                             <div class="title_box">
-                                <span>제목</span> <input class="title" type="text" v-model="info.title">
+                                <span>제목</span> <input class="title" type="text" v-model="info.fundingName">
                             </div>
 
                             <div class="summmary_box">
-                                <span>요약설명</span> <input class="summary" type="text" v-model="info.summary">
+                                <span>요약설명</span> <input class="summary" type="text" v-model="info.fundingSummary">
                             </div>
 
                             <div class="goal_box">
-                                <span>펀딩목표수</span> <input class="goal" type="number" min="0" v-model="info.goal">
+                                <span>펀딩목표수</span> <input class="goal" type="number" min="0" v-model="info.fundingGoalCnt">
                             </div>
 
                             <div class="open_date_box">
-                                <span>펀딩시작일</span> <input class="open_date" type="datetime-local" v-model="info.openDate">
+                                <span>펀딩시작일</span> <input class="open_date" type="datetime-local" v-model="info.fundingStartDt">
                             </div>
 
                             <div class="end_date_box">
-                                <span>펀딩종료일</span> <input class="end_date" type="datetime-local" v-model="info.endDate">
+                                <span>펀딩종료일</span> <input class="end_date" type="datetime-local" v-model="info.fundingEndDt">
                             </div>
 
                             <div class="price_box">
-                                <span>가격</span> <input class="price" type="number" min="0" v-model="info.price">
+                                <span>가격</span> <input class="price" type="number" min="0" v-model="info.fundingPrice">
                             </div>
 
+                        </div>
+                        
+                        <div class="file_list" v-if="fundingNo != ''">
+                        	<span>첨부파일</span>
+								<table>                            
+									<thead>
+								  		<tr>
+								  			<th>체크</th>
+								  			<th>이미지 번호</th>
+								  			<th>이미지 이름</th>
+								  			<th>이미지 종류</th>
+								  			<th>등록일</th>
+								  		</tr>
+								  	</thead>
+								  
+								  	<tbody>
+								   		<tr v-for="(item, index) in imgList">
+								        	<template>
+								           		<td><input type="checkbox" :value="item.imgNo" v-model="selectedItems"></td>
+								            	<td>{{item.imgNo}}</td>
+								            	<td><a :href="item.imgPath">{{item.imgOrgName}}</a></td>
+								            	<td>{{item.thumbnailYn2}}</td>
+								            	<td>{{item.cdatetime}}</td>
+								          	</template> 
+								    	</tr>                                 
+									</tbody>        	                       
+								</table>
+								<button @click="fndelete">삭제</button>
                         </div>
 
                         <div class="file_box">
 
                             <div class="thumb_box">
-                                <p>썸네일 이미지</p>
+                            	<p>썸네일 이미지</p>
                                 <input type="file" id="file1" name="file1">
+                                <p>상세 이미지</p>
+                                <input type="file" id="file2" name="file2" multiple>
                                  <vue-editor v-model="info.content"></vue-editor>
                             </div>
                             
@@ -144,8 +187,8 @@
                         </div>
 
                         <div class="btn_box">
-                            <button @click="fnAddFunding">등록</button>
-                            <button>수정</button>
+                            <button @click="fnAddFunding" v-if="fundingNo==''">등록</button>
+                            <button @click="fnEditFunding" v-else>수정</button>
                         </div>
 
 
@@ -171,23 +214,76 @@
             el: '#app',
             data: {
                 info: {
-                		title: "",
-                		summary: "",
-                		goal: "",
-                		openDate: "",
-                		endDate: "",
-                		price: "",
+                		fundingName: "",
+                		fundingSummary: "",
+                		fundingGoalCnt: "",
+                		fundingStartDt: "",
+                		fundingEndDt: "",
+                		fundingPrice: "",
                 		content:""
-                	
-                },                
-                sessionId: "${sessionId}"
+                },
+                selectedItems: [],
+                imgList: [],
+                sessionId: "${sessionId}",
+                fundingNo: "${map.fundingNo}"
 
             }
             , components: {VueEditor}
             , methods: {
-                fnAddFunding: function () {
+            	//수정용 펀딩 정보
+            	fnGetFunding: function () {
+                    var self = this;
+                    console.log(self.fundingNo);
+                    //fundingNo 있으면 수정페이지 없으면 등록페이지
+                    if(self.fundingNo == "") {
+                    	return;
+                    }
+                    var nparmap = {
+                        fundingNo: self.fundingNo
+                    };
+                    $.ajax({
+                        url: "/funding/view.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            self.info = data.info;
+                            self.imgList = data.imgList;
+                            console.log(data.info);
+                            console.log(data.imgList);
+							
+                        }
+                    });
+                }
+            	
+            	//  펀딩 등록
+                , fnAddFunding: function () {
                     var self = this;
                     if(!confirm("등록 하시겟습니까?")) {
+                    	return;
+                    }   
+                    if(self.info.fundingName == "") {
+                    	alert("글제목을 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.fundingSummary == "") {
+                    	alert("상품 요약글을 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.fundingGoalCnt == "") {
+                    	alert("최소 펀딩 신청자 수를 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.fundingStartDt == "") {
+                    	alert("펀딩 시작일을 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.fundingEndDt == "") {
+                    	alert("펀딩 종료일을 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.fundingPrice == "") {
+                    	alert("상품 가격을 입력하세요.");
                     	return;
                     }
                     console.log(self.info);
@@ -199,22 +295,104 @@
                         data: nparmap,
                         success: function (data) {
                             alert("등록되었습니다.");
+                            console.log($("#file1")[0].files);
+                            console.log($("#file2")[0].files);
                             
+                            // 썸네일 이미지
                             var form = new FormData();
-        	       	        form.append( "file1",  $("#file1")[0].files[0] );
-        	       	     	form.append( "fundingNo",  data.fundingNo); // pk
-        	           		self.upload(form);
+                            form.append( "file1",  $("#file1")[0].files[0] );								
+							form.append( "fundingNo",  data.fundingNo);// pk
+							self.upload(form);
+                            
+							// 상세 이미지
+                            for(var i = 0; i<$("#file2")[0].files.length; i++) {
+								//append는 이어붙이는 명령어라 첫번째 파일을 보내고 다시 폼을 만들어 두번째 파일을 보내줘야함
+								var form = new FormData(); 
+								form.append( "file2",  $("#file2")[0].files[i] );								
+								form.append( "fundingNo",  data.fundingNo);// pk
+								self.upload2(form);
+							}                            
         	       	     	
                            	location.href = "/funding.do";
                             
                         }
                     });
                 }
-            
+                
+             	// 게시글 수정
+            	, fnEditFunding: function() {
+            		var self = this;
+            		if (!confirm("펀딩을 수정하시겠습니까?")) {
+            			return;
+            		};
+            		if(self.info.fundingName == "") {
+                    	alert("글제목을 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.fundingSummary == "") {
+                    	alert("상품 요약글을 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.fundingGoalCnt == "") {
+                    	alert("최소 펀딩 신청자 수를 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.fundingStartDt == "") {
+                    	alert("펀딩 시작일을 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.fundingEndDt == "") {
+                    	alert("펀딩 종료일을 입력하세요.");
+                    	return;
+                    }
+                    if(self.info.fundingPrice == "") {
+                    	alert("상품 가격을 입력하세요.");
+                    	return;
+                    }
+            		console.log(self.info.finishYn);
+            		var nparmap = {
+                            fundingNo : self.fundingNo,
+                            fundingName : self.info.fundingName,
+                            fundingSummary : self.info.fundingSummary,
+                            fundingGoalCnt : self.info.fundingGoalCnt,
+                            fundingStartDt : self.info.fundingStartDt,
+                            fundingEndDt :self.info.fundingEndDt,
+                            fundingPrice :self.info.fundingPrice,
+                            content : self.info.content
+                        };
+            		$.ajax({
+                    	url: "/funding/edit.dox",
+                    	dataType: "json",
+                    	type: "POST",
+                    	data: nparmap,
+                    	success: function (data) {
+                    		alert("수정완료");
+                    		location.href="/funding.do"
+                    	}
+                	});
+            	}
+             	
+            	// 썸네일용 업로드
             	, upload : function(form){
+	    			var self = this;
+	         		$.ajax({
+	            	 	url : "/funding/fileUpload2.dox"
+	           		, type : "POST"
+	           		, processData : false
+	           		, contentType : false
+	           		, data : form
+	          	 	, success:function(response) { 
+	        	   	
+	          		 }
+	           
+	       			});
+				}
+            	
+            	// 상세이미지용 업로드
+            	, upload2 : function(form){
     	    		var self = this;
     	         	$.ajax({
-    	             	url : "/fileUpload1.dox"
+    	             	url : "/funding/fileUpload3.dox"
     	           	, type : "POST"
     	           	, processData : false
     	           	, contentType : false
@@ -223,16 +401,38 @@
     	        	   	
     	          	 }
     	           
-    	       	});
+    	       		});
     			}
+            	
+            	, fndelete : function () {
+            		var self = this;
+            		if (!confirm("삭제하시겠습니까?")) {
+            			return;
+            		}
+            		
+            		console.log(self.selectedItems);
+            		var nparmap = {
+                            selectedItems : JSON.stringify(self.selectedItems)
+                    };
+                    $.ajax({
+                        url: "/funding/removeimg.dox",
+                        dataType: "json",
+                        type: "POST",
+                        data: nparmap,
+                        success: function (data) {
+                            alert("삭제완료");
+                            self.fnGetFunding();
+                        }
+                    });
+            	}
 				
          		
              	
             }
-                ,
-                created: function () {
-                    var self = this;
-                    
-                }
-            });
+            ,
+            created: function () {
+                var self = this;
+                self.fnGetFunding();
+            }
+        });
     </script>

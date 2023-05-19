@@ -58,7 +58,7 @@
 
 
       .myArea .contentBox .reviewBox{
-          width: 100%; box-shadow: 0 0 5px #ccc;
+          width: 100%; box-shadow: 0 0 5px #ccc; 
           border-radius: 20px; padding-right:40px;
           margin-top: 30px;
       }
@@ -131,7 +131,7 @@
 		 <div id="app" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="/./images/Sample_User_Icon.png">
-                <div class="edit" title="회원정보 수정은 여길 누르세요">{{sessionName}}님 환영합니다</div>
+                <a href="/modify.do" class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()">{{sessionName}}님 환영합니다</a>
                 
             </div>
             <div class="contentBox"> <!--아래-->
@@ -141,10 +141,10 @@
                     <a class="menu" id="funding" href="/myPage/funding.do">펀딩내역</a>
                     <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
-                </div>
+                
                 <div class="reviewBox" id="reviewBox"><!-- 리뷰관리 -->
                     <div class="reviewTop">
-                        <div class="review">2023.05.12 배송완료</div><div class="review">주문번호 : 14513325</div>
+                        <div>2023.05.12 배송완료</div><div>주문번호 : 14513325</div>
                     </div>
                     <div class="reviewCenter">
                         <img src="images/product_apple_thumb.jpg" name="상품이미지">
@@ -189,10 +189,47 @@
 var app = new Vue({ 
     el: '#app',
     data: {
-    	sessionName : "${sessionName}"
+    	list : []
+		, sessionName : "${sessionName}"
+		, sessionId : "${sessionId}"
     }
     , methods : {
-    		
+    	
+    	fnUserEdit : function(){
+    		var self = this;
+    		self.pageChange("/modify.do", {sessionId : self.sessionId});
+    	},
+    	
+    	pageChange : function(url, param) {
+     		var target = "_self";
+     		if(param == undefined){
+     		//	this.linkCall(url);
+     			return;
+     		}
+     		var form = document.createElement("form"); 
+     		form.name = "dataform";
+     		form.action = url;
+     		form.method = "post";
+     		form.target = target;
+     		for(var name in param){
+ 				var item = name;
+ 				var val = "";
+ 				if(param[name] instanceof Object){
+ 					val = JSON.stringify(param[name]);
+ 				} else {
+ 					val = param[name];
+ 				}
+ 				var input = document.createElement("input");
+ 	    		input.type = "hidden";
+ 	    		input.name = item;
+ 	    		input.value = val;
+ 	    		form.insertBefore(input, null);
+ 			}
+     		document.body.appendChild(form);
+     		form.submit();
+     		document.body.removeChild(form);
+     	}
+        
 		   	 
 	}	
     , created: function () {

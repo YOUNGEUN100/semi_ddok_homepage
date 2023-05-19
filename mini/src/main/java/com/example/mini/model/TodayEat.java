@@ -18,6 +18,7 @@ public class TodayEat {
 	private String situation;
 	private String[] nation;
 	private String[] location;
+	private String imgPath;
 	
 	private Integer productNo ; 
 	private String productName ; 
@@ -214,5 +215,11 @@ public class TodayEat {
 	}
 	public void setIngList(String[] ingList) {
 		this.ingList = ingList;
+	}
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 }

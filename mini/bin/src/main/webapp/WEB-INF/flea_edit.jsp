@@ -58,6 +58,7 @@
             border: 1px solid #999999;
             border-radius: 10px;
             padding: 16px;
+            height : auto;
         }
 
 
@@ -103,11 +104,21 @@
                     <div class="input_form">
 
                         <div class="category">
-
+							게시판 종류
                             <select v-model="info.boardKind">
-                            	<option value="" selected>글종류</option>
-                                <option value="T_LAN">거래</option>
-                                <option value="D_LAN">나눔</option>
+                            	<option value="" selected>종류</option>
+                                <option value="T_LAN">거래글</option>
+                                <option value="D_LAN">나눔글</option>
+                            </select>
+
+                        </div>
+                        
+                        <div class="category" v-if="boardNo!=''">
+							거래 상태
+                            <select v-model="info.finishYn">
+                            	<option value="" selected>상태</option>
+                                <option value="N">거래중</option>
+                                <option value="Y">거래완료</option>
                             </select>
 
                         </div>
@@ -124,7 +135,7 @@
 
                             <div class="detail_box">
                                 <p>첨부파일</p>
-                                <input type="file" id="file2" name="file2" multiple>
+                                <input type="file" id="file1" name="file1" multiple >
                                  <vue-editor v-model="info.content"></vue-editor>
                             </div>
 
@@ -163,6 +174,7 @@
             data: {
                 info: {
                 		boardKind: "",
+                		finishYn: "",
                 		title: "",
                 		content: ""              		
                 		
@@ -177,6 +189,7 @@
             	//게시글 수정용 데이터 불러오기
             	fnGetFlea: function () {
                     var self = this;
+                    //boardNo있으면 수정 없으면 등록
                     if (self.boardNo == "") {
                     	return;
                     }
@@ -216,7 +229,7 @@
                     console.log(self.info);
                     var nparmap = {
                     		sessionId : self.sessionId,
-                            boardKind : self.info.boardKind,
+                            boardKind : self.info.boardKind,                            
                             title : self.info.title,
                             content : self.info.content
                         };
@@ -226,19 +239,22 @@
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
-                        	var form = new FormData();   
-                        	var file = $("#file2").prop("file2");
-                        	for(var i =0; i<file.size; i++) {
-                        		form.append( "file2[]",  $("#file2")[i].files[i] );
-                        	}
                         	
-                        	form.append( "boardNo",  data.boardNo);           		
-               	       	    self.upload(form);    
-        	       	     	 // pk
-        	       	     	console.log(data.boardNo);
-        	           		
+                        	console.log($("#file1")[0].files.length); //첨부파일 갯수
+                        	console.log($("#file1")[0].files); //첨부파일 리스트
+                        	console.log($("#file1")[0].files[0]);
+                        	console.log($("#file1")[0].files[1]);
+                        	   	
+							for(var i = 0; i<$("#file1")[0].files.length; i++) {
+								//append는 이어붙이는 명령어라 첫번째 파일을 보내고 다시 폼을 만들어 두번째 파일을 보내줘야함
+								var form = new FormData(); 
+								form.append( "file1",  $("#file1")[0].files[i] );								
+								form.append( "boardNo",  data.boardNo);// pk
+								self.upload(form);
+							}
+								
                             alert("등록되었습니다.");
-                           // location.href = "/flea.do";
+                            location.href = "/flea.do";
                             
                         }
                     });
@@ -247,13 +263,12 @@
             	, upload : function(form){
     	    		var self = this;
     	         	$.ajax({
-    	             	url : "/fileUpload2.dox"
+    	             	url : "/fleamarket/fileUpload1.dox"
     	           	, type : "POST"
     	           	, processData : false
     	           	, contentType : false
     	           	, data : form
-    	           	, success:function(response) { 
-    	        	   	
+    	           	, success:function(response) {
     	          	 }
     	           
     	       	});
@@ -286,9 +301,27 @@
             		if (!confirm("게시글을 수정하시겠습니까?")) {
             			return;
             		};
+            		if(self.info.boardKind == "") {
+                    	alert("마켓글 종류를 선택하세요.");
+                    	return;
+                    };
+                    if(self.info.finishYn == "") {
+                    	alert("거래 상태를 선택하세요.");
+                    	return;
+                    };
+                    if(self.info.title == "") {
+                    	alert("글 제목을 입력하세요.");
+                    	return;
+                    };
+                    if(self.info.content == "") {
+                    	alert("글 내용을 입력하세요.");
+                    	return;
+                    };
+            		console.log(self.info.finishYn);
             		var nparmap = {
                             boardNo : self.boardNo,
                             boardKind : self.info.boardKind,
+                            finishYn : self.info.finishYn,
                             title : self.info.title,
                             content : self.info.content
                         };

@@ -4,7 +4,7 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <style>
-	table { width : 100%;}
+	table { width : 100%; table-layout:fixed;}
     table, td,th {
         border-collapse: collapse;
         padding: 16px;
@@ -29,7 +29,6 @@
 		border: none;
         box-sizing: border-box;
         padding: 40px 40px;
-        width: 1200px;
         margin-top: 20px;
         margin-bottom : 20px;
         border-radius: 20px;
@@ -37,11 +36,7 @@
 	}
 	.comlist .center{text-align:center; }
 	.comlist .title:hover{cursor: pointer;}
-	.comlist .no{width:10%; }
-	.comlist .title{width:50%; text-align:left;}
-	.comlist .writer{width:10%;}
-	.comlist .date{width:20%;}
-	.comlist .view{width:10%;}
+	.comlist .title{text-align:left;}
 	
 	
 	.pagination { margin:24px;display: inline-flex;}
@@ -80,7 +75,7 @@
              	<thead>
              		<tr>
              			<th>글번호</th>
-             			<th>제목</th>
+             			<th colspan=3>제목</th>
              			<th>작성자</th>
              			<th>작성일</th>
              			<th>조회수</th>
@@ -89,10 +84,10 @@
              	
              	<tbody>
 	              	<tr class="center" v-for="(item, index) in list" >
-                        <td class="no">{{item.boardNo}}</td>
+                        <td class="no">{{index+1}}</td>
 	                   <template>
-	                        <td class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
-	                        <td class="title" v-if="item.status=='C'" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
+	                        <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
+	                        <td colspan=3 class="title" v-if="item.status=='C'" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
                         </template>
    	                    <td class="writer">{{item.nick}}</td>
        	                <td class="date">{{item.cdatetime}}</td>
@@ -102,7 +97,7 @@
              </table>
            </div>
            
-           <button @click="fnAddCom()">글쓰기</button>
+           <button @click="fnAddCom()">문의하기</button>
            
             <!-- 페이징 추가3 -->
             <div id="page">
@@ -144,41 +139,42 @@ var app = new Vue({
    		 pageCount : 1,
    	     sessionId: "${sessionId}",    
    		 sessionStatus : "${sessionStatus}",
-   		 order : ""
+   		 order : "recent"
           }
           , methods: {
           	// 커뮤니티 리스트
-              fnGetComList: function () {
+              fnGetQnaList: function () {
                   var self = this;   
                // 페이징 추가6
       			var startNum = ((self.selectPage-1) * 10);
           		var nparmap = {startNum : startNum, order : self.order};
           		console.log(self.order);
                   $.ajax({
-                      url: "/community/list.dox",
+                      url: "/qna/list.dox",
                       dataType: "json",
                       type: "POST",
                       data: nparmap,
                       success: function (data) {
                       	console.log(data.list);
                       	self.list = data.list;
-                          self.cnt = data.cnt;
+                         self.cnt = data.cnt;
+                         console.log(self.cnt);
     					 	self.pageCount = Math.ceil(self.cnt / 10);
                       }
                   });
               }
 	            , fnChangeOrder: function () {
 	                var self = this;                    
-	                self.fnGetComList();
+	                self.fnGetQnaList();
 	            }
           	<!-- 페이징 추가 7-->
       		, fnSearch : function(pageNum){
       			var self = this;
       			self.selectPage = pageNum;
       			var startNum = ((pageNum-1) * 10);
-      			var nparmap = {startNum : startNum};
+      			var nparmap = {startNum : startNum, order : self.order};
       			$.ajax({
-      				url : "/community/list.dox",
+      				url : "/qna/list.dox",
       				dataType : "json",
       				type : "POST",
       				data : nparmap,
@@ -222,7 +218,7 @@ var app = new Vue({
           	// 커뮤니티 글보기
           	, fnViewCom: function(boardNo) {
           		var self = this;
-          		self.pageChange("/community/view.do", {boardNo : boardNo});            		
+          		self.pageChange("/qna/view.do", {boardNo : boardNo});            		
           	}
           	
           	// 커뮤니티 글쓰기
@@ -236,14 +232,14 @@ var app = new Vue({
           				return;
           			}            			
           		}
-          		location.href = "/community/edit.do";
+          		location.href = "/qna/edit.do";
           	}
 
 
           }
           , created: function () {
           	var self = this;
-              self.fnGetComList();
+              self.fnGetQnaList();
           }
       }); 
 </script>

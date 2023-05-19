@@ -6,41 +6,7 @@
 
     <style>
         /* style START */
-		/* 페이징 추가 2 */
-		.pagination {
-        margin:24px;
-        display: inline-flex;
-        
-    }
-	
-    ul {
-        text-align: center;
-    }
-	.pagination li {
-	    min-width:32px;
-	    padding:2px 6px;
-	    text-align:center;
-	    margin:0 3px;
-	    border-radius: 6px;
-	    border:1px solid #eee;
-	    color:#666;
-	    display : inline;
-	}
-	.pagination li:hover {
-	    background: #E4DBD6;
-	}
-	.page-item a {
-	    color:#666;
-	    text-decoration: none;
-	}
-	.pagination li.active {
-	    background-color : #E7AA8D;
-	    color:#fff;
-	}
-	.pagination li.active a {
-	    color:#fff;
-	}
-		/* 2끝 */
+		
         .container {
             width: 1200px;
             height: 100%;
@@ -48,16 +14,20 @@
             margin: auto;
         }
         
-        table {
-        width : 100%;}
+        table {}
 
         table,
         td,
         th {
-            border: 1px dotted black;
+            /* border: 1px dotted black; */
             border-collapse: collapse;
             padding: 16px;
             table-layout: fixed;
+            text-align:center;
+        }
+        
+        th {
+        	border-bottom: 1px solid #999999;
         }
         
         
@@ -125,9 +95,33 @@
             border-radius: 20px;
             box-shadow: 0px 0px 20px 5px #e7e6e6;
         }
+        .sale_flg { 
+        	width : 120px;
+        }
         
-        #title {
+        .address {
+        	width : 180px;
+        }
+        
+        .title {
         	cursor : pointer;
+        	width : 480px;;
+        	text-align:left;
+        	overflow : hidden;
+        	text-overflow: ellipsis;
+        	white-space  : nowrap;
+        }
+        
+        .id {
+        	width : 120px;
+        }
+        
+        .date {
+        	width : 180px;
+        }
+        
+        .viewCnt {
+        	width : 10%;
         }
         
         .writeBtn {
@@ -176,14 +170,14 @@
 
                 <div class="container">
                     <div class="market_category">
-                        <button class="category_btn">중고판매</button>
-                        <button class="category_btn">중고나눔</button>
+                        <button class="category_btn" id="category_btn">중고판매</button>
+                        <button class="category_btn" id="category_btn2">중고나눔</button>
                     </div>
 
                     <div class="box1">
 
                         <div class="board_title">
-                            <h1>거래할 분을 찾고 있어요!</h1>
+                            <h1 id="tradeHeader">거래할 분을 찾고 있어요!</h1>
                             <select v-model="orderValue" @change="fnChangeOrder">
                                 <option value = "recent">최신순</option>
                                 <option value = "viewCnt">조회수</option>
@@ -206,30 +200,30 @@
                             	<tbody>
 	                            	<tr v-for="(item, index) in list">
     	                                <template v-if="item.boardKind=='T_LAN'">
-        	                                <td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.boardKind2}}</td>                                            
-            	                            <td id="sale_flg" v-else>{{item.boardKind2}}</td>
-                	                        <td id="address">{{item.addr}}</td>
-                    	                    <td id="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
-                        	                <td id="id">{{item.nick}}</td>
-                            	            <td id="date">{{item.cdatetime2}}</td>
-                                	        <td id="viewCnt">{{item.hits}}</td>
+        	                                <td class="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.boardKind2}}</td>                                            
+            	                            <td class="sale_flg" v-else>{{item.boardKind2}}</td>
+                	                        <td class="address">{{item.addr}}</td>
+                    	                    <td class="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
+                        	                <td class="id">{{item.nick}}</td>
+                            	            <td class="date">{{item.cdatetime2}}</td>
+                                	        <td class="viewCnt">{{item.hits}}</td>
                                     	</template> 
 	                                </tr>                                 
     	                        </tbody>        	                       
                             </table>
-                             <!-- 페이징 추가 3-->
-				<template>
-				  <paginate
-				    :page-count="pageCount"
-				    :page-range="3"
-				    :margin-pages="2"
-				    :click-handler="fnSearch"
-				    :prev-text="'<'"
-				    :next-text="'>'"
-				    :container-class="'pagination'"
-				    :page-class="'page-item'" style="display:none;" id="paging">
-				  </paginate>
-				</template>
+                            <!-- 페이징 추가 3-->
+							<template>
+								<paginate id="page"
+											:page-count="pageCount"
+											:page-range="3"
+											:margin-pages="2"
+											:click-handler="fnSearch"
+											:prev-text="'<'"
+											:next-text="'>'"
+											:container-class="'pagination'"
+											:page-class="'page-item'" style="display:none;">
+								</paginate>
+							</template>
 							<!-- 3끝 -->
                             <div class="writeBtn"><button @click="fnAddFlea">글쓰기</button></div>
                         </div>
@@ -243,7 +237,7 @@
                     <div class="box2">
 
                         <div class="board_title">
-                            <h1>나눔할 분을 찾고 있어요!</h1>
+                            <h1 id="donateHeader">나눔할 분을 찾고 있어요!</h1>
                             <select v-model = "orderValue2" @change = "fnChangeOrder2">
                                 <option value = "recent">최신순</option>
                                 <option value = "viewCnt">조회수</option>
@@ -265,17 +259,31 @@
                             	<tbody>
                             		<tr v-for="(item, index) in list2">
                                     	<template v-if="item.boardKind=='D_LAN'">
-                                        	<td id="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.boardKind2}}</td>                                            
-                                        	<td id="sale_flg" v-else>{{item.boardKind2}}</td>
-                                        	<td id="address">{{item.addr}}</td>
-                                        	<td id="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
-                                        	<td id="id">{{item.nick}}</td>
-                                        	<td id="date">{{item.cdatetime2}}</td>
-                                        	<td id="viewCnt">{{item.hits}}</td>
+                                        	<td class="sale_flg" v-if="item.finishYn=='N'" style="color : #5ea152">{{item.boardKind2}}</td>                                            
+                                        	<td class="sale_flg" v-else>{{item.boardKind2}}</td>
+                                        	<td class="address">{{item.addr}}</td>
+                                        	<td class="title" @click="fnViewFlea(item.boardNo)">{{item.title}}</td>
+                                        	<td class="id">{{item.nick}}</td>
+                                        	<td class="date">{{item.cdatetime2}}</td>
+                                        	<td class="viewCnt">{{item.hits}}</td>
                                     	</template>
                                 	</tr>
                             	</tbody>                                
-                            </table>                            
+                            </table>
+                            <!-- 페이징 추가 3-->
+							<template>
+								<paginate id="page2"
+											:page-count="pageCount2"
+											:page-range="3"
+											:margin-pages="2"
+											:click-handler="fnSearch2"
+											:prev-text="'<'"
+											:next-text="'>'"
+											:container-class="'pagination2'"
+											:page-class="'page-item'" style="display:none;">
+								</paginate>
+							</template>
+							<!-- 3끝 -->                           
                             <div class="writeBtn"><button @click="fnAddFlea">글쓰기</button></div>
                         </div>
 
@@ -298,6 +306,24 @@
 
 
     <script type="text/javascript">
+    //거래게시판으로 스크롤 이동
+    $(function() {
+        $("#category_btn").on("click",function(){
+        	var offset = $("#tradeHeader").offset();
+        	offset.top -=150
+        	$("html, body").animate({scrollTop: offset.top},400);
+            console.log(offset);
+        })
+    })
+    //나눔게시판으로 스크롤 이동
+    $(function() {
+        $("#category_btn2").on("click",function(){
+        	var offset = $("#donateHeader").offset();
+        	offset.top -=150
+        	$("html, body").animate({scrollTop: offset.top},400);
+            console.log(offset);
+        })
+    })
     
     	<!-- 페이징 추가 4-->
     	Vue.component('paginate', VuejsPaginate)
@@ -316,7 +342,10 @@
             	//<!-- 페이징 추가 5-->
         		selectPage: 1,
         		pageCount: 1,
-        		cnt : 0
+        		cnt : 0,
+        		selectPage2: 1,
+        		pageCount2: 1,
+        		cnt2 : 0,
         		//<!-- 5-->
             }
             , methods: {
@@ -324,8 +353,7 @@
                     var self = this;
                  	// <!-- 페이징 추가 6-->     		
             		var startNum = ((self.selectPage-1) * 10);
-            		var lastNum = (self.selectPage * 10);
-            		var nparmap = {moreBtn : self.moreBtn, orderValue : self.orderValue, startNum : startNum, lastNum : lastNum};
+            		var nparmap = {moreBtn : self.moreBtn, orderValue : self.orderValue, startNum : startNum};
             		// <!--  6-->
                     $.ajax({
                         url: "/fleamarket/list.dox",
@@ -334,16 +362,7 @@
                         data: nparmap,
                         success: function (data) {
                         	console.log(data.list);
-                            if(self.moreBtn == "off") {
-                            	self.list = [];
-                            	for(var i = 0; 5 > i; i++) {
-                            		self.list[i]=data.list[i];
-                            	}                           	
-                            }
-                            if(self.moreBtn == "on") {
-                            	self.list = data.list;                     	 
-                            }
-
+                        	self.list = data.list;
                             self.cnt = data.cnt;
                             self.pageCount = Math.ceil(self.cnt / 10);  
 
@@ -353,29 +372,29 @@
             
             	, fnGetFleaList2: function () {
                     var self = this;
-                    var nparmap = {moreBtn2 : self.moreBtn2, orderValue2 : self.orderValue2};
+                 	// <!-- 페이징 추가 6-->     		
+            		var startNum = ((self.selectPage-1) * 10);
+                    var nparmap = {moreBtn2 : self.moreBtn2, orderValue2 : self.orderValue2, startNum : startNum};
                     $.ajax({
                         url: "/fleamarket/list2.dox",
                         dataType: "json",
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
-                            self.list2 = data.list;                            
-                            console.log(data.list);
+                        	console.log(data.list);
+                            self.list2 = data.list;
+                            self.cnt2 = data.cnt;
+                            self.pageCount2 = Math.ceil(self.cnt2 / 10);          
                         }
                     });
                 }
             	
-            		<!-- 페이징 추가 7-->
+            	<!-- 페이징 추가 7-->
         		, fnSearch : function(pageNum){
         			var self = this;
         			self.selectPage = pageNum;
         			var startNum = ((pageNum-1) * 10);
-        			var lastNum = ((self.selectPage/pageNum) * 10);
-        			console.log(pageNum);
-        			console.log(startNum);
-            		console.log(lastNum); 
-        			var nparmap = {startNum : startNum, lastNum : lastNum};
+        			var nparmap = {moreBtn : self.moreBtn, orderValue : self.orderValue, startNum : startNum};
         			$.ajax({
         				url : "/fleamarket/list.dox",
         				dataType : "json",
@@ -389,19 +408,40 @@
         			});
         		}
         		<!--  7-->
+        		
+        		<!-- 페이징 추가 7-->
+        		, fnSearch2 : function(pageNum){
+        			var self = this;
+        			self.selectPage2 = pageNum;
+        			var startNum = ((pageNum-1) * 10);
+        			var nparmap = {moreBtn2 : self.moreBtn2, orderValue2 : self.orderValue2, startNum : startNum};
+        			$.ajax({
+        				url : "/fleamarket/list2.dox",
+        				dataType : "json",
+        				type : "POST",
+        				data : nparmap,
+        				success : function(data) {
+        					self.list2 = data.list;
+        					self.cnt2 = data.cnt;
+        					self.pageCount2 = Math.ceil(self.cnt2 / 10);
+        				}
+        			});
+        		}
+        		<!--  7-->
+        		
             	// 거래글 더보기 버튼
             	, fnShowMore: function() {
             	    var self = this;
             	    if (self.moreBtn == "off") {
-            	        document.getElementById('paging').style.display = 'block';  
+            	        document.getElementById('page').style.display = 'flex';  
             	        self.moreBtn = "on"
             	        self.fnGetFleaList();
-            	        moreBtn.innerHTML = "접기";
+            	        moreBtn.innerText = "접기";
             	    } else if (self.moreBtn == "on") {
-            	        document.getElementById('paging').style.display = 'none';    
+            	        document.getElementById('page').style.display = 'none';    
             	        self.moreBtn = "off"
             	        self.fnGetFleaList();
-            	        moreBtn.innerHTML = "더보기";
+            	        moreBtn.innerText = "더보기";
             	    }
             	}
             	
@@ -409,27 +449,65 @@
             	, fnShowMore2: function() {
             		var self = this;
                     if (self.moreBtn2 == "off") {
+                    	document.getElementById('page2').style.display = 'flex';  
                     	self.moreBtn2 = "on";
                     	self.fnGetFleaList2();
-                    	moreBtn2.innerHTML = "접기";
+                    	moreBtn2.innerText = "접기";
                     } else if (self.moreBtn2 == "on") {
+                    	document.getElementById('page2').style.display = 'none';  
                     	self.moreBtn2 = "off";
                         self.fnGetFleaList2();
-                        moreBtn2.innerHTML = "더보기";
+                        moreBtn2.innerText = "더보기";
                     }
             	}
             	
             	// 거래글 카테고리 변경
             	, fnChangeOrder: function () {
                     var self = this;                    
+                    var liList = $(".pagination").children();
+                    for(var i=0; i<liList.length; i++){
+                    	liList.eq(i).removeClass("active");
+                    }
+                    liList.eq(1).addClass("active");
+                    self.selectPage = 1,
+            		self.pageCount = 1,
+            		self.cnt = 0,
                     self.fnGetFleaList();
                 }
             	
             	// 나눔글 카테고리 변경
             	, fnChangeOrder2: function () {
-                    var self = this;                    
+                    var self = this;
+                    var liList = $(".pagination2").children();
+                    for(var i=0; i<liList.length; i++){
+                    	liList.eq(i).removeClass("active");
+                    }
+                    liList.eq(1).addClass("active");
+                    self.selectPage2 = 1,
+            		self.pageCount2 = 1,
+            		self.cnt2 = 0,
                     self.fnGetFleaList2();
                 }
+            	
+            	// 랜선장터 글 보기
+            	, fnViewFlea: function(boardNo) {
+            		var self = this;
+            		self.pageChange("./flea/view.do", {boardNo : boardNo});            		
+            	}
+            	
+            	// 랜선장터 글 쓰기
+            	, fnAddFlea: function() {
+            		var self = this;
+            		if (self.sessionId == "") {
+            			if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")) {            				
+            				location.href="/login.do"
+            				return;
+            			} else {
+            				return;
+            			}            			
+            		}
+            		location.href = "/flea/edit.do";
+            	}
             	
             	, pageChange : function(url, param) {
             		var target = "_self";
@@ -459,26 +537,6 @@
             		document.body.appendChild(form);
             		form.submit();
             		document.body.removeChild(form);
-            	}
-            	
-            	// 랜선장터 글 보기
-            	, fnViewFlea: function(boardNo) {
-            		var self = this;
-            		self.pageChange("./flea/view.do", {boardNo : boardNo});            		
-            	}
-            	
-            	// 랜선장터 글 쓰기
-            	, fnAddFlea: function() {
-            		var self = this;
-            		if (self.sessionId == "") {
-            			if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")) {            				
-            				location.href="/login.do"
-            				return;
-            			} else {
-            				return;
-            			}            			
-            		}
-            		location.href = "/flea/edit.do";
             	}
 
 

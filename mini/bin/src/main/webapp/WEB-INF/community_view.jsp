@@ -35,7 +35,7 @@
     .com_head .writer div:first-child { margin-bottom: 10px;}
     .com_head .writer .flexc {display:flex; justify-content: space-between;}
    .com_content {
-        margin: 20px auto 40px auto;
+        margin: 0px auto 20px auto;
         /* border: 1px solid black; */
         padding: 10px 10px;
         height: 300px;
@@ -71,13 +71,15 @@
    }
    .mgr20 {margin-right: 20px;}
    .mgb20 {margin-bottom: 20px;}
+   .com_content .attached {text-align:right;}
+    .com_content .attached:hover {text-decoration: underline;cursor: pointer;}
 </style>
 
 
 <!-- pageContent -- START -->
 <div id="pageContent">
 	<div class="wrapper">
-		<div id="app">
+		<div id="communityView">
 
            <div class="container">
                <div class="com_head">
@@ -94,10 +96,14 @@
                        
                    </div>
                </div>
-               <hr>
-               <div class="com_content" v-html="info.content"><pre></pre></div>
                
                <hr>
+               <div class="com_content">
+               		<div v-if="info.filePath" class="attached" @click="fnOpenFile()"><i class="fa-regular fa-folder fa-sm"></i> 첨부파일</div>
+               		 <div  v-html="info.content"><pre></pre></div>
+               </div>
+               <hr>
+               
                <div class="comment">
                    <h4 class="mgb20">댓글</h4>
                    
@@ -125,6 +131,7 @@
            
            </div>
            <!--container 끝-->
+           
            <div class="btns">
                <span>
                    <button @click="fnAddCom()" style="background-color: #E4DBD6;">글쓰기</button>
@@ -148,8 +155,8 @@
 
 <script type="text/javascript">
  // 자바 스크립트 입력
-   var app = new Vue({
-            el: '#app',
+   var communityView = new Vue({
+            el: '#communityView',
             data: {
             	list : []
               , info : {}
@@ -269,9 +276,8 @@
             			if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")) {            				
             				location.href="/login.do"
             				return;
-            			} else {
-            				return;
-            			}            			
+            			} else return;
+            			            			
             		}
             		location.href = "/community/edit.do";
             	}
@@ -285,7 +291,8 @@
             		 var self = this;
             		 if (self.sessionId == "") {
              			if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")){            				
-             				location.href="/login.do";    		
+             				location.href="/login.do";  
+             				return;
              			} else return;
              		 }
                    	var nparmap = self.commentInfo;
@@ -317,6 +324,11 @@
          	            	self.fnCommentList();
          	            }
          	        }); 
+            	}
+            	, fnOpenFile : function() {
+            		var self = this;
+            		console.log(self.info.filePath);
+            		location.href = self.info.filePath;
             	}
             
 
