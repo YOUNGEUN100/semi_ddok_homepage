@@ -292,7 +292,7 @@
 
                         <div class="btn_box">
                         	<button @click="fnFinishTrade" v-if="sessionId == info.userId || sessionStatus == 'A'">거래완료</button>
-                            <button @click="fnEditFlea(boardNo)" v-if="sessionId==info.userId">수정</button>
+                            <button @click="fnEditFlea(boardNo)" v-if="sessionId==info.userId || sessionStatus == 'A'">수정</button>
                             <button @click="fnDeletePost" v-if="sessionId == info.userId || sessionStatus == 'A'">삭제</button>
                         </div>
 

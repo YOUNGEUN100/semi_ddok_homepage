@@ -383,7 +383,7 @@
                         success: function (data) {
                         	console.log(data.list);
                             self.list2 = data.list;
-                            self.cnt2 = data.cnt;
+                            self.cnt2 = data.cnt2;
                             self.pageCount2 = Math.ceil(self.cnt2 / 10);          
                         }
                     });
@@ -422,7 +422,7 @@
         				data : nparmap,
         				success : function(data) {
         					self.list2 = data.list;
-        					self.cnt2 = data.cnt;
+        					self.cnt2 = data.cnt2;
         					self.pageCount2 = Math.ceil(self.cnt2 / 10);
         				}
         			});

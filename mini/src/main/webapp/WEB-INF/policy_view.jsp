@@ -38,7 +38,7 @@
         margin: 0px auto 20px auto;
         /* border: 1px solid black; */
         padding: 10px 10px;
-        height: 300px;
+        height: auto;
    }
    .comment_list div:first-child {margin-bottom: 10px; }
    .comment {margin: 10px 10px;}

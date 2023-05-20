@@ -79,7 +79,8 @@
 				U.NICK AS NICK, 
 				U.STATUS AS STATUS,
 				TITLE, 
-				CONTENT, 
+				CONTENT,
+				CATEGORY,
 				HITS, 
 				CATEGORY, 
 				DATE_FORMAT(B.CDATETIME,'%Y-%m-%d') AS CDATETIME, 
@@ -91,10 +92,19 @@
 			LEFT JOIN T4_FILES F ON F.BOARD_NO = B.BOARD_NO
 			WHERE BOARD_KIND = 'POL' AND DELETE_YN = 'N'
 			<if test = "order == 'recent'">
-			ORDER BY CATEGORY DESC ,CDATETIME DESC
+			ORDER BY CDATETIME DESC
         	</if>
         	<if test = "order == 'view'">
-        	ORDER BY CATEGORY DESC ,HITS DESC
+        	ORDER BY HITS DESC
+        	</if>
+        	<if test = "order == 'life'">
+        	AND CATEGORY = '생활'
+        	</if>
+        	<if test = "order == 'eco'">
+        	AND CATEGORY = '경제'
+        	</if>
+        	<if test = "order == 'cul'">
+        	AND CATEGORY = '문화'
         	</if>
 			LIMIT #{startNum}, 10
 		</select>

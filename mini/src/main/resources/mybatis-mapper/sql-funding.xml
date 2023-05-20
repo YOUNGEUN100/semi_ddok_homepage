@@ -128,7 +128,7 @@
 		
 		<!-- 페이징 용 카운트 -->
 		<select id="fleaPagingCnt2" parameterType="hashmap" resultType="int">
-			SELECT COUNT(*) AS CNT
+			SELECT COUNT(*) AS CNT2
             FROM T4_BOARD
             WHERE BOARD_KIND = 'D_LAN';
 		</select>

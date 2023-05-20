@@ -239,6 +239,10 @@
                         type: "POST",
                         data: nparmap,
                         success: function (data) {
+                        	if($("#file1")[0].files.length>4) {
+                    			alert("첨부는 4개로 제한됩니다");
+                    			return;
+                    		}
                         	
                         	console.log($("#file1")[0].files.length); //첨부파일 갯수
                         	console.log($("#file1")[0].files); //첨부파일 리스트
@@ -332,6 +336,18 @@
                     	type: "POST",
                     	data: nparmap,
                     	success: function (data) {
+                    		if($("#file1")[0].files.length>4) {
+                    			alert("첨부는 4개로 제한됩니다");
+                    			return;
+                    		}
+                    		
+                    		for(var i = 0; i<$("#file1")[0].files.length; i++) {
+								//append는 이어붙이는 명령어라 첫번째 파일을 보내고 다시 폼을 만들어 두번째 파일을 보내줘야함
+								var form = new FormData(); 
+								form.append( "file1",  $("#file1")[0].files[i] );								
+								form.append( "boardNo",  self.boardNo);// pk
+								self.upload(form);
+							}
                     		alert("수정완료");
                     		location.href="/flea.do"
                     	}
