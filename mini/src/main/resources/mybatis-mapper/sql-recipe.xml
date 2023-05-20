@@ -301,6 +301,19 @@
 				CODE)
 			VALUES(#{recipeNo}, #{tcode})
 		</insert>
+		<!-- 레시피 재료 코드 INSERT -->
+		<insert id="insertIngreCode" parameterType="HashMap">
+				INSERT INTO T4_INGREDIENT(
+					RECIPE_NO,
+					CODE)
+				VALUES
+				<foreach collection="icode" index="index" item="item" open="(" close=")" separator=",">
+				(#{recipeNo}, #{item})
+				</foreach>	
+				
+		</insert>
+		
+
 		<!-- 레시피 썸네일 사진 INSERT -->
 		<insert id="insertRecipeImg" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="recipe_no">
 			INSERT INTO T4_R_IMAGE(

@@ -113,6 +113,7 @@ public class SmartMarketController {
 		ObjectMapper mapper = new ObjectMapper();
 	    List<HashMap<String, Object>> list = mapper.readValue(json, new TypeReference<List<HashMap<String, Object>>>(){});
 		map.put("list", list);
+		System.out.println(map.get("list"));
 	    smartmarketService.addOrder(list);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);

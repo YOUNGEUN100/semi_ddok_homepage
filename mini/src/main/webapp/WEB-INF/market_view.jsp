@@ -557,6 +557,7 @@ Vue.component('paginate', VuejsPaginate)
     	    			, productPrice : self.info.productPrice
     	    			, imgPath : self.info.imgPath
     	    			, productName : self.info.productName
+    	    			, userid : self.sessionId // 영은 추가
     	    	};
     	    	selectedItems.push(nparmap);
     	    	

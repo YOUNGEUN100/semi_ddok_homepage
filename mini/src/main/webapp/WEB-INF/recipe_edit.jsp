@@ -88,16 +88,16 @@
 					</li>
 					<li class="ingre">
 						<label class="enrol-re">재료분류</label>
-						<label class="ingre-ch"><input type="checkbox" value="POT"> 감자/고구마</label>
-						<label class="ingre-ch"><input type="checkbox" value="VEG"> 채소</label>
-						<label class="ingre-ch"><input type="checkbox" value="TOP"> 두부</label>
-						<label class="ingre-ch"><input type="checkbox" value="CHE"> 우유/치즈</label>
-						<label class="ingre-ch"><input type="checkbox" value="EGG"> 계란</label>
-						<label class="ingre-ch"><input type="checkbox" value="CHI"> 닭고기</label>
-						<label class="ingre-ch"><input type="checkbox" value="BRE"> 식빵</label>
-						<label class="ingre-ch"><input type="checkbox" value="TUN"> 참치캔</label>
-						<label class="ingre-ch"><input type="checkbox" value="HAM"> 햄</label>
-						<label class="ingre-ch"><input type="checkbox" value="RAM"> 라면</label>
+						<label class="ingre-ch"><input type="checkbox" v-model="info.icode"  value="POT"> 감자/고구마</label>
+						<label class="ingre-ch"><input type="checkbox" v-model="info.icode"  value="VEG"> 채소</label>
+						<label class="ingre-ch"><input type="checkbox" v-model="info.icode" value="TOP"> 두부</label>
+						<label class="ingre-ch"><input type="checkbox" v-model="info.icode" value="CHE"> 우유/치즈</label>
+						<label class="ingre-ch"><input type="checkbox" v-model="info.icode" value="EGG"> 계란</label>
+						<label class="ingre-ch"><input type="checkbox" v-model="info.icode" value="CHI"> 닭고기</label>
+						<label class="ingre-ch"><input type="checkbox" v-model="info.icode" value="BRE"> 식빵</label>
+						<label class="ingre-ch"><input type="checkbox" v-model="info.icode" value="TUN"> 참치캔</label>
+						<label class="ingre-ch"><input type="checkbox" v-model="info.icode" value="HAM"> 햄</label>
+						<label class="ingre-ch"><input type="checkbox" v-model="info.icode" value="RAM"> 라면</label>
 					</li>
 					<li class="more">
 						<label for="recipe-ingre" class="enrol-re">재료상세</label> 
@@ -171,10 +171,10 @@ var recipeEdit = new Vue({
 			pcode : "",
 			hcode : "",
 			tcode : "",
+			icode : [],
 			time : "",
 			difficulty : "",
 			cookIngre :"",
-			ingredient : "",
 			imgNo : ""
 		},
 		cnt : 1,
@@ -192,7 +192,7 @@ var recipeEdit = new Vue({
 			//console.log($("#file1")[0].files[0]);
    	     	if (!$("#file1")[0].files[0]) {alert("레시피 사진을 등록해주세요.");return;} 
    	     	if (!self.info.recipeName) {alert("레시피 이름을 작성해주세요."); return;}
-			
+			console.log(self.info.icode);
 			var nparmap = self.info;
 			$.ajax({
 				url:"/recipe/save.dox",

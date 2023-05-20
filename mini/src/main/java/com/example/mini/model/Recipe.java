@@ -18,6 +18,7 @@ public class Recipe {
 	private String hcode;
 	private String tcode;
 	private String tname;
+	private String[] icode;
 	private int cookIndex;
 	private String cookContent;
 	private String thumbnailYn;
@@ -109,17 +110,19 @@ public class Recipe {
 	public void setTcode(String tcode) {
 		this.tcode = tcode;
 	}
-	/**
-	 * @return the tname
-	 */
 	public String getTname() {
 		return tname;
 	}
-	/**
-	 * @param tname the tname to set
-	 */
+
 	public void setTname(String tname) {
 		this.tname = tname;
+	}
+
+	public String[] getIcode() {
+		return icode;
+	}
+	public void setIcode(String[] icode) {
+		this.icode = icode;
 	}
 	public int getCookIndex() {
 		return cookIndex;
