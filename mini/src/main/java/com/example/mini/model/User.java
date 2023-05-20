@@ -9,7 +9,7 @@ public class User {
 	private String gender;
 	private String birth;
 	private String hp;
-	private String livingYear;
+	private int livingYear;
 	private String status;
 	private String addr;
 	private String addr2;
@@ -66,10 +66,10 @@ public class User {
 	public void setHp(String hp) {
 		this.hp = hp;
 	}
-	public String getLivingYear() {
+	public int getLivingYear() {
 		return livingYear;
 	}
-	public void setLivingYear(String livingYear) {
+	public void setLivingYear(int livingYear) {
 		this.livingYear = livingYear;
 	}
 	public String getStatus() {

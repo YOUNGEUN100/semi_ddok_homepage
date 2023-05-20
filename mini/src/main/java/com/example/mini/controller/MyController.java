@@ -40,7 +40,7 @@ public class MyController {
 	
 	@RequestMapping(value = "/order/product.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String viewOrder(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+	public String viewOrderList(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SmartMarket> list = myService.searchOderList(map);
 		resultMap.put("result", "success");
@@ -66,7 +66,7 @@ public class MyController {
 		return new Gson().toJson(resultMap);
 	}
 	
-	
+		//주문상세내역
 		@RequestMapping("/myPage/order.do") 
 	    public String mypageOrder(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 			request.setAttribute("map", map);
@@ -74,7 +74,15 @@ public class MyController {
 	        return "/myPage_order";
 	    }
 		
-		
+		@RequestMapping(value = "/order/detail.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String viewOrder(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<SmartMarket> list = myService.searchOrderInfo(map);
+			resultMap.put("result", "success");
+			resultMap.put("list", list);
+			return new Gson().toJson(resultMap);
+		}
 		
 		//참여한 펀딩 리스트
 		@RequestMapping("/myPage/funding.do") 

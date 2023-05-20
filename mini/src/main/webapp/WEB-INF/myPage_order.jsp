@@ -100,42 +100,42 @@
                     <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
                 
-                <div class="orderBox">
-               		<div><h1>주문내역</h1></div>
-               	<div class="orderContent">
-	               	<div id="orderTop">
-	                   <div>2023.05.13 주문</div><div>주문번호 700017960845</div><div>배송완료 </div>
-	               	</div>  
-               
-                <div class="orderCenter">
-                    <img src="/images/product_chillisauce_thumb.jpg">
-                    <div class="orderDetail">
-                        <div>몬 스위트칠리소스, 250ml</div>
-                        <div>3,010원 (100ml당 1,254원)</div>
-                        <div>수량 : 1개</div>
-                        <div>총 결제금액 : 4,250원</div>
-                    </div>
-                </div>
-                </div>
-
-                <div class="orderBottom">
-                    <div class="orderHistory">
-                        <h1>받는 사람 정보</h1>
-                        <div class="orderHistoryList">
-                            <div>받는 사람 : 최현정</div>
-                            <div>연락처 : 010-9579-0917</div>
-                            <div>받는 주소 : 서울특별시 관악구 신림동  569-22 신건텔 304호</div>
+                <div class="orderBox" v-for="(item, index) in list">
+                        <div><h1>주문내역</h1></div>
+                    <div class="orderContent">
+                        <div id="orderTop">
+                        <div>{{item.orderDate}} 주문</div><div>주문번호 {{item.orderNo}}</div><div>배송완료 </div>
+                        </div>  
+                    
+                    <div class="orderCenter">
+                        <img src="/images/product_chillisauce_thumb.jpg">
+                        <div class="orderDetail">
+                            <div>몬 스위트칠리소스, 250ml</div>
+                            <div>3,010원 (100ml당 1,254원)</div>
+                            <div>수량 : 1개</div>
+                            <div>총 결제금액 : 4,250원</div>
                         </div>
                     </div>
+                    </div>
 
-                    <div class="payMent">
-                        <h1>결제정보</h1>
-                        <div class="orderPayment">
-                            <div>결제 수단</div>
-                            <div>총 결제금액 30,390원</div>
+                    <div class="orderBottom">
+                        <div class="orderHistory">
+                            <h1>받는 사람 정보</h1>
+                            <div class="orderHistoryList">
+                                <div>받는 사람 : 최현정</div>
+                                <div>연락처 : 010-9579-0917</div>
+                                <div>받는 주소 : 서울특별시 관악구 신림동  569-22 신건텔 304호</div>
+                            </div>
+                        </div>
+
+                        <div class="payMent">
+                            <h1>결제정보</h1>
+                            <div class="orderPayment">
+                                <div>결제 수단</div>
+                                <div>총 결제금액 30,390원</div>
+                            </div>
                         </div>
                     </div>
-               	</div>
            		</div>                         
             </div>
 
@@ -160,6 +160,30 @@ var app = new Vue({
     }
     , methods : {
     	
+    	fnOrderDetail : function(){
+            var self = this;
+            var nparmap = {id : self.sessionId};
+            $.ajax({
+                url:"/order/detail.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                	console.log(data);
+                	if(self.sessionId == ''){
+                		alert("로그인을 해주세요");
+                		location.href="/login.do";
+                		return;
+                	}
+                	else{
+                		self.list = data.list;
+                	}
+                	
+                    
+                }
+            });
+
+        },
     	
     		
     	

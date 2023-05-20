@@ -39,14 +39,14 @@
 			
 		</select>
 		
-		<select id="selectOrderList" parameterType="HashMap" resultType="com.example.mini.model.SmartMarket">
+		<select id="selectOrderList" parameterType="HashMap" resultType="com.example.mini.model.OrderList">
 			SELECT 
 				O.PRODUCT_NO, 
 				ORDER_DATE,
 				ORDER_PRICE, 
 				FORMAT((ORDER_CNT*PRODUCT_PRICE) , 0) AS ORDER_PRICE2, 
 				USER_ID, 
-				ORDER_NO, 
+				MIN(ORDER_NO) AS ORDER_NO, 
 				ORDER_CNT, 
 				PRODUCT_NAME,
 				PRODUCT_VOLUME,
@@ -67,6 +67,45 @@
 			WHERE USER_ID = #{id} AND THUMBNAIL_YN='Y'
             GROUP BY ORDER_NO;
 			
+            
 			
+			
+		</select>
+		
+		<select id="selectOrderInfo" parameterType="HashMap" resultType="com.example.mini.model.OrderList">
+			SELECT 
+				O.PRODUCT_NO, 
+				ORDER_DATE,
+				ORDER_PRICE, 
+				FORMAT((ORDER_CNT*PRODUCT_PRICE) , 0) AS ORDER_PRICE2, 
+				O.USER_ID, 
+				ORDER_NO, 
+				ORDER_CNT, 
+                PAYMENT,
+				PRODUCT_NAME,
+				PRODUCT_VOLUME,
+				CONCAT(PRODUCT_WEIGHT, PRODUCT_VOLUME) AS WEIGHT,  
+				TITLE, 
+				CONTENT, 
+				IMG_PATH,
+                C.NAME AS STATUS,
+				FORMAT(PRODUCT_PRICE , 0) AS PRODUCT_PRICE2,
+				format(((PRODUCT_PRICE*100/ PRODUCT_WEIGHT*PRODUCT_EA)), 0) AS PER_PRICE,
+                U.NAME AS USER_NAME,
+                HP,
+                ADDR,
+                ADDR2
+				
+			FROM T4_ORDER O
+			
+            LEFT JOIN T4_PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
+            LEFT JOIN T4_CODE C ON C.CODE = O.DELIVERY_STATUS AND C.KIND='DELIVERY'
+			
+			LEFT JOIN T4_P_IMAGE I ON O.PRODUCT_NO = I.PRODUCT_NO
+            LEFT JOIN T4_USER U ON U.USER_ID = O.USER_ID
+			
+			WHERE O.USER_ID = #{id} AND THUMBNAIL_YN='Y'
+           
+    
 		</select>
 	</mapper>

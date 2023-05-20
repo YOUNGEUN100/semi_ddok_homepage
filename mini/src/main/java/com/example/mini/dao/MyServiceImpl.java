@@ -33,6 +33,11 @@ public class MyServiceImpl implements MyService{
 	public List<SmartMarket> searchOderList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return myMapper.selectOrderList(map);
+	} 
+	@Override
+	public List<SmartMarket> searchOrderInfo(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return myMapper.selectOrderInfo(map);
 	}
 
 }

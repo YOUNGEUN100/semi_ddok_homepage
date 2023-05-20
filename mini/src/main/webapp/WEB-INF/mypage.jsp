@@ -113,9 +113,9 @@
                             <a href="/market/view.do"><img :src="item.imgPath" name="상품이미지" ></a>
                             <div class="detail">
                                 <a  href="/market/view.do"><div class="connection">{{item.productName}}</div></a>
-                                <div>{{item.productPrice2}}원 (100{{item.volume}}당 {{item.perPrice}}원)</div>
+                                <div>{{item.productPrice2}}원 (100{{item.productVolume}}당 {{item.perPrice}}원)</div>
                                 <div>수량 : {{item.orderCnt}}개</div>
-                                <div>총 결제금액 : {{item.orderPrice}}원</div>
+                                <div>총 결제금액 : {{item.orderPrice2}}원</div>
                             </div>
                         </div>    
                 </div>  
@@ -150,7 +150,7 @@ var app = new Vue({
     		var self = this;
     		self.pageChange("/modify.do", {sessionId : self.sessionId});
     	},
-    	
+    	//주문내역
     	fnOrderProduct : function(){
             var self = this;
             var nparmap = {id : self.sessionId};

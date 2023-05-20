@@ -17,4 +17,7 @@ public interface MyService {
 	
 	//주문내역
 	List<SmartMarket> searchOderList(HashMap<String, Object>map);
+	
+	//주문 상세내역
+	List<SmartMarket> searchOrderInfo(HashMap<String, Object>map);
 }

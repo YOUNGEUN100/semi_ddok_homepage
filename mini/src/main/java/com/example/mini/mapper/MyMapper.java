@@ -20,4 +20,7 @@ public interface MyMapper {
 	
 	//주문내역
 	List<SmartMarket> selectOrderList(HashMap<String, Object>map);
+	
+	//주문 상세내역
+	List<SmartMarket> selectOrderInfo(HashMap<String, Object>map);
 }
