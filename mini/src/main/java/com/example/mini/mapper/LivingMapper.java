@@ -14,8 +14,22 @@ public interface LivingMapper {
 	// 카드 리스트
 	List<Living> selectCardList(HashMap<String, Object> map);
 	
+	int pagingCnt(HashMap<String, Object> map);
+	
 	// 카드 슬라이드
 	List<Living> selectCardInfo(HashMap<String, Object> map);
+	
+	// 카드 등록
+	void insertCardInfo(HashMap<String, Object> map);
+	
+	// 카드 이미지 업로드
+	void insertCard(HashMap<String, Object> map);
+	
+	// 인덱스1인 이미지 썸네일로 업데이트
+	void thumbUpdate(HashMap<String, Object> map);
+	
+	// 카드 삭제
+	void deleteCard(HashMap<String, Object> map);
 	
 	// 정책 리스트
 	List<Community> selectPolList(HashMap<String, Object> map);

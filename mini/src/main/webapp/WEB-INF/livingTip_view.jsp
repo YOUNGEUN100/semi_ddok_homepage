@@ -11,8 +11,8 @@
             margin:0 auto;
             overflow:hidden;
         }        
-        .PreBtn {position:absolute;top:50%;left:3%;}
-        .NextBtn {position:absolute;top:50%;right:3%;}
+        .PreBtn {position:absolute;top:50%;left:3%;font-size:2em;}
+        .NextBtn {position:absolute;top:50%;right:3%;font-size:2em;}
         .slidelist {
             width:100%;
             white-space: nowrap;
@@ -32,7 +32,7 @@
         }
         .slidelist img {
             width:100%;
-        }  
+        }
     </style>
 
 
@@ -40,6 +40,7 @@
 <div id="pageContent">
 	<div class="wrapper">
 		 <div id="app">
+		 	<button @click="fnDelete">삭제</button>
 		  	<div class="slidewrap" >
             	<ul class="slidelist">
                 	<li class="lili" v-for="(item, index) in list">
@@ -51,9 +52,7 @@
              	<div class="PreBtn" @click="fnPreBtn"><i class="fa-solid fa-circle-chevron-left"></i></div>
 		  		<div class="NextBtn" @click="fnNextBtn"><i class="fa-solid fa-circle-chevron-right"></i></div>
              </div>
-		  		
-		  	
-		 	
+ 	
 		 </div>
 	</div>
 </div>
@@ -120,11 +119,13 @@ var app = new Vue({
     	num : "",
     	page: 0
 
+
     }
     , methods : {
     	
     	fnCardInfo : function(){
             var self = this;
+
             var nparmap = {cardNo : self.cardNo};
             $.ajax({
                 url:"/livingTip/view.dox",
@@ -136,40 +137,50 @@ var app = new Vue({
                 	self.num = data.list.length;
                 	console.log(self.num);
                 	console.log(data.list);
-                	
                     
                 }
             });
 
         }
-    
-    , fnPreBtn: function() {
-    	var self = this;
     	
-    	if(self.page > 0) {
-    		self.page--;
-    		$(".slidelist").css("transform", "translateX(-" + self.page + "00%)");
-    		console.log(self.page);
+    	, fnDelete: function() {
+    		var self = this;
+    		if(!confirm("삭제하시겠습니까?")) {
+    			return;
+    		}
+    		var nparmap = {cardNo : self.cardNo};
+    		$.ajax({
+                url:"/livingTip/remove.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+					alert("삭제완료");
+                	       
+                }
+            });
     	}
-    }
-    
-    , fnNextBtn: function() {
-    	var self = this;
-    	if(self.page < self.num-1) {
-    		self.page++;
-    		$(".slidelist").css("transform", "translateX(-" + self.page + "00%)");
-    		console.log(self.page);
-    	}
-    		  	    		
-    }
-     
-    
-    
-    
-    
     	
-    
-    	
+	    , fnPreBtn: function() {
+	    	var self = this;
+	    	
+	    	if(self.page > 0) {
+	    		self.page--;
+	    		$(".slidelist").css("transform", "translateX(-" + self.page + "00%)");
+	    		console.log(self.page);
+	    	}
+	    }
+	    
+	    , fnNextBtn: function() {
+	    	var self = this;
+	    	if(self.page < self.num-1) {
+	    		self.page++;
+	    		$(".slidelist").css("transform", "translateX(-" + self.page + "00%)");
+	    		console.log(self.page);
+	    	}
+	    		  	    		
+	    }
+
     	    
 	}	
     , created: function () {

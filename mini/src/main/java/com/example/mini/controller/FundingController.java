@@ -352,7 +352,7 @@ public class FundingController {
 	    public String result1(@RequestParam("file1") MultipartFile multi, @RequestParam("boardNo") int boardNo, HttpServletRequest request,HttpServletResponse response, Model model)
 	    {
 	        String url = null;
-	        String path="/images/";
+	        String path="/images/flea/";
 	        try {
 	 
 	            //String uploadpath = request.getServletContext().getRealPath(path);
@@ -368,10 +368,10 @@ public class FundingController {
 	            System.out.println("size : " + size);
 	            System.out.println("saveFileName : " + saveFileName);
 	            String path2 = System.getProperty("user.dir");
-	            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
+	            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images\\flea\\");
 	            if(!multi.isEmpty())
 	            {
-	                File file = new File(path2 + "\\src\\main\\webapp\\images", saveFileName);
+	                File file = new File(path2 + "\\src\\main\\webapp\\images\\flea\\", saveFileName);
 	                multi.transferTo(file);
 	                
 	                HashMap<String, Object> map = new HashMap<String, Object>();
@@ -393,7 +393,7 @@ public class FundingController {
 	        }catch(Exception e) {
 	            System.out.println(e);
 	        }
-	        return "redirect:bbs.do";
+	        return "redirect:../flea.do";
 	    }
 	
 	// 펀딩 썸네일 첨부파일
@@ -401,7 +401,7 @@ public class FundingController {
 	    public String result2(@RequestParam("file1") MultipartFile multi, @RequestParam("fundingNo") int fundingNo, HttpServletRequest request,HttpServletResponse response, Model model)
 	    {
 	        String url = null;
-	        String path="/images/";
+	        String path="/images/funding/";
 	        try {
 	 
 	            //String uploadpath = request.getServletContext().getRealPath(path);
@@ -417,10 +417,10 @@ public class FundingController {
 	            System.out.println("size : " + size);
 	            System.out.println("saveFileName : " + saveFileName);
 	            String path2 = System.getProperty("user.dir");
-	            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
+	            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images\\funding\\");
 	            if(!multi.isEmpty())
 	            {
-	                File file = new File(path2 + "\\src\\main\\webapp\\images", saveFileName);
+	                File file = new File(path2 + "\\src\\main\\webapp\\images\\funding\\", saveFileName);
 	                multi.transferTo(file);
 	                
 	                HashMap<String, Object> map = new HashMap<String, Object>();
@@ -440,14 +440,14 @@ public class FundingController {
 	        }catch(Exception e) {
 	            System.out.println(e);
 	        }
-	        return "redirect:bbs.do";
+	        return "redirect:../funding.do";
 	    }
 	// 펀딩 상세 첨부파일
 	@RequestMapping("/funding/fileUpload3.dox")
 	    public String result3(@RequestParam("file2") MultipartFile multi, @RequestParam("fundingNo") int fundingNo, HttpServletRequest request,HttpServletResponse response, Model model)
 	    {
 	        String url = null;
-	        String path="/images/";
+	        String path="/images/funding/";
 	        try {
 	 
 	            //String uploadpath = request.getServletContext().getRealPath(path);
@@ -463,10 +463,10 @@ public class FundingController {
 	            System.out.println("size : " + size);
 	            System.out.println("saveFileName : " + saveFileName);
 	            String path2 = System.getProperty("user.dir");
-	            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
+	            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images\\funding\\");
 	            if(!multi.isEmpty())
 	            {
-	                File file = new File(path2 + "\\src\\main\\webapp\\images", saveFileName);
+	                File file = new File(path2 + "\\src\\main\\webapp\\images\\funding\\", saveFileName);
 	                multi.transferTo(file);
 	                
 	                HashMap<String, Object> map = new HashMap<String, Object>();
@@ -486,7 +486,7 @@ public class FundingController {
 	        }catch(Exception e) {
 	            System.out.println(e);
 	        }
-	        return "redirect:bbs.do";
+	        return "redirect:../funding.do";
 	    }
 	    
 	    // 현재 시간을 기준으로 파일 이름 생성

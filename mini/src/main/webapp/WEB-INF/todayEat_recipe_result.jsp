@@ -28,9 +28,25 @@
 				</div>
 				<div class="marketArea">
 					<h4 class="areaTitle">부족한 재료는 바로 주문!</h4>
-					<div class="prodBox">
-						{{info.cookIngre}}
-					</div>
+									<section id="mainContent" class="nth2">
+    <div class="wrapper">
+        <h2 class="mctTitle">똑똑한 마켓</h2>
+        <div class="mctArea type5">
+            <div class="mctThumb typeCol" v-for="(item, index) in productList">
+                <a href="javaScript:;" class="imgBox" @click="fnView(item.productNo)">
+                    <img :src="item.imgPath" alt="">
+              </a>
+              <a href="javaScript:;" class="cartBtn"><i class="fa-solid fa-cart-plus" @click="fnView(item.productNo)"></i></a>
+              <a href="javaScript:;" class="txtBox" @click="fnView(item.productNo)">
+                  <p class="text">현재 {{item.productStock}}개 남았어요!</p>
+                  <h4 class="title">{{item.productName}}</h4>
+                  <div class="price"><span class="amount">{{item.productPrice | numberFormat()}}원</span> (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</div>
+              </a>
+          </div>
+          
+        </div>
+    </div>
+</section>
 				</div>
 			</div>
 		</div>
@@ -55,7 +71,15 @@ var result = new Vue({
 		ingList : [],
 		productList : [],
 		code : ""
-	}, methods: {
+	}
+	, filters: {
+	    numberFormat: (value, numFix) => {
+	        value = parseFloat(value);
+	        if (!value) return '0';
+	        return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+	    },
+	}
+	, methods: {
 		fnGetRecipeResult : function() {
             var self = this;
             var nparmap = self.param;
@@ -74,18 +98,24 @@ var result = new Vue({
                     self.info.imgPathR = "../" + data.info.imgPathR;
                     
                     //재료 자르기
-                    self.ingList = self.info.cookIngre.split(',');
+                    var ingArray = self.info.cookIngre.split(',');
+					// 김, 밥 필터
+					var filtered = ingArray.filter((element) => element != '밥');
+					self.ingList = filtered.filter((element) => element != '물');
+                    console.log("split 결과 = " + ingArray);
+                    console.log("필터결과1 = " + filtered);
+                    console.log("필터결과2 = " + self.ingList);
+                    console.log("제외할 코드 = " + self.code);
 					self.fnGetProduct();
-					console.log("split 결과 = " + self.ingList);
+					
                 }
             }); 
 		}
-	
+		// 구매유도 리스트
 		, fnGetProduct : function() {
-			var self = this;
+			var self = this;	
+ 			var nparmap = {ingList : JSON.stringify(self.ingList), code : self.code};
 			
-			var nparmap = {ingList : JSON.stringify(self.ingList), code : self.code};
-			console.log(self.code);
 			$.ajax({
                 url:"/todayEat/recipe/product.dox",
                 dataType:"json",
@@ -93,11 +123,16 @@ var result = new Vue({
                 data : nparmap,
                 success : function(data) {
                     self.productList = data.list;
-                    console.log(data.list);
+                    console.log(data);
 					
                 }
             });
 		}
+   	 	//똑똑한 마켓 구매하기
+   	 	, fnView : function(productNo){
+		    	var self = this;	    	
+		    	self.pageChange("/market/view.do", {productNo : productNo});
+			}
 		, pageChange : function(url, param) {
 			var target = "_self";
 			if(param == undefined){

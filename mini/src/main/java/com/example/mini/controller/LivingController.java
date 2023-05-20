@@ -87,8 +87,11 @@ public class LivingController {
 	@ResponseBody
 	public String searchCardList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Living> list = livingService.searchCardList(map);
-		resultMap.put("list", list);
+		
+		String startNum = (String) map.get("startNum");
+		map.put("startNum", Integer.parseInt(startNum));
+		resultMap = livingService.searchCardList(map);
+		
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
@@ -100,6 +103,28 @@ public class LivingController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<Living> list = livingService.searchCardInfo(map);
 		resultMap.put("list", list);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 카드 등록
+	@RequestMapping(value = "/livingTip/add.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String addCardInfo(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		livingService.addCardInfo(map);
+		resultMap.put("cardNo", map.get("id"));	
+		System.out.println(map.get("id"));	
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 카드 삭제
+	@RequestMapping(value = "/livingTip/remove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String removeCard(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		livingService.removeCard(map);
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
@@ -185,7 +210,7 @@ public class LivingController {
 	    public String resultCom(@RequestParam("file1") MultipartFile multi, @RequestParam("boardNo") int boardNo, HttpServletRequest request,HttpServletResponse response, Model model)
 	    {
 	        String url = null;
-	        String path="c:\\images";
+	        String path="/images/policy/";
 	        try {
 	 
 	            //String uploadpath = request.getServletContext().getRealPath(path);
@@ -201,14 +226,14 @@ public class LivingController {
 	            System.out.println("size : " + fileSize);
 	            System.out.println("saveName : " + saveName);
 	            String path2 = System.getProperty("user.dir");
-	            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
+	            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images\\policy\\");
 	            if(!multi.isEmpty())
 	            {
-	                File file = new File(path2 + "\\src\\main\\webapp\\images", saveName);
+	                File file = new File(path2 + "\\src\\main\\webapp\\images\\policy\\", saveName);
 	                multi.transferTo(file);
 	                
 	                HashMap<String, Object> map = new HashMap<String, Object>();
-	                map.put("images", "../images/" + saveName);
+	                map.put("images", filePath);
 	                map.put("boardNo", boardNo);
 	                map.put("orlgName", orlgName);
 	                map.put("saveName", saveName);
@@ -230,6 +255,57 @@ public class LivingController {
 	            System.out.println(e);
 	        }
 	        return "redirect:../policy.do";
+	    }
+
+	 // 카드정보 파일 업로드
+	 @RequestMapping("/livingTip/fileUpload.dox")
+	    public String update(@RequestParam("file1") MultipartFile multi, @RequestParam("cardNo") int cardNo, HttpServletRequest request,HttpServletResponse response, Model model)
+	    {
+	        String url = null;
+	        String path="/images/cardinfo/";
+	        try {
+	 
+	            //String uploadpath = request.getServletContext().getRealPath(path);
+	            String filePath = path;
+	            String orlgName = multi.getOriginalFilename();
+	            String extName = orlgName.substring(orlgName.lastIndexOf("."),orlgName.length());
+	            long fileSize = multi.getSize();
+	            String saveName = genSaveFileName(extName);
+	            
+	            System.out.println("imgPath : " + filePath);
+	            System.out.println("imgOrgName : " + orlgName);
+	            System.out.println("extName : " + extName);
+	            System.out.println("imgSize : " + fileSize);
+	            System.out.println("imgName : " + saveName);
+	            String path2 = System.getProperty("user.dir");
+	            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\image\\cardinfo\\");
+	            if(!multi.isEmpty())
+	            {
+	                File file = new File(path2 + "\\src\\main\\webapp\\images\\cardinfo\\", saveName);
+	                multi.transferTo(file);
+	                
+	                HashMap<String, Object> map = new HashMap<String, Object>();
+	                map.put("cardNo", cardNo);
+	                map.put("imgOrgName", orlgName);
+	                map.put("imgName", saveName);
+	                map.put("imgPath", filePath);
+	                map.put("imgSize", fileSize);
+	                map.put("fileKind",extName);
+	                
+	                // insert 쿼리 실행
+	                livingService.addFile(map);
+	                
+	           model.addAttribute("orlgName", multi.getOriginalFilename());
+	           model.addAttribute("saveName",saveName);
+	           model.addAttribute("filePath", file.getAbsolutePath());
+	           model.addAttribute("fileSize",fileSize);
+	           
+	                // return "filelist";
+	            }
+	        }catch(Exception e) {
+	            System.out.println(e);
+	        }
+	        return "redirect:../livingTip.do";
 	    }
 	    
 	    // 현재 시간을 기준으로 파일 이름 생성

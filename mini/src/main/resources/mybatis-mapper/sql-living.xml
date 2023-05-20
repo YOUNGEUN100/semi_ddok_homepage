@@ -20,9 +20,18 @@
 					IMG_NAME,
 					CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH
 					FROM T4_CARDIMG
-            		WHERE THUMBNAIL_YN = 'Y')B ON A.CARD_NO = B.CARD_NO;		
+            		WHERE THUMBNAIL_YN = 'Y' OR CARD_INDEX = 1)B ON A.CARD_NO = B.CARD_NO
+            WHERE DELETE_YN = 'N'
+			LIMIT #{startNum}, 9
+
 		</select>
 		
+				<!-- 페이징 용 카운트 -->
+		<select id="pagingCnt" parameterType="hashmap" resultType="int">
+			SELECT COUNT(*) AS CNT
+            FROM T4_CARDINFO
+            WHERE DELETE_YN = 'N';
+		</select>
 		
 		<!-- 카드 슬라이드-->	
 		<select id="selectCardInfo" parameterType="hashmap" resultType="com.example.mini.model.Living">
@@ -34,6 +43,33 @@
 			FROM T4_CARDIMG
 			WHERE THUMBNAIL_YN = 'N' AND CARD_NO = #{cardNo};
 		</select>
+		
+		<!-- 카드 등록 -->
+		<insert id="insertCardInfo" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="CARD_NO">
+			INSERT INTO T4_CARDINFO
+			(CARD_NO, CARD_NAME, CARD_HITS, DELETE_YN, CDATETIME, UDATETIME)
+			VALUES (NULL, #{cardName},0,'N',now(),now())
+		</insert>
+		
+		<!-- 카드 이미지 업로드 -->
+		<insert id="insertCard" parameterType="HashMap">
+			INSERT INTO T4_CARDIMG
+			VALUES (NULL, #{cardNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'N', NOW(), NOW(),SUBSTRING_INDEX(SUBSTRING_INDEX(#{imgOrgName},'-',-1),'.',1))
+		</insert>
+		
+		<!-- 썸네일로 업데이트 -->
+		<update id="thumbUpdate" parameterType="HashMap">
+			UPDATE T4_CARDIMG
+			SET THUMBNAIL_YN = 'Y'
+			WHERE CARD_INDEX = 1
+		</update>
+		
+		<!-- 카드 삭제 -->
+		<update id="deleteCard" parameterType="HashMap">
+			UPDATE T4_CARDINFO
+			SET DELETE_YN = 'Y'
+			WHERE CARD_NO = #{cardNo}
+		</update>
 		
 		<!-- 정책 리스트-->
 		<select id="selectPolList" parameterType="hashmap" resultType="com.example.mini.model.Community">
@@ -91,7 +127,7 @@
 				B.CDATETIME AS CDATETIME, 
 				B.UDATETIME AS UDATETIME, 
 				DELETE_YN,
-				FILE_PATH
+				CONCAT(FILE_PATH, SAVE_NAME) AS FILE_PATH
 			FROM T4_BOARD B
 			LEFT JOIN (SELECT USER_ID, NICK, STATUS FROM T4_USER) U ON U.USER_ID = B.USER_ID
 			LEFT JOIN T4_FILES F ON F.BOARD_NO = B.BOARD_NO

@@ -7,10 +7,19 @@ import com.example.mini.model.Living;
 
 public interface LivingService {
 	// 카드 리스트
-	List<Living> searchCardList(HashMap<String, Object> map);
+	HashMap<String, Object> searchCardList(HashMap<String, Object> map);
 	
 	// 카드 슬라이드
 	List<Living> searchCardInfo(HashMap<String, Object> map);
+	
+	// 카드 등록
+	void addCardInfo(HashMap<String, Object> map);
+	
+	// 카드이미지 등록
+	void addFile(HashMap<String, Object> map);;
+	
+	// 카드 삭제
+	void removeCard(HashMap<String, Object> map);
 	
 	// 정책 리스트
 	HashMap<String, Object> searchPolList(HashMap<String, Object> map);

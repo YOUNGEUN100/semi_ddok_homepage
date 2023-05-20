@@ -10,6 +10,12 @@ public class Living {
 	private String udatetime;
 	private String imgName;
 	private String imgPath;
+	private String imgFileNo;
+	private String imgOrgName;
+	private String imgSize;
+	private String thumbnailYn;
+	private String cardIndex;
+	private int cnt;
 	
 	public int getCardNo() {
 		return cardNo;
@@ -58,6 +64,42 @@ public class Living {
 	}
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
+	}
+	public String getImgFileNo() {
+		return imgFileNo;
+	}
+	public void setImgFileNo(String imgFileNo) {
+		this.imgFileNo = imgFileNo;
+	}
+	public String getImgOrgName() {
+		return imgOrgName;
+	}
+	public void setImgOrgName(String imgOrgName) {
+		this.imgOrgName = imgOrgName;
+	}
+	public String getImgSize() {
+		return imgSize;
+	}
+	public void setImgSize(String imgSize) {
+		this.imgSize = imgSize;
+	}
+	public String getThumbnailYn() {
+		return thumbnailYn;
+	}
+	public void setThumbnailYn(String thumbnailYn) {
+		this.thumbnailYn = thumbnailYn;
+	}
+	public String getCardIndex() {
+		return cardIndex;
+	}
+	public void setCardIndex(String cardIndex) {
+		this.cardIndex = cardIndex;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 	
 }

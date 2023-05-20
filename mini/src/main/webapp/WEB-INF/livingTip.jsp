@@ -4,9 +4,10 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <style>
-	 .card_list {display: flex;flex-wrap: wrap;justify-content: space-between;}
+	 .card_list {display: flex;flex-wrap: wrap;justify-content: flex-start;}
 	 .card_list .card {width:30%;margin:16px;}
 	 .card_list img {cursor:pointer;}
+	
 </style>
 
 
@@ -22,6 +23,23 @@
                     	<img class="recipe-img" :src="item.imgPath" @click="fnViewCard(item.cardNo)">
                 	</div>
             	</div>
+            	
+            	
+				<!-- 페이징 추가 3-->
+				<template>
+					<paginate id="page"
+								:page-count="pageCount"
+								:page-range="3"
+								:margin-pages="2"
+								:click-handler="fnSearch"
+								:prev-text="'<'"
+								:next-text="'>'"
+								:container-class="'pagination'"
+								:page-class="'page-item'">
+					</paginate>
+				</template>
+				<!-- 3끝 -->  
+							
             
 		 	</div>
 		</div>
@@ -34,18 +52,24 @@
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 <script type="text/javascript">
+Vue.component('paginate', VuejsPaginate)
 var app = new Vue({ 
     el: '#app',
     data: {
     	list : [],
-    	sessionId : "${sessionId}"
+    	sessionId : "${sessionId}",
+		selectPage: 1,
+		pageCount: 1,
+		cnt : 0
 
     }
     , methods : {
     	
     	fnCardList : function(){
             var self = this;
-            var nparmap = {};
+            var startNum = ((self.selectPage-1) * 9);
+            console.log(startNum);
+            var nparmap = {startNum : startNum};
             $.ajax({
                 url:"/livingTip/list.dox",
                 dataType:"json",
@@ -54,12 +78,37 @@ var app = new Vue({
                 success : function(data) {
                 	self.list = data.list;
                 	console.log(data.list);
+                	console.log(data.cnt);
+                    self.cnt = data.cnt;
+                    self.pageCount = Math.ceil(self.cnt / 9);
+                    console.log("페이지 카운트"+self.pageCount);
                 	
                     
                 }
             });
 
         }
+    
+		<!-- 페이징 추가 7-->
+		, fnSearch : function(pageNum){
+			var self = this;
+			console.log("선택한페이지 = "+pageNum);
+			self.selectPage = pageNum;
+			var startNum = ((pageNum-1) * 9);
+			var nparmap = {startNum : startNum};
+			$.ajax({
+				url : "/livingTip/list.dox",
+				dataType : "json",
+				type : "POST",
+				data : nparmap,
+				success : function(data) {
+					self.list = data.list;
+					self.cnt = data.cnt;
+					self.pageCount = Math.ceil(self.cnt / 9);
+				}
+			});
+		}
+		<!--  7-->
     
     	, fnViewCard: function(cardNo) {
     		var self = this;

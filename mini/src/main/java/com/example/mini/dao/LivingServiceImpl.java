@@ -16,15 +16,35 @@ public class LivingServiceImpl implements LivingService{
 	private LivingMapper livingMapper;
 
 	@Override //카드 리스트
-	public List<Living> searchCardList(HashMap<String, Object> map) {
-		List<Living> list = livingMapper.selectCardList(map);
-		return list;
+	public HashMap<String, Object> searchCardList(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("cnt", livingMapper.pagingCnt(map));
+		resultMap.put("list",livingMapper.selectCardList(map));
+		return resultMap;
+		
 	}
 
 	@Override //카드 슬라이드
 	public List<Living> searchCardInfo(HashMap<String, Object> map) {
 		List<Living> list = livingMapper.selectCardInfo(map);
 		return list;
+	}
+	
+	@Override // 카드 등록
+	public void addCardInfo(HashMap<String, Object> map) {
+		livingMapper.insertCardInfo(map);		
+	}
+	
+	@Override // 카드 삭제
+	public void removeCard(HashMap<String, Object> map) {
+		livingMapper.deleteCard(map);		
+	}
+	
+	@Override // 카드 이미지 업로그
+	public void addFile(HashMap<String, Object> map) {
+		livingMapper.insertCard(map);	
+		livingMapper.thumbUpdate(map);
+		
 	}
 	
 	
@@ -78,6 +98,7 @@ public class LivingServiceImpl implements LivingService{
 	public void removeComment(HashMap<String, Object> map) {
 		livingMapper.deleteComment(map);
 	}
+
 
 
 }

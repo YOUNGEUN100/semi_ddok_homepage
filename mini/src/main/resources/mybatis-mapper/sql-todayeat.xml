@@ -58,19 +58,21 @@
 		        PRODUCT_WEIGHT,
 		        PRODUCT_EA,
 		        PRODUCT_VOLUME,
+		        PRODUCT_KIND,
 		        PRODUCT_PRICE,
-		        PRODUCT_STOCK
+		        PRODUCT_STOCK,
+		        IMG_PATH
 		FROM T4_PRODUCT A
-		LEFT JOIN (SELECT P_IMAGE_NO
+		LEFT JOIN (SELECT P_IMAGE_NO,
 					PRODUCT_NO,
 					IMG_PATH
 					FROM T4_P_IMAGE
             		WHERE THUMBNAIL_YN = 'Y') B ON A.PRODUCT_NO = B.PRODUCT_NO
-		WHERE PRODUCT_KIND != #{code} AND ( 
-		<foreach collection="ingList" index="index" item="item" close=")" separator="OR">
-			PRODUCT_NAME LIKE CONCAT('%',#{search},'%')
+ 		WHERE PRODUCT_KIND != #{code}  AND
+		<foreach collection="ingList" index="index" item="item" open="(" close=")" separator="or">
+			PRODUCT_NAME LIKE CONCAT ('%',#{item},'%')
 		</foreach>
-		ORDER BY RAND() LIMIT 2 
+		ORDER BY RAND() LIMIT 2
 	</select>
 	
 </mapper>

@@ -105,8 +105,8 @@ public class TodayEatController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		String json = map.get("ingList").toString();
 		ObjectMapper mapper = new ObjectMapper();
-	    List<Object> ingList = mapper.readValue(json, new TypeReference<List<Object>>(){});
-	    map.put("ingList", ingList);
+	    List<Object> list1 = mapper.readValue(json, new TypeReference<List<Object>>(){});
+	    map.put("ingList", list1);
 		List<TodayEat> list = todayEatService.searchProduct(map);
 		resultMap.put("list", list);
 		resultMap.put("message", "성공");
