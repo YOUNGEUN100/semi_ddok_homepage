@@ -10,7 +10,7 @@
         legend {font-size: x-large; }
         fieldset {
             width: 100%;
-            height: 500px;
+            height: auto;
             border: 5px solid rgba(245, 243, 243, 0.959);
             box-shadow: 2px 2px 20px 0px #ece9e9;
             border-radius: 10px;

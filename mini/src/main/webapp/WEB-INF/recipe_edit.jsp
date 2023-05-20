@@ -192,8 +192,20 @@ var recipeEdit = new Vue({
 			//console.log($("#file1")[0].files[0]);
    	     	if (!$("#file1")[0].files[0]) {alert("레시피 사진을 등록해주세요.");return;} 
    	     	if (!self.info.recipeName) {alert("레시피 이름을 작성해주세요."); return;}
+   	     	self.info.icode = JSON.stringify(self.info.icode);
 			console.log(self.info.icode);
-			var nparmap = self.info;
+			var nparmap = {
+							recipeNo : self.info.recipeNo,
+							recipeName : self.info.recipeName,
+							hashtag : self.info.hashtag,
+							pcode : self.info.pcode,
+							hcode : self.info.hcode,
+							tcode : self.info.tcode,
+							icode : self.info.icode,
+							time : self.info.time,
+							difficulty : self.info.difficulty,
+							cookIngre : self.info.cookIngre
+			}
 			$.ajax({
 				url:"/recipe/save.dox",
 				dataType:"json",	
@@ -201,11 +213,13 @@ var recipeEdit = new Vue({
 				data : nparmap,
 				success : function(data) {  
 					
+					if (!$("#file1")[0].files[0]) return;
 					var form = new FormData();
 					form.append( "file1",  $("#file1")[0].files[0]);
 					form.append( "recipeNo",  data.recipeNo); // pk
 					self.upload(form); 
 					
+					if (!$("#file2")[0].files[0]) return;
 					for(var i=2; i<self.indexNum+2; i++){
 						var form = new FormData();
 						form.append( "file2",  $("#file" + i)[0].files[0]);

@@ -306,11 +306,9 @@
 				INSERT INTO T4_INGREDIENT(
 					RECIPE_NO,
 					CODE)
-				VALUES
-				<foreach collection="icode" index="index" item="item" open="(" close=")" separator=",">
-				(#{recipeNo}, #{item})
+				<foreach collection="icode" index="index" item="item">
+				VALUES(#{recipeNo}, #{item})
 				</foreach>	
-				
 		</insert>
 		
 

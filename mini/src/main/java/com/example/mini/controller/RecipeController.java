@@ -17,11 +17,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.mini.dao.RecipeService;
 import com.example.mini.model.Code;
 import com.example.mini.model.Recipe;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+
 
 @Controller
 public class RecipeController {
@@ -160,6 +164,9 @@ public class RecipeController {
 	@ResponseBody
 	public String recipeSave(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		String json = map.get("icode").toString();
+		ObjectMapper mapper = new ObjectMapper();
+		List<Object> list = mapper.readValue(json, new TypeReference<List<Object>>(){});
 		recipeService.addRecipe(map);
 		resultMap.put("result", "success");
 		 resultMap.put("recipeNo", map.get("id"));
