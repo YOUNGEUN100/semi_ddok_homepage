@@ -102,7 +102,7 @@ public class RecipeServiceImpl implements RecipeService{
 		recipeMapper.insertPurposeCode(map);
 		recipeMapper.insertHowtoCode(map);
 		recipeMapper.insertToolCode(map);
-		//recipeMapper.insertIngreCode(map);
+		recipeMapper.insertIngreCode(map);
 	}
 	// 레시피 이미지 등록
 	@Override

@@ -167,6 +167,7 @@ public class RecipeController {
 		String json = map.get("icode").toString();
 		ObjectMapper mapper = new ObjectMapper();
 		List<Object> list = mapper.readValue(json, new TypeReference<List<Object>>(){});
+		map.put("icode", list);
 		recipeService.addRecipe(map);
 		resultMap.put("result", "success");
 		 resultMap.put("recipeNo", map.get("id"));
@@ -246,24 +247,28 @@ public class RecipeController {
 				String filePath = path;
 				String orlgName = multi.getOriginalFilename();
 				String extName = orlgName.substring(orlgName.lastIndexOf("."), orlgName.length());
+				
+				String cookIndex = orlgName.substring(orlgName.lastIndexOf("_")+1, orlgName.lastIndexOf("."));
 				long fileSize = multi.getSize();
 				String saveName = genSaveFileName(extName);
 
+				System.out.println("cookIndex : " + cookIndex);
 				System.out.println("filePath : " + filePath);
 				System.out.println("orlgName : " + orlgName);
 				System.out.println("extName : " + extName);
 				System.out.println("size : " + fileSize);
 				System.out.println("saveName : " + saveName);
 				String path2 = System.getProperty("user.dir");
-				System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
+				System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images\\recipe");
 				if (!multi.isEmpty()) {
-					File file = new File(path2 + "\\src\\main\\webapp\\images", orlgName);
+					File file = new File(path2 + "\\src\\main\\webapp\\images\\recipe\\", orlgName);
 					multi.transferTo(file);
 
 					HashMap<String, Object> map = new HashMap<String, Object>();
 					map.put("images", "../images/" + orlgName);
 					map.put("recipeNo", recipeNo);
 					map.put("orlgName", orlgName);
+					map.put("cookIndex", cookIndex);
 					
 					map.put("saveName", saveName);
 					map.put("filePath", filePath);

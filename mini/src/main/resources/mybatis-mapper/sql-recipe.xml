@@ -306,8 +306,9 @@
 				INSERT INTO T4_INGREDIENT(
 					RECIPE_NO,
 					CODE)
-				<foreach collection="icode" index="index" item="item">
-				VALUES(#{recipeNo}, #{item})
+				VALUES
+				<foreach collection="icode" index="index" item="item" separator=",">
+				(#{recipeNo}, #{item})
 				</foreach>	
 		</insert>
 		
@@ -330,14 +331,14 @@
 				RECIPE_NO,
 				IMG_ORG_NAME,
 				IMG_PATH,
-				THUMBNAIL_YN)
-			VALUES(NULL, #{recipeNo}, #{orlgName}, #{images}, 'N')
+				THUMBNAIL_YN,
+				COOK_INDEX)
+			VALUES(NULL, #{recipeNo}, #{orlgName}, #{images}, 'N', #{cookIndex})
 		</insert>
 		<!-- 요리과정 글 INSERT -->
 		<update id="updateCookContent" parameterType="hashmap">
 		UPDATE T4_R_IMAGE
 		SET
-			COOK_INDEX = #{cookIndex}, 
 			COOK_CONTENT = #{cookContent}
 		WHERE RECIPE_NO = #{recipeNo} AND THUMBNAIL_YN = 'N'
 		</update>

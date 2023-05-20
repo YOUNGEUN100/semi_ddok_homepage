@@ -61,7 +61,7 @@ public interface RecipeMapper {
 	void insertPurposeCode(HashMap<String,Object>map);
 	void insertHowtoCode(HashMap<String,Object>map);
 	void insertToolCode(HashMap<String,Object>map);
-	//void insertIngreCode(HashMap<String,Object>map);
+	void insertIngreCode(HashMap<String,Object>map);
 	void insertRecipeImg(HashMap<String,Object>map);
 	
 	void insertCookImg(HashMap<String,Object>map);
