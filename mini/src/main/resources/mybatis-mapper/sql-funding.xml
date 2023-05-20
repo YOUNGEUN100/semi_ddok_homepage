@@ -516,9 +516,11 @@
 		<select id="fundingImgDetail" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			SELECT FUNDING_NO,
 					IMG_NAME,
-					CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH_DETAIL
+					CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH_DETAIL,
+					FUNDING_INDEX
             FROM T4_F_IMAGE
             WHERE THUMBNAIL_YN = 'N' AND FUNDING_NO = #{fundingNo}
+            ORDER BY FUNDING_INDEX
 		</select>
 		
 		<!-- 펀딩 신청 인서트 -->

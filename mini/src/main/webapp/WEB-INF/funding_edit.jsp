@@ -367,6 +367,20 @@
                     	data: nparmap,
                     	success: function (data) {
                     		alert("수정완료");
+                    		// 썸네일 이미지
+                            var form = new FormData();
+                            form.append( "file1",  $("#file1")[0].files[0] );								
+							form.append( "fundingNo",  self.fundingNo);// pk
+							self.upload(form);
+                            
+							// 상세 이미지
+                            for(var i = 0; i<$("#file2")[0].files.length; i++) {
+								//append는 이어붙이는 명령어라 첫번째 파일을 보내고 다시 폼을 만들어 두번째 파일을 보내줘야함
+								var form = new FormData(); 
+								form.append( "file2",  $("#file2")[0].files[i] );								
+								form.append( "fundingNo",  self.fundingNo);// pk
+								self.upload2(form);
+							} 
                     		location.href="/funding.do"
                     	}
                 	});
