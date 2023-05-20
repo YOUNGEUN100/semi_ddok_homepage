@@ -617,7 +617,7 @@
 		<insert id="insertFundingImg2" parameterType="hashmap">
 			INSERT INTO T4_F_IMAGE
 			VALUES
-				(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'N', NULL, NOW(), NOW(),'N' )
+				(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'N', SUBSTRING_INDEX(SUBSTRING_INDEX(#{imgOrgName},'-',-1),'.',1), NOW(), NOW(),'N' )
 		</insert>
 		
 		<!-- 펀딩이미지 삭제 -->
