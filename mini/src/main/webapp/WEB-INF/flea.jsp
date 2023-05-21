@@ -169,6 +169,7 @@ var fleaList = new Vue({
         //<!-- 페이징 추가 5-->
         selectPage: 1,
         pageCount: 1,
+        remainNum: 0,
         cnt: 0,
         selectPage2: 1,
         pageCount2: 1,
@@ -179,7 +180,7 @@ var fleaList = new Vue({
             var self = this;
             // <!-- 페이징 추가 6-->     		
             var startNum = ((self.selectPage - 1) * 10);
-            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum };
+            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum, remainNum : self.remainNum,  pageCount : self.pageCount, selectPage : self.selectPage};
             $.ajax({
                 url: "/fleamarket/list.dox",
                 dataType: "json",
@@ -190,6 +191,11 @@ var fleaList = new Vue({
                     self.list = data.list;
                     self.cnt = data.cnt;
                     self.pageCount = Math.ceil(self.cnt / 10);
+                    self.remainNum = data.cnt % 10;
+                    console.log("게시글 수 : " + data.cnt);
+                    console.log("나머지 게시글 : " + self.remainNum);
+                    console.log("총 페이지수 : " + self.pageCount);
+                    console.log("현재 페이지 : " + self.selectPage);
                 }
             });
         }
@@ -216,7 +222,7 @@ var fleaList = new Vue({
             var self = this;
             self.selectPage = pageNum;
             var startNum = ((pageNum - 1) * 10);
-            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum };
+            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum, remainNum : self.remainNum,  pageCount : self.pageCount, selectPage : self.selectPage };
             $.ajax({
                 url: "/fleamarket/list.dox",
                 dataType: "json",
@@ -225,7 +231,9 @@ var fleaList = new Vue({
                 success: function (data) {
                     self.list = data.list;
                     self.cnt = data.cnt;
+                    console.log("현재 페이지수 =="+self.selectPage);
                     self.pageCount = Math.ceil(self.cnt / 10);
+                    
                 }
             });
         }

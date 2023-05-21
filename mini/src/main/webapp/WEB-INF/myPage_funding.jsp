@@ -115,10 +115,10 @@
                 <div class="fundingBox" v-for="(item, index) in list"><!-- 참여한 펀딩내역 요약 -->
                 
                     <div class="fundImg">
-                        <a href="/funding/view/open.do"><img :src="item.imgPath"></a>
+                        <a @click="fnViewFunding(item)"><img :src="item.imgPath"></a>
                     </div>
                     <div class="fundContent">
-                        <a href="/funding/view/open.do"><h1>{{item.fundingName}}</h1></a>
+                        <a @click="fnViewFunding(item)"><h1>{{item.fundingName}}</h1></a>
                         <div class="fundnIfo">{{item.fundingSummary}}</div>
                         <div class="fundDetail"><p>{{item.fundingGoalCnt}}명 중 {{item.cnt}}명</p><p>{{item.dDay}}일 남음</p></div>
                         <div>
@@ -159,6 +159,8 @@ var app = new Vue({
                 data : nparmap,
                 success : function(data) {
                 	self.list = data.list;
+                	console.log(data.list);
+                	
                     
                 }
             });
@@ -168,6 +170,20 @@ var app = new Vue({
     		var self = this;
     		self.pageChange("/modify.do", {sessionId : self.sessionId});
     	},
+        // 오픈중 펀딩 상세페이지로
+        fnViewFunding: function(item) {
+        	var self = this;
+        	console.log(item.fundingNo);
+        	console.log(item.fundingKind);
+        	var todayTime = new Date();
+        	console.log(todayTime);
+        	if(item.fundingKind == "O") {
+        		self.pageChange("../funding/view/open.do", {fundingNo : item.fundingNo});	
+        	} else {
+        		self.pageChange("../funding/view/planned.do", {fundingNo : item.fundingNo});	
+        	}
+        	
+        },
     	
     	pageChange : function(url, param) {
      		var target = "_self";

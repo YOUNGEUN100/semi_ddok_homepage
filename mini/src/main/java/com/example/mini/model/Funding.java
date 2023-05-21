@@ -60,7 +60,7 @@ public class Funding {
 	private String thumbnailYn;
 	private String thumbnailYn2;
 	private int fundingIndex;	
-	
+	private String fundingKind;
 	//---펀딩용 모델 끝---
 	
 	public int getBoardNo() {
@@ -396,6 +396,12 @@ public class Funding {
 	}
 	public void setSelectedItems(int[] selectedItems) {
 		this.selectedItems = selectedItems;
+	}
+	public String getFundingKind() {
+		return fundingKind;
+	}
+	public void setFundingKind(String fundingKind) {
+		this.fundingKind = fundingKind;
 	}
 	
 	

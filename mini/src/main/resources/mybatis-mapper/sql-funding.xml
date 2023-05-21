@@ -59,6 +59,8 @@
         	<if test = "moreBtn == 'on'">
         	LIMIT #{startNum}, 10
         	</if>
+        	
+			
 
 		</select>
 		
