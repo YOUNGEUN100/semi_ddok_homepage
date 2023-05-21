@@ -3,7 +3,6 @@ package com.example.mini.controller;
 import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.mini.dao.CommunityService;
-import com.example.mini.model.Community;
 import com.google.gson.Gson;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -129,7 +127,7 @@ public class CommunityController {
 	 @RequestMapping("/community/fileUpload.dox")
 	    public String resultCom(@RequestParam("file1") MultipartFile multi, @RequestParam("boardNo") int boardNo, HttpServletRequest request,HttpServletResponse response, Model model)
 	    {
-	        String url = null;
+	       // String url = null;
 	        String path="c:\\images";
 	        try {
 	 

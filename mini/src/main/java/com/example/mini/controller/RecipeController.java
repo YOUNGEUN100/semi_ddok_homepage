@@ -188,7 +188,7 @@ public class RecipeController {
 	// 파일 업로드
 	@RequestMapping("/recipe/fileUpload.dox")
 	public String thumbnailinput(@RequestParam("file1") MultipartFile multi, @RequestParam("recipeNo") int recipeNo,HttpServletRequest request, HttpServletResponse response, Model model) {
-		String url = null;
+		
 		String path = "c:\\images";
 		try {
 
@@ -239,7 +239,7 @@ public class RecipeController {
 		// 요리 과정 이미지 첨부파일
 		@RequestMapping("/cook/fileUpload.dox")
 		public String cookImgInput(@RequestParam("file2") MultipartFile multi, @RequestParam("recipeNo") int recipeNo,HttpServletRequest request, HttpServletResponse response, Model model) {
-			String url = null;
+			
 			String path = "c:\\images";
 			try {
 
