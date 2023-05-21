@@ -106,32 +106,11 @@
             </div>
         </div>
         <div class="mctArea mainContentSlider">
-            <div class="mctThumb typeCol">
-                  <img src="/images/news1.jpg" alt="카드1">
+            <div class="mctThumb typeCol" v-for="(item, index) in cardList" >
+                  <img :src="item.imgPath" alt="카드뉴스img" @click="fnViewCard(item.cardNo)">
                 <a href="javaScript:;" class="txtBox">
-                	<p class="text">5월부터 시작</p>
-                    <h4 class="title">이직 중도퇴사자 연말정산 방법</h4>
-                </a>
-            </div>
-            <div class="mctThumb typeCol">
-                <img src="/images/news2.jpg" alt="카드2">
-                <a href="javaScript:;" class="txtBox">
-                	<p class="text">각종 색바랜 옷</p>
-                    <h4 class="title">완벽하게 되살리는 방법</h4>
-                </a>
-            </div>
-            <div class="mctThumb typeCol">
-                 <img src="/images/news3.jpg" alt="카드3">
-                <a href="javaScript:;" class="txtBox">
-                	<p class="text">전세 월세집 재계약할 때</p>
-                    <h4 class="title">필수 체크리스트</h4>
-                </a>
-            </div>
-            <div class="mctThumb typeCol">
-                 <img src="/images/news4.jpg" alt="카드4">
-                <a href="javaScript:;" class="txtBox">
-                	<p class="text">2023년 연차 쓰기 좋은</p>
-                    <h4 class="title">남은 연휴 총정리</h4>
+                	<p class="text">{{item.cardExp1}}</p>
+                    <h4 class="title">{{item.cardExp2}}</h4>
                 </a>
             </div>
         </div>
@@ -164,6 +143,7 @@ var app = new Vue({
     data: {
     	fundingList : [],
    		recipeList : [],
+   		cardList : [],
 		recommendList : [],
 		polList : []
 
@@ -249,7 +229,7 @@ var app = new Vue({
 	            }); 
 			 }
    	
-   		// 레시피 리스트
+   		// 레시피 리스트(3개씩)
    	 	, fnGetRecipe : function() {
 			var self = this;    		
 	      	var nparmap = {};
@@ -270,11 +250,31 @@ var app = new Vue({
 		  	var self = this;
 		  	self.pageChange("./recipe/view.do", {recipeNo : recipeNo});
 		}
+		// 카드 뉴스 리스트(4개씩)
+		, fnGetCard : function() {
+			var self = this;    		
+	      	var nparmap = {};
+	        $.ajax({
+	            url:"/index/card.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log("카드 데이터 : ");
+	            	console.log(data);
+					self.cardList = data.list;
+	            }
+	        }); 
+		}
+		// 카드뉴스 상세보기
+	 	, fnViewCard: function(cardNo) {
+		  	var self = this;
+		  	self.pageChange("./livingTip/view.do", {cardNo : cardNo});
+		}
 		// 알쓸정책 바로가기
 		, fnMorePolicy : function() {
     		location.href = "./policy.do";
 		}
-		
 		// 정책 리스트
 		, fnGetPol : function() {
     		var self = this;    		
@@ -304,6 +304,7 @@ var app = new Vue({
     	var self = this;
     	self.fnGetFunding();
     	self.fnGetRecipe();
+    	self.fnGetCard();
     	self.fnGetRecommend();
     	self.fnGetPol();
 	}

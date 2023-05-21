@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.mini.mapper.MainMapper;
 import com.example.mini.model.Community;
 import com.example.mini.model.Funding;
+import com.example.mini.model.Living;
 import com.example.mini.model.Recipe;
 
 @Service
@@ -29,11 +30,19 @@ public class MainServiceImpl implements MainService{
 		List<Recipe> list = mainMapper.selectRandRecipeList(map);
 		return list;
 	}
+	
+	@Override
+	public List<Living> searchRandCardList(HashMap<String, Object> map) throws Exception {
+		List<Living> list = mainMapper.selectRandCardList(map);
+		return list;
+	}
 
 	@Override
 	public List<Community> searchRanPolList(HashMap<String, Object> map) throws Exception {
 		List<Community> list = mainMapper.selectRanPolList(map);
 		return list;
 	}
+
+	
 
 }

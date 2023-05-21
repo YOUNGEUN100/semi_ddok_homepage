@@ -67,8 +67,8 @@ var result = new Vue({
                 data : nparmap,
                 success : function(data) {
                     self.info = data.menu;
-                    console.log("menu 데이터는");
-                    console.log(data.menu);
+                  // console.log("menu 데이터는" + data.menu);
+                  //  console.log(data.menu);
                     self.message = "검색결과가 없어요. 대신";
                     self.menuFlg = true;
                   
@@ -96,8 +96,10 @@ var result = new Vue({
                 data : nparmap,
                 success : function(data) {
                     self.info = data.info;
-                    console.log("info결과값");
-                    console.log(self.info);
+                  //  console.log("info결과값");
+                  //  console.log(self.info);
+                  // 검색값이 없을 때 전체 메뉴에서 랜덤하게 추천
+                    if (!self.info) {self.fnGetMenu();  }
                 }
             }); 
 		},
@@ -302,7 +304,7 @@ var result = new Vue({
     }
     , created: function () {
 		var self = this;
-		self.fnGetMenu();
+		//self.fnGetMenu();
 		self.fnGetStoreResult();
          
 	}

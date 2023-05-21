@@ -16,6 +16,9 @@ public class Living {
 	private String thumbnailYn;
 	private String cardIndex;
 	private int cnt;
+	private String cardExp1;
+	private String cardExp2;
+
 	
 	public int getCardNo() {
 		return cardNo;
@@ -100,6 +103,18 @@ public class Living {
 	}
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
+	}
+	public String getCardExp1() {
+		return cardExp1;
+	}
+	public void setCardExp1(String cardExp1) {
+		this.cardExp1 = cardExp1;
+	}
+	public String getCardExp2() {
+		return cardExp2;
+	}
+	public void setCardExp2(String cardExp2) {
+		this.cardExp2 = cardExp2;
 	}
 	
 }
