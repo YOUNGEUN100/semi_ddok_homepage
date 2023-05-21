@@ -107,7 +107,7 @@
                 
                 <div class="orderBox" v-for="(item, index) in list"><!-- 주문내역 요약 -->
                         <div class="orderTop">
-                            <div class="order">{{item.orderDate}} {{item.name}}</div><a class="order" href="/myPage/order.do">주문상세보기 >></a>
+                            <div class="order">{{item.orderDate}} {{item.name}}</div><div class="order" @click="fnSendInfo" >주문상세보기 >></div>
                         </div>
                         <div class="orderCenter">
                             <a href="/market/view.do"><img :src="item.imgPath" name="상품이미지" ></a>
@@ -174,6 +174,10 @@ var app = new Vue({
                 }
             });
 
+        },
+        fnSendInfo : function(){
+        	var self = this;
+        	self.pageChange("/myPage/order.do", {sessionId : self.sessionId});
         },
     	
     	pageChange : function(url, param) {

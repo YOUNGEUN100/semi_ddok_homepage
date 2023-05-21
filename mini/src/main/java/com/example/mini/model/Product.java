@@ -9,6 +9,7 @@ public class Product {
 	private String productVolume; 
 	private String title; 
 	private String content; 
+	private String imgPath;
 	private Integer productPrice; 
 	private Integer productStock; 
 	private Integer productCnt; 
@@ -65,6 +66,12 @@ public class Product {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 	public Integer getProductPrice() {
 		return productPrice;
