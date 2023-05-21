@@ -108,7 +108,7 @@
 #pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info-box {min-height:calc(100% - 65px - 2em); display:flex; flex-flow:column; justify-content:space-around;}
 #pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info_txt {border-bottom:1px solid var(--base-colorBasicGray); padding-bottom:1em;}
 #pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info_txt .hashtag {font-size:1.125em; font-weight:400; margin-bottom:0.5em;}
-#pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info_txt .title {font-size:2em; font-weight:800;}
+#pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info_txt .title {font-size:2em; font-weight:700;}
 #pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info_keyword {width:100%; display:flex; flex-flow:row nowrap; justify-content:space-around; align-items:center; text-align:center;}
 #pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info_keyword .type h5 {font-size:1.25em;}
 #pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info_keyword .type p {font-size:1.125em; margin-top:0.25em;}
