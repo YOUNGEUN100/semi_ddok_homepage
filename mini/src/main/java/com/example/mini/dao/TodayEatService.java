@@ -18,4 +18,7 @@ public interface TodayEatService {
 	
 	// 구매유도 리스트
 	List<TodayEat> searchProduct(HashMap<String, Object> map);
+	
+	//전체 레시피 랜덤 추천
+	TodayEat searchRecipeRandom(HashMap<String, Object> hmap);
 }

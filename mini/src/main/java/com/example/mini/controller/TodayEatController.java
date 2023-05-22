@@ -78,6 +78,18 @@ public class TodayEatController {
 		return "/todayEat_recipe";
 	}
 	
+	// 전체 레시피 랜덤 추천
+	@RequestMapping(value = "/todayEat/recipe/resultR.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchRecipeRandom(Model model, @RequestParam HashMap <String, Object> hmap) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		TodayEat menu = todayEatService.searchRecipeRandom(hmap);
+		resultMap.put("menu", menu);
+		resultMap.put("message", "성공");
+		return new Gson().toJson(resultMap);
+	}
+	
 	// 레시피 추천 결과페이지
 	@RequestMapping("/todayEat/recipe/result.do")
 	public String selectRecipe(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> hmap) throws Exception{

@@ -12,7 +12,7 @@
 		<div id="result" class="resultContainer">
 			<div class="resultMenu">
 	 			<h3 class="resultMenuTitle">
-					오늘 ‘<span id="menuName">{{info.recipeName}}</span>’ 어때요?
+					<span v-if="menuFlg">{{message}}</span> 오늘 ‘<span id="menuName">{{info.recipeName}}</span>’ 어때요?
 				</h3>
 				<div class="imgBox">
                 	<img class="img" :src="info.imgPathT">
@@ -61,6 +61,8 @@ var result = new Vue({
 	data: {
 		list : [], 
 		info : {},
+		menuFlg : false,
+		message : "",
 		param : {
 			r_purpose : "${hmap.r_purpose}",
 			howto : "${hmap.howto}",
@@ -79,6 +81,42 @@ var result = new Vue({
 	    },
 	}
 	, methods: {
+		// 전체 메뉴 랜덤하게 가져오기
+		fnGetRecipe : function() {
+            var self = this;
+            var nparmap = {};
+            
+            $.ajax({
+                url:"/todayEat/recipe/resultR.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                    self.info = data.menu;
+                    self.code = data.menu.code;
+                    self.info.imgPathT = "../" + data.menu.imgPathT;
+                    self.info.imgPathR = "../" + data.menu.imgPathR;
+                    console.log(self.info);
+                    console.log(data.menu.code);
+                  // console.log("menu 데이터는" + data.menu);
+                  //  console.log(data.menu);
+                    self.message = "검색결과가 없어요. 대신";
+                    self.menuFlg = true;
+                    //재료 자르기
+                    var ingArray = self.info.cookIngre.split(',');
+					// 김, 밥 필터
+					var filtered = ingArray.filter((element) => element != '밥');
+					self.ingList = filtered.filter((element) => element != '물');
+                    console.log("split 결과 = " + ingArray);
+                    console.log("필터결과1 = " + filtered);
+                    console.log("필터결과2 = " + self.ingList);
+                    console.log("제외할 코드 = " + self.code);
+					self.fnGetProduct();
+                  
+                }
+            }); 
+		},
+		
 		fnGetRecipeResult : function() {
             var self = this;
             var nparmap = self.param;
@@ -91,21 +129,27 @@ var result = new Vue({
                 data : nparmap,
                 success : function(data) {
                     self.info = data.info;
-                    self.code = data.info.code;
-                    console.log(self.info);
-                    self.info.imgPathT = "../" + data.info.imgPathT;
-                    self.info.imgPathR = "../" + data.info.imgPathR;
+                    if (!self.info) {
+                    	self.fnGetRecipe(); 
+                    }
+                    else{
+                    	self.code = data.info.code;
+	                    console.log(self.info);
+	                    self.info.imgPathT = "../" + data.info.imgPathT;
+	                    self.info.imgPathR = "../" + data.info.imgPathR;
+	                    
+	                    //재료 자르기
+	                    var ingArray = self.info.cookIngre.split(',');
+						// 김, 밥 필터
+						var filtered = ingArray.filter((element) => element != '밥');
+						self.ingList = filtered.filter((element) => element != '물');
+	                    console.log("split 결과 = " + ingArray);
+	                    console.log("필터결과1 = " + filtered);
+	                    console.log("필터결과2 = " + self.ingList);
+	                    console.log("제외할 코드 = " + self.code);
+						self.fnGetProduct();
+                    }
                     
-                    //재료 자르기
-                    var ingArray = self.info.cookIngre.split(',');
-					// 김, 밥 필터
-					var filtered = ingArray.filter((element) => element != '밥');
-					self.ingList = filtered.filter((element) => element != '물');
-                    console.log("split 결과 = " + ingArray);
-                    console.log("필터결과1 = " + filtered);
-                    console.log("필터결과2 = " + self.ingList);
-                    console.log("제외할 코드 = " + self.code);
-					self.fnGetProduct();
 					
                 }
             }); 

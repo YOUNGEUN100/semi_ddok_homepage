@@ -33,6 +33,13 @@ public class TodayEatServiceImpl implements TodayEatService{
 		return info;
 	}
 	
+	// 전체 레시피 랜덤 추천
+	@Override
+	public TodayEat searchRecipeRandom(HashMap<String, Object> hmap) {
+		TodayEat menu = todayEatMapper.selectRecipeRandom(hmap);
+		return menu;
+	}
+	
 	// 구매유도 리스트
 	@Override
 	public List<TodayEat> searchProduct(HashMap<String, Object> map) {

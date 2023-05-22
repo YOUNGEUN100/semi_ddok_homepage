@@ -180,7 +180,7 @@ var fleaList = new Vue({
             var self = this;
             // <!-- 페이징 추가 6-->     		
             var startNum = ((self.selectPage - 1) * 10);
-            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum, remainNum : self.remainNum,  pageCount : self.pageCount, selectPage : self.selectPage};
+            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum};
             $.ajax({
                 url: "/fleamarket/list.dox",
                 dataType: "json",
@@ -222,7 +222,7 @@ var fleaList = new Vue({
             var self = this;
             self.selectPage = pageNum;
             var startNum = ((pageNum - 1) * 10);
-            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum, remainNum : self.remainNum,  pageCount : self.pageCount, selectPage : self.selectPage };
+            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum};
             $.ajax({
                 url: "/fleamarket/list.dox",
                 dataType: "json",
@@ -270,9 +270,10 @@ var fleaList = new Vue({
 		            liList.eq(i).removeClass("active");
 		        }
 		        liList.eq(1).addClass("active");
-		        self.selectPage = 1;
-		            self.pageCount = 1;
-		            self.cnt = 0;
+		        self.fnSearch(1);
+// 		        self.selectPage = 1;
+// 		            self.pageCount = 1;
+// 		            self.cnt = 0;
 		        self.moreBtn = "off"
 		        self.fnGetFleaList();
 		        moreBtn.innerText = "더보기";
@@ -293,9 +294,10 @@ var fleaList = new Vue({
 		            liList.eq(i).removeClass("active");
 		        }
 		        liList.eq(1).addClass("active");
-		        self.selectPage2 = 1;
-	            self.pageCount2 = 1;
-	            self.cnt2 = 0;
+		        self.fnSearch(1);
+// 		        self.selectPage2 = 1;
+// 	            self.pageCount2 = 1;
+// 	            self.cnt2 = 0;
 	            self.moreBtn2 = "off";
 	            self.fnGetFleaList2();
 	            moreBtn2.innerText = "더보기";
@@ -323,10 +325,11 @@ var fleaList = new Vue({
 	            liList.eq(i).removeClass("active");
 	        }
 	        liList.eq(1).addClass("active");
-	        self.selectPage2 = 1;
-            self.pageCount2 = 1;
-            self.cnt2 = 0;
-            self.fnGetFleaList2();
+	        self.fnSearch(2);
+// 	        self.selectPage2 = 1;
+//             self.pageCount2 = 1;
+//             self.cnt2 = 0;
+//             self.fnGetFleaList2();
 	    }
 	    // 랜선장터 글 보기
 	    , fnViewFlea: function (boardNo) {
