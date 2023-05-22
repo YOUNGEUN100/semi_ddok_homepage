@@ -18,11 +18,16 @@
 				A.FUNDING_NO,
 				FUNDING_NAME,
 				FUNDING_SUMMARY,
+				CASE 
+						WHEN NOW() > FUNDING_START_DT THEN 'O'
+                		WHEN FUNDING_START_DT > NOW() THEN 'P'
+                END AS FUNDING_KIND,
+                FUNDING_START_DT,
 				FUNDING_END_DT,
 				FUNDING_GOAL_CNT,
 				CNT,
 				TIMESTAMPDIFF(DAY, NOW(), FUNDING_END_DT) AS D_DAY,
-				CONCAT(IMG_PATH, IMG_ORG_NAME) AS IMG_PATH,
+				CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH,
 				FORMAT(FUNDING_PRICE , 0) AS FUNDING_PRICE2,
 				USER_ID
 				
@@ -30,23 +35,23 @@
 			LEFT JOIN (SELECT FUNDING_NO, count(FUNDING_NO) as CNT
 						FROM T4_FUNDING_MEMBER
 						GROUP BY FUNDING_NO) B ON A.FUNDING_NO = B.FUNDING_NO
-			LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_ORG_NAME
+			LEFT JOIN (SELECT FUNDING_NO, IMG_PATH, IMG_NAME
 							FROM mini_db2.T4_F_IMAGE
 							WHERE THUMBNAIL_YN = 'Y'
 							GROUP BY FUNDING_NO) C ON A.FUNDING_NO = C.FUNDING_NO
 			LEFT JOIN T4_FUNDING_MEMBER M ON A.FUNDING_NO = M.FUNDING_NO
-			WHERE USER_ID = #{userId} AND FUNDING_CLOSE_YN = 'N' 
+			WHERE USER_ID = #{userId} AND FUNDING_CLOSE_YN = 'N' ;
 			
 		</select>
 		
-		<select id="selectOrderList" parameterType="HashMap" resultType="com.example.mini.model.SmartMarket">
+		<select id="selectOrderList" parameterType="HashMap" resultType="com.example.mini.model.OrderList">
 			SELECT 
 				O.PRODUCT_NO, 
 				ORDER_DATE,
 				ORDER_PRICE, 
 				FORMAT((ORDER_CNT*PRODUCT_PRICE) , 0) AS ORDER_PRICE2, 
 				USER_ID, 
-				ORDER_NO, 
+				MIN(ORDER_NO) AS ORDER_NO, 
 				ORDER_CNT, 
 				PRODUCT_NAME,
 				PRODUCT_VOLUME,
@@ -65,8 +70,45 @@
 			LEFT JOIN T4_P_IMAGE I ON O.PRODUCT_NO = I.PRODUCT_NO
 			
 			WHERE USER_ID = #{id} AND THUMBNAIL_YN='Y'
-            GROUP BY ORDER_NO;
+            GROUP BY ORDER_NO
+            	
+		</select>
+		
+		<select id="selectOrderInfo" parameterType="HashMap" resultType="com.example.mini.model.OrderList">
+			SELECT 
+				O.PRODUCT_NO, 
+				ORDER_DATE,
+				ORDER_PRICE, 
+				FORMAT((ORDER_CNT*PRODUCT_PRICE) , 0) AS ORDER_PRICE2, 
+				O.USER_ID, 
+				ORDER_NO, 
+				ORDER_CNT, 
+                PAYMENT,
+				PRODUCT_NAME,
+				PRODUCT_VOLUME,
+				CONCAT(PRODUCT_WEIGHT, PRODUCT_VOLUME) AS WEIGHT,  
+				TITLE, 
+				CONTENT, 
+				IMG_PATH,
+                C.NAME AS STATUS,
+				FORMAT(PRODUCT_PRICE , 0) AS PRODUCT_PRICE2,
+				format(((PRODUCT_PRICE*100/ PRODUCT_WEIGHT*PRODUCT_EA)), 0) AS PER_PRICE,
+                U.NAME AS USER_NAME,
+                HP,
+                ADDR,
+                ADDR2
+				
+			FROM T4_ORDER O
 			
+            LEFT JOIN T4_PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
+            LEFT JOIN T4_CODE C ON C.CODE = O.DELIVERY_STATUS AND C.KIND='DELIVERY'
 			
+			LEFT JOIN T4_P_IMAGE I ON O.PRODUCT_NO = I.PRODUCT_NO
+            LEFT JOIN T4_USER U ON U.USER_ID = O.USER_ID
+			
+			WHERE O.USER_ID = #{id} AND THUMBNAIL_YN='Y' AND ORDER_NO = #{orderNo}
+			GROUP BY ORDER_NO
+           
+    
 		</select>
 	</mapper>

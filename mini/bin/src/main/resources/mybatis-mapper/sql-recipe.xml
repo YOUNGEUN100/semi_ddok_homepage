@@ -301,6 +301,18 @@
 				CODE)
 			VALUES(#{recipeNo}, #{tcode})
 		</insert>
+		<!-- 레시피 재료 코드 INSERT -->
+		<insert id="insertIngreCode" parameterType="HashMap">
+				INSERT INTO T4_INGREDIENT(
+					RECIPE_NO,
+					CODE)
+				VALUES
+				<foreach collection="icode" index="index" item="item" separator=",">
+				(#{recipeNo}, #{item})
+				</foreach>	
+		</insert>
+		
+
 		<!-- 레시피 썸네일 사진 INSERT -->
 		<insert id="insertRecipeImg" parameterType="HashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="recipe_no">
 			INSERT INTO T4_R_IMAGE(
@@ -319,14 +331,14 @@
 				RECIPE_NO,
 				IMG_ORG_NAME,
 				IMG_PATH,
-				THUMBNAIL_YN)
-			VALUES(NULL, #{recipeNo}, #{orlgName}, #{images}, 'N')
+				THUMBNAIL_YN,
+				COOK_INDEX)
+			VALUES(NULL, #{recipeNo}, #{orlgName}, #{images}, 'N', #{cookIndex})
 		</insert>
 		<!-- 요리과정 글 INSERT -->
 		<update id="updateCookContent" parameterType="hashmap">
 		UPDATE T4_R_IMAGE
 		SET
-			COOK_INDEX = #{cookIndex}, 
 			COOK_CONTENT = #{cookContent}
 		WHERE RECIPE_NO = #{recipeNo} AND THUMBNAIL_YN = 'N'
 		</update>

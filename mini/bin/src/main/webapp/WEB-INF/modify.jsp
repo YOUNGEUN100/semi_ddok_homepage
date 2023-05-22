@@ -52,6 +52,7 @@
       .editArea .editBox .mail{border: 1px solid #ccc;  
           border-radius: 5px; padding: 8px; font-weight: bold; 
           width: 45%; margin-left: 6px; padding-left: 10px;}
+      .editArea .editBox select{font-size:0.9em;}
       .editArea .editBox .zipCode{margin-bottom:5px;}
       .editArea .editBox .addr{margin-bottom:5px;}
       .editArea .editBox .zipcodeBtn{
@@ -72,6 +73,11 @@
       .editArea .editBox .w60{width: 55%; margin-right: 10px;}
       .editArea .editBox .unchangeable{padding: 8px; border-bottom:1px solid black; margin-bottom:20px; color:#888; font-size:0.9em;}
       .editArea .editBox .nickChange{cursor: pointer;}
+      .editArea .editBox .viewAddr{ border-bottom:1px solid black; padding: 8px; color:#888; font-size:0.9em;}
+      .editArea .editBox .addrBtn{border-radius: 5px; border: 0.7px solid black;
+          background-color: #fff; padding: 10px; margin-top: 10px; width: 100%;
+          font-weight: bold; font-size: 0.8em; margin-bottom:20px;}
+     
       
       input[type="date"]::placeholder{
 		color: #888; font-family:'Pretendard-bold'; font-weight: lighter; font-size: 0.9em;
@@ -133,7 +139,7 @@
             <input type="tel" class="w100" placeholder="변경할 휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
             
             <p>이메일주소</p>
-            <input type="email" class="w50" placeholder="이메일 주소" v-model="info.email">@ 
+            <input type="email" class="w50" placeholder="변경할 이메일 주소" v-model="info.email">@ 
             <select class="mail" v-model="info.domain">
                 <div>
                     <option>naver.com</option>
@@ -148,9 +154,16 @@
             </select> 
             
             <p class="markEssential">주소</p>
-            <input type="text" class="w60 zipCode" @click="fnSearchAddr" placeholder="우편번호" v-model="info.zipCode" readonly="readonly"><button class="zipcodeBtn" @click="fnSearchAddr">우편번호 찾기</button>
-            <input type="text" class="w100 addr" placeholder="주소" v-model="info.addr">
-            <input type="text" class="w100 addr2" placeholder="상세주소 입력" v-model="info.addr2">
+            <div v-if="nickChange">
+            	<div class="viewAddr">{{user.addr}}&ensp;{{user.addr2}}</div>
+            	<button class="addrBtn" @click="fnChage">주소 변경</button>
+            </div>
+            
+            <div v-else>
+	            <input type="text" class="w60 zipCode" @click="fnSearchAddr" placeholder="우편번호" v-model="info.zipCode" readonly="readonly"><button class="zipcodeBtn" @click="fnSearchAddr">우편번호 찾기</button>
+	            <input type="text" class="w100 addr" placeholder="주소" v-model="info.addr">
+	            <input type="text" class="w100 addr2" placeholder="상세주소 입력" v-model="info.addr2">
+            </div>
             
             <p class="gender" >성별</p>
             <label for="M" class="genderBox"><input type="radio" id="M" name="gender" class="genderValue" v-model="info.gender" value="M">남성</label>
@@ -238,6 +251,7 @@ var app = new Vue({
             self.info.id = self.sessionId;
             self.info.pw = self.sessionPw;
             var nparmap = self.info;
+            self.info.email = self.info.email +"@"+ self.info.domain;
             	$.ajax({
     	            url:"/user/modify.dox",
     	            dataType:"json",	

@@ -57,12 +57,14 @@
 #pageContent.funding.typeView .funding_info_section .funding_info_area {width:calc(100% - 427px); padding-left:2em; display:flex; flex-flow:column wrap; justify-content:space-between; align-items:stretch;}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_box {min-height:calc(100% - 65px - 2em); display:flex; flex-flow:column; justify-content:space-around;}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_txt {border-bottom:1px solid var(--base-colorBasicGray); padding-bottom:1em;}
-#pageContent.funding.typeView .funding_info_section .funding_info_area .info_txt .title {font-size:2em; font-weight:800; margin-bottom:0.5em;}
+#pageContent.funding.typeView .funding_info_section .funding_info_area .info_txt .title {font-size:2em; font-weight:700; margin-bottom:0.5em;}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_txt .summary {font-size:1.125em; font-weight:400;}
 #pageContent.funding.typeView .funding_info_section .funding_button_Box {width:100%; display:flex; flex-flow:row nowrap; justify-content:space-between; align-items:center;}
 #pageContent.funding.typeView .funding_info_section .funding_button_Box > * {width:65px; height:65px; display:flex; align-items:center; justify-content:center; line-height:1; border-radius:20px; text-align:center; padding:5px; cursor:pointer; border:0; outline:0;}
 #pageContent.funding.typeView .funding_info_section .funding_button_Box .apply_button {width:calc(100% - 65px - 1em); background:var(--main-colorGreen); color:var(--base-colorWhite); font-size:1.25em; font-weight:600;}
 #pageContent.funding.typeView .funding_info_section .funding_button_Box .share_button {background:var(--base-colorWhite); color:var(--main-colorGreen); font-size:1.5em;}
+#pageContent.funding.typeView.stylePlanned .funding_info_section .funding_button_Box .apply_button {background:var(--main-colorRed);}
+#pageContent.funding.typeView.stylePlanned .funding_info_section .funding_button_Box .share_button {color:var(--main-colorRed);}
 
 
 /* typeView > funding_info_section */
@@ -70,13 +72,16 @@
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_prog .fund_cnt {font-wieght:400; line-height:1; margin-bottom:0.75em;}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_prog .fund_cnt .goal {font-weight:500;}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_prog .fund_cnt .cnt {font-weight:800; color:var(--main-colorGreen);}
+#pageContent.funding.typeView.stylePlanned .funding_info_section .funding_info_area .info_prog .fund_cnt .cnt {color:var(--main-colorRed);}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_prog .fund_time {}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_prog .fund_progress {width:100%;}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_prog progress {height:8px; border-radius:4px; overflow:hidden; -webkit-appearance:none;}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_prog progress::-webkit-progress-bar {background:var(--base-colorDeepGray);}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_prog progress::-webkit-progress-value {background:var(--main-colorGreen);}
+#pageContent.funding.typeView.stylePlanned .funding_info_section .funding_info_area .info_prog progress::-webkit-progress-value {background:var(--main-colorRed);}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_price {font-weight:700; font-size:1.25em; line-height:1;}
 #pageContent.funding.typeView .funding_info_section .funding_info_area .info_price .fund_price {color:var(--main-colorGreen); font-size:1.5em; padding-left:4px;}
+#pageContent.funding.typeView.stylePlanned .funding_info_section .funding_info_area .info_price .fund_price {color:var(--main-colorRed);}
 
 
 /* typeView > detail_section */
@@ -89,7 +94,8 @@
 /* typeView > detail_show_section */
 #pageContent.funding.typeView .detail_show_section#button_box1 {display:block;}
 #pageContent.funding.typeView .detail_show_section#button_box2 {display:none;}
-#pageContent.funding.typeView .detail_show_section .show_button {width:100%; height:60px; margin-top:1em; border-radius:15px; background:var(--base-colorWhite); border:1px solid var(--main-colorGreen);}
+#pageContent.funding.typeView .detail_show_section .show_button {width:100%; height:60px; margin-top:1em; border-radius:15px; background:var(--base-colorWhite); border:1px solid var(--main-colorGreen); color:var(--main-colorGreen);}
+#pageContent.funding.typeView.stylePlanned .detail_show_section .show_button {border-color:var(--main-colorRed); color:var(--main-colorRed);}
 
 
 

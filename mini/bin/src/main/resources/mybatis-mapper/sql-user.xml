@@ -102,14 +102,17 @@
 		
 		<update id="updateUser" parameterType="HashMap">
 			UPDATE T4_USER 
-			SET 
-				NICK = #{nick}, 
-				EMAIL = #{email}, 
-				GENDER = #{gender}, 
-				HP = #{hp}, 
-				ADDR = #{addr}, 
-				ADDR2 = #{addr2}, 
-				LIVING_YEAR = #{livingYear}
+			 
+			 <trim prefix="SET" suffixOverrides=",">
+                <if test="nick != '' "> NICK = #{nick},</if> 
+                <if test="email != '' "> EMAIL= #{email},</if>
+                <if test="hp != '' "> HP = #{hp},</if>
+                <if test="gender != '' "> GENDER = #{gender},</if>
+                <if test="addr != '' "> ADDR = #{addr},</if>
+                <if test="addr2 != '' "> ADDR2 = #{addr2},</if>
+                <if test="livingYear != '' "> LIVING_YEAR = #{livingYear},</if>
+        	</trim>
+				
 			WHERE USER_ID = #{id}
 		</update>
 		

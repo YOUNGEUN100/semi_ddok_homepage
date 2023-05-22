@@ -589,7 +589,7 @@ IMP.init(userCode);
 		  	var self = this;
 		  	
 		  	console.log(JSON.stringify({ x: 5, y: 6 }));
-		 // Expected output: "{"x":5,"y":6}"		  	
+		 // Expected output: "{"x":5,"y":6}"		
 		  	console.log("test == ", self.selectedItems[0]);
     		
     				
@@ -618,6 +618,7 @@ IMP.init(userCode);
 
     	            	cnt = self.selectedItems[0].length;
     	        		if(cnt > 0){//상품이 있으면
+    	        			
     	        			var nparmap = {list : JSON.stringify(self.selectedItems[0])};
     	        			console.log("상품리스트: ",nparmap);
     	        				//구매하기 후 주문 등록
@@ -628,7 +629,7 @@ IMP.init(userCode);
     	        	            data : nparmap,
     	        	            success : function(data) {
     	        	            	alert("주문되었습니다.");
-    	        	            	location.href="/main.do";
+    	        	            //	location.href="/main.do";
     	        	            }
     	        	        });    	              
     	        		}

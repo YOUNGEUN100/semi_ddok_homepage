@@ -12,10 +12,10 @@
 		<div id="result" class="resultContainer">
 			<div class="resultMenu">
 	 			<h3 class="resultMenuTitle">
-					오늘 ‘<span id="menuName">{{info.menuName}}</span>’ 어때요?
+					<span v-if="menuFlg">{{message}}</span> 오늘 ‘<span id="menuName">{{info.menuName}}</span>’ 어때요?
 				</h3>
 				<div class="imgBox">
-					<img src="" alt="">
+					<img :src="info.imgPath" alt="menuImg">
 				</div>
 				<a class="replayBtn" href="/todayEat/store.do"><i class="fa-solid fa-arrow-rotate-left"></i> 다시 추천받기</a>
 			</div>
@@ -41,6 +41,8 @@ var result = new Vue({
     data: {
 		list : [], 
 		info : {},
+		menuFlg : false,
+		message : "",
 		param : {
 			purpose : "${hmap.purpose}",
 			situation : "${hmap.situation}",
@@ -53,6 +55,26 @@ var result = new Vue({
     	markers : []
     }   
     , methods: {
+    	// 전체 메뉴 랜덤하게 가져오기
+    	fnGetMenu : function() {
+            var self = this;
+            var nparmap = {};
+            
+            $.ajax({
+                url:"/todayEat/menu/result.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                    self.info = data.menu;
+                  // console.log("menu 데이터는" + data.menu);
+                  //  console.log(data.menu);
+                    self.message = "검색결과가 없어요. 대신";
+                    self.menuFlg = true;
+                  
+                }
+            }); 
+		},
 		fnGetStoreResult : function() {
             var self = this;
             var nparmap = self.param;
@@ -74,7 +96,10 @@ var result = new Vue({
                 data : nparmap,
                 success : function(data) {
                     self.info = data.info;
-                    console.log(self.info);
+                  //  console.log("info결과값");
+                  //  console.log(self.info);
+                  // 검색값이 없을 때 전체 메뉴에서 랜덤하게 추천
+                    if (!self.info) {self.fnGetMenu();  }
                 }
             }); 
 		},
@@ -279,7 +304,9 @@ var result = new Vue({
     }
     , created: function () {
 		var self = this;
+		//self.fnGetMenu();
 		self.fnGetStoreResult();
+         
 	}
 });
 </script>

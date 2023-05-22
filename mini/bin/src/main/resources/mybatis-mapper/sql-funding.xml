@@ -59,6 +59,8 @@
         	<if test = "moreBtn == 'on'">
         	LIMIT #{startNum}, 10
         	</if>
+        	
+			
 
 		</select>
 		
@@ -128,7 +130,7 @@
 		
 		<!-- 페이징 용 카운트 -->
 		<select id="fleaPagingCnt2" parameterType="hashmap" resultType="int">
-			SELECT COUNT(*) AS CNT
+			SELECT COUNT(*) AS CNT2
             FROM T4_BOARD
             WHERE BOARD_KIND = 'D_LAN';
 		</select>
@@ -516,9 +518,11 @@
 		<select id="fundingImgDetail" parameterType="hashmap" resultType="com.example.mini.model.Funding">
 			SELECT FUNDING_NO,
 					IMG_NAME,
-					CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH_DETAIL
+					CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH_DETAIL,
+					FUNDING_INDEX
             FROM T4_F_IMAGE
-            WHERE THUMBNAIL_YN = 'N' AND FUNDING_NO = #{fundingNo}
+            WHERE THUMBNAIL_YN = 'N' AND FUNDING_NO = #{fundingNo} AND DELETE_YN = 'N'
+            ORDER BY FUNDING_INDEX
 		</select>
 		
 		<!-- 펀딩 신청 인서트 -->
@@ -617,7 +621,7 @@
 		<insert id="insertFundingImg2" parameterType="hashmap">
 			INSERT INTO T4_F_IMAGE
 			VALUES
-				(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'N', NULL, NOW(), NOW(),'N' )
+				(NULL, #{fundingNo}, #{imgOrgName}, #{imgName}, #{imgPath}, #{imgSize}, 'N', SUBSTRING_INDEX(SUBSTRING_INDEX(#{imgOrgName},'-',-1),'.',1), NOW(), NOW(),'N' )
 		</insert>
 		
 		<!-- 펀딩이미지 삭제 -->

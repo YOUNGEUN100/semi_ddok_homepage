@@ -15,19 +15,19 @@
 			</section>
 			<section class="r-category">
 			    <div class="category-circle active" id="all-btn" @click="fnGetRecipeAll()">
-			        <img src="/images/recipe_icon01.png" alt="">
+			        <img src="/images/icon/recipe_icon01.png" alt="전체">
                 	<p class="circle-title">전체</p>
 			    </div>
 			    <div class="category-circle" id="purpose-btn">
-			        <img src="/images/recipe_icon02.png" alt="">
+			        <img src="/images/icon/recipe_icon02.png" alt="목적">
                 	<p class="circle-title">목적</p>
 			    </div>
 			    <div class="category-circle" id="howto-btn">
-			        <img src="/images/recipe_icon03.png" alt="">
+			        <img src="/images/icon/recipe_icon03.png" alt="방법">
                 	<p class="circle-title">방법</p>
 			    </div>
 			    <div class="category-circle" id="tool-btn">
-			        <img src="/images/recipe_icon04.png" alt="">
+			        <img src="/images/icon/recipe_icon04.png" alt="도구">
                 	<p class="circle-title">도구</p>
 			    </div>
 			</section>

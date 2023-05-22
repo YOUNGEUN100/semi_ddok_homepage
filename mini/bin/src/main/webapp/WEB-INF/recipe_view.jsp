@@ -8,6 +8,7 @@
 <style></style>
 
 <!-- pageContent -- START -->
+<div id="printarea">
 <div id="pageContent" class="recipe typeView">
 	<div class="wrapper">
 		<div id="recipeView" class="recipeViewContainer">
@@ -27,17 +28,17 @@
 	                    </div>
                         <div class="info_keyword">
                             <div class="type">
-                                <img class="re-icon" src="/images/icon_recipe01.png">
+                                <img class="re-icon" src="/images/icon/icon_recipe01.png">
                                 <h5>조리도구</h5>
                                 <p>{{info.tname}}</p>
                             </div>
                             <div class="type">
-                                <img class="re-icon" src="/images/icon_recipe02.png">
+                                <img class="re-icon" src="/images/icon/icon_recipe02.png">
                                 <h5>조리시간</h5>
                                 <p>{{info.time}}</p>
                             </div>
                             <div class="type">
-                                <img class="re-icon" src="/images/icon_recipe03.png">
+                                <img class="re-icon" src="/images/icon/icon_recipe03.png">
                                 <h5>난이도</h5>
                                 <p>{{info.difficulty}}</p>
                             </div>
@@ -54,14 +55,14 @@
             <!-- 레시피 만드는 방법 시작 -->
             <section class="ingredient-section typeBoxArea styleBoxRound styleBoxShadow">
                 <h3 class="section-title">
-                    <img class="re-icon" src="/images/icon_recipe04.png">
+                    <img class="re-icon" src="/images/icon/icon_recipe04.png">
                     <span>레시피 재료</span>
                 </h3>
                 <div class="ingre-info">{{info.cookIngre}}</div>
             </section>
             <section class="cook-section typeBoxArea styleBoxRound styleBoxShadow">
                 <h3 class="section-title">
-                    <img class="re-icon" src="/images/icon_recipe05.png">
+                    <img class="re-icon" src="/images/icon/icon_recipe05.png">
                     <span>만드는 방법</span>
                 </h3>
                 <div class="cook-index" v-for="(item, index) in list">
@@ -90,6 +91,7 @@
 			<!-- adminCtrlBox -- Don't touch -->
         </div>
     </div>
+</div>
 </div>
 <!-- pageContent -- END -->
 
@@ -170,16 +172,30 @@
 			}
 			// 레시피 인쇄
 			, fnPrint : function() {
-				const html = $('html');
-				const printContents =  $('#recipeView').html();
-				const printDiv = $("<div class='print_page';></div>");
-
-				html.append(printDiv);
-				printDiv.html(printContents);
-				$('body').css('display','none');
-				window.print();
-				$('body').css('display','block');
-				printDiv.css('display','none');
+				  let printHtml = $('#printarea').html();
+				  let win = window.open('','_blank','fullscreen');
+				  
+				  //max-width = 1240px, min-height=calc(100vh - 140px - 520px)margin: 0 auto;padding: 0 20px;position: relative;
+				   
+				  //win.document.write('');
+				  win.document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">');
+				  win.document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">');
+				  win.document.write('<link rel="stylesheet" href="/css/pageStyle/pageStyle.css">');
+				  
+				 win.document.write('<link rel="stylesheet" href="/css/common.css">');
+				 win.document.write('<link rel="stylesheet" href="/css/layoutStyle.css">');
+				 win.document.write('<link rel="stylesheet" href="/css/mainStyle.css">');
+				  win.document.write('<link rel="stylesheet" href="/css/pageStyle/depth3_recipe.css">');
+				  win.document.write("<html><head></head><body>");
+				  win.document.write(printHtml);
+				  win.document.write("</body></html>");
+				  
+				  win.document.close();
+				  setTimeout(function() {
+				  win.focus();
+				  win.print();
+				  win.close();
+				  }, 1000);
 			}
 			// 레시피 삭제
 			, fnRemoveRecipe : function() {

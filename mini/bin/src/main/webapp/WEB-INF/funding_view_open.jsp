@@ -67,153 +67,139 @@
 
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
-
 <script type="text/javascript">
-    var btn = "N";
-    function show() {
-        if (btn == "N") {
-            self.btn = "Y";
-            document.getElementById('box2').classList.add('show');
-            show_button.innerText = "접기";
+var btn = "N";
+function show() {
+    if (btn == "N") {
+        self.btn = "Y";
+        document.getElementById('box2').classList.add('show');
+        show_button.innerText = "접기";
+    } else {
+        document.getElementById('box2').classList.remove('show');
+        show_button.innerText = "펼쳐보기";
+        self.btn = "N";
+    }
+}
 
-        } else {
-            document.getElementById('box2').classList.remove('show');
-            show_button.innerText = "펼쳐보기";
-            self.btn = "N";
+var fundingView = new Vue({
+    el: '#fundingView',
+    data: {
+        info: {},
+        imgInfo: [],
+        fundingNo: "${map.fundingNo}",
+        sessionId: "${sessionId}",
+        btn: "N",
+        sessionId: "${sessionId}",
+        sessionStatus : "${sessionStatus}"
+    },
+    methods: {
+        fnGetFunding: function () {
+            var self = this;
+            var nparmap = {
+                fundingNo: self.fundingNo
+            };
+            $.ajax({
+                url: "/funding/view.dox",
+                dataType: "json",
+                type: "POST",
+                data: nparmap,
+                success: function (data) {
+                    self.info = data.info;
+                    self.imgInfo = data.imgInfo;
+                    console.log(data.info);
+                    console.log(data.imgInfo);
+                    if (data.info.dDay <= 0) {
+                        fund_cnt.innerText = "종료임박 금일 " + data.info.endTime + "시 종료";
+                    }
+                }
+            });
+        }
+        // 주소 복사
+        , fnClip: function () {
+            navigator.clipboard.writeText(window.location.href);
+            alert("복사되었습니다.");
+        }
+        // 펀딩 신청
+        , fnApply: function () {
+            var self = this;
+            if (self.sessionId == "") {
+                alert("로그인을 해주세요");
+                return;
+            }
+            if (!confirm("펀딩을 신청하시겠습니까?")) {
+                return;
+            }
+            var nparmap = {
+                fundingNo: self.fundingNo
+                , sessionId: self.sessionId
+            };
+            $.ajax({
+                url: "/funding/apply.dox",
+                dataType: "json",
+                type: "POST",
+                data: nparmap,
+                success: function (data) {
+                    console.log(data.result);
+                    alert(data.message);
+                }
+            });
+        }
+        // 펀딩신청 중복검사용 카운트
+        , cnt: function () {
+            var self = this;
+            var nparmap = {
+                fundingNo: self.fundingNo
+                , sessionId: self.sessionId
+            };
+            $.ajax({
+                url: "/funding/cnt.dox",
+                dataType: "json",
+                type: "POST",
+                data: nparmap,
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        // 펀딩 수정
+        , fnEditFunding: function (fundingNo) {
+            var self = this;
+            self.pageChange("../../funding/edit.do", { fundingNo: fundingNo });
+        }
+        , pageChange: function (url, param) {
+            var target = "_self";
+            if (param == undefined) {
+                //	this.linkCall(url);
+                return;
+            }
+            var form = document.createElement("form");
+            form.name = "dataform";
+            form.action = url;
+            form.method = "post";
+            form.target = target;
+            for (var name in param) {
+                var item = name;
+                var val = "";
+                if (param[name] instanceof Object) {
+                    val = JSON.stringify(param[name]);
+                } else {
+                    val = param[name];
+                }
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = item;
+                input.value = val;
+                form.insertBefore(input, null);
+            }
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
         }
     }
-
-    var fundingView = new Vue({
-        el: '#fundingView',
-        data: {
-            info: {},
-            imgInfo: [],
-            fundingNo: "${map.fundingNo}",
-            sessionId: "${sessionId}",
-            btn: "N",
-            sessionId: "${sessionId}",
-            sessionStatus : "${sessionStatus}"
-        },
-        methods: {
-            fnGetFunding: function () {
-                var self = this;
-                var nparmap = {
-                    fundingNo: self.fundingNo
-                };
-                $.ajax({
-                    url: "/funding/view.dox",
-                    dataType: "json",
-                    type: "POST",
-                    data: nparmap,
-                    success: function (data) {
-                        self.info = data.info;
-                        self.imgInfo = data.imgInfo;
-                        console.log(data.info);
-                        console.log(data.imgInfo);
-
-                        if (data.info.dDay <= 0) {
-                            fund_cnt.innerText = "종료임박 금일 " + data.info.endTime + "시 종료";
-
-                        }
-                    }
-                });
-            }
-
-            // 주소 복사
-            , fnClip: function () {
-                navigator.clipboard.writeText(window.location.href);
-                alert("복사되었습니다.");
-            }
-
-            // 펀딩 신청
-            , fnApply: function () {
-                var self = this;
-                if (self.sessionId == "") {
-                    alert("로그인을 해주세요");
-                    return;
-                }
-                if (!confirm("펀딩을 신청하시겠습니까?")) {
-                    return;
-                }
-                var nparmap = {
-                    fundingNo: self.fundingNo
-                    , sessionId: self.sessionId
-                };
-                $.ajax({
-                    url: "/funding/apply.dox",
-                    dataType: "json",
-                    type: "POST",
-                    data: nparmap,
-                    success: function (data) {
-                        console.log(data.result);
-                        alert(data.message);
-                    }
-                });
-
-            }
-
-            // 펀딩신청 중복검사용 카운트
-            , cnt: function () {
-                var self = this;
-                var nparmap = {
-                    fundingNo: self.fundingNo
-                    , sessionId: self.sessionId
-                };
-                $.ajax({
-                    url: "/funding/cnt.dox",
-                    dataType: "json",
-                    type: "POST",
-                    data: nparmap,
-                    success: function (data) {
-                        console.log(data);
-
-                    }
-                });
-
-            }
-
-            // 펀딩 수정
-            , fnEditFunding: function (fundingNo) {
-                var self = this;
-                self.pageChange("../../funding/edit.do", { fundingNo: fundingNo });
-            }
-
-            , pageChange: function (url, param) {
-                var target = "_self";
-                if (param == undefined) {
-                    //	this.linkCall(url);
-                    return;
-                }
-                var form = document.createElement("form");
-                form.name = "dataform";
-                form.action = url;
-                form.method = "post";
-                form.target = target;
-                for (var name in param) {
-                    var item = name;
-                    var val = "";
-                    if (param[name] instanceof Object) {
-                        val = JSON.stringify(param[name]);
-                    } else {
-                        val = param[name];
-                    }
-                    var input = document.createElement("input");
-                    input.type = "hidden";
-                    input.name = item;
-                    input.value = val;
-                    form.insertBefore(input, null);
-                }
-                document.body.appendChild(form);
-                form.submit();
-                document.body.removeChild(form);
-            }
-
-
-        }
-        ,
-        created: function () {
-            var self = this;
-            self.fnGetFunding();
-        }
-    });
+    ,
+    created: function () {
+        var self = this;
+        self.fnGetFunding();
+    }
+});
 </script>

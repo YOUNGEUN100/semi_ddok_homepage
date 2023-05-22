@@ -74,35 +74,29 @@
         <option value = "" selected disabled>정렬</option>
          <option value = "recent">최신순</option>
          <option value = "view">조회수</option>
+         <option value = "life">생활</option>
+         <option value = "eco">경제</option>
+         <option value = "cul">문화</option>
         </select>
       
           <div class="comlist">
              <table class="comTable">                            
              	<thead>
              		<tr>
-             			<th>글번호</th>
+             			<th>카테고리</th>
              			<th colspan=3>제목</th>
-             			<th>작성자</th>
              			<th>작성일</th>
              			<th>조회수</th>
              		</tr>
              	</thead>
              	
              	<tbody>
-	              	<tr class="center" v-for="(item, index) in list" >
-                        <td class="no">{{item.boardNo}}</td>
-	                   <template>
-	                         <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></strong></td>
-	                         <template v-if="item.status=='C'">
-	                       		  <td colspan=3 class="title myboard" v-if="item.userId==sessionId" @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i> </td>
-	                       		  <td colspan=3 class="title"  v-else @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></td>
-	                         </template>
-                        </template>
-                       
-   	                    <td class="writer">{{item.nick}}</td>
-       	                <td class="date">{{item.cdatetime}}</td>
-               	        <td class="view">{{item.hits}}</td>
-	                  </tr>                                 
+	              	<tr class="center" v-for="(item, index) in list">
+                        <td><span>#</span>{{item.category}}</td>
+                        <td colspan=3 class="title" @click="fnViewCom(item.boardNo)"><strong>{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></strong></td>
+   	                    <td>{{item.cdatetime}}</td>
+               	        <td class="view">{{item.hits}}</td>    
+					</tr>                                 
               </tbody>        	                       
              </table>
            </div>
@@ -173,8 +167,16 @@
                     });
                 }
 	            , fnChangeOrder: function () {
-	                var self = this;                    
-	                self.fnGetComList();
+	                var self = this;
+	                var liList = $(".pagination").children();
+                    for(var i=0; i<liList.length; i++){
+                    	liList.eq(i).removeClass("active");
+                    }
+                    liList.eq(1).addClass("active");
+                    self.selectPage = 1,
+            		self.pageCount = 1,
+            		self.cnt = 0,
+	                self.fnGetPolList();
 	            }
             	<!-- 페이징 추가 7-->
         		, fnSearch : function(pageNum){

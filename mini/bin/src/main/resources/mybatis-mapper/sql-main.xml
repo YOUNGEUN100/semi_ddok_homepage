@@ -62,6 +62,29 @@
 		</select>
 		<!--레시피 리스트 끝-->
 		
+		<!-- 카드 리스트 랜덤-->		
+		<select id="selectRandCardList" parameterType="hashmap" resultType="com.example.mini.model.Living">
+			SELECT A.CARD_NO,
+				CARD_NAME,
+        		CARD_HITS,
+        		DELETE_YN,
+        		A.CDATETIME,
+		        A.UDATETIME,
+        		IMG_NAME,
+        		IMG_PATH,
+        		CARD_EXP1,
+        		CARD_EXP2
+			FROM T4_CARDINFO A
+			LEFT JOIN (SELECT CARD_NO,
+					IMG_NAME,
+					CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH
+					FROM T4_CARDIMG
+            		WHERE THUMBNAIL_YN = 'Y' OR CARD_INDEX = 1)B ON A.CARD_NO = B.CARD_NO
+            WHERE DELETE_YN = 'N'
+            ORDER BY RAND() LIMIT 4
+
+		</select>
+		
 		<!-- 정책 리스트 -->
 		<select id="selectRanPolList" parameterType="hashmap" resultType="com.example.mini.model.Community">
 			SELECT 
