@@ -61,15 +61,17 @@ section#mainContent .mctArea .mctThumb .txtBox .price .amount {font-weight:600; 
 section#mainContent.nth1 .mctArea {}
 section#mainContent.nth1 .mctArea .mctThumb {flex-wrap:wrap; justify-content:flex-end; align-items:flex-start;}
 section#mainContent.nth1 .mctArea .mctThumb .imgBox {width:220px; height:220px; border-radius:50%;}
-section#mainContent.nth1 .mctArea .mctThumb .txtBox {width:calc(100% - 220px); margin-top:1em;}
+section#mainContent.nth1 .mctArea .mctThumb .txtBox {width:calc(100% - 220px); margin-top:1em; text-align:left; word-break:keep-all;}
 section#mainContent.nth1 .mctArea .mctThumb .txtBox .title {margin-bottom:0.6em;}
 section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph {margin-top:-5em;}
 section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .count {width:100%; display:flex; flex-flow:row wrap; justify-content:space-between;}
 section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .count .apply {font-weight:500; font-size:0.875em;}
 section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .count .apply .now {color:var(--main-colorRed);}
 section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .count .date {font-weight:500; font-size:0.875em;}
-section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .count .graph {width:100%; height:6px; background:var(--base-colorDeepGray); border-radius:3px; margin-top:0.125em;}
-section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .count .graph .now {height:6px; background:var(--main-colorRed); border-radius:3px;}
+section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .count .graph {width:100%;}
+section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .count .graph progress.fund_progress {width:100%; height:8px; border-radius:4px; overflow:hidden; -webkit-appearance:none;}
+section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .count .graph progress.fund_progress::-webkit-progress-bar {background:var(--base-colorDeepGray);}
+section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .count .graph progress.fund_progress::-webkit-progress-value {background:var(--main-colorRed);}
 section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .price {font-weight:700; text-align:right;}
 section#mainContent.nth1 .mctArea .mctThumb .txtBox.graph .price .amount {color:var(--main-colorRed); padding-left:0.125em;}
 @media screen and (max-width: 1240px) {
@@ -113,7 +115,7 @@ section#mainContent.nth4 .wrapper {display:flex; flex-flow:row nowrap; align-ite
 section#mainContent.nth4 .mctInfo {width:calc(100% - 960px); display:flex; flex-flow:column nowrap; justify-content:center; padding-bottom:5%;}
 section#mainContent.nth4 .mctInfo .mctText p {margin-bottom:1rem;}
 section#mainContent.nth4 .mctArea {width:960px;}
-section#mainContent.nth4 .mctArea .mctThumb {padding-left:20px;}
+section#mainContent.nth4 .mctArea .mctThumb {width:calc(100% / 3); padding-left:20px;}
 section#mainContent.nth4 .mctArea .mctThumb .imgBox {padding-top:100%;}
 section#mainContent.nth4 .mctArea .mctThumb .txtBox {width:100%;}
 section#mainContent.nth4 .mctArea .mctThumb .txtBox .text {font-size:1em; text-align:center; -webkit-line-clamp:1; padding:0 0.5em;}
@@ -145,6 +147,8 @@ section#mainContent.nth5 .mctArea.typeLeft ul.mctList li h4.title {width:calc(10
 section#mainContent.nth5 .mctArea.typeLeft ul.mctList li h4.title a {display:inline;}
 section#mainContent.nth5 .mctArea.typeLeft ul.mctList li h4.title a:hover {text-decoration:underline; text-underline-position:under;}
 section#mainContent.nth5 .mctArea.typeRight {width:380px; background:var(--base-colorBasicGray);}
+section#mainContent.nth5 .mctArea.typeRight .mctBanner {display:block; width:100%; height:100%;}
+section#mainContent.nth5 .mctArea.typeRight .mctBanner p {padding:10% 8%; font-size:1.375em; letter-spacing:-0.5px;}
 
 /*** nth5 --- END ***/
 

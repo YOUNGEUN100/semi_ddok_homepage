@@ -8,7 +8,7 @@
 <!-- pageContent -- START -->
 <div id="pageContent" class="todayEat">
 	<div class="wrapper">
-		<jsp:include page="/layout/includeLoading.jsp"></jsp:include>
+		<%-- <jsp:include page="/layout/includeLoading.jsp"></jsp:include> --%>
 		<div id="result" class="resultContainer">
 			<div class="resultMenu">
 	 			<h3 class="resultMenuTitle">
@@ -17,33 +17,32 @@
 				<div class="imgBox">
                 	<img class="img" :src="info.imgPathT">
 				</div>
-				<a class="replayBtn" @click="fnReplay()"><i class="fa-solid fa-arrow-rotate-left"></i> 다시 추천받기</a>
+				<button class="replayBtn" @click="fnReplay()"><i class="fa-solid fa-arrow-rotate-left"></i> 다시 추천받기</button>
 			</div>
 			<div class="resultMore">
 				<div class="recipeArea">
 					<h4 class="areaTitle"><span>{{info.recipeName}}</span>, 이렇게만 하면 맛보장</h4>
-					<div class="recipeImg styleBoxRound styleBoxShadow styleHoverShadow" @click="fnRecipeView(info.recipeNo)">
+					<div class="recipeBox styleBoxRound styleBoxShadow styleHoverShadow" @click="fnRecipeView(info.recipeNo)">
 						<img class="img" :src="info.imgPathR">
+						<div class="info">
+							<p class="hashtag">{{info.hashtag}}</p>
+						    <h4 class="title"><i class="fa-solid fa-utensils"></i> {{info.recipeName}}</h4>
+						</div>
 					</div>
 				</div>
 				<div class="marketArea">
-					<h4 class="areaTitle">부족한 재료는 바로 주문!</h4>
-									<section id="mainContent" class="nth2">
-    <div class="wrapper">
-        <h2 class="mctTitle">똑똑한 마켓</h2>
-        <div class="mctArea type5">
-            <div class="mctThumb typeCol" v-for="(item, index) in productList">
-                <a href="javaScript:;" class="imgBox" @click="fnView(item.productNo)">
-                    <img :src="item.imgPath" alt="">
-              </a>
-              <a href="javaScript:;" class="cartBtn"><i class="fa-solid fa-cart-plus" @click="fnView(item.productNo)"></i></a>
-              <a href="javaScript:;" class="txtBox" @click="fnView(item.productNo)">
-                  <p class="text">현재 {{item.productStock}}개 남았어요!</p>
-                  <h4 class="title">{{item.productName}}</h4>
-                  <div class="price"><span class="amount">{{item.productPrice | numberFormat()}}원</span> (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</div>
-              </a>
-          </div>
-          
+					<h4 class="areaTitle"><b>부족한 재료</b>는 바로 주문!</h4>
+					<div class="marketBox">
+		            <div class="thumb styleHoverShadow typeThumb" v-for="(item, index) in productList" @click="fnView(item.productNo)">
+		            	<div class="imgBox styleBoxRound"><img :src="item.imgPath" alt=""></div>
+						<div class="txtBox">
+						    <p class="text">현재 {{item.productStock}}개 남았어요!</p>
+						    <h4 class="title">{{item.productName}}</h4>
+						    <div class="price"><span class="amount">{{item.productPrice | numberFormat()}}원</span> (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</div>
+						</div>
+					</div>
+          		</div>
+          	</div>
         </div>
     </div>
 </section>

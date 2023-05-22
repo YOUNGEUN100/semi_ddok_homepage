@@ -17,6 +17,10 @@
 #pageContent .styleBoxShadow {box-shadow:0 0 10px 0 rgba(0,0,0,0.1);}
 #pageContent .styleHoverShadow {transition:all 0.2s ease-out;}
 #pageContent .styleHoverShadow:hover {box-shadow:0 2px 20px 0 rgba(0,0,0,0.15);}
+#pageContent .styleHoverShadow.typeThumb .imgBox {transition:all 0.2s ease-out;}
+#pageContent .styleHoverShadow.typeThumb .imgBox img {transition:all 0.2s ease-out;}
+#pageContent .styleHoverShadow.typeThumb:hover {box-shadow:none;}
+#pageContent .styleHoverShadow.typeThumb:hover .imgBox {box-shadow:0 2px 20px 0 rgba(0,0,0,0.15);}
 /***** (boxArea) --- END *****/
 
 

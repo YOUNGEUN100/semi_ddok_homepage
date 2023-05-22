@@ -5,7 +5,7 @@
 <mapper namespace="com.example.mini.mapper.TodayEatMapper">
 
  	<select id="selectRecipeInfo" parameterType="hashmap" resultType="com.example.mini.model.TodayEat">
- 		SELECT R.RECIPE_NO AS RECIPE_NO, RECIPE_NAME, COOK_INGRE, I_T.IMG_PATH AS IMG_PATH_T, I_R.IMG_PATH AS IMG_PATH_R, I.CODE
+ 		SELECT R.RECIPE_NO AS RECIPE_NO, RECIPE_NAME, HASHTAG, COOK_INGRE, I_T.IMG_PATH AS IMG_PATH_T, I_R.IMG_PATH AS IMG_PATH_R, I.CODE
 		FROM T4_RECIPE AS R
 		INNER JOIN T4_R_PURPOSE AS P ON R.RECIPE_NO = P.RECIPE_NO
 		INNER JOIN T4_HOWTO AS H ON R.RECIPE_NO = H.RECIPE_NO

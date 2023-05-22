@@ -7,6 +7,7 @@ public class TodayEat {
 	private String howto;
 	private String[] ingredient;
 	private String tool;
+	private String hashtag;
 	private String cookIngre;
 	private String imgPathT;
 	private String imgPathR;
@@ -70,6 +71,12 @@ public class TodayEat {
 	}
 	public void setTool(String tool) {
 		this.tool = tool;
+	}
+	public String getHashtag() {
+		return hashtag;
+	}
+	public void setHashtag(String hashtag) {
+		this.hashtag = hashtag;
 	}
 	public String getCookIngre() {
 		return cookIngre;

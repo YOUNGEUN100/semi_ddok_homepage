@@ -26,13 +26,13 @@
                     <span class="boxItem"><input type="radio" id="sou" v-model="howto" value="sou"><label for="sou">국탕찌개</label></span>
                     <span class="boxItem"><input type="radio" id="fry" v-model="howto" value="fry"><label for="fry">볶음/조림</label></span>
                     <span class="boxItem"><input type="radio" id="mix" v-model="howto" value="mix"><label for="mix">무침/비빔</label></span>
-                    <span class="boxItem"><input type="radio" id="etc" v-model="howto" value="etc"><label for="etc">기타</label></span>
+                    <span class="boxItem"><input type="radio" id="etc1" v-model="howto" value="etc"><label for="etc1">기타</label></span>
                 </div>
             </div>
             <div class="selectArea typeBoxArea styleBoxRound styleBoxShadow">
                 <h3 class="selectTitle">재료별</h3>
                 <div class="selectBox">
-                    <span class="boxItem"><input type="checkbox" id="pot" v-model="ingredient" value="pot"><label for="pot">감자/고구마</label></span>
+                    <span class="boxItem"><input type="checkbox" id="pot1" v-model="ingredient" value="pot"><label for="pot1">감자/고구마</label></span>
                     <span class="boxItem"><input type="checkbox" id="veg" v-model="ingredient" value="veg"><label for="veg">채소</label></span>
                     <span class="boxItem"><input type="checkbox" id="tof" v-model="ingredient" value="tof"><label for="tof">두부</label></span>
                     <span class="boxItem"><input type="checkbox" id="che" v-model="ingredient" value="che"><label for="che">우유/치즈</label></span>
@@ -47,10 +47,10 @@
             <div class="selectArea typeBoxArea styleBoxRound styleBoxShadow">
                 <h3 class="selectTitle">도구별</h3>
                 <div class="selectBox">
-                    <span class="boxItem"><input type="radio" id="pot" v-model="tool" value="pot"><label for="pot">냄비/후라이팬</label></span>
+                    <span class="boxItem"><input type="radio" id="pot2" v-model="tool" value="pot"><label for="pot2">냄비/후라이팬</label></span>
                     <span class="boxItem"><input type="radio" id="mic" v-model="tool" value="mic"><label for="mic">전자레인지</label></span>
                     <span class="boxItem"><input type="radio" id="ove" v-model="tool" value="ove"><label for="ove">에어프라이어/오븐</label></span>
-                    <span class="boxItem"><input type="radio" id="etc" v-model="tool" value="etc"><label for="etc">기타</label></span>
+                    <span class="boxItem"><input type="radio" id="etc2" v-model="tool" value="etc"><label for="etc2">기타</label></span>
                 </div>
             </div>
             <button id="selectAllBtn" class="styleBoxShadow styleHoverShadow" @click="fnFilterRecipe()">선택완료</button>

@@ -36,10 +36,13 @@
 
 
 /***** (todayEat_store_result), (todayEat_recipe_result) --- START *****/
+#pageContent.todayEat .replayBtn {border:0; border-radius:0; background:none;}
+
 #pageContent.todayEat .resultMenu {text-align:center; margin-bottom:5em;}
 #pageContent.todayEat .resultMenuTitle {font-size:1.75em;}
 #pageContent.todayEat .resultMenuTitle span {font-size:1.25em;}
-#pageContent.todayEat .imgBox {width:300px; height:300px; border-radius:50%; background:var(--base-colorBasicGray); margin:1em auto 2em;}
+#pageContent.todayEat .resultMenu .imgBox {width:360px; height:360px; border-radius:50%; background:var(--base-colorBasicGray); margin:1em auto 2em; position:relative; overflow:hidden;}
+#pageContent.todayEat .resultMenu .imgBox img {max-width:inherit; height:100%; display:block; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
 #pageContent.todayEat .replayBtn {font-weight:600;}
 #pageContent.todayEat .replayBtn i {margin-right:0.2em;}
 
@@ -51,13 +54,28 @@
 #pageContent.todayEat .resultMap #menu_wrap h5 {font-size:1.125em;}
 #pageContent.todayEat .infowindow {font-size:0.875em; font-weight:500;}
 
-#pageContent.todayEat .resultMore {width:100%; position:relative; display:flex; flex-flow:row wrap; justify-content:space-between; align-items:stretch;}
-#pageContent.todayEat .resultMore .recipeArea {width:calc(100% - 660px);}
-#pageContent.todayEat .resultMore .recipeArea .recipeImg {cursor:pointer;}
-#pageContent.todayEat .resultMore .recipeArea .recipeImg img {display:block;}
-#pageContent.todayEat .resultMore .marketArea {width:600px;}
 #pageContent.todayEat .areaTitle {font-size:1.625em; font-weight:500; margin-bottom:0.5em;}
 #pageContent.todayEat .areaTitle span {font-weight:700;}
+#pageContent.todayEat .resultMore {width:100%; position:relative; display:flex; flex-flow:row wrap; justify-content:space-between; align-items:stretch;}
+#pageContent.todayEat .resultMore .recipeArea {width:calc(100% - 500px - 4em); display:flex; flex-flow:column;}
+#pageContent.todayEat .resultMore .recipeArea .recipeBox {width:100%; height:100%; position:relative; cursor:pointer;}
+#pageContent.todayEat .resultMore .recipeArea .recipeBox img {max-width:inherit; width:100%; display:block; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:1; transition:all 0.2s ease-in;}
+#pageContent.todayEat .resultMore .recipeArea .recipeBox:hover img {transform:translate(-50%,-50%) scale(1.05);}
+#pageContent.todayEat .resultMore .recipeArea .recipeBox .info {width:100%; height:100%; background:linear-gradient(0, #00000099, transparent); color:var(--base-colorWhite); display:flex; flex-flow:column; justify-content:flex-end; padding:5%; position:relative; z-index:2;}
+#pageContent.todayEat .resultMore .recipeArea .recipeBox .info .hashtag {font-weight:400; line-height:1; margin-bottom:0.5em;}
+#pageContent.todayEat .resultMore .recipeArea .recipeBox .info .title {font-size:1.75em; line-height:1;}
+#pageContent.todayEat .resultMore .recipeArea .recipeBox .info .title i {margin-right:4px;}
+
+#pageContent.todayEat .resultMore .marketArea {width:500px; display:flex; flex-flow:column;}
+#pageContent.todayEat .resultMore .marketArea .marketBox {width:100%; height:100%; display:flex; flex-flow:row wrap; justify-content:space-between; align-items:stratch;}
+#pageContent.todayEat .resultMore .marketArea .marketBox .thumb {width:calc(50% - 1em); display:flex; flex-flow:column; justify-content:space-between; cursor:pointer;}
+#pageContent.todayEat .resultMore .marketArea .marketBox .thumb .imgBox {width:100%; margin-bottom:1em; overflow:hidden;}
+#pageContent.todayEat .resultMore .marketArea .marketBox .thumb .imgBox img {display:block;}
+#pageContent.todayEat .resultMore .marketArea .marketBox .thumb:hover .imgBox img {transform:scale(1.05);}
+#pageContent.todayEat .resultMore .marketArea .marketBox .thumb .txtBox {width:100%;}
+#pageContent.todayEat .resultMore .marketArea .marketBox .thumb .txtBox .text {min-height:21px; -webkit-line-clamp:1;}
+#pageContent.todayEat .resultMore .marketArea .marketBox .thumb .txtBox .title {font-size:1.125em; margin:0.125em 0; -webkit-line-clamp:1;}
+#pageContent.todayEat .resultMore .marketArea .marketBox .thumb .txtBox .price .amount {color:var(--main-colorGreen); font-size:1.5em; font-weight:700;}
 /***** (todayEat_store_result), (todayEat_recipe_result) --- END *****/
 
 

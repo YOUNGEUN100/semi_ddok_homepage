@@ -3,7 +3,7 @@ $(document).ready(function(){
 	
 	// slick sliderEvent
     var mainVisualSlider = $(".mainVisualSlider");
-    var mainContentSlider = $(".mainContentSlider");
+    // var mainContentSlider = $(".mainContentSlider");
     mainVisualSlider.slick({
         slidesToShow: 1,
 		slidesToScroll: 1,
@@ -17,7 +17,7 @@ $(document).ready(function(){
 		speed: 500,
 		cssEase: 'linear'
     });
-	mainContentSlider.slick({
+	/* mainContentSlider.slick({
 		slidesToShow: 3,
 		slidesToScroll: 1,
 		autoplay: true,
@@ -30,7 +30,7 @@ $(document).ready(function(){
 					 settings: {slidesToShow: 2} 
 					},
 				]
-    });
+    }); */
     
     
 	// cartBtn clickEvent
