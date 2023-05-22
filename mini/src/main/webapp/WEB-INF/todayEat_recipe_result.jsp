@@ -100,9 +100,17 @@ var result = new Vue({
                     console.log(self.info);
                     console.log(data.menu.code);
                     
-                    var ing1 = self.info.cookIngre.replaceAll(",","|"); //cookIngre REGEXP용으로 구분문자 바꾸기
-                    self.ing = ing1.replaceAll(" ","");//cookIngre 공백 없애기
-                    console.log("재료 : " + self.ing);
+                	var ingArray = self.info.cookIngre.split(',');// ,로 나눠서 재료 배열만들기
+					
+					var filtered = ingArray.filter((element) => element != '밥'); //밥 제외
+					var ingList = filtered.filter((element) => element != '물');// 물 제오
+                    console.log("split 결과 = " + ingArray);
+                    console.log("밥 제거 = " + filtered);
+                    console.log("물 제거 = " + ingList);
+                    
+                    var ing1 = ingList.join("|"); //다시 구분 | 문자로
+                    self.ing = ing1.replaceAll(" ","");//공백없애기
+                    console.log("최종 재료값 = " + self.ing);
                     
                   // console.log("menu 데이터는" + data.menu);
                   //  console.log(data.menu);
@@ -134,9 +142,17 @@ var result = new Vue({
                     	self.info = data.info;
                     	self.code = data.info.code;
                     	
-                        var ing1 = self.info.cookIngre.replaceAll(",","|"); //cookIngre REGEXP용으로 구분문자 바꾸기
-                        self.ing = ing1.replaceAll(" ","");//cookIngre 공백 없애기
-                        console.log("재료 : " + self.ing);
+                    	var ingArray = self.info.cookIngre.split(',');// ,로 나눠서 재료 배열만들기
+    					
+    					var filtered = ingArray.filter((element) => element != '밥'); //밥 제외
+    					var ingList = filtered.filter((element) => element != '물');// 물 제오
+                        console.log("split 결과 = " + ingArray);
+                        console.log("밥 제거 = " + filtered);
+                        console.log("물 제거 = " + ingList);
+                        
+                        var ing1 = ingList.join("|"); //다시 구분 | 문자로
+                        self.ing = ing1.replaceAll(" ","");//공백없애기
+                        console.log("최종 재료값 = " + self.ing);
                         
 	                    console.log(self.info);
 	                    self.info.imgPathT = "../" + data.info.imgPathT;
