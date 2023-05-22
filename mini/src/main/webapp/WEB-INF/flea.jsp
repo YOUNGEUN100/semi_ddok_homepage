@@ -309,10 +309,11 @@ var fleaList = new Vue({
 	            liList.eq(i).removeClass("active");
 	        }
 	        liList.eq(1).addClass("active");
-	        self.selectPage = 1;
-            self.pageCount = 1;
-            self.cnt = 0;
-            self.fnGetFleaList();
+	        self.fnSearch(1);
+	       /* self.pageCount = 1;
+            self.cnt = 0;  
+          	self.fnGetFleaList(); */
+            
 	    }
 	    // 나눔글 카테고리 변경
 	    , fnChangeOrder2: function () {
