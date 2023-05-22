@@ -20,4 +20,10 @@ public interface MyService {
 	
 	//주문 상세내역
 	List<OrderList> searchOrderInfo(HashMap<String, Object>map);
+	
+	//리뷰관리
+	List<OrderList> searchReview(HashMap<String, Object>map);
+	
+	//별점
+	List<OrderList> searchStar(HashMap<String, Object>map);
 }

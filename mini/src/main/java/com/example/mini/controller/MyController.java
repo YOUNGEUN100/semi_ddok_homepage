@@ -104,11 +104,33 @@ public class MyController {
 			resultMap.put("list", list);
 			return new Gson().toJson(resultMap);
 		}
-		
+		//리뷰페이지
 		@RequestMapping("/myPage/review.do") 
 	    public String mypageReview(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam HashMap<String, Object> map) throws Exception{
 			request.setAttribute("map", map);
 	    	request.setAttribute("sessionId", session.getAttribute("sessionId"));
 	        return "/myPage_review";
 	    }
+		
+		@RequestMapping(value = "/myPage/review.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String review(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<OrderList> list = myService.searchReview(map);
+			resultMap.put("result", "success");
+			resultMap.put("list", list);
+			return new Gson().toJson(resultMap);
+		}
+		
+		@RequestMapping(value = "/review/star.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String reviewStar(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<OrderList> star = myService.searchStar(map);
+			resultMap.put("result", "success");
+			resultMap.put("star", star);
+			return new Gson().toJson(resultMap);
+		}
+		
+		
 }

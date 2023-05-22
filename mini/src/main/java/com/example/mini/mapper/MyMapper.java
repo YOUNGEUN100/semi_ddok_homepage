@@ -23,4 +23,10 @@ public interface MyMapper {
 	
 	//주문 상세내역
 	List<OrderList> selectOrderInfo(HashMap<String, Object>map);
+	
+	//리뷰관리
+	List<OrderList> selectReview(HashMap<String, Object>map);
+	
+	//별점
+	List<OrderList> selectStar(HashMap<String, Object>map);
 }

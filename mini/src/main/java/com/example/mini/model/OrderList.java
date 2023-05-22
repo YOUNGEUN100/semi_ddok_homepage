@@ -26,6 +26,11 @@ public class OrderList {
 	private String content; 
 	private Integer productPrice; 
 	private String imgPath;
+	private Float satisfactionGrade;//상품만족도
+	private Float repurchaseGrade;//재구매의사
+	private Float deliveryGrade;//배송만족도
+	private Float starAvg;// 평점 평균
+	
 	
 	
 	public String getOrderDate() {
@@ -171,5 +176,29 @@ public class OrderList {
 	}
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
+	}
+	public Float getSatisfactionGrade() {
+		return satisfactionGrade;
+	}
+	public void setSatisfactionGrade(Float satisfactionGrade) {
+		this.satisfactionGrade = satisfactionGrade;
+	}
+	public Float getRepurchaseGrade() {
+		return repurchaseGrade;
+	}
+	public void setRepurchaseGrade(Float repurchaseGrade) {
+		this.repurchaseGrade = repurchaseGrade;
+	}
+	public Float getDeliveryGrade() {
+		return deliveryGrade;
+	}
+	public void setDeliveryGrade(Float deliveryGrade) {
+		this.deliveryGrade = deliveryGrade;
+	}
+	public Float getStarAvg() {
+		return starAvg;
+	}
+	public void setStarAvg(Float starAvg) {
+		this.starAvg = starAvg;
 	}
 }

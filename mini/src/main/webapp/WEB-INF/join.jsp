@@ -35,8 +35,9 @@
      .joinArea .joinBox .nick{font-weight: bold; font-size: 0.95em; display : inline-block;}
      .joinArea .joinBox input{
 	       border: 0; border-bottom: 1px solid black;
-	       padding: 10px; margin-bottom: 20px; border-radius: 0%;
+	       padding: 10px; margin-bottom: 20px; border-radius: 0%; 
 	      }
+     
      .joinArea .joinBox input[type=date]{border: 0; border-bottom: 1px solid black;
      		 margin-bottom: 20px; }
      .joinArea .joinBox .duplicationBtn{
@@ -111,10 +112,10 @@
 	                      <span class="ableId" v-if="idFlg">사용가능한 아이디입니다</span>
 	                      <span class="disableId" v-else>이미 사용중인 아이디입니다</span> 
 	                    </template>
-	                    	
+	                    
 	                    <div v-else></div>
 
-                    <input type="text" v-model="info.id" id="password" maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
+                    <input type="text" v-model="info.id" id="id" maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
                 </div> 
                 
                 <div class="captionBox">
@@ -162,7 +163,7 @@
                 
                 
                 <p class="markEssential">전화번호</p>
-                <input type="tel" id="tel" class="w100" @keypress="getPhoneMask" maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
+                <input type="tel" id="tel" @keypress="fnNumber" class="w100"  maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
                 
                 
                 <p>이메일주소</p>
@@ -232,6 +233,7 @@
 	} 
 	
 	
+	
 var app = new Vue({ 
     el: '#app',
     data: {
@@ -263,8 +265,10 @@ var app = new Vue({
     	, idValid : false
     	, pwValid : false
    		, pwFlg : false
-    }
 
+    }
+   
+    
     , methods : {
     	//회원가입
     	fnJoin : function(){
@@ -399,34 +403,14 @@ var app = new Vue({
     		console.log(roadAddrPart1);
     		console.log(addrDetail);
     		console.log(engAddr);
+    	 },
+    	 fnNumber : function(){
+    		 var self = this;
+    		 self.info.hp = self.info.hp.replace(/[^0-9.]/g,'').replace(/(\..*)\./g, '%1');
     	 }
-    
-    	,
-    	//핸드폰번호 자동 '-'
-    	getPhoneMask(val) {
-    		var self = this;
-        	let res = self.getMask(val);
-	        self.info.hp = res;
-	        //서버 전송 값에는 '-' 를 제외하고 숫자만 저장
-	        self.model.info.hp = self.info.hp.replace(/[^0-9]/g, '');
-   		},
-   		getMask( phoneNumber ) {
-   	        if(!phoneNumber) return phoneNumber;
-   	        phoneNumber = phoneNumber.replace(/[^0-9]/g, '');
-   	        
-   	        let res = '';
-   	        if(phoneNumber.length < 3) {
-   	            res = phoneNumber;
-   	        }
-   	        else { 
-               if(phoneNumber.length > 10) { 
-                  res = phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 4) + '-' + phoneNumber.substr(7)
-               }
-  	        
-   	        }
-   		}
-    	//아이디 유효성
-    	
+    	 
+
+		
     	
     	
     		

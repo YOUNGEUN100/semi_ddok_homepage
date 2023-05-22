@@ -40,5 +40,15 @@ public class MyServiceImpl implements MyService{
 		// TODO Auto-generated method stub
 		return myMapper.selectOrderInfo(map);
 	}
-
+	@Override
+	public List<OrderList> searchReview(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return myMapper.selectReview(map);
+	}
+	@Override
+	public List<OrderList>  searchStar(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return myMapper.selectStar(map);
+	}
+	
 }

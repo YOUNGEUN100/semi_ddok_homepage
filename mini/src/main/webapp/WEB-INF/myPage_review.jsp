@@ -85,34 +85,68 @@
           text-align: center; margin-top: 10px;
       }
       .myArea .contentBox .reviewBox .reviewBtn{
-          margin-top: 15px;
           padding: 5px;
-          margin-bottom: 20px;
+          margin-top: 15px;
           background-color: #5EA152;
           color: #fff; border: 0; border-radius: 8px; width: 110px; 
-          font-size: 0.8em; font-weight: bold; 
+          font-size: 0.9em; font-weight: bold; 
       }
       .myArea .contentBox .reviewBox .star{
-          display: flex; flex-direction: column; align-items: center;
+          display: flex; flex-direction: column; align-items: center; font-size: 0.9em;
+          margin:0; 
       }
+      .myArea .contentBox .reviewBox .starBox{
+          display: flex; flex-direction: column; align-items: center; width:30%;
+      }
+      .myArea .contentBox .reviewBox .starTitle{
+        	text-align: center;
+      }
+      
+      .star-ratings {
+		  color: #aaa9a9; 
+		  position: relative;
+		  unicode-bidi: bidi-override;
+		  width: max-content;
+		  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+		  -webkit-text-stroke-width: 0.5px;
+		  -webkit-text-stroke-color: #dfbc00;
+		}
+		 
+		.star-ratings-fill {
+		  color: #fff58c;
+		  padding: 0;
+		  position: absolute;
+		  z-index: 1;
+		  display: flex;
+		  top: 0;
+		  left: 0;
+		  overflow: hidden;
+		  -webkit-text-fill-color: gold;
+		}
+		 
+		.star-ratings-base {
+		  z-index: 0;
+		  padding: 0;
+		}
+
 
       .star-rating {
           display: flex;
           flex-direction: row-reverse;
-          font-size: 2.25rem;
-          line-height: 2.5rem;
+          font-size: 1.7em;
+          line-height: 2.0rem;
           justify-content: space-around;
           padding: 0 0.2em;
           text-align: center;
-          width: 5em;
+          width: 5em; overflow:hidden; white-space:nowrap;
       }
       .star-rating input {
           display: none;
       }
       .star-rating label {
           -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-          -webkit-text-stroke-width: 2.3px;
-          -webkit-text-stroke-color: #2b2a29;
+          -webkit-text-stroke-width: 0.5px;
+          -webkit-text-stroke-color: #dfbc00;
           cursor: pointer;
       }
       .star-rating :checked ~ label {
@@ -142,33 +176,77 @@
                     <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
                 
-                <div class="reviewBox" id="reviewBox"><!-- 리뷰관리 -->
+                <div class="reviewBox" id="reviewBox" v-for="(item, index) in list"><!-- 리뷰관리 -->
                     <div class="reviewTop">
-                        <div>2023.05.12 배송완료</div><div>주문번호 : 14513325</div>
+                        <div> 배송완료</div><div>주문번호 : {{item.orderNo}}</div>
                     </div>
                     <div class="reviewCenter">
-                        <img src="images/product_apple_thumb.jpg" name="상품이미지">
+                        <img :src="item.imgPath" name="상품이미지">
                         <div class="detail">
-                            <div>첫 출하 빨간 가정용 햇 사과 5KG</div>
-                            <div>19,900원(100g당 398원)</div>
-                            <div>수량 : 3개</div>
-                            <div>총 결제금액 : 59,700원</div>
+                            <div>{{item.productName}}</div>
+                            <div>{{item.productPrice2}}원 (100{{item.productWeight}}당 {{item.perPrice}}원)</div>
+                            <div>수량 : {{item.orderCnt}}개</div>
+                            <div>총 결제금액 : {{item.orderPrice2}}원</div>
                         </div>
-                        <div class="star">
-                            <div class="star-rating space-x-4 mx-auto">
-                                <input type="radio" id="5-stars" name="rating" value="5" />
-                                <label for="5-stars" class="star pr-4">★</label>
-                                <input type="radio" id="4-stars" name="rating" value="4" />
-                                <label for="4-stars" class="star">★</label>
-                                <input type="radio" id="3-stars" name="rating" value="3" />
-                                <label for="3-stars" class="star">★</label>
-                                <input type="radio" id="2-stars" name="rating" value="2" />
-                                <label for="2-stars" class="star">★</label>
-                                <input type="radio" id="1-star" name="rating" value="1"  />
-                                <label for="1-star" class="star">★</label>
-                            </div>
-                            <p>점/5점</p>
-                            <button class="reviewBtn">등록하기</button>
+						<div class="starTitle">총 평점
+	                       	<div class="star-ratings">
+								<div class="star-ratings-fill space-x-2 text-lg"  :style="{ width: + '%' }">
+									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+								</div>
+								<div class="star-ratings-base space-x-2 text-lg">
+									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+								</div>
+							</div>
+						</div>
+						
+
+                        <div class="starBox">
+	                        <div class="star">
+	                        	<span>상품만족도</span>
+	                            <div class="star-rating space-x-4 mx-auto"> 
+	                                <input type="radio" id="5-stars" name="rating" value="5" />
+	                                <label for="5-stars" class="star pr-4">★</label>
+	                                <input type="radio" id="4-stars" name="rating" value="4" />
+	                                <label for="4-stars" class="star">★</label>
+	                                <input type="radio" id="3-stars" name="rating" value="3" />
+	                                <label for="3-stars" class="star">★</label>
+	                                <input type="radio" id="2-stars" name="rating" value="2" />
+	                                <label for="2-stars" class="star">★</label>
+	                                <input type="radio" id="1-star" name="rating" value="1"  />
+	                                <label for="1-star" class="star">★</label>
+	                            </div> 
+	                        </div>
+	                        <div class="star">
+	                        	<span>재구매의사</span>
+	                            <div class="star-rating space-x-4 mx-auto">
+	                                <input type="radio" id="5-stars" name="rating" value="5" />
+	                                <label for="5-stars" class="star pr-4">★</label>
+	                                <input type="radio" id="4-stars" name="rating" value="4" />
+	                                <label for="4-stars" class="star">★</label>
+	                                <input type="radio" id="3-stars" name="rating" value="3" />
+	                                <label for="3-stars" class="star">★</label>
+	                                <input type="radio" id="2-stars" name="rating" value="2" />
+	                                <label for="2-stars" class="star">★</label>
+	                                <input type="radio" id="1-star" name="rating" value="1"  />
+	                                <label for="1-star" class="star">★</label>
+	                            </div>
+	                        </div>
+	                        <div class="star">
+	                        	<span>배송만족도</span>
+	                            <div class="star-rating space-x-4 mx-auto">
+	                                <input type="radio" id="5-stars" name="rating" value="5" />
+	                                <label for="5-stars" class="star pr-4">★</label>
+	                                <input type="radio" id="4-stars" name="rating" value="4" />
+	                                <label for="4-stars" class="star">★</label>
+	                                <input type="radio" id="3-stars" name="rating" value="3" />
+	                                <label for="3-stars" class="star">★</label>
+	                                <input type="radio" id="2-stars" name="rating" value="2" />
+	                                <label for="2-stars" class="star">★</label>
+	                                <input type="radio" id="1-star" name="rating" value="1"  />
+	                                <label for="1-star" class="star">★</label>
+	                            </div>
+	                            <button class="reviewBtn">등록하기</button>
+	                        </div>
                         </div>
                     </div>    
                 </div>  
@@ -190,11 +268,64 @@ var app = new Vue({
     el: '#app',
     data: {
     	list : []
+    	, star : []
 		, sessionName : "${sessionName}"
 		, sessionId : "${sessionId}"
+		, orderNo : "${map.orderNo}"
+		, productNo : "${map.productNo}"
+		, score : ""
+		
+    },
+    computed : {
+    	ratingToPercent() {
+    	      const score = +this.starAvg * 20;
+    	      console.log(score);
+    	      return score + 1.5;
+    	 },
     }
+    
     , methods : {
-    	
+    	//리뷰
+    	fnReview : function(){
+            var self = this;
+            var nparmap = {id : self.sessionId, orderNo : self.orderNo};
+            $.ajax({
+                url:"/myPage/review.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                	if(self.sessionId == ''){
+                		alert("로그인 해주세요");
+                		location.href = "/login.do";
+                	}else{
+                    	self.list = data.list;
+                    	
+                	}  
+                }
+            });
+
+        },
+        fnStar : function(){
+        	var self = this;
+            var nparmap = {id : self.sessionId, orderNo : self.orderNo};
+            $.ajax({
+                url:"/review/star.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {	
+                    	self.list = data.list;
+                    	for(var i=0; i<data.list.length; i++){
+                    		var score = self.list[i].starAvg*20;
+                    		console.log(score);
+                    	} return score + 1.5;
+                	}  
+                
+            });
+        },
+
+    	//정보수정페이지 이동
     	fnUserEdit : function(){
     		var self = this;
     		self.pageChange("/modify.do", {sessionId : self.sessionId});
@@ -233,6 +364,8 @@ var app = new Vue({
 		   	 
 	}	
     , created: function () {
+    	var self = this;
+    	self.fnReview();
     
 	}
 });
