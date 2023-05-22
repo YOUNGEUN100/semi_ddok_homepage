@@ -21,7 +21,7 @@ public interface FundingService {
 	
 	// 랜선장터 댓글 리스트
 	List<Funding> searchFleaComment(HashMap<String, Object> map) throws Exception;
-	
+		
 	// 랜선장터 게시글 등록
 	void addFlea(HashMap<String, Object> map);
 	

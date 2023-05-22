@@ -35,12 +35,13 @@ public class FundingServiceImpl implements FundingService {
 	public HashMap<String, Object> searchFleaInfo(HashMap<String, Object>map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Funding info  = fundingMapper.selectFleaInfo(map);
-		
+		int commentCnt = fundingMapper.commentCnt(map);
 		if (info != null) {
 			fundingMapper.updateCnt(map);
 		}
 		
 		resultMap.put("info", info);
+		resultMap.put("commentCnt", commentCnt);
 		return resultMap;
 	}
 	
@@ -57,6 +58,7 @@ public class FundingServiceImpl implements FundingService {
 	
 	@Override // 랜선장터 댓글 리스트
 	public List<Funding> searchFleaComment(HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<Funding> list = fundingMapper.selectFleaComment(map);
 		
 		return list;

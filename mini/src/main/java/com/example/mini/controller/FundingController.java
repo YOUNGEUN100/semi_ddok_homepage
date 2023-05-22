@@ -137,9 +137,7 @@ public class FundingController {
 	@ResponseBody
 	public String searchFleaComment(Model model, @RequestParam HashMap<String, Object>map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<Funding> list = fundingService.searchFleaComment(map);
-			
-		resultMap.put("list", list);
+		resultMap.put("list", fundingService.searchFleaComment(map));
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}

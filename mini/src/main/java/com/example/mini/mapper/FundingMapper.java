@@ -36,6 +36,9 @@ public interface FundingMapper {
 	// 랜선장터 댓글 리스트
 	List<Funding> selectFleaComment(HashMap<String, Object> map);
 	
+	// 랜선장터 댓글 갯수
+	int commentCnt(HashMap<String, Object> map);
+	
 	// 랜선장터 댓글 입력
 	void insertFleaComment(HashMap<String, Object> map);
 	

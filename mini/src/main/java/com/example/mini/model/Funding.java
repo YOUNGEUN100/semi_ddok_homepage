@@ -23,6 +23,7 @@ public class Funding {
 	private int commentNo;
 	private int reCommentNo;
 	private int commentReno;
+	private int commentCnt;
 	private String filePath;
 	private String orlgName;
 	private String saveName;
@@ -402,6 +403,12 @@ public class Funding {
 	}
 	public void setFundingKind(String fundingKind) {
 		this.fundingKind = fundingKind;
+	}
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
 	}
 	
 	
