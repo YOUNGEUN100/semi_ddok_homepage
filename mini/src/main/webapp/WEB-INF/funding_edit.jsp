@@ -58,6 +58,7 @@
             width: 15%;
             font-size: 18px;
         }
+        .file_list button{margin-top:16px;}
 
         .input_box input {
             border: 1px solid #999999;
@@ -75,7 +76,7 @@
             border-radius: 10px;
             padding: 16px;
         }
-
+		.thumb_box> span{margin: 24px;}
         .content_box,
         .file_box p {
             font-size: 18px;
@@ -179,7 +180,9 @@
                             	<p>썸네일 이미지</p>
                                 <input type="file" id="file1" name="file1">
                                 <p>상세 이미지</p>
+                        		<span>이미지 순서를 입력해주세요 [imgName-순서] (예 : ImgName-01.jpg)</span><br>
                                 <input type="file" id="file2" name="file2" multiple>
+                                
                                  <vue-editor v-model="info.content"></vue-editor>
                             </div>
                             
@@ -249,6 +252,7 @@
                         success: function (data) {
                             self.info = data.info;
                             self.imgList = data.imgList;
+                            self.info.content = data.info.fundingScript;
                             console.log(data.info);
                             console.log(data.imgList);
 							
@@ -286,6 +290,14 @@
                     	alert("상품 가격을 입력하세요.");
                     	return;
                     }
+                    if(!$("#file1")[0].files[0]) {
+                    	alert("썸네일 사진을 등록해주세요.");
+                    	return;
+                   	}
+                    if(!$("#file2")[0].files[0]) {
+                    	alert("상품설명 사진을 등록해주세요.");
+                    	return;
+                   	} 
                     console.log(self.info);
                     var nparmap = self.info
                     $.ajax({
