@@ -108,8 +108,8 @@ var result = new Vue({
                     console.log("밥 제거 = " + filtered);
                     console.log("물 제거 = " + ingList);
                     
-                    var ing1 = ingList.join("|"); //다시 구분 | 문자로
-                    self.ing = ing1.replaceAll(" ","");//공백없애기
+                    var ingStr = ingList.join("|"); //다시 구분 | 문자로
+                    self.ing = ingStr.replaceAll(" ","");//공백없애기
                     console.log("최종 재료값 = " + self.ing);
                     
                   // console.log("menu 데이터는" + data.menu);
@@ -150,8 +150,8 @@ var result = new Vue({
                         console.log("밥 제거 = " + filtered);
                         console.log("물 제거 = " + ingList);
                         
-                        var ing1 = ingList.join("|"); //다시 구분 | 문자로
-                        self.ing = ing1.replaceAll(" ","");//공백없애기
+                        var ingStr = ingList.join("|"); //다시 구분 | 문자로
+                        self.ing = ingStr.replaceAll(" ","");//공백없애기
                         console.log("최종 재료값 = " + self.ing);
                         
 	                    console.log(self.info);
