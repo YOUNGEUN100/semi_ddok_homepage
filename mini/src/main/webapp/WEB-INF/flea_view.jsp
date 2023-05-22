@@ -4,7 +4,9 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <link rel="stylesheet" href="/css/pageStyle/depth2_flea.css">
-
+<style>
+	.aa{margin-left:40px;}
+</style>
 <!-- pageContent -- START -->
 <div id="pageContent" class="flea typeView">
 	<div class="wrapper">
@@ -41,52 +43,55 @@
 	            	<h3 class="head"><i class="fa-solid fa-comments"></i> 댓글 </h3><span class="comm_cnt" style="color:red;">(00개)</span>
 	            </div>
 	            <div v-if="list.length == 0" class="comment_area comment_null typeBoxArea styleBoxRound styleBoxShadow">등록된 댓글이 없습니다.</div>
-                <div v-else class="comment_area comment_list typeBoxArea styleBoxRound typeMore styleBoxShadow" v-for="(item, index) in list">
+                <div v-else class="comment_area comment_list typeBoxArea styleBoxRound typeMore styleBoxShadow">
 	                <!-- 댓글 출력 영역 commentNo와 commentReno가 같으면 출력 -->
-	                <div v-if="item.commentNo == item.commentReno" class="comment_item">
-	                    <div class="commenter"> <!-- 댓글작성자 댓글작성일 정보영역 -->
-	                        <div class="info_box"><i class="fa-solid fa-user"></i><span> {{item.nick}}</span><span class="date">({{item.cdatetime2}})</span></div>
-							<div class="btn_box">
-								<button @click="fnDeleteComment(item.commentNo)" v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">삭제</button>
-								<button @click="fnEditComment(item)" v-if="sessionId == item.userId || sessionStatus == 'A'">수정</button>
-								<button @click="fnRecommentBtn(item)" v-if="sessionId !== ''">답글달기</button>
-							</div>
-	                    </div>
-	                    
-	                    <div class="comment_content" v-if="editCoNo != item.commentNo"> <!-- 댓글내용 -->
-	                        <pre id="coContent" v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">{{item.content}}</pre>
-	                        <pre v-else><i class="fa-solid fa-lock"></i> 비밀 댓글입니다.</pre>
-	                    </div>
-	                    <div class="comment_content" v-else> <!-- 댓글 수정버튼 영역 -->
-	                        <textarea rows="5" v-model="commentInfo.content"></textarea>
-							<div class="btn_box">
-								<button @click="fnEditCommentFinish">수정</button>
-								<button @click="fnEditCommentClose">취소</button>
-							</div>
-	                    </div>
-	
-	                    <div class="recoBtnArea" v-if="editReCoNo == item.commentNo">
-							<!-- fnRecommentBtn 누르면 나오는 대댓글 작성 박스 -->
-							<textarea placeholder="답글을 입력하세요." v-model="reContent"></textarea>
-							<div class="btn_box">
-								<button @click="fnWriteReComment(item.commentNo)">입력</button>
-								<button @click="fnRecommentclose">취소</button>
-							</div>
-	                    </div>
-	                </div>
-	                <!-- 댓글 출력 영역 끝 -->
-	
-	                <!-- 대댓글 출력 영역 commentNo와 commentReno가 다르면 출력 -->
-	                <div v-else class="comment_item">
-	                    <div v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">
-	                        <div class="info_box"><i class="fa-solid fa-user"></i><span> {{item.nick}}</span><span class="date">({{item.cdatetime2}})</span></div>
-							<div class="btn_box">
-	                        	<button @click="fnDeleteReComment(item.commentNo)">삭제</button>
-							</div>
-	                        <pre class="comment_content">{{item.content}}</pre>
-	                    </div>
-	                </div>
+	                <div  class="comment_item" v-for="(item, index) in list">
+		                <div v-if="item.commentNo == item.commentReno">
+		                    <div class="commenter"> <!-- 댓글작성자 댓글작성일 정보영역 -->
+		                        <div class="info_box"><i class="fa-solid fa-user"></i><span> {{item.nick}}</span><span class="date">({{item.cdatetime2}})</span></div>
+								<div class="btn_box">
+									<button @click="fnDeleteComment(item.commentNo)" v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">삭제</button>
+									<button @click="fnEditComment(item)" v-if="sessionId == item.userId || sessionStatus == 'A'">수정</button>
+									<button @click="fnRecommentBtn(item)" v-if="sessionId !== ''">답글달기</button>
+								</div>
+		                    </div>
+		                    
+		                    <div class="comment_content" v-if="editCoNo != item.commentNo"> <!-- 댓글내용 -->
+		                        <pre id="coContent" v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">{{item.content}}</pre>
+		                        <pre v-else><i class="fa-solid fa-lock"></i> 비밀 댓글입니다.</pre>
+		                    </div>
+		                    <div class="comment_content" v-else> <!-- 댓글 수정버튼 영역 -->
+		                        <textarea rows="5" v-model="commentInfo.content"></textarea>
+								<div class="btn_box">
+									<button @click="fnEditCommentFinish">수정</button>
+									<button @click="fnEditCommentClose">취소</button>
+								</div>
+		                    </div>
+		
+		                    <div class="recoBtnArea" v-if="editReCoNo == item.commentNo">
+								<!-- fnRecommentBtn 누르면 나오는 대댓글 작성 박스 -->
+								<textarea placeholder="답글을 입력하세요." v-model="reContent"></textarea>
+								<div class="btn_box">
+									<button @click="fnWriteReComment(item.commentNo)">입력</button>
+									<button @click="fnRecommentclose">취소</button>
+								</div>
+		                    </div>
+		                </div>
+		                <!-- 댓글 출력 영역 끝 -->
+		
+		                <!-- 대댓글 출력 영역 commentNo와 commentReno가 다르면 출력 -->
+		                <div v-if="item.commentNo != item.commentReno" class="aa">
+		                    <div v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">
+		                    	<div><i class="fa-solid fa-reply fa-rotate-180"></i></div>
+		                        <div class="info_box"><i class="fa-solid fa-user"></i><span> {{item.nick}}</span><span class="date">({{item.cdatetime2}})</span></div>
+								<div class="btn_box">
+		                        	<button @click="fnDeleteReComment(item.commentNo)">삭제</button>
+								</div>
+		                        <pre class="comment_content">{{item.content}}</pre>
+		                    </div>
+		                </div>
 	                <!-- 대댓글 출력 영역 끝 -->
+	                </div>
                 </div>
                 <template>
 	                <div v-if="sessionId != ''" class="comment_add">
@@ -324,6 +329,10 @@ var fleaView = new Vue({
         // 대댓글 작성
         , fnWriteReComment: function (commentNo) {
             var self = this;
+            if (!self.reContent) {
+            	alert("댓글을 입력하세요");
+            	return;
+            }
             var nparmap = {
                 commentNo: commentNo,
                 content: self.reContent,
