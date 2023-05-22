@@ -36,7 +36,7 @@ public class MyServiceImpl implements MyService{
 		return myMapper.selectOrderList(map);
 	} 
 	@Override
-	public OrderList searchOrderInfo(HashMap<String, Object> map) {
+	public List<OrderList> searchOrderInfo(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return myMapper.selectOrderInfo(map);
 	}

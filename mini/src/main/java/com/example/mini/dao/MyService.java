@@ -19,5 +19,5 @@ public interface MyService {
 	List<OrderList> searchOderList(HashMap<String, Object>map);
 	
 	//주문 상세내역
-	OrderList searchOrderInfo(HashMap<String, Object>map);
+	List<OrderList> searchOrderInfo(HashMap<String, Object>map);
 }

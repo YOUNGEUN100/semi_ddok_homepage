@@ -22,5 +22,5 @@ public interface MyMapper {
 	List<OrderList> selectOrderList(HashMap<String, Object>map);
 	
 	//주문 상세내역
-	OrderList selectOrderInfo(HashMap<String, Object>map);
+	List<OrderList> selectOrderInfo(HashMap<String, Object>map);
 }

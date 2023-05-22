@@ -4,7 +4,7 @@ public class OrderList {
 	
 	private String orderDate;
 	private int orderPrice;
-	private String orderPrice2;
+	private String orderPrice2; // 총 금액 합
 	private String orderNo;
 	private Integer orderCnt;
 	private String userId;

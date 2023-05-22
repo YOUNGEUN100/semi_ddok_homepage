@@ -104,16 +104,16 @@
                         <div><h1>주문 상세 내역</h1></div>
                     <div class="orderContent">
                         <div id="orderTop">
-                        <div>{{info.orderDate}} 주문</div><div>주문번호 {{info.orderNo}}</div><div>{{info.status}} </div>
+                        <div> {{list[0].orderDate}} 주문</div><div>주문번호 {{list[0].orderNo}}</div><div>{{list[0].status}} </div>
                         </div>  
                     
                     <div class="orderCenter" v-for="(item, index) in list" >
-                        <img :src="info.imgPath" name="상품이미지">
+                        <img :src="item.imgPath" name="상품이미지">
                         <div class="orderDetail">
-                            <div>{{info.productName}}</div>
-                            <div>{{info.productPrice2}}원 (100{{info.productVolume}}당 {{info.perPrice}}원)</div>
-                            <div>수량 : {{info.orderCnt}}개</div>
-                            <div>총 결제금액 : {{info.orderPrice2}}원</div>
+                            <div>{{item.productName}}</div>
+                            <div>{{item.productPrice2}}원 (100{{item.productVolume}}당 {{item.perPrice}}원)</div>
+                            <div>수량 : {{item.orderCnt}}개</div>
+                            <div>총 결제금액 : {{item.orderPrice2}}원</div>
                         </div>
                     </div>
                     </div>
@@ -122,9 +122,9 @@
                         <div class="orderHistory">
                             <h1>받는 사람 정보</h1>
                             <div class="orderHistoryList">
-                                <div>받는 사람 : {{info.userName}}</div>
-                                <div>연락처 : {{info.hp}}</div>
-                                <div>받는 주소 : {{info.addr}}&ensp;{{info.addr2}}</div>
+                                <div>받는 사람 : {{list[0].userName}}</div>
+                                <div>연락처 : {{list[0].hp}}</div>
+                                <div>받는 주소 : {{list[0].addr}}&ensp;{{list[0].addr2}}</div>
                             </div>
                         </div>
 
@@ -158,27 +158,26 @@ var app = new Vue({
     	info : {},
     	sessionName : "${sessionName}",
     	sessionId : "${sessionId}",
-    	orderNo : ""
+    	orderNo : "${map.orderNo}"
     }
     , methods : {
     	
     	//주문 상세 내역
     	fnOrderDetail : function(){
             var self = this;
-            var nparmap = {orderNo : self.info.orderNo};
+            var nparmap = {id : self.sessionId, orderNo : self.orderNo};
             $.ajax({
                 url:"/order/detail.dox",
                 dataType:"json",
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
-                	console.log(self.info);
-                	console.log(self.info.orderNo);
                 	if(self.sessionId == ''){
                 		alert("로그인 해주세요");
                 		location.href="/login.do";
                 	} else{
-                		self.info = data.info;	
+                		self.list = data.list;
+                		console.log(self.list);
                 	}
                 }
             });

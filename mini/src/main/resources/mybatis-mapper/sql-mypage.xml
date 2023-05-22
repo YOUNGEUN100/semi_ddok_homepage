@@ -75,6 +75,7 @@
             	
 		</select>
 		
+		<!-- 주문 상세 내역 보기 -->
 		<select id="selectOrderInfo" parameterType="HashMap" resultType="com.example.mini.model.OrderList">
 			SELECT 
 				O.PRODUCT_NO, 

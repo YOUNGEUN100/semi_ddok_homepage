@@ -110,7 +110,7 @@
                 
                 <div class="orderBox" v-for="(item, index) in list"><!-- 주문내역 요약 -->
                         <div class="orderTop">
-                            <div class="order">{{item.orderDate}} {{item.name}}</div><div class="order" @click="fnOrderInfo" >주문상세보기 >></div>
+                            <div class="order">{{item.orderDate}} {{item.name}}</div><div class="order" @click="fnOrderInfo(item.orderNo)" >주문상세보기 >></div>
                         </div>
                         <div class="orderCenter">
                             <a href="/market/view.do"><img :src="item.imgPath" name="상품이미지" ></a>
@@ -181,10 +181,10 @@ var app = new Vue({
 
         },
         //주문상세보기
-        fnOrderInfo: function(){
+        fnOrderInfo: function(orderNo){
     		var self = this;
     	
-    		self.pageChange("/myPage/order.do", {id: self.sessionId, orderNo : self.list[0].orderNo});
+    		self.pageChange("/myPage/order.do", {id: self.sessionId, orderNo : orderNo});
     	},
         
     	pageChange : function(url, param) {
