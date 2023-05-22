@@ -120,7 +120,8 @@
             if (self.sessionStatus=='A') {
             	self.info.category = 2;
             }
-            
+            if (!self.info.title) {alert("글 제목을 입력해주세요."); return;}
+            if (!self.info.content) {alert("글 내용을 입력해주세요."); return;}
             var nparmap = self.info;
 	        $.ajax({
 	            url:"/community/save.dox",

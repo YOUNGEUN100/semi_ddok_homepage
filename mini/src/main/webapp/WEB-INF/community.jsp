@@ -54,13 +54,13 @@
 		           	<tbody>
 		             	<tr class="center" v-for="(item, index) in list" >
 		                      <td class="no">{{item.boardNo}}</td>
-		                  <template>
-		                        <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></strong></td>
-		                        <template v-if="item.status=='C'">
-		                      		  <td colspan=3 class="title myboard" v-if="item.userId==sessionId" @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i> </td>
-		                      		  <td colspan=3 class="title"  v-else @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></td>
-		                        </template>
-	         	 		  </template>
+			                  <template>
+			                        <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></strong></td>
+			                        <template v-if="item.status=='C'">
+			                      		  <td colspan=3 class="title myboard" v-if="item.userId==sessionId" @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i> </td>
+			                      		  <td colspan=3 class="title"  v-else @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></td>
+			                        </template>
+		         	 		  </template>
 		 	                    <td class="writer">{{item.nick}}</td>
 		     	                <td class="date">{{item.cdatetime}}</td>
 		             	        <td class="view">{{item.hits}}</td>
