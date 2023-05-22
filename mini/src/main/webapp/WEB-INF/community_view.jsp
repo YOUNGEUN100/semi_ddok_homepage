@@ -5,7 +5,8 @@
 
 <style>
 	<!--스타일 입력 -->
-    button { font-size: medium; padding: 5px 10px;  margin-right:10px; border-radius: 10px;border: 1px solid gainsboro;background-color: gainsboro; width: 80px; height: 40px;}
+	h4 {margin-bottom: 20px;}
+	.cbtn {font-size: medium; padding: 5px 10px;  margin-right:10px; border-radius: 10px;border: 1px solid gainsboro;background-color: gainsboro; width: 80px; height: 40px;}
     button:hover {cursor: pointer;}
     .btns { display: flex; justify-content: space-between;  }
     .container { border : 1px solid red; border: 5px solid rgba(245, 243, 243, 0.959); box-shadow: 2px 2px 20px 0px #ece9e9;border-radius: 35px;padding: 20px 40px; margin-bottom: 30px; width: 100%;}
@@ -75,7 +76,7 @@
                    		</template>
                    
                       <input type="text" placeholder="댓글을 남겨보세요." v-model="commentInfo.comment">
-                      <button @click="fnCommentEnroll()">등록</button>
+                      <button class="cbtn" @click="fnCommentEnroll()">등록</button>
                    </div>
                    
                </div>
@@ -85,11 +86,11 @@
            
            <div class="btns">
                <span>
-                   <button @click="fnAddCom()" style="background-color: #E4DBD6;">글쓰기</button>
-                   <button @click="fnGoModify()" v-if="info.userId==sessionId || sessionStatus=='A'">수정</button>
-                   <button @click="fnRemove()" v-if="info.userId==sessionId || sessionStatus=='A'">삭제</button>
+                   <button class="cbtn" @click="fnAddCom()" style="background-color: #E4DBD6;">글쓰기</button>
+                   <button class="cbtn" @click="fnGoModify()" v-if="info.userId==sessionId || sessionStatus=='A'">수정</button>
+                   <button class="cbtn" @click="fnRemove()" v-if="info.userId==sessionId || sessionStatus=='A'">삭제</button>
                </span>
-               <button onClick="location.href='/community.do'">목록</button>
+               <button class="cbtn" onClick="location.href='/community.do'">목록</button>
            </div>
 
        </div>
