@@ -12,6 +12,7 @@ public class TodayEat {
 	private String imgPathT;
 	private String imgPathR;
 	private String code;
+	private String rKind;
 	
 	private int menuNo;
 	private String menuName;
@@ -228,5 +229,11 @@ public class TodayEat {
 	}
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
+	}
+	public String getrKind() {
+		return rKind;
+	}
+	public void setrKind(String rKind) {
+		this.rKind = rKind;
 	}
 }

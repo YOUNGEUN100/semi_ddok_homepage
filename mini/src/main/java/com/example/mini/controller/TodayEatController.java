@@ -115,12 +115,9 @@ public class TodayEatController {
 	@ResponseBody
 	public String searchProduct(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		String json = map.get("ingList").toString();
-		ObjectMapper mapper = new ObjectMapper();
-	    List<Object> list1 = mapper.readValue(json, new TypeReference<List<Object>>(){});
-	    map.put("ingList", list1);
-		List<TodayEat> list = todayEatService.searchProduct(map);
-		resultMap.put("list", list);
+
+		
+		resultMap.put("list", todayEatService.searchProduct(map));
 		resultMap.put("message", "성공");
 		return new Gson().toJson(resultMap);
 	}

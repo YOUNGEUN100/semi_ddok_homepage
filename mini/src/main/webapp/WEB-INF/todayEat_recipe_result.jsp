@@ -71,7 +71,8 @@ var result = new Vue({
 		},
 		ingList : [],
 		productList : [],
-		code : ""
+		code : "",
+		ing:""
 	}
 	, filters: {
 	    numberFormat: (value, numFix) => {
@@ -98,19 +99,16 @@ var result = new Vue({
                     self.info.imgPathR = "../" + data.menu.imgPathR;
                     console.log(self.info);
                     console.log(data.menu.code);
+                    
+                    var ing1 = self.info.cookIngre.replaceAll(",","|"); //cookIngre REGEXP용으로 구분문자 바꾸기
+                    self.ing = ing1.replaceAll(" ","");//cookIngre 공백 없애기
+                    console.log("재료 : " + self.ing);
+                    
                   // console.log("menu 데이터는" + data.menu);
                   //  console.log(data.menu);
                     self.message = "검색결과가 없어요. 대신";
                     self.menuFlg = true;
-                    //재료 자르기
-                    var ingArray = self.info.cookIngre.split(',');
-					// 김, 밥 필터
-					var filtered = ingArray.filter((element) => element != '밥');
-					self.ingList = filtered.filter((element) => element != '물');
-                    console.log("split 결과 = " + ingArray);
-                    console.log("필터결과1 = " + filtered);
-                    console.log("필터결과2 = " + self.ingList);
-                    console.log("제외할 코드 = " + self.code);
+
 					self.fnGetProduct();
                   
                 }
@@ -128,26 +126,23 @@ var result = new Vue({
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
-                    self.info = data.info;
-                    if (!self.info) {
-                    	self.fnGetRecipe(); 
+
+					if (!data.info) {
+                    	self.fnGetRecipe();
                     }
                     else{
+                    	self.info = data.info;
                     	self.code = data.info.code;
+                    	
+                        var ing1 = self.info.cookIngre.replaceAll(",","|"); //cookIngre REGEXP용으로 구분문자 바꾸기
+                        self.ing = ing1.replaceAll(" ","");//cookIngre 공백 없애기
+                        console.log("재료 : " + self.ing);
+                        
 	                    console.log(self.info);
 	                    self.info.imgPathT = "../" + data.info.imgPathT;
 	                    self.info.imgPathR = "../" + data.info.imgPathR;
 	                    
-	                    //재료 자르기
-	                    var ingArray = self.info.cookIngre.split(',');
-						// 김, 밥 필터
-						var filtered = ingArray.filter((element) => element != '밥');
-						self.ingList = filtered.filter((element) => element != '물');
-	                    console.log("split 결과 = " + ingArray);
-	                    console.log("필터결과1 = " + filtered);
-	                    console.log("필터결과2 = " + self.ingList);
-	                    console.log("제외할 코드 = " + self.code);
-						self.fnGetProduct();
+	                    self.fnGetProduct();
                     }
                     
 					
@@ -157,7 +152,7 @@ var result = new Vue({
 		// 구매유도 리스트
 		, fnGetProduct : function() {
 			var self = this;	
- 			var nparmap = {ingList : JSON.stringify(self.ingList), code : self.code};
+ 			var nparmap = {ing : self.ing, code : self.code};
 			
 			$.ajax({
                 url:"/todayEat/recipe/product.dox",
@@ -166,7 +161,7 @@ var result = new Vue({
                 data : nparmap,
                 success : function(data) {
                     self.productList = data.list;
-                    console.log(data);
+                    console.log(self.productList);
 					
                 }
             });
