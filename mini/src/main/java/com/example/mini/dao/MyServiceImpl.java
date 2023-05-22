@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.mini.mapper.MyMapper;
 import com.example.mini.model.Funding;
+import com.example.mini.model.OrderList;
 import com.example.mini.model.Recipe;
 import com.example.mini.model.SmartMarket;
 
@@ -30,12 +31,12 @@ public class MyServiceImpl implements MyService{
 	}
 	//주문내역
 	@Override
-	public List<SmartMarket> searchOderList(HashMap<String, Object> map) {
+	public List<OrderList> searchOderList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return myMapper.selectOrderList(map);
 	} 
 	@Override
-	public List<SmartMarket> searchOrderInfo(HashMap<String, Object> map) {
+	public OrderList searchOrderInfo(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return myMapper.selectOrderInfo(map);
 	}

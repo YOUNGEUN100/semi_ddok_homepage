@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.example.mini.model.Funding;
+import com.example.mini.model.OrderList;
 import com.example.mini.model.Recipe;
-import com.example.mini.model.SmartMarket;
 
 public interface MyService {
 	
@@ -16,8 +16,8 @@ public interface MyService {
 	List<Funding> searchAttendFunding(HashMap<String, Object>map);
 	
 	//주문내역
-	List<SmartMarket> searchOderList(HashMap<String, Object>map);
+	List<OrderList> searchOderList(HashMap<String, Object>map);
 	
 	//주문 상세내역
-	List<SmartMarket> searchOrderInfo(HashMap<String, Object>map);
+	OrderList searchOrderInfo(HashMap<String, Object>map);
 }

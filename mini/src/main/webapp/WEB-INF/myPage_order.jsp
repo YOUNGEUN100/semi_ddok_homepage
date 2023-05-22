@@ -100,20 +100,20 @@
                     <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
                 
-                <div class="orderBox" v-for="(item, index) in list">
+                <div class="orderBox" >
                         <div><h1>주문 상세 내역</h1></div>
                     <div class="orderContent">
                         <div id="orderTop">
-                        <div>{{item.orderDate}} 주문</div><div>주문번호 {{item.orderNo}}</div><div>{{item.status}} </div>
+                        <div>{{info.orderDate}} 주문</div><div>주문번호 {{info.orderNo}}</div><div>{{info.status}} </div>
                         </div>  
                     
-                    <div class="orderCenter">
-                        <img :src="item.imgPath" name="상품이미지">
+                    <div class="orderCenter" v-for="(item, index) in list" >
+                        <img :src="info.imgPath" name="상품이미지">
                         <div class="orderDetail">
-                            <div>{{item.productName}}</div>
-                            <div>{{item.productPrice2}}원 (100{{item.productVolume}}당 {{item.perPrice}}원)</div>
-                            <div>수량 : {{item.orderCnt}}개</div>
-                            <div>총 결제금액 : {{item.orderPrice2}}원</div>
+                            <div>{{info.productName}}</div>
+                            <div>{{info.productPrice2}}원 (100{{info.productVolume}}당 {{info.perPrice}}원)</div>
+                            <div>수량 : {{info.orderCnt}}개</div>
+                            <div>총 결제금액 : {{info.orderPrice2}}원</div>
                         </div>
                     </div>
                     </div>
@@ -122,17 +122,17 @@
                         <div class="orderHistory">
                             <h1>받는 사람 정보</h1>
                             <div class="orderHistoryList">
-                                <div>받는 사람 : {{item.userName}}</div>
-                                <div>연락처 : {{item.hp}}</div>
-                                <div>받는 주소 : {{item.addr}}&ensp;{{item.addr2}}</div>
+                                <div>받는 사람 : {{info.userName}}</div>
+                                <div>연락처 : {{info.hp}}</div>
+                                <div>받는 주소 : {{info.addr}}&ensp;{{info.addr2}}</div>
                             </div>
                         </div>
 
                         <div class="payMent">
                             <h1>결제정보</h1>
                             <div class="orderPayment">
-                                <div>결제 수단 : {{item.payment}}</div>
-                                <div>총 결제금액 : {{item.orderPrice2}}원</div>
+                                <div>결제 수단 : {{info.payment}}</div>
+                                <div>총 결제금액 : {{info.orderPrice2}}원</div>
                             </div>
                         </div>
                     </div>
@@ -155,37 +155,38 @@ var app = new Vue({
     el: '#app',
     data: {
     	list : [],
+    	info : {},
     	sessionName : "${sessionName}",
-    	sessionId : "${sessionId}"
+    	sessionId : "${sessionId}",
+    	orderNo : ""
     }
     , methods : {
     	
+    	//주문 상세 내역
     	fnOrderDetail : function(){
             var self = this;
-            var nparmap = {id : self.sessionId};
+            var nparmap = {orderNo : self.info.orderNo};
             $.ajax({
                 url:"/order/detail.dox",
                 dataType:"json",
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
+                	console.log(self.info);
+                	console.log(self.info.orderNo);
                 	if(self.sessionId == ''){
-                		alert("로그인을 해주세요");
+                		alert("로그인 해주세요");
                 		location.href="/login.do";
-                		return;
+                	} else{
+                		self.info = data.info;	
                 	}
-                	else{
-                		self.list = data.list;
-                	}
-                	
-                    
                 }
             });
 
         },
     	
     		
-    	
+    	//회원정보 수정페이지 연결
     	fnUserEdit : function(){
     		var self = this;
     		self.pageChange("/modify.do", {sessionId : self.sessionId});

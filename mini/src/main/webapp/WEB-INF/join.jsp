@@ -264,7 +264,7 @@ var app = new Vue({
     	, pwValid : false
    		, pwFlg : false
     }
-    
+
     , methods : {
     	//회원가입
     	fnJoin : function(){

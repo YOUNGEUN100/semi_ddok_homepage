@@ -70,7 +70,8 @@
 			LEFT JOIN T4_P_IMAGE I ON O.PRODUCT_NO = I.PRODUCT_NO
 			
 			WHERE USER_ID = #{id} AND THUMBNAIL_YN='Y'
-            GROUP BY ORDER_NO
+			GROUP BY ORDER_NO
+            
             	
 		</select>
 		
@@ -107,7 +108,7 @@
             LEFT JOIN T4_USER U ON U.USER_ID = O.USER_ID
 			
 			WHERE O.USER_ID = #{id} AND THUMBNAIL_YN='Y' AND ORDER_NO = #{orderNo}
-			GROUP BY ORDER_NO
+			
            
     
 		</select>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mini.dao.MyService;
 import com.example.mini.model.Funding;
+import com.example.mini.model.OrderList;
 import com.example.mini.model.Recipe;
 import com.example.mini.model.SmartMarket;
 import com.google.gson.Gson;
@@ -42,7 +43,7 @@ public class MyController {
 	@ResponseBody
 	public String viewOrderList(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<SmartMarket> list = myService.searchOderList(map);
+		List<OrderList> list = myService.searchOderList(map);
 		resultMap.put("result", "success");
 		resultMap.put("list", list);
 		return new Gson().toJson(resultMap);
@@ -78,9 +79,9 @@ public class MyController {
 		@ResponseBody
 		public String viewOrder(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();
-			List<SmartMarket> list = myService.searchOrderInfo(map);
+			OrderList info = myService.searchOrderInfo(map);
 			resultMap.put("result", "success");
-			resultMap.put("list", list);
+			resultMap.put("info", info);
 			return new Gson().toJson(resultMap);
 		}
 		

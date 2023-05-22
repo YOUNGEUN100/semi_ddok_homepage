@@ -66,6 +66,9 @@
           display: flex; flex-direction: row; justify-content: space-between;
           margin: 10px; font-size: 0.85em; padding: 10px 60px;
       }
+      .myArea .contentBox .orderBox .orderTop .order{
+        cursor: pointer;
+      }
       .myArea .contentBox .orderBox .orderCenter{
           width: 80%; margin: 0 auto;
           display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center;
@@ -107,7 +110,7 @@
                 
                 <div class="orderBox" v-for="(item, index) in list"><!-- 주문내역 요약 -->
                         <div class="orderTop">
-                            <div class="order">{{item.orderDate}} {{item.name}}</div><div class="order" @click="fnSendInfo" >주문상세보기 >></div>
+                            <div class="order">{{item.orderDate}} {{item.name}}</div><div class="order" @click="fnOrderInfo" >주문상세보기 >></div>
                         </div>
                         <div class="orderCenter">
                             <a href="/market/view.do"><img :src="item.imgPath" name="상품이미지" ></a>
@@ -140,7 +143,8 @@ var app = new Vue({
     	list : []
 		, sessionName : "${sessionName}"
 		, sessionId : "${sessionId}"
-
+		, orderNo : "${map.orderNo}"
+		
 		
     }
     , methods : {
@@ -161,6 +165,7 @@ var app = new Vue({
                 data : nparmap,
                 success : function(data) {
                 	console.log(data);
+                	console.log(self.orderNo);
                 	if(self.sessionId == ''){
                 		alert("로그인을 해주세요");
                 		location.href="/login.do";
@@ -168,18 +173,20 @@ var app = new Vue({
                 	}
                 	else{
                 		self.list = data.list;
+                		console.log(self.list);
+                		console.log(self.list[0].orderNo);
                 	}
-                	
-                    
                 }
             });
 
         },
-        fnSendInfo : function(){
-        	var self = this;
-        	self.pageChange("/myPage/order.do", {sessionId : self.sessionId});
-        },
+        //주문상세보기
+        fnOrderInfo: function(){
+    		var self = this;
     	
+    		self.pageChange("/myPage/order.do", {id: self.sessionId, orderNo : self.list[0].orderNo});
+    	},
+        
     	pageChange : function(url, param) {
      		var target = "_self";
      		if(param == undefined){
