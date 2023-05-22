@@ -521,7 +521,7 @@
 					CONCAT(IMG_PATH, IMG_NAME) AS IMG_PATH_DETAIL,
 					FUNDING_INDEX
             FROM T4_F_IMAGE
-            WHERE THUMBNAIL_YN = 'N' AND FUNDING_NO = #{fundingNo}
+            WHERE THUMBNAIL_YN = 'N' AND FUNDING_NO = #{fundingNo} AND DELETE_YN = 'N'
             ORDER BY FUNDING_INDEX
 		</select>
 		
