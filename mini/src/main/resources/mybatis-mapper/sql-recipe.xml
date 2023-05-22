@@ -22,7 +22,7 @@
 	<select id="checkRecipeNo" parameterType="HashMap" resultType="int">
 		SELECT COUNT(*) AS CNT
 		FROM T4_USER_RECIPE
-		WHERE RECIPE_NO = #{recipeNo};
+		WHERE RECIPE_NO = #{recipeNo} AND USER_ID = #{userId}
 	</select>
 	
 	<!--레시피 리스트-->

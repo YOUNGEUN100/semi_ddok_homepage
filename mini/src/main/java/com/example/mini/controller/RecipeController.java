@@ -143,6 +143,7 @@ public class RecipeController {
 	public String recipeMypageSave(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int cnt = recipeService.checkRecipeNo(map);
+		System.out.println(cnt);
 		if (cnt == 0) {
 			recipeService.AddMypageRecipe(map);
 			resultMap.put("message", "등록되었습니다.");
