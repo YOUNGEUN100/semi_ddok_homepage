@@ -265,6 +265,14 @@ var fleaList = new Vue({
 		        moreBtn.innerText = "접기";
 		    } else if (self.moreBtn == "on") {
 		        document.getElementById('page').style.display = 'none';
+		        var liList = $(".pagination").children();
+		        for (var i = 0; i < liList.length; i++) {
+		            liList.eq(i).removeClass("active");
+		        }
+		        liList.eq(1).addClass("active");
+		        self.selectPage = 1;
+		            self.pageCount = 1;
+		            self.cnt = 0;
 		        self.moreBtn = "off"
 		        self.fnGetFleaList();
 		        moreBtn.innerText = "더보기";
@@ -280,6 +288,14 @@ var fleaList = new Vue({
 	            moreBtn2.innerText = "접기";
 	        } else if (self.moreBtn2 == "on") {
 	            document.getElementById('page2').style.display = 'none';
+		        var liList = $(".pagination2").children();
+		        for (var i = 0; i < liList.length; i++) {
+		            liList.eq(i).removeClass("active");
+		        }
+		        liList.eq(1).addClass("active");
+		        self.selectPage2 = 1;
+	            self.pageCount2 = 1;
+	            self.cnt2 = 0;
 	            self.moreBtn2 = "off";
 	            self.fnGetFleaList2();
 	            moreBtn2.innerText = "더보기";
@@ -293,10 +309,10 @@ var fleaList = new Vue({
 	            liList.eq(i).removeClass("active");
 	        }
 	        liList.eq(1).addClass("active");
-	        self.selectPage = 1,
-	            self.pageCount = 1,
-	            self.cnt = 0,
-	            self.fnGetFleaList();
+	        self.selectPage = 1;
+            self.pageCount = 1;
+            self.cnt = 0;
+            self.fnGetFleaList();
 	    }
 	    // 나눔글 카테고리 변경
 	    , fnChangeOrder2: function () {
@@ -306,10 +322,10 @@ var fleaList = new Vue({
 	            liList.eq(i).removeClass("active");
 	        }
 	        liList.eq(1).addClass("active");
-	        self.selectPage2 = 1,
-	            self.pageCount2 = 1,
-	            self.cnt2 = 0,
-	            self.fnGetFleaList2();
+	        self.selectPage2 = 1;
+            self.pageCount2 = 1;
+            self.cnt2 = 0;
+            self.fnGetFleaList2();
 	    }
 	    // 랜선장터 글 보기
 	    , fnViewFlea: function (boardNo) {
