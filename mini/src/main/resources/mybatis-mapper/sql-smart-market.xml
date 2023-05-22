@@ -37,10 +37,36 @@
 			ON A.PRODUCT_NO = C.PRODUCT_NO
 			WHERE B.THUMBNAIL_YN='Y'
 			<if test="product_kind !='' and product_kind != null">
-			AND PRODUCT_KIND = #{product_kind}
-		</if>
+				AND PRODUCT_KIND = #{product_kind}
+			</if>
+			ORDER BY A.PRODUCT_NO DESC
+			LIMIT #{startNum}, 15
+		
 		</select>
 		
+		<select id="selectSmartMarketListCnt" parameterType="hashmap" resultType="int">	
+			SELECT 
+				COUNT(*) AS CNT
+			FROM T4_PRODUCT A 
+			INNER JOIN  T4_P_IMAGE B 
+			ON A.PRODUCT_NO=B.PRODUCT_NO
+            LEFT JOIN (
+					SELECT 
+						AVG(SATISFACTION_GRADE) AS SATISFACTION_GRADE
+						, AVG(REPURCHASE_GRADE) AS REPURCHASE_GRADE
+						, AVG(DELIVERY_GRADE) AS DELIVERY_GRADE
+						, PRODUCT_NO
+					FROM T4_REVIEW GROUP BY PRODUCT_NO
+                    ) C 
+			ON A.PRODUCT_NO = C.PRODUCT_NO
+			WHERE B.THUMBNAIL_YN='Y'
+			<if test="product_kind !='' and product_kind != null">
+			AND PRODUCT_KIND = #{product_kind}
+			</if>
+		</select>
+		
+		
+		<!-- 추천상품 -->
 		<select id="selectSmartMarketRecommendList" parameterType="hashmap" resultType="com.example.mini.model.SmartMarket">
 			SELECT 
 				A.PRODUCT_NO
@@ -73,6 +99,7 @@
                     ) C 
 			ON A.PRODUCT_NO = C.PRODUCT_NO
 			WHERE B.THUMBNAIL_YN='Y'
+			AND A.PRODUCT_STOCK > 0
 			ORDER BY RAND()
 			LIMIT 5		
 		</select>

@@ -140,11 +140,20 @@ public class SmartMarketController {
 	public String searchSmartMarketList(HttpServletRequest request,Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		request.setAttribute("map", map);
+		
+		String startNum = (String) map.get("startNum");
+		String lastNum = (String) map.get("lastNum");
+		
+		map.put("startNum", Integer.parseInt(startNum));
+		map.put("lastNum", Integer.parseInt(lastNum));
+		
 		resultMap = smartmarketService.searchSmartMarketList(map);
 		
 		return new Gson().toJson(resultMap);
 	}
 	
+		
+		
 	// 추천상품
 	@RequestMapping(value = "/smartmarket-recommend-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

@@ -23,12 +23,28 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 	public HashMap<String, Object> searchSmartMarketList(HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
 		
+		resultMap.put("cnt", smartmarketMapper.selectSmartMarketListCnt(map));
 		resultMap.put("list",smartmarketMapper.selectSmartMarketList(map));
 		resultMap.put("result","success");
 		
 		return resultMap;
 	}
 
+	//상품 리뷰 리스트
+	@Override
+	public HashMap<String, Object> searchSmartMarketReviewList(HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
+		
+		resultMap.put("cnt", smartmarketMapper.selectSmartMarketReviewCnt(map));
+		resultMap.put("list",smartmarketMapper.selectSmartMarketReviewList(map));		
+		resultMap.put("result","success");
+		
+		return resultMap;
+	}
+	
+	
+	
+	
 	//상품 코드 리스트
 	@Override
 	public List<Code> searchSmartMarketKind(HashMap<String, Object> map) {
@@ -69,17 +85,7 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 	}
 	
 	
-	//상품 리뷰 리스트
-	@Override
-	public HashMap<String, Object> searchSmartMarketReviewList(HashMap<String, Object> map) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
-		
-		resultMap.put("cnt", smartmarketMapper.selectSmartMarketReviewCnt(map));
-		resultMap.put("list",smartmarketMapper.selectSmartMarketReviewList(map));		
-		resultMap.put("result","success");
-		
-		return resultMap;
-	}
+
 
 	@Override
 	public void addCart(HashMap<String, Object> map) {

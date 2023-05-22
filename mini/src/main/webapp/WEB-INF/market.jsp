@@ -4,11 +4,59 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <style>
+<!-- 페이징 추가 2-->
+	.pagination {
+        margin:24px;
+        display: inline-flex;
+        
+    }
+    ul {
+        text-align: center;
+    }
+	.pagination li {
+	    min-width:32px;
+	    padding:2px 6px;
+	    text-align:center;
+	    margin:0 3px;
+	    border-radius: 6px;
+	    border:1px solid #eee;
+	    color:#666;
+	    display : inline;
+	}
+	.pagination li:hover {
+	    background: #E4DBD6;
+	}
+	.page-item a {
+	    color:#666;
+	    text-decoration: none;
+	}
+	.pagination li.active {
+	    background-color : #E7AA8D;
+	    color:#fff;
+	}
+	.pagination li.active a {
+	    color:#fff;
+	}
+	.style_inline{
+		display: inline;
+	}
+	.mypage{
+		
+	}
+	
+	
+	
+	
+	
      /* style START */
      body {
            /* background: url("/images/sub_dept3-1_smart_Eating_view") no-repeat;*/
         }
-
+        
+        
+                
+                                
+                
         .recipe-img {
             border-radius: 5px;
             width : 58%;
@@ -174,7 +222,7 @@
         }
         #wrapper{
             width: 1200px;
-            height: 1500px;
+            
             /*border: 1px solid #ccc;*/
            /* background-image: url(/images/smart_market.jpg);*/
             
@@ -278,6 +326,7 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));/*auto-fit, auto-fill*/
             /*grid-gap: 10px; /*그리드의 간격을 준다*/
             grid-gap: 1rem; /*그리드의 간격을 준다 / 1rem : 16px*/
+            height:100%;
         }
         .star{
             width: 20px;
@@ -289,8 +338,9 @@
 <div id="pageContent">
 	<div class="wrapper">
 		 <!-- wrap START -->
-         <div id="wrapper" >
+         
             <div id="app">
+	                  
 				<div class="add_box">
                     <button class="add_btn" v-if="sessionStatus == 'A'" @click="fnAddproduct">등록</button>
                 </div>            
@@ -306,7 +356,9 @@
                     	<a href="javascript:;" @click="fnView(item2.productNo)">
 	                        <img :src="item2.imgPath" class="box">
 	                        <div class="box4">
-	                            <p>현재 {{item2.productStock}}개 남았어요!</p>
+	                            <p v-if="item2.productStock>5"></p>
+	                            <p v-else-if="item2.productStock>0 && item2.productStock<=5">현재 5개 남았어요!</p>
+	                            <p v-else>품절</p>
 	                            <h4 class="recommendtitle" >{{item2.productName}}</h4>
 	                            <p>{{item2.productPrice | numberFormat()}}원 (100{{item2.productVolume}}당 {{item2.productPrice*100 / item2.productWeight*item2.productEa | numberFormat()}}원)</p>
 	                            <p><img class="star" src="images/star.png"> {{(item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)/3 |  numberFormat(1)}} </p>
@@ -320,26 +372,63 @@
                     <div class="product_vege" >
                         <P>상품목록 : <span id="title_list">{{pkind}}</span></P>	                
                     </div>
-                    <div class="product_vege_cnt"><P id="pro_cnt">총 {{cnt}}개 상품</P></div>
+                    <div class="product_vege_cnt"><P id="pro_cnt">총 {{product_cnt}}개 상품</P></div>
                 </div>
                 
                 
-                <div class="smart_market1" id="box3" >
-                    <div v-for="(item, index) in list">
-                        <a href="javascript:;" @click="fnView(item.productNo)">
-                            <img :src="item.imgPath" class="box">
-                            <div class="box4">
-                                <p>현재 {{item.productStock}}개 남았어요!</p>
-                                <h4 class="recommendtitle" >{{item.productName}}</h4>
-                                <p>{{item.productPrice | numberFormat()}}원 (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</p>
-                                <p><img class="star" src="images/star.png"> {{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}} </p>
-                            </div>
-                        </a>
-                    </div>
+				
+	                <div class="smart_market1" id="box3" >
+	                	
+		                    <div v-for="(item, index) in list">		                    
+		                        <a v-if="item.productStock == 0"  style="opacity: 0.5;">
+		                            <img :src="item.imgPath" class="box">
+		                            <div class="box4">
+		                                <p v-if="item.productStock>5" style="imageObject.disabled"></p>
+			                            <p v-else-if="item.productStock>0 && item.productStock<=5">현재 5개 남았어요!</p>
+			                            <p v-else>품절</p>
+		                                <h4 class="recommendtitle" >{{item.productName}}</h4>
+		                                <p>{{item.productPrice | numberFormat()}}원 (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</p>
+		                                <p><img class="star" src="images/star.png"> {{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}} </p>
+		                            </div>
+		                        </a>
+		                        <a v-else href="javascript:;" @click="fnView(item.productNo)">
+		                            <img :src="item.imgPath" class="box">
+		                            <div class="box4">
+		                                <p v-if="item.productStock>5"></p>
+			                            <p v-else-if="item.productStock>0 && item.productStock<=5">현재 5개 남았어요!</p>
+			                            <p v-else>품절</p>
+		                                <h4 class="recommendtitle" >{{item.productName}}</h4>
+		                                <p>{{item.productPrice | numberFormat()}}원 (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</p>
+		                                <p><img class="star" src="images/star.png"> {{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}} </p>
+		                            </div>
+		                        </a>
+		                    </div>
+		                    
+
+			            
+		                    
+					</div>
+				<!-- 페이징 추가 3-->
+							<template>
+							  <paginate
+							    :page-count="pageCount"
+							    :page-range="3"
+							    :margin-pages="2"
+							    :click-handler="fnSearch"
+							    :prev-text="'<'"
+							    :next-text="'>'"
+							    :container-class="'pagination'"
+							    :page-class="'page-item'">
+							  </paginate>
+							</template>
+				
+					
+					
+					
                               
-                </div>
+                
             </div>
-        </div>
+        
         <!-- wrap END -->
 		
 	
@@ -351,16 +440,27 @@
 
 
 <script type="text/javascript">
+
+<!-- 페이징 추가 4-->
+Vue.component('paginate', VuejsPaginate)    
+    
+    
+    
     var app = new Vue({ 
     el: '#app',
     data: {
 		list : [],
 		list2 : [],
 		codeList : ${map.codeList},
-		cnt : "",
+		product_cnt : "",		
 		pkind : "전체",
 		product_kind : "",
 		sessionStatus : "${sessionStatus}"
+		
+        	<!-- 페이징 추가 5-->
+		, selectPage: 1
+		, pageCount: 1
+		, cnt : 0		
 		
     }
 	, filters: {
@@ -373,8 +473,21 @@
     , methods: {
     	fnGetList : function(){
     		var self = this;
-    		var nparmap = {product_kind : self.product_kind};
+    		//var nparmap = {product_kind : self.product_kind};
     		
+    		
+    		
+    		<!-- 페이징 추가 6-->
+			var startNum = ((self.selectPage-1) * 15);
+    		var lastNum = (self.selectPage * 15)
+    		var nparmap = {keyword : self.keyword
+    						, kind : self.selectItem
+    						, startNum : startNum
+    						, lastNum : lastNum
+    						, product_kind : self.product_kind
+    						, productNo : self.productNo};
+    		
+    		console.log(nparmap);
     		
     		//상품리스트
     		$.ajax({
@@ -383,9 +496,13 @@
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
-                	console.log(data.list);
-                	self.cnt = data.list.length;
+                	
+                	self.product_cnt = data.list.length;
                 	self.list = data.list;
+                	self.cnt = data.cnt;
+	                self.pageCount = Math.ceil(self.cnt / 15);
+	                
+	                console.log("==============",data);
                 }
             });
 
@@ -453,6 +570,33 @@
       	, fnAddproduct : function(){
     		location.href = "/market/edit.do";
     	}
+
+	 	
+        <!-- 페이징 추가 7-->
+		, fnSearch : function(pageNum){
+			var self = this;
+			self.selectPage = pageNum;
+			var startNum = ((pageNum-1) * 15);
+			var lastNum = (pageNum * 15) + 1;
+			var nparmap = {startNum : startNum, lastNum : lastNum, productNo : self.productNo};
+			
+			console.log(nparmap);
+			
+			$.ajax({
+				url : "/smartmarket-list.dox",
+				dataType : "json",
+				type : "POST",
+				data : nparmap,
+				success : function(data) {
+					
+					self.list = data.list;
+					self.cnt = data.cnt;
+					self.pageCount = Math.ceil(self.cnt / 15);
+				}
+			});
+		}	 	
+	 	
+	 	
     }   
     , created: function () {
     	var self = this;
@@ -461,5 +605,6 @@
 	}
 });
 
+   
 
 </script>

@@ -39,8 +39,12 @@ public interface SmartMarketMapper {
 	//리뷰 전체 갯수
 	int selectSmartMarketReviewCnt(HashMap<String, Object> map);
 	
+	
 	//상품건수
 	int selectSmartMarketCnt(HashMap<String, Object> map);
+	
+	//상품리스트건수
+	int selectSmartMarketListCnt(HashMap<String, Object> map);
 	
 	//상품입력
 	void insertSmartMarket(HashMap<String,Object>map);
