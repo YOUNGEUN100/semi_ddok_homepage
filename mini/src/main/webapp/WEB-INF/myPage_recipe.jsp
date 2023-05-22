@@ -13,7 +13,7 @@
     .myArea .contentBox{ width: 80%;  display: flex; flex-direction: column; justify-content: center;  align-items: center; }
     .myArea .contentBox .menuBox{ width: 100%; display: flex; flex-flow: row nowrap; justify-content: center;    }
     .myArea .contentBox .menuBox .menu{ width: 25%; text-align: center; padding: 10px; box-shadow: 0 0 4px 0 #ccc; cursor: pointer;  }
-    .myArea .contentBox .menuBox .menu_recipe {background-color:var(--base-colorBasicGray)}
+    .myArea .contentBox .menuBox .menu_recipe {background-color:var(--base-colorBasicGray);}
     .myArea .contentBox .menuBox .menu:first-child{border-top-left-radius: 5px; border-bottom-left-radius: 5px;box-shadow: -2px 0 5px 0 #ccc; }
     .myArea .contentBox .menuBox .menu:last-child{ border-top-right-radius: 5px;  border-bottom-right-radius: 5px; box-shadow: 2px 0 5px 0 #ccc;}
     .myArea .contentBox .menuBox .menu:hover{ background-color: #eee; color: black;  }
