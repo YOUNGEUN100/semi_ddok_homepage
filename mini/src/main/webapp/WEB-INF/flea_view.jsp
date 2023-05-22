@@ -89,6 +89,10 @@
 								</div>
 		                        <pre class="comment_content">{{item.content}}</pre>
 		                    </div>
+		                    <div v-else style="margin-bottom:5px;">
+		                   		 <div class="info_box"><i class="fa-solid fa-user"></i><span> {{item.nick}}</span><span class="date">({{item.cdatetime2}})</span></div>
+		                    	<i class="fa-solid fa-lock"></i> 비밀 댓글입니다.
+		                    </div>
 		                </div>
 	                <!-- 대댓글 출력 영역 끝 -->
 	                </div>
