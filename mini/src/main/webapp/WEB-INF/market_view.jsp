@@ -52,30 +52,37 @@
 	 #wrapper{
             
             width: 1200px;
-            height: 2600px;
+            height: auto;
             border: 1px solid #ccc;
             /*background-image: url(./images/smart_market_view.jpg);*/
             background-position: center;
             opacity: 1;
-            clear:both;
+            
             
         }
 
-        .smart_img{
+		.smartmarket{
+			display: grid;
+			justify-content: normal;
+			grid-template-columns: repeat(2, 1fr);/*1:1:1의 비율을 가지는 3개의 비율 fr은 비율*/
+		}
+        .smartmarket .smart_img{
             margin-top: 65px;
             width: 500px;
             height: 524px;
-            float: left;
+            
+            
         }
-        #smart_img{
+        .smartmarket #smart_img{
             width: 500px;
             height: 524px;
         }
-        .smart_txt{
-            float: left;
+        .smartmarket .smart_txt{
             margin-top: 42px;
             width: 695px;
             height: 524px;
+            display: inline-block;
+            
         }
 
         .smart_empth1{
@@ -197,7 +204,7 @@
             margin-top: 80px;
             height: 62px;
             width: 100%;
-            float: left;
+            //float: left;
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -250,14 +257,16 @@
         .product_script{
             
             margin-top: 28px;
-            height: 900px;
+            height: auto;
             width: 100%;
-            clear:both;            
+            clear:both;
+            display:block;
+            border: 1px solid red;            
         }
         
         .btn_all_view{
             margin-top: 10px;
-            float: left;
+            //float: left;
             width: 100%;
             height: 70px;
         }
@@ -270,7 +279,7 @@
             background-color: #777;
         }
         .product_script_detail{
-            float: left;
+            //float: left;
             display: none;
         }
 
@@ -286,12 +295,12 @@
         .smart_empth5{
             height: 5px;
             width: 100%;            
-            float: left;
+            //float: left;
         }
         .smart_empth6{
             height: 50px;
             width: 100%;            
-            float: left;
+            //float: left;
         }
 
         table, td, th {
@@ -312,7 +321,7 @@
         }
 
         .table1{
-        	float: left;
+        	//float: left;
             padding-top: 20px;            
                         
         }
@@ -330,36 +339,40 @@
 <div id="pageContent">
 	<div class="wrapper">
         <!-- wrap START -->
-    <div id="wrapper" >
+    
         <div id="app">
-        <div class="smart_img"><img id="smart_img" :src="info.imgPath"></div>
-        <div class="smart_txt">
-            <div class="smart_empth1"></div>
-            <div class="smart_title">
-                <span class="font_title">{{info.productName}}</span>
-                <div class="star_position">
-                    <img class="star" src="/images/star.png">
-                    <span class="font_grade">{{(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)/3 |  numberFormat(1)}}</span>
-                </div>
-                <div class="font_script">{{info.title}}</div>
-            </div>
-            <div class="smart_empth2"></div>
-            <div class="smart_price">
-                <span class="font_price1">판매가</span>
-                <span class="font_price2">{{info.productPrice | numberFormat()}}원 </span>
-                <span class="font_price3">(100{{info.productVolume}}당 {{info.productPrice*100 / info.productWeight*info.productEa | numberFormat()}}원)</span>
-            </div>   
-            <div class="smart_empth3"></div>
-            <div class="smart_cnt">
-                <span class="font_cnt">개수 </span><input class="input_cnt" type="number" min="1" max="3" v-model="productCnt">
-                <span class="font_cnt2"> 현재 {{info.productStock}}개남았어요!</span>
-            </div>
-            <div class="smart_empth4"></div>
-            <div class="smart_button">
-                <button class="btn_buy" @click="fnOrder">구매하기</button>
-                <button class="btn_cart" @click="fnCart(info.productNo)">장바구니담기</button>
-                <a href="javascript:clip2();"><img class="share" src="/images/share.png" ></a>
-            </div>
+        
+	        <div class="smartmarket">
+		        <div class="smart_img smart1"><img id="smart_img" :src="info.imgPath"></div>
+		        <div class="smart_txt smart1">
+	        
+		            <div class="smart_empth1"></div>
+		            <div class="smart_title">
+		                <span class="font_title">{{info.productName}}</span>
+		                <div class="star_position">
+		                    <img class="star" src="/images/star.png">
+		                    <span class="font_grade">{{(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)/3 |  numberFormat(1)}}</span>
+		                </div>
+		                <div class="font_script">{{info.title}}</div>
+		            </div>
+		            <div class="smart_empth2"></div>
+		            <div class="smart_price">
+		                <span class="font_price1">판매가</span>
+		                <span class="font_price2">{{info.productPrice | numberFormat()}}원 </span>
+		                <span class="font_price3">(100{{info.productVolume}}당 {{info.productPrice*100 / info.productWeight*info.productEa | numberFormat()}}원)</span>
+		            </div>   
+		            <div class="smart_empth3"></div>
+		            <div class="smart_cnt">
+		                <span class="font_cnt">개수 </span><input class="input_cnt" type="number" min="1" max="3" v-model="productCnt">
+		                <span class="font_cnt2"> 현재 {{info.productStock}}개남았어요!</span>
+		            </div>
+		            <div class="smart_empth4"></div>
+		            <div class="smart_button">
+		                <button class="btn_buy" @click="fnOrder">구매하기</button>
+		                <button class="btn_cart" @click="fnCart(info.productNo)">장바구니담기</button>
+		                <a href="javascript:clip2();"><img class="share" src="/images/share.png" ></a>
+		            </div>
+            	</div>
         </div>
         
         <div class="product_review_title">
@@ -422,7 +435,7 @@
         
     </div>
 
-    </div>
+
     <!-- wrap END -->
 	</div>
 </div>

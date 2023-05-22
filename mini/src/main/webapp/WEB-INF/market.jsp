@@ -578,7 +578,10 @@ Vue.component('paginate', VuejsPaginate)
 			self.selectPage = pageNum;
 			var startNum = ((pageNum-1) * 15);
 			var lastNum = (pageNum * 15) + 1;
-			var nparmap = {startNum : startNum, lastNum : lastNum, productNo : self.productNo};
+			var nparmap = {startNum : startNum
+						, lastNum : lastNum
+						, product_kind : self.product_kind
+						, productNo : self.productNo};
 			
 			console.log(nparmap);
 			
