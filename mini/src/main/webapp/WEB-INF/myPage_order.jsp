@@ -131,8 +131,8 @@
                         <div class="payMent">
                             <h1>결제정보</h1>
                             <div class="orderPayment">
-                                <div>결제 수단 : {{info.payment}}</div>
-                                <div>총 결제금액 : {{info.orderPrice2}}원</div>
+                                <div>결제 수단 : {{payment}}</div>
+                                <div>총 결제금액 : {{total_productPrice | numberFormat()}}원</div>
                             </div>
                         </div>
                     </div>
@@ -158,8 +158,19 @@ var app = new Vue({
     	info : {},
     	sessionName : "${sessionName}",
     	sessionId : "${sessionId}",
-    	orderNo : "${map.orderNo}"
+    	orderNo : "${map.orderNo}",
+    	total_productPrice : 0,
+    	payment : ""
     }
+    
+	,filters: {
+	    numberFormat: (value, numFix) => {
+	        value = parseFloat(value);
+	        if (!value) return '0';
+	        return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+	    },
+	}
+
     , methods : {
     	
     	//주문 상세 내역
@@ -178,6 +189,17 @@ var app = new Vue({
                 	} else{
                 		self.list = data.list;
                 		console.log(self.list);
+                		
+                		//결제수단
+                		self.payment = self.list[0].payment;
+                		//총 결제금액
+                		cnt = self.list.length;                  	  
+                  	  	if(cnt > 0){
+              			 for (var i = 0; i < cnt; i += 1) { 
+              		    	  self.total_productPrice = self.total_productPrice + (self.list[i].orderPrice*Number(self.list[i].orderCnt));
+                	      	 } 		    	  
+                    	  }
+                		
                 	}
                 }
             });
