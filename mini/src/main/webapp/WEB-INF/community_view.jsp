@@ -5,74 +5,25 @@
 
 <style>
 	<!--스타일 입력 -->
-	h4 {margin-bottom: 20px;}
-    button {
-       font-size: medium;
-       padding: 5px 10px;
-       margin-right:10px;
-       border-radius: 10px;
-       border: 1px solid gainsboro;
-       background-color: gainsboro;
-       width: 80px;
-       height: 40px;
-    }
+    button { font-size: medium; padding: 5px 10px;  margin-right:10px; border-radius: 10px;border: 1px solid gainsboro;background-color: gainsboro; width: 80px; height: 40px;}
     button:hover {cursor: pointer;}
     .btns { display: flex; justify-content: space-between;  }
-    .container {
-	    border : 1px solid red;
-        border: 5px solid rgba(245, 243, 243, 0.959);
-        box-shadow: 2px 2px 20px 0px #ece9e9;
-        border-radius: 35px;
-        padding: 20px 40px;
-        margin-bottom: 30px;
-        width: 100%;
-	}
-    .com_head .title {
-        font-size: large;
-        font-weight: bold;
-        margin: 20px auto;
-    }
+    .container { border : 1px solid red; border: 5px solid rgba(245, 243, 243, 0.959); box-shadow: 2px 2px 20px 0px #ece9e9;border-radius: 35px;padding: 20px 40px; margin-bottom: 30px; width: 100%;}
+    .com_head .title { font-size: large; font-weight: bold;  margin: 20px auto;  }
     .com_head .writer div:first-child { margin-bottom: 10px;}
     .com_head .writer .flexc {display:flex; justify-content: space-between;}
-   .com_content {
-        margin: 0px auto 20px auto;
-        /* border: 1px solid black; */
-        padding: 10px 10px;
-        height: 300px;
-   }
+   .com_content { margin: 0px auto 20px auto; padding: 10px 10px; height: 300px; }
    .comment_list div:first-child {margin-bottom: 10px; }
    .comment {margin: 10px 10px;}
-   .comment .comment_enroll {
-        margin: 20px auto;
-        padding: 10px 10px;
-        border: 1px solid #999;
-        border-radius: 5px;
-        display: flex;
-        flex-direction: column;
-   }
+   .comment .comment_enroll { margin: 20px auto; padding: 10px 10px; border: 1px solid #999;border-radius: 5px; display: flex;flex-direction: column; }
    .comment_enroll div{  margin-bottom: 10px;}
-   .comment_enroll input{
-        width: 1000px;
-        padding: 5px 5px;
-        margin-bottom: 20px;
-        border: none;
-        font-size: medium;
-   }
-   .comment_enroll button {
-         width: 60px;
-         height: 35px;
-   }
-   .comment_list button {
-         width: 50px;
-         height: 30px;
-         font-size:small;
-         margin-left : 20px;
-         background-color: white;
-   }
+   .comment_enroll input{  width: 1000px; padding: 5px 5px; margin-bottom: 20px; border: none; font-size: medium;}
+   .comment_enroll button {width: 60px; height: 35px; }
+   .comment_list button { width: 50px; height: 30px;font-size:small;margin-left : 20px; background-color: white; }
+   .com_content .attached {text-align:right;}
+   .com_content .attached:hover {text-decoration: underline;cursor: pointer;}
    .mgr20 {margin-right: 20px;}
    .mgb20 {margin-bottom: 20px;}
-   .com_content .attached {text-align:right;}
-    .com_content .attached:hover {text-decoration: underline;cursor: pointer;}
 </style>
 
 
