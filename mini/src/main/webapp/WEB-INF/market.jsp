@@ -3,6 +3,7 @@
 <jsp:include page="/layout/head.jsp"></jsp:include>
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
+
 <link rel="stylesheet" href="/css/pageStyle/depth3_market.css">
 
 <!-- pageContent -- START -->
@@ -31,12 +32,12 @@
 							<p class="text soldOut" v-else>품절</p>
 						    <h4 class="title">{{item2.productName}}</h4>
 						    <div class="price">
-						    	<span class="amount">{{item2.productPrice | numberFormat()}}원</span> 
-						    	(100{{item2.productVolume}}당 {{item2.productPrice*100 / item2.productWeight*item2.productEa | numberFormat()}}원)
+						    	<span class="amount">{{fnNumberFormat(item2.productPrice)}}원</span> 
+						    	(100{{item2.productVolume}}당 {{fnNumberFormat((item2.productPrice*100) / (item2.productWeight*item2.productEa))}}원)
 						    </div>
-						    <div class="review">
+						    <div class="review" v-if="(item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)>0">
 							    <i class="fa-solid fa-star"></i>
-							    {{(item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)/3 |  numberFormat(1)}}
+							    {{fnNumberFormat((item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)/3)}}
 						    </div>
 						</div>
 					</div>
@@ -62,12 +63,12 @@
 							<p class="text soldOut" v-else><i class="fa-solid fa-circle-exclamation"></i> 품절</p>
 						    <h4 class="title">{{item.productName}}</h4>
 						    <div class="price">
-						    	<span class="amount">{{item.productPrice | numberFormat()}}원</span> 
-						    	(100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)
+						    	<span class="amount">{{fnNumberFormat(item.productPrice)}}원</span> 
+						    	(100{{item.productVolume}}당 {{fnNumberFormat((item.productPrice*100) / (item.productWeight*item.productEa))}}원)
 						    </div>
-						    <div class="review">
-						    	<i class="fa-solid fa-star"></i> 
-						    	{{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}}
+						    <div class="review" v-if="(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)>0">
+						    	<i class="fa-solid fa-star"></i>
+						    	{{fnNumberFormat2((item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3)}}
 						    </div>
 						</div>
 					</div>
@@ -124,7 +125,7 @@ var marketList = new Vue({
 	    cnt : 0
 	}
 	, filters: {
-	    numberFormat: (value, numFix) => {
+	    numberFormat5: (value, numFix) => {
 	        value = parseFloat(value);
 	        if (!value) return '0';
 	        return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d)) /g, ',');
@@ -151,7 +152,7 @@ var marketList = new Vue({
                 type: "POST",
                 data: nparmap,
                 success: function (data) {
-                    self.product_cnt = data.list.length;
+                    self.product_cnt = data.cnt;
                     self.list = data.list;
                     self.cnt = data.cnt;
                     self.pageCount = Math.ceil(self.cnt / 15);
@@ -163,6 +164,20 @@ var marketList = new Vue({
             var self = this;
             self.pageChange("/market/view.do", { productNo: productNo });
         }
+    	
+    	
+    	, fnNumberFormat: function(n1){
+    		const option = {maximumFractionDigits:1};
+    		return Math.floor(n1).toLocaleString();
+    	}
+    	
+    	, fnNumberFormat2: function(n1){
+    		const option = {maximumFractionDigits:1};
+    		return n1.toFixed(1);
+    	}
+    	
+    	
+    	
 		, fnGetList2: function(item) {
             var self = this;
 

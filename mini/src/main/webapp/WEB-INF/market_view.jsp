@@ -19,17 +19,18 @@
                     <div class="infoBox typeBoxArea styleBoxRound styleBoxShadow">
 	                    <div class="infoTxt">
 	                    	<h3 class="title">{{info.productName}}</h3>
-	                    	<p class="review"><i class="fa-solid fa-star"></i> {{(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)/3 |  numberFormat(1)}}</p>
+	                    	<p class="review" v-if="(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)>0"><i class="fa-solid fa-star"></i> {{(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)/3 |  numberFormat(1)}}</p>
 	                    	<p class="summary">{{info.content}}</p>
 	                    </div>
                         <div class="infoPrice">
                             <span>판매가</span>
 			                <span class="price">{{info.productPrice | numberFormat()}}원 </span>
-			                <span class="weight">(100{{info.productVolume}}당 {{info.productPrice*100 / info.productWeight*info.productEa | numberFormat()}}원)</span>
+			                <span class="weight" v-if="info.productVolume=='g' || info.productVolume=='ml'">(100{{info.productVolume}}당 {{(info.productPrice*100) / (info.productWeight*info.productEa) | numberFormat()}}원)</span>
+			                <span class="weight" v-else>(1{{info.productVolume}}당 {{(info.productPrice) / (info.productWeight*info.productEa) | numberFormat()}}원)</span>
                         </div>
 			            <div class="infoCount">
 			            	<span class="name">수량</span>
-			                <span class="count"><input class="input_cnt" type="number" min="1" max="3" v-model="productCnt"></span>
+			                <span class="count"><input class="input_cnt" type="number" min="1" :max="info.productStock" value="1"></span>
 			                <span class="nowCnt">현재 {{info.productStock}}개 남았어요!</span>
 			            </div>
                     </div>
@@ -58,7 +59,7 @@
 			    <div class="reviewScrollBtn active">후기</div>
 			</section>
 			
-			<section class="reviewSection">
+			<section class="reviewSection" v-if="self.cnt>0">
 				<details class="reviewItem styleBoxRound styleBoxShadow styleHoverShadow" v-for="(item, index) in list">
 				    <summary class="reviewSummary">
 				    	<div class="rDate">{{item.cdatetime}}</div>
@@ -135,12 +136,14 @@ var marketView = new Vue({
         , isOpen: false
         , selectedItems: []
         , productCnt: 1
+        , productStock:""
 
         <!-- 페이징 추가 5-->
         , selectPage: 1
         , pageCount: 1
         , cnt: 0
     }
+    
     , filters: {
         numberFormat: (value, numFix) => {
             value = parseFloat(value);
@@ -195,6 +198,13 @@ var marketView = new Vue({
                 alert("장바구니담기를 하시려면 로그인해주세요");
                 return;
             }
+            
+            if(self.info.productStock == 0 || self.info.productStock ==""){
+            	alert("품절된 상품입니다.");
+                return;
+            }
+            
+            
             $.ajax({
                 url: "/addCart.dox",
                 dataType: "json",
@@ -215,6 +225,13 @@ var marketView = new Vue({
                 alert("구매하시려면 로그인해주세요");
                 return;
             }
+            
+            if(self.info.productStock == 0 || self.info.productStock ==""){
+            	alert("품절된 상품입니다.");
+                return;
+            }
+            
+            
             nparmap = {
                 productNo: Number(self.productNo)
                 , productCnt: self.productCnt
@@ -230,9 +247,6 @@ var marketView = new Vue({
         // 상품 삭제
         , fndelete: function () {
         	var self = this;
-        	if (!confirm("삭제하시겠습니까?")) {
-        		return
-        	}
         	var nparmap = { productNo: self.productNo};
             $.ajax({
                 url: "/smartmarket/delete.dox",
