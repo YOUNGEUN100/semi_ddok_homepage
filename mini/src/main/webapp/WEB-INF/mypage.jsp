@@ -113,7 +113,7 @@
                             <div class="order">{{item.orderDate}} {{item.name}}</div><div class="order" @click="fnOrderInfo(item.orderNo)" >주문상세보기 >></div>
                         </div>
                         <div class="orderCenter">
-                            <a href="/market/view.do"><img :src="item.imgPath" name="상품이미지" ></a>
+                            <a href="javascript:;" @click="fnMarket(item)"><img :src="item.imgPath" name="상품이미지" ></a>
                             <div class="detail">
                                 <a  href="/market/view.do"><div class="connection">{{item.productName}}</div></a>
                                 <div>{{item.productPrice2}}원 (100{{item.productVolume}}당 {{item.perPrice}}원)</div>
@@ -179,7 +179,17 @@ var app = new Vue({
                 }
             });
 
-        },
+        }
+    	
+    	
+    	//마켓상세보기
+        , fnMarket: function(item) {
+            var self = this;
+            
+            self.pageChange("/market/view.do", { productNo: item.productNo,  productCnt: item.orderCnt});
+        }
+    	
+    	,
         //주문상세보기
         fnOrderInfo: function(orderNo){
     		var self = this;

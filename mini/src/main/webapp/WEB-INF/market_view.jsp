@@ -30,7 +30,7 @@
                         </div>
 			            <div class="infoCount">
 			            	<span class="name">수량</span>
-			                <span class="count"><input class="input_cnt" type="number" min="1" :max="info.productStock" value="1"></span>
+			                <span class="count"><input class="input_cnt" type="number" min="1" :max="info.productStock" value="1" v-model="productCnt"></span>	
 			                <span class="nowCnt">현재 {{info.productStock}}개 남았어요!</span>
 			            </div>
                     </div>
@@ -135,7 +135,7 @@ var marketView = new Vue({
         , productName: ""
         , isOpen: false
         , selectedItems: []
-        , productCnt: 1
+        , productCnt: "${map.productCnt}"
         , productStock:""
 
         <!-- 페이징 추가 5-->
@@ -154,7 +154,13 @@ var marketView = new Vue({
     , methods: {
         fnGetList: function () {
             var self = this;
-            var nparmap = { productNo: self.productNo, sessionId: self.sessionId };
+            var nparmap = { productNo: self.productNo, sessionId: self.sessionId};
+            productCnt = self.productCnt;
+            //console.log("productCnt: =====>",self.productCnt);
+            
+            if(productCnt=="" || productCnt==0){
+            	self.productCnt=1;
+            }
             //상품정보
             $.ajax({
                 url: "/smartmarket-view.dox",
@@ -167,6 +173,9 @@ var marketView = new Vue({
                     self.imglist = data.imgList.list;
                 }
             });
+            
+            
+            
 			var startNum = ((self.selectPage - 1) * 5);
             var lastNum = (self.selectPage * 5)
             var nparmap = {
