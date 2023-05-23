@@ -123,11 +123,9 @@
                 <div class="captionBox">
 
                     <div class="markEssential pw">비밀번호</div> <div  v-if="info.pw == ''"></div>
-                    <template v-else-if="info.pw != '' && info.pw.length>=20">
-                    	<span class="disableId" >20자를 초과하였습니다.</span> 
-                    </template>
+                 
                     
-               		<template v-else> 
+               		<template v-if="info.pw != ''"> 
 	                	<span class="disableId" v-if="!pwValid">비밀번호 형식을 맞춰주세요</span>
 	                	<span class="ableId" v-else>올바른 형식의 비밀번호입니다</span>
                 	</template>
