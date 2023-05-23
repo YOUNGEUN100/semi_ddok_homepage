@@ -114,9 +114,7 @@
 		
 		<select id="selectReview" parameterType="HashMap" resultType="com.example.mini.model.OrderList">
 			SELECT
-				SATISFACTION_GRADE,
-                REPURCHASE_GRADE,
-                DELIVERY_GRADE, 
+				
 				O.PRODUCT_NO, 
 				ORDER_DATE,
 				ORDER_PRICE, 
@@ -133,7 +131,10 @@
                 C.NAME AS STATUS,
 				FORMAT(PRODUCT_PRICE , 0) AS PRODUCT_PRICE2,
 				format(((PRODUCT_PRICE*100/ PRODUCT_WEIGHT*PRODUCT_EA)), 0) AS PER_PRICE,
-				ROUND((SATISFACTION_GRADE + REPURCHASE_GRADE + DELIVERY_GRADE)/3) AS STAR_AVG
+				ROUND((SATISFACTION_GRADE + REPURCHASE_GRADE + DELIVERY_GRADE)/3) AS STAR_AVG,
+				SATISFACTION_GRADE,
+                REPURCHASE_GRADE,
+                DELIVERY_GRADE
 
 				
 				

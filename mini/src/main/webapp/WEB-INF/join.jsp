@@ -123,6 +123,10 @@
                 <div class="captionBox">
 
                     <div class="markEssential pw">비밀번호</div> <div  v-if="info.pw == ''"></div>
+                    <template v-else-if="info.pw != '' && info.pw.length>=20">
+                    	<span class="disableId" >20자를 초과하였습니다.</span> 
+                    </template>
+                    
                		<template v-else> 
 	                	<span class="disableId" v-if="!pwValid">비밀번호 형식을 맞춰주세요</span>
 	                	<span class="ableId" v-else>올바른 형식의 비밀번호입니다</span>
@@ -161,11 +165,11 @@
                 
                 <div  v-else></div>
                 
-                <input type="text" class="w80" placeholder="활동할 닉네임을 입력해 주세요" v-model="info.nick"><button class="duplicationBtn" @click="fnNickCheck">중복 체크</button>
+                <input type="text" class="w80" maxlength="8" placeholder="닉네임을 입력해 주세요(8자이내)" v-model="info.nick"><button class="duplicationBtn" @click="fnNickCheck">중복 체크</button>
                 
                 
                 <p class="markEssential">전화번호</p>
-                <input type="tel" id="tel" @keypress="fnNumber" class="w100"  maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
+                <input type="tel" id="tel"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="w100"  maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
                 
                 
                 <p>이메일주소</p>
@@ -431,11 +435,8 @@ var app = new Vue({
     		console.log(roadAddrPart1);
     		console.log(addrDetail);
     		console.log(engAddr);
-    	 },
-    	 fnNumber : function(){
-    		 var self = this;
-    		 self.info.hp = self.info.hp.replace(/[^0-9.]/g,'').replace(/(\..*)\./g, '%1');
     	 }
+    	 
     	 
 
 		

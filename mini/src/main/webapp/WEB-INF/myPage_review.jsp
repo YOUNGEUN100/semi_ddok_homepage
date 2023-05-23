@@ -185,7 +185,7 @@
 	                       		<div class="star-ratings-fill space-x-2 text-lg" v-if="item.starAvg == 5">
 									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 								</div>
-								<div  class="star-ratings-fill space-x-2 text-lg" v-if="item.starAvg > 4">
+								<div  class="star-ratings-fill space-x-2 text-lg" v-else-if="item.starAvg > 4">
 									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 								</div>
 								<div class="star-ratings-fill space-x-2 text-lg" v-else-if="item.starAvg > 3">
@@ -209,6 +209,7 @@
 						
 
                         <div class="starBox" v-else>
+                        	<div>
 	                        <div class="star">
 	                        	<span>상품만족도</span>
 	                            <star-rating v-model="ratingProduct" v-bind:star-size="20" border-width="1.5" border-color="#eddc7d" inactive-color="#fff" ></star-rating>
@@ -221,6 +222,7 @@
 	                        	<span>배송만족도</span>
 	                            <star-rating v-model="ratingDelivery" v-bind:star-size="20" border-width="1.5" border-color="#eddc7d" inactive-color="#fff"></star-rating>
 	                            <button class="reviewBtn" @click="fnReviewAdd(item.productNo)">등록하기</button>
+	                        </div>
 	                        </div>
                         </div>
                     </div>    
@@ -250,7 +252,7 @@ var app = new Vue({
 		, ratingProduct : ""
 		, ratingRepurchase : ""
 		, ratingDelivery : ""
-
+		
 		
 				
     }
@@ -288,6 +290,7 @@ var app = new Vue({
 	            data : nparmap,
 	            success : function(data) {  
 	            	console.log(data);
+	            	self.fnReview();
 	            }
 	        }); 
     		
