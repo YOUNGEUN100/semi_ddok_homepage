@@ -183,7 +183,7 @@
                         		<span>이미지 순서를 입력해주세요 [imgName-순서] (예 : ImgName-01.jpg)</span><br>
                                 <input type="file" id="file2" name="file2" multiple>
                                 
-                                 <vue-editor v-model="info.content"></vue-editor>
+<!--                                  <vue-editor v-model="info.content"></vue-editor> -->
                             </div>
                             
 
@@ -210,8 +210,8 @@
 
     <script type="text/javascript">     
     	console.log(Vue);
-    	Vue.use(Vue2Editor);
-    	const VueEditor = Vue2Editor.VueEditor;
+//     	Vue.use(Vue2Editor);
+//     	const VueEditor = Vue2Editor.VueEditor;
     	
         var app = new Vue({
             el: '#app',
@@ -231,7 +231,7 @@
                 fundingNo: "${map.fundingNo}"
 
             }
-            , components: {VueEditor}
+//             , components: {VueEditor}
             , methods: {
             	//수정용 펀딩 정보
             	fnGetFunding: function () {

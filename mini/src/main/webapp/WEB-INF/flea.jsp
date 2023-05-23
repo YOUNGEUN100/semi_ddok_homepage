@@ -25,6 +25,7 @@
 			        <select v-model="orderValue" @change="fnChangeOrder">
 	                    <option value="recent">최신순</option>
 	                    <option value="viewCnt">조회수</option>
+	                    <option value="finishN">판매중</option>
 			        </select>
 			    </div>
 				<div class="flea_list">
@@ -45,7 +46,7 @@
 				                    <td class="sale_flg" v-if="item.finishYn=='N'">{{item.boardKind2}}</td>
 				                    <td class="sale_flg disabled" v-else>{{item.boardKind2}}</td>
 				                    <td class="address">{{item.addr}}</td>
-				                    <td class="title">{{item.title}} <span v-if="item.commentCnt != 0">[{{item.commentCnt}}]</span></td>
+				                    <td class="title">{{item.title}} <span>[{{item.commentCnt}}]</span></td>
 				                    <td class="user">{{item.nick}}</td>
 				                    <td class="date">{{item.cdatetime2}}</td>
 				                    <td class="viewCnt">{{item.hits}}</td>
@@ -72,6 +73,7 @@
                     <select v-model="orderValue2" @change="fnChangeOrder2">
                         <option value="recent">최신순</option>
                         <option value="viewCnt">조회수</option>
+                        <option value="finishN">나눔중</option>
                     </select>
 			    </div>
 			    <div class="flea_list">
