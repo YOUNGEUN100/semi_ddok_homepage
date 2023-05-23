@@ -115,7 +115,7 @@
 			</section>
 			
 			<!-- adminCtrlBox -- Don't touch -->
- 			<!-- <template>
+ 			<template>
 				<div v-if="sessionStatus=='A'" id="adminCtrlArea">
 					<i id="adminBtn" class="fa-solid fa-gear fa-spin styleBoxShadow styleHoverShadow"></i>
 					<div id="adminBox" class="styleBoxShadow">
@@ -124,7 +124,7 @@
 						</div>
 					</div>
 				</div>
-			</template> -->
+			</template>
 			<!-- adminCtrlBox -- Don't touch -->
         </div>
     </div>
@@ -166,6 +166,7 @@ var fleaList = new Vue({
         orderValue: "recent",
         orderValue2: "recent",
         sessionId: "${sessionId}",
+        sessionStatus : "${sessionStatus}",
         //<!-- 페이징 추가 5-->
         selectPage: 1,
         pageCount: 1,

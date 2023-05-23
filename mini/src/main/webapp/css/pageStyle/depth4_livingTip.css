@@ -1,0 +1,30 @@
+@charset "UTF-8"; 
+
+/***** (livingTip) --- START *****/
+
+#pageContent.livingTip .wrapper {max-width:840px;}
+
+
+/* livingTip */
+#pageContent.livingTip .cardList {display:flex; flex-wrap:wrap; justify-content:flex-start;}
+#pageContent.livingTip .cardList .cardThumb {width:calc((100% - 40px) / 3); margin-right:20px; margin-bottom:20px; cursor:pointer; overflow:hidden;}
+#pageContent.livingTip .cardList .cardThumb:nth-child(3n) {margin-right:0;}
+#pageContent.livingTip .cardList .cardThumb img {display:block; transition:all 0.15s ease-in;}
+#pageContent.livingTip .cardList .cardThumb:hover img {transform:scale(1.03);}
+
+
+/* typeView */
+#pageContent.livingTip.typeView .livingTipSection {position:relative; text-align:center; margin-top:-2.125em;}
+#pageContent.livingTip.typeView .livingTipSection .tip {display:inline-block; border-radius:20px; background:var(--main-colorGreen); line-height:1; color:var(--base-colorWhite); font-weight:500; margin-bottom:1.5em; padding:0.5em 1em;}
+#pageContent.livingTip.typeView .livingTipSection .tip i {margin-right:4px;}
+#pageContent.livingTip.typeView .livingTipSection .slideArea {position:relative; overflow:hidden;}
+#pageContent.livingTip.typeView .livingTipSection .slideArea .slideList {width:100%; white-space:nowrap; padding:0; font-size:0; transition:all .5s;}
+#pageContent.livingTip.typeView .livingTipSection .slideArea .slideList .slideItem {width:100%; display:inline-block; vertical-align:middle;}
+#pageContent.livingTip.typeView .livingTipSection .slideArea .slideList .slideItem img {width:100%; display:block; position:relative;}
+#pageContent.livingTip.typeView .livingTipSection .arrowArea {width:calc(100% + 8em); display:flex; flex-flow:row nowrap; justify-content:space-between; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
+#pageContent.livingTip.typeView .livingTipSection .arrowArea div {color:var(--base-colorDarkGray); font-size:3em; border-radius:50%; overflow:hidden; line-height:1; cursor:pointer;}
+#pageContent.livingTip.typeView .livingTipSection .arrowArea i {color:var(--base-colorDarkGray); transition:all 0.15s ease-in;}
+#pageContent.livingTip.typeView .livingTipSection .arrowArea div:hover i {color:var(--main-colorGreen);}
+
+
+/***** (livingTip) --- END *****/
