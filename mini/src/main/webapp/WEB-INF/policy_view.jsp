@@ -25,8 +25,8 @@
                     <div class="txt_box">
                     	<pre v-html="info.content"></pre>
                     </div>
-	               <div class="file_box">
-	               		<a v-if="info.filePath" class="attached" @click="fnOpenFile()">
+	               <div class="file_box" v-if="info.filePath">
+	               		<a class="attached" @click="fnOpenFile()">
 	               			<i class="fa-regular fa-folder fa-sm"></i> 첨부파일
 	               		</a>
 	               </div>

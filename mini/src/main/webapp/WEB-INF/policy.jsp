@@ -19,13 +19,13 @@
 					<option value="cul">문화</option>
 				</select>
 			    <table>
-		            <tr class="list_item styleBoxShadow styleHoverShadow " v-for="(item, index) in list">
+		            <tr class="list_item styleBoxShadow styleHoverShadow " v-for="(item, index) in list" @click="fnViewCom(item.boardNo)">
 		                <td class="cate">
 		                	<span class="cateBox">
 			                	<span>#</span>{{item.category}}
 			                </span>
 		                </td>
-		                <td class="title" @click="fnViewCom(item.boardNo)">
+		                <td class="title">
 		                    {{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i>
 		                </td>
 		                <td class="date"><i class="fa-solid fa-calendar-days"></i> {{item.cdatetime}}</td>

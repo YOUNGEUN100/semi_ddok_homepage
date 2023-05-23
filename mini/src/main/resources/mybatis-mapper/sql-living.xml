@@ -22,6 +22,7 @@
 					FROM T4_CARDIMG
             		WHERE THUMBNAIL_YN = 'Y' OR CARD_INDEX = 1)B ON A.CARD_NO = B.CARD_NO
             WHERE DELETE_YN = 'N'
+            ORDER BY CARD_NO DESC
 			LIMIT #{startNum}, 9
 
 		</select>
