@@ -176,6 +176,12 @@ public class SmartMarketServiceImpl implements SmartMarketService{
 		
 	}
 
+	@Override
+	public void removeProduct(HashMap<String, Object> map) {
+		smartmarketMapper.deleteProduct(map);
+		
+	}
+
 	
 	
 	

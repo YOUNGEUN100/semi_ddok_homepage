@@ -200,6 +200,16 @@ public class SmartMarketController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	//상품 삭제
+	@RequestMapping(value = "/smartmarket/delete.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String removeProduct(Model model, @RequestParam  HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		smartmarketService.removeProduct(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}	
+	
 	//상품 이미지 등록
 	@RequestMapping(value = "/addProductImage.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

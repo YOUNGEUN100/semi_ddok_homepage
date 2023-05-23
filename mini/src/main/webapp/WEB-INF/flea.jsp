@@ -115,16 +115,17 @@
 			</section>
 			
 			<!-- adminCtrlBox -- Don't touch -->
- 			<template>
+ 			<!-- <template>
 				<div v-if="sessionStatus=='A'" id="adminCtrlArea">
 					<i id="adminBtn" class="fa-solid fa-gear fa-spin styleBoxShadow styleHoverShadow"></i>
 					<div id="adminBox" class="styleBoxShadow">
 						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
 						<div class="btnSet">
+							<button class="addBtn" @click="fnAddFunding">등록</button>
 						</div>
 					</div>
 				</div>
-			</template>
+			</template> -->
 			<!-- adminCtrlBox -- Don't touch -->
         </div>
     </div>
@@ -166,7 +167,6 @@ var fleaList = new Vue({
         orderValue: "recent",
         orderValue2: "recent",
         sessionId: "${sessionId}",
-        sessionStatus : "${sessionStatus}",
         //<!-- 페이징 추가 5-->
         selectPage: 1,
         pageCount: 1,
@@ -266,17 +266,18 @@ var fleaList = new Vue({
 		        moreBtn.innerText = "접기";
 		    } else if (self.moreBtn == "on") {
 		        document.getElementById('page').style.display = 'none';
+		        self.moreBtn = "off"
+		        
 		        var liList = $(".pagination").children();
 		        for (var i = 0; i < liList.length; i++) {
 		            liList.eq(i).removeClass("active");
+		            liList.eq(i).removeClass("disabled");
 		        }
+		        liList.eq(0).addClass("disabled");
 		        liList.eq(1).addClass("active");
 		        self.fnSearch(1);
-//  		        self.selectPage = 1;
-//  		            self.pageCount = 1;
-//  		            self.cnt = 0;
-		        self.moreBtn = "off"
-		        self.fnGetFleaList();
+		        
+		        //self.fnGetFleaList();
 		        moreBtn.innerText = "더보기";
 		    }
 		}
@@ -290,17 +291,16 @@ var fleaList = new Vue({
 	            moreBtn2.innerText = "접기";
 	        } else if (self.moreBtn2 == "on") {
 	            document.getElementById('page2').style.display = 'none';
+	            self.moreBtn2 = "off";
+	            
 		        var liList = $(".pagination2").children();
 		        for (var i = 0; i < liList.length; i++) {
 		            liList.eq(i).removeClass("active");
 		        }
 		        liList.eq(1).addClass("active");
 		        self.fnSearch2(1);
-//  		        self.selectPage2 = 1;
-//  	            self.pageCount2 = 1;
-//  	            self.cnt2 = 0;
-	            self.moreBtn2 = "off";
-	            self.fnGetFleaList2();
+
+	            //self.fnGetFleaList2();
 	            moreBtn2.innerText = "더보기";
 	        }
 	    }
@@ -313,10 +313,8 @@ var fleaList = new Vue({
 	        }
 	        liList.eq(1).addClass("active");
 	        self.fnSearch(1);
-// 	        self.selectPage = 1;
-//  	       	self.pageCount = 1;
-//             self.cnt = 0;  
-          	self.fnGetFleaList();
+
+          	//self.fnGetFleaList();
             
 	    }
 	    // 나눔글 카테고리 변경
@@ -328,10 +326,8 @@ var fleaList = new Vue({
 	        }
 	        liList.eq(1).addClass("active");
 	        self.fnSearch2(1);
-//  	        self.selectPage2 = 1;
-//              self.pageCount2 = 1;
-//              self.cnt2 = 0;
-             self.fnGetFleaList2();
+
+            //self.fnGetFleaList2();
 	    }
 	    // 랜선장터 글 보기
 	    , fnViewFlea: function (boardNo) {

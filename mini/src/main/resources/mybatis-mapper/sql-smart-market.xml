@@ -395,6 +395,13 @@
 				AND USER_ID = #{userid}
 			</if>
 		</select>
+		
+		<!-- 상품삭제 -->
+		<update id="deleteProduct" parameterType="hashmap">
+			UPDATE T4_PRODUCT
+			SET DELETE_YN = 'Y'
+			WHERE PRODUCT_NO = #{productNo}
+		</update>
 
 		
 				

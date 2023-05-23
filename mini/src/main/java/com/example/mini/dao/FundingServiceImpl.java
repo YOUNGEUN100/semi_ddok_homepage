@@ -179,6 +179,12 @@ public class FundingServiceImpl implements FundingService {
 		fundingMapper.editFunding(map);		
 	}
 	
+	@Override // 펀딩 삭제
+	public void removeFunding(HashMap<String, Object> map) {
+		fundingMapper.deletefunding(map);
+		
+	}
+	
 	@Override // 펀딩 이미지 리스트
 	public List<Funding> searchFundingImg(HashMap<String, Object> map) {
 		List<Funding> imgList = fundingMapper.selectFundingImg(map);
@@ -205,6 +211,8 @@ public class FundingServiceImpl implements FundingService {
 		fundingMapper.insertFleaFile(map);
 		
 	}
+
+
 
 	
 

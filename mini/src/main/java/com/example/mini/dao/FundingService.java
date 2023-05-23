@@ -76,6 +76,8 @@ public interface FundingService {
 	// 펀딩 등록	
 	void addFunding(HashMap<String, Object> map);
 	
+
+	
 	// 펀딩 수정
 	void modifyFunding(HashMap<String, Object> map);
 	
@@ -93,5 +95,7 @@ public interface FundingService {
 	
 	// 랜선펀딩 첨부파일 등록
 	void addFleaFile(HashMap<String, Object> map);
+
+	void removeFunding(HashMap<String, Object> map);
 
 }

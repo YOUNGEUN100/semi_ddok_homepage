@@ -83,6 +83,20 @@
 			        </paginate>
 			    </template>
 			</section>
+						<!-- adminCtrlBox -- Don't touch -->
+			<template>
+				<div v-if="sessionStatus=='A'" id="adminCtrlArea">
+					<i id="adminBtn" class="fa-solid fa-gear fa-spin styleBoxShadow styleHoverShadow"></i>
+					<div id="adminBox" class="styleBoxShadow">
+						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
+						<div class="btnSet">
+							
+							<button class="delBtn" @click="fndelete">삭제</button>
+						</div>
+					</div>
+				</div>
+			</template>
+			<!-- adminCtrlBox -- Don't touch -->
 		</div>
 	</div>
 </div>
@@ -116,6 +130,7 @@ var marketView = new Vue({
         , reviewlist: {}
         , productNo: "${map.productNo}"
         , sessionId: "${sessionId}"
+        , sessionStatus: "${sessionStatus}"
         , productName: ""
         , isOpen: false
         , selectedItems: []
@@ -210,6 +225,23 @@ var marketView = new Vue({
             };
             selectedItems.push(nparmap);
             self.pageChange("/order.do", { selectedItems: selectedItems });
+        }
+        
+        // 상품 삭제
+        , fndelete: function () {
+        	var self = this;
+        	var nparmap = { productNo: self.productNo};
+            $.ajax({
+                url: "/smartmarket/delete.dox",
+                dataType: "json",
+                type: "POST",
+                data: nparmap,
+                success: function (data) {
+                    alert("삭제완료.");
+                    location.href = "/market.do";
+                }
+            });
+        	
         }
         // 주소 복사
         , fnClip: function () {

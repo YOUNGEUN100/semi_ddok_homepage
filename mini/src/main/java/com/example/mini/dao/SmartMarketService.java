@@ -44,6 +44,9 @@ public interface SmartMarketService {
 	//상품 등록
 	HashMap<String, Object> addProduct(HashMap<String, Object> map);
 	
+	//상품 삭제
+	void removeProduct(HashMap<String,Object>map);
+	
 	//상품 이미지 등록
 	void addProductImage(HashMap<String, Object> map);
 	

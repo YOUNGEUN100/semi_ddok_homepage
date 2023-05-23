@@ -49,6 +49,9 @@ public interface SmartMarketMapper {
 	//상품입력
 	void insertSmartMarket(HashMap<String,Object>map);
 	
+	//상품삭제
+	void deleteProduct(HashMap<String,Object>map);
+	
 	//제품 목록
 	List<Code> selectSmartMarketKind(HashMap<String, Object> map);
 	

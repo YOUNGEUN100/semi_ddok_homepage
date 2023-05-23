@@ -321,6 +321,17 @@ public class FundingController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	// 펀딩 삭제
+	@RequestMapping(value = "/funding/delete.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String removeFunding(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		fundingService.removeFunding(map);
+
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
 	// 펀딩 이미지 삭제
 	@RequestMapping(value = "/funding/removeimg.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

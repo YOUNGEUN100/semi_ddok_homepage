@@ -95,6 +95,9 @@ public interface FundingMapper {
 	// 펀딩 등록
 	void insertFunding(HashMap<String, Object> map);
 	
+	// 펀딩 삭제
+	void deletefunding(HashMap<String, Object> map);
+	
 	// 펀딩 수정
 	void editFunding(HashMap<String, Object> map);
 	
