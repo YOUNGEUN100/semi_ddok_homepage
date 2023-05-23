@@ -179,7 +179,7 @@ var policyView = new Vue({
         // 파일 다운로드
         , fnOpenFile: function () {
             var self = this;
-			var filename2 = self.info.saveName;
+			var filename = self.info.saveName;
 			var url = "/download/" + filename; 
 			
 			var link = document.createElement("a");
