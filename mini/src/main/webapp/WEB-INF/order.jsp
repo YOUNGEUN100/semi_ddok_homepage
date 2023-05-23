@@ -277,7 +277,7 @@
 	                                    <td id="td11" rowspan="2"></td>		
 	                                    <td id="td12" rowspan="2"><img :src="item.imgPath" id="img_size"></td>
 	                                    <td id="td13">{{item.productName}}</td>
-	                                    <td id="td14" rowspan="2"><input type="text" id="item.cartNo" :value="item.productPrice*item.productCnt | numberFormat()" size="5" disabled></td>
+	                                    <td id="td14" rowspan="2">{{item.productPrice*item.productCnt | numberFormat()}} 원</td>
 	                                    <td id="td16" rowspan="2">0원</td>
 	                                </tr>
 	                                <tr id="tr11">
