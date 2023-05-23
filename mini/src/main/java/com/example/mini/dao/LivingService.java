@@ -44,5 +44,8 @@ public interface LivingService {
 	
 	// 댓글 삭제
 	void removeComment(HashMap<String, Object> map);
+	
+	// 파일 등록
+	void addpFile(HashMap<String,Object>map);
 
 }

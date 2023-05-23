@@ -60,4 +60,7 @@ public interface LivingMapper {
 	
 	// 정책 댓글 삭제
 	void deleteComment(HashMap<String, Object> map);
+	
+	// 파일 등록
+	void insertpFile(HashMap<String,Object>map);
 }

@@ -99,6 +99,11 @@ public class LivingServiceImpl implements LivingService{
 		livingMapper.deleteComment(map);
 	}
 
+	@Override
+	public void addpFile(HashMap<String, Object> map) {
+		livingMapper.insertpFile(map);
+	}
+
 
 
 }

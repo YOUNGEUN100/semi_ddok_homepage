@@ -176,10 +176,18 @@ var policyView = new Vue({
             var self = this;
             self.pageChange("/policy/edit.do", { boardNo: self.boardNo });
         }
+        // 파일 다운로드
         , fnOpenFile: function () {
             var self = this;
-            console.log(self.info.filePath);
-            window.open(self.info.filePath);
+			var filename2 = self.info.saveName;
+			var url = "/download/" + filename; 
+			
+			var link = document.createElement("a");
+			link.href = url;
+			link.download = filename;
+			link.target = "_blank";
+			
+			link.click();
         }
     }
     , created: function () {

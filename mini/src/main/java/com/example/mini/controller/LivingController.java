@@ -1,19 +1,27 @@
 package com.example.mini.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.mini.dao.CommunityService;
 import com.example.mini.dao.LivingService;
 import com.example.mini.model.Living;
 import com.google.gson.Gson;
@@ -29,8 +37,7 @@ public class LivingController {
 	@Autowired
 	private LivingService livingService;
 	
-	@Autowired
-	private CommunityService communityService;
+
 
 	@Autowired
 	HttpSession session;
@@ -242,7 +249,7 @@ public class LivingController {
 	                map.put("fileKind",extName);
 	                
 	                // insert 쿼리 실행
-	                communityService.addFile(map); 
+	                livingService.addpFile(map);
 	                
 	           model.addAttribute("orlgName", multi.getOriginalFilename());
 	           model.addAttribute("saveName",saveName);
@@ -256,6 +263,41 @@ public class LivingController {
 	        }
 	        return "redirect:../policy.do";
 	    }
+	 
+	 private static final String FILE_DIRECTORY_P = System.getProperty("user.dir") + "/src/main/webapp/images/policy/";
+
+	    @GetMapping("/download/{filename}")
+	    public ResponseEntity<Resource> downloadFileP(@PathVariable String filename, HttpServletRequest request) throws IOException {
+	        // 파일 경로 생성
+	        Path filePath = Paths.get(FILE_DIRECTORY_P, filename);
+	        Resource resource = new org.springframework.core.io.UrlResource(filePath.toUri());
+
+	        // 파일이 존재하는지 확인
+	        if (!resource.exists()) {
+	            throw new IllegalArgumentException("파일을 찾을 수 없습니다: " + filename);
+	        }
+
+	        // 다운로드할 파일의 MIME 타입 설정
+	        String contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+
+	        // MIME 타입이 알 수 없는 경우 기본값 설정
+	        if (contentType == null) {
+	            contentType = "application/octet-stream";
+	        }
+
+	        // 다운로드할 파일에 대한 헤더 설정
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(MediaType.parseMediaType(contentType));
+	        headers.setContentDispositionFormData("attachment", filename);
+
+	        // 파일을 ResponseEntity로 래핑하여 반환
+	        return ResponseEntity.ok()
+	                .headers(headers)
+	                .body(resource);
+	    }
+	 
+	 
+	 
 
 	 // 카드정보 파일 업로드
 	 @RequestMapping("/livingTip/fileUpload.dox")
