@@ -336,8 +336,10 @@
 				IMG_ORG_NAME,
 				IMG_PATH,
 				THUMBNAIL_YN,
-				COOK_INDEX)
-			VALUES(NULL, #{recipeNo}, #{orlgName}, #{images}, 'N', #{cookIndex})
+				COOK_INDEX,
+				COOK_CONTENT,
+				CDATETIME)
+			VALUES(NULL, #{recipeNo}, #{orlgName}, #{images}, 'N', #{cookIndex}, #{cookContent},NOW())
 		</insert>
 		<!-- 요리과정 글 INSERT -->
 		<update id="updateCookContent" parameterType="hashmap">

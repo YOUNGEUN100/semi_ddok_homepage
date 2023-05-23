@@ -215,12 +215,13 @@ var recipeEdit = new Vue({
 						var form = new FormData();
 						form.append( "file2",  $("#file" + i)[0].files[0]);
 						form.append( "recipeNo",  data.recipeNo); // pk
+						form.append( "cookContent", self.contentList[0]);
 						//form.append("cookIndex", self.cnt);
 						//form.append("cookContent", self.cookContent);
 						//console.log(form);
 						console.log("fnEnroll의 i");
 						console.log(i);
-						self.uploadCook(form, i-1); 
+						self.uploadCook(form); 
 					}
 					
 					alert("등록되었습니다!");
@@ -269,7 +270,7 @@ var recipeEdit = new Vue({
 	        });
 	    },
 	 // 요리과정 이미지 업로드
-    	uploadCook : function(form, num){
+    	uploadCook : function(form){
     		var self = this;
          	$.ajax({
             	url : "/cook/fileUpload.dox",
@@ -277,32 +278,30 @@ var recipeEdit = new Vue({
 	           	processData : false,
 	           	contentType : false,
 	           	data : form,
-	           	success:function(response) { 
-	           		console.log("uploadCook의 num");
-	           		console.log(num);
-	           		self.fnCookContent(num);
+	           	success:function(response) {
+	           		//self.fnCookContent(num);
           		 }
        		});
          	
 		},
 		// 요리과정 글 업로드
-		fnCookContent : function(num) {
-            var self = this;
-            var cookNum = num;
-            console.log("cookNum은");
-            console.log(cookNum);
-            var nparmap = {recipeNo: self.info.recipeNo, cookIndex: cookNum, cookContent: self.cookContent}
-	        $.ajax({
-	            url: "/cook/content.dox",
-	            dataType:"json",	
-	            type : "POST", 
-	            data : nparmap,
-	            success : function(data) {  
-	            	console.log("fnCookContent의 num");
-	            	console.log(num);
-	            }
-	        }); 
-        },
+// 		fnCookContent : function(num) {
+//             var self = this;
+//             var cookNum = num;
+//             console.log("cookNum은");
+//             console.log(cookNum);
+//             var nparmap = {recipeNo: self.info.recipeNo, cookIndex: cookNum, cookContent: self.cookContent}
+// 	        $.ajax({
+// 	            url: "/cook/content.dox",
+// 	            dataType:"json",	
+// 	            type : "POST", 
+// 	            data : nparmap,
+// 	            success : function(data) {  
+// 	            	console.log("fnCookContent의 num");
+// 	            	console.log(num);
+// 	            }
+// 	        }); 
+//         },
 		// 레시피 번호 중복 확인
 	    fnCheck : function(){
 	   	 	var self = this;
