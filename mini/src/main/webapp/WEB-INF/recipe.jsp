@@ -118,7 +118,6 @@
 
 <script type="text/javascript">
 Vue.component('paginate', VuejsPaginate)
-	 
 var recipeList = new Vue({ 
 	el: '#recipeList',
 	data: {
@@ -184,7 +183,6 @@ var recipeList = new Vue({
 					 self.selectPage = "1"; // 선택 페이지 초기화
 				}
 			})
-			
 		} 
 		// 목적별 리스트 가져오기
 		,fnGetRecipeListPur : function(item) {

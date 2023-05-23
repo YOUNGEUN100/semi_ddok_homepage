@@ -5,8 +5,6 @@
 
 <link rel="stylesheet" href="/css/pageStyle/depth3_recipe.css">
 
-<style></style>
-
 <!-- pageContent -- START -->
 <div id="printarea">
 <div id="pageContent" class="recipe typeView">

@@ -5,438 +5,85 @@
 <script src="https://unpkg.com/vuejs-paginate@latest"></script>
 <script src="https://unpkg.com/vuejs-paginate@0.9.0"></script>
 
-<style>
-<!-- 페이징 추가 2-->
-	.pagination {
-        margin:24px;
-        display: inline-flex;
-        
-    }
-    ul {
-        text-align: center;
-    }
-	.pagination li {
-	    min-width:32px;
-	    padding:2px 6px;
-	    text-align:center;
-	    margin:0 3px;
-	    border-radius: 6px;
-	    border:1px solid #eee;
-	    color:#666;
-	    display : inline;
-	}
-	.pagination li:hover {
-	    background: #E4DBD6;
-	}
-	.page-item a {
-	    color:#666;
-	    text-decoration: none;
-	}
-	.pagination li.active {
-	    background-color : #E7AA8D;
-	    color:#fff;
-	}
-	.pagination li.active a {
-	    color:#fff;
-	}
-	.style_inline{
-		display: inline;
-	}
-	.mypage{
-		
-	}
-	
-	
-	
-	
-	 #wrapper{
-            
-            width: 1200px;
-            height: auto;
-            border: 1px solid #ccc;
-            /*background-image: url(./images/smart_market_view.jpg);*/
-            background-position: center;
-            opacity: 1;
-            
-            
-        }
-
-		.smartmarket{
-			display: grid;
-			justify-content: normal;
-			grid-template-columns: repeat(2, 1fr);/*1:1:1의 비율을 가지는 3개의 비율 fr은 비율*/
-		}
-        .smartmarket .smart_img{
-            margin-top: 65px;
-            width: 500px;
-            height: 524px;
-            
-            
-        }
-        .smartmarket #smart_img{
-            width: 500px;
-            height: 524px;
-        }
-        .smartmarket .smart_txt{
-            margin-top: 42px;
-            width: 695px;
-            height: 524px;
-            display: inline-block;
-            
-        }
-
-        .smart_empth1{
-            height: 70px;
-        }
-
-        .smart_title{
-            height: 150px;  
-            margin-left: 73px;
-            background-color: rgb(245, 240, 240);
-        }
-        .font_title{
-            font-size: 35px;
-            font-weight: bold;
-        }
-        .star{
-            width: 20px;
-        }
-        .star_position{
-            margin-top: 10px;
-        }
-        .font_grade{
-            font-size: 18px;
-        }
-        .font_script{
-            font-size: 18px;
-            margin-top: 25px;            
-        }
-        .smart_empth2{
-            height: 55px;
-        }
-        .smart_price{
-            height: 35px;
-            margin-left: 73px;
-            background-color: #eee;
-        }
-        .font_price1{
-            font-weight: bold;
-            font-size: 20px;
-        }
-        .font_price2{
-            font-weight: bold;
-            font-size: 25px;
-            color: rgb(117, 158, 57);
-        }
-
-        .font_price3{
-            font-weight: bold;
-            font-size: 20px;
-            
-        }
-        .smart_empth3{
-            height: 27px;
-        }
-        .smart_cnt{
-            height: 40px;
-            margin-left: 73px;
-            margin-top: 5px;
-            background-color: #eee;
-        }
-        .font_cnt{
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .input_cnt{            
-            padding-left: 130px;
-            font-size: 30px;                        
-        }
-        .font_cnt2{
-            font-size: 20px;
-            padding-left: 20px;
-        }
-        
-        .smart_empth4{
-            height: 70px;            
-        }
-        .smart_button{
-            height: 70px;
-            margin-left: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: aliceblue;
-        }
-        .btn_buy{
-            
-            margin-top: 10px;
-            width: 280px;
-            height: 60px;
-            background-color: green;
-            color: white;
-            font-size: 23px;
-            font-weight: bold;
-            border-radius: 15px;
-        }
-
-        .btn_cart{
-            margin-left: 20px;
-            margin-top: 10px;
-            width: 280px;
-            height: 60px;
-            background-color: gray;
-            color: white;
-            font-size: 23px;
-            font-weight: bold;
-            border-radius: 15px;
-            
-        }
-        .share{
-            width: 40px;
-            height: 40px;
-            margin-left: 20px;
-            vertical-align:auto;
-            
-            
-        }
-
-        .product_review_title{
-            margin-top: 80px;
-            height: 62px;
-            width: 100%;
-            //float: left;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            
-         
-        }
-
-        .product_review_title .btn_product_script_top{
-            font-size: 20px;
-            font-weight: bold;
-            width: 50%;
-            height: 100%;
-            text-align: center;
-            line-height : 55px;
-            border-top: 1px solid #ccc;
-            
-        }
-        .product_review_title .btn_review_script_top{
-            font-size: 20px;
-            font-weight: bold;
-            background-color: #ccc;
-            width : 50%;
-            height: 100%;
-            text-align: center;
-            line-height : 55px;
-            background-color: #ccc;
-        }
-
-        .product_review_title .btn_product_script_bottom{
-            font-size: 20px;
-            font-weight: bold;
-            background-color: #ccc;
-            width : 50%;
-            height: 100%;
-            text-align: center;
-            line-height : 55px;
-            background-color: #ccc;
-        }        
-        
-        .product_review_title .btn_review_script_bottom{
-            font-size: 20px;
-            font-weight: bold;
-            width: 50%;
-            height: 100%;
-            text-align: center;
-            line-height : 55px;
-            border-top: 1px solid #ccc;
-        }
-
-        .product_script{
-            
-            margin-top: 28px;
-            height: auto;
-            width: 100%;
-            clear:both;
-            display:block;
-            border: 1px solid red;            
-        }
-        
-        .btn_all_view{
-            margin-top: 10px;
-            //float: left;
-            width: 100%;
-            height: 70px;
-        }
-        #btn_all_view{
-            width:100%;
-            height: 70px;
-            border-radius: 10px;
-            font-size: 30px;
-            color: white;
-            background-color: #777;
-        }
-        .product_script_detail{
-            //float: left;
-            display: none;
-        }
-
-        #btn_all_hidden{
-            width:100%;
-            height: 70px;
-            border-radius: 10px;
-            font-size: 30px;
-            color: white;
-            background-color: #777;
-            display: none;
-        }
-        .smart_empth5{
-            height: 5px;
-            width: 100%;            
-            //float: left;
-        }
-        .smart_empth6{
-            height: 50px;
-            width: 100%;            
-            //float: left;
-        }
-
-        table, td, th {
-          
-          border-collapse: collapse;
-          background: #eee;
-          border : 1px solid #ccc;
-          
-        }
-        td, th {
-          padding:10px 20px;
-        }
-        td{
-          width:1200px;
-        }
-        tr{
-            height: 130px;
-        }
-
-        .table1{
-        	//float: left;
-            padding-top: 20px;            
-                        
-        }
-        
-        .img_rec{        	
-	        position: absolute;
-	        clip: rect( 0px, 780px, 900px, 0px );
-        }
-
-        /* style END */ 
-</style>
-
+<link rel="stylesheet" href="/css/pageStyle/depth3_market.css">
 
 <!-- pageContent -- START -->
-<div id="pageContent">
+<div id="pageContent" class="market typeView">
 	<div class="wrapper">
-        <!-- wrap START -->
-    
-        <div id="app">
+		<div id="marketView" class="marketViewContainer">
+            <section class="marketInfoSection">
+                <div class="marketThumbArea styleBoxRound styleBoxShadow">
+                	<img :src="info.imgPath">
+                </div>
+                <div class="marketInfoArea">
+                    <div class="infoBox typeBoxArea styleBoxRound styleBoxShadow">
+	                    <div class="infoTxt">
+	                    	<h3 class="title">{{info.productName}}</h3>
+	                    	<p class="review"><i class="fa-solid fa-star"></i> {{(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)/3 |  numberFormat(1)}}</p>
+	                    	<p class="summary">{{info.content}}</p>
+	                    </div>
+                        <div class="infoPrice">
+                            <span>판매가</span>
+			                <span class="price">{{info.productPrice | numberFormat()}}원 </span>
+			                <span class="weight">(100{{info.productVolume}}당 {{info.productPrice*100 / info.productWeight*info.productEa | numberFormat()}}원)</span>
+                        </div>
+			            <div class="infoCount">
+			            	<span class="name">수량</span>
+			                <span class="count"><input class="input_cnt" type="number" min="1" max="3" v-model="productCnt"></span>
+			                <span class="nowCnt">현재 {{info.productStock}}개 남았어요!</span>
+			            </div>
+                    </div>
+                    <div class="marketButtonBox">
+                    	<button class="buyBtn styleBoxShadow styleHoverShadow" @click="fnOrder">구매하기</button>
+						<button class="cartBtn styleBoxShadow styleHoverShadow" @click="fnCart(info.productNo)">장바구니담기</button>
+						<button class="shareBtn styleBoxShadow styleHoverShadow" @click="fnClip"><i class="fa-solid fa-share-nodes"></i></button>
+                    </div>
+                </div>
+            </section>
         
-	        <div class="smartmarket">
-		        <div class="smart_img smart1"><img id="smart_img" :src="info.imgPath"></div>
-		        <div class="smart_txt smart1">
-	        
-		            <div class="smart_empth1"></div>
-		            <div class="smart_title">
-		                <span class="font_title">{{info.productName}}</span>
-		                <div class="star_position">
-		                    <img class="star" src="/images/star.png">
-		                    <span class="font_grade">{{(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)/3 |  numberFormat(1)}}</span>
-		                </div>
-		                <div class="font_script">{{info.title}}</div>
-		            </div>
-		            <div class="smart_empth2"></div>
-		            <div class="smart_price">
-		                <span class="font_price1">판매가</span>
-		                <span class="font_price2">{{info.productPrice | numberFormat()}}원 </span>
-		                <span class="font_price3">(100{{info.productVolume}}당 {{info.productPrice*100 / info.productWeight*info.productEa | numberFormat()}}원)</span>
-		            </div>   
-		            <div class="smart_empth3"></div>
-		            <div class="smart_cnt">
-		                <span class="font_cnt">개수 </span><input class="input_cnt" type="number" min="1" max="3" v-model="productCnt">
-		                <span class="font_cnt2"> 현재 {{info.productStock}}개남았어요!</span>
-		            </div>
-		            <div class="smart_empth4"></div>
-		            <div class="smart_button">
-		                <button class="btn_buy" @click="fnOrder">구매하기</button>
-		                <button class="btn_cart" @click="fnCart(info.productNo)">장바구니담기</button>
-		                <a href="javascript:clip2();"><img class="share" src="/images/share.png" ></a>
-		            </div>
-            	</div>
-        </div>
+			<section id="typeProduct" class="marketTabSection styleBoxRound styleBoxShadow">
+			    <div class="productScrollBtn active">상품설명</div>
+			    <div class="reviewScrollBtn">후기</div>
+			</section>
+			
+			<section class="productDetailSection">
+				<div class="imgAlign" id="detailShowBox">
+					<img :src="item.imgPath" v-for="(item, index) in imglist">
+				</div>
+				<div class="detailShowBtn"><button class="showBtn" id="showBtn" @click="show">펼쳐보기</button></div>
+			</section>
         
-        <div class="product_review_title">
-            <div class="btn_product_script_top">상품설명</div>
-            <div class="btn_review_script_top"><a id="product_discript_move" href="#product_discript" name="product_review">후기</a></div>
-        </div>
-        <!--  div class="product_script"><img src="/images/1_VER.jpg" class="img_rec" style="width:780px;"></div-->
-        
-        	
-        	
-        <div class="product_script" v-for="(item, index) in imglist" >
-        	<img  :src="item.imgPath" class="img_rec" style="width:780px;">
-        </div>
-        
-        
-        
-        <div class="btn_all_view"><button id="btn_all_view">펼쳐보기</button></div>
-        <div class="product_script_detail" id="product_script_detail">            
-        </div>
-        <div class="btn_all_hidden"><button id="btn_all_hidden">접어보기</button></div>
-
-
-        <div class="product_review_title" >
-            <div class="btn_product_script_bottom"><a href="#product_review" name="product_discript">상품설명</a></div>
-            <div class="btn_review_script_bottom">후기</div>
-        </div>
-        
-        <div class="table1" >
-            <table class="table2"> 
-                <tr v-for="(item, index) in list" >
-                    <td>{{item.cdatetime}} </td>
-                    <td>{{item.productName}}</td>
-                    <td>
-	                    <img class="star" src="/images/star.png">
-	                    <span class="font_grade">{{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 |  numberFormat(1)}}</span>
-	                    <br>상품만족도 <img class="star" src="/images/star.png"> {{item.satisfactionGrade}} 
-	                    <br>상품만족도 <img class="star" src="/images/star.png"> {{item.repurchaseGrade}}
-	                    <br>상품만족도 <img class="star" src="/images/star.png"> {{item.deliveryGrade}}
-                    </td>
-                    <td>{{item.nick}}</td>                    
-                </tr>                
-            </table>
-            
-            <!-- 페이징 추가 3-->
-				<template>
-				  <paginate
-				    :page-count="pageCount"
-				    :page-range="3"
-				    :margin-pages="2"
-				    :click-handler="fnSearch"
-				    :prev-text="'<'"
-				    :next-text="'>'"
-				    :container-class="'pagination'"
-				    :page-class="'page-item'">
-				  </paginate>
-				</template>
-				
-				
-        </div>
-        
-    </div>
-
-
-    <!-- wrap END -->
+			<section id="typeReview" class="marketTabSection styleBoxRound styleBoxShadow">
+			    <div class="productScrollBtn">상품설명</div>
+			    <div class="reviewScrollBtn active">후기</div>
+			</section>
+			
+			<section class="reviewSection">
+				<details class="reviewItem styleBoxRound styleBoxShadow styleHoverShadow" v-for="(item, index) in list">
+				    <summary class="reviewSummary">
+				    	<div class="rDate">{{item.cdatetime}}</div>
+				    	<div class="rProduct">{{item.productName}}</div>
+				    	<div class="rTotal">
+				    		<i class="fa-solid fa-star"></i> 
+				    		{{(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)/3 | numberFormat(1)}}
+				    	</div>
+				    	<div class="rUser"><i class="fa-solid fa-user"></i> {{item.nick}}</div>
+				    </summary>
+				    <div class="reviewDetail">
+				    	<div class="typeSa">상품 만족도 <span><i class="fa-solid fa-star"></i> {{item.satisfactionGrade}}</span></div>
+				    	<div class="typeDe">배송 만족도 <span><i class="fa-solid fa-star"></i> {{item.deliveryGrade}}</span></div>
+				    	<div class="typeRe">재구매 의사 <span><i class="fa-solid fa-star"></i> {{item.repurchaseGrade}}</span></div>
+				    </div>
+				</details>
+			
+			    <!-- 페이징 추가 3-->
+			    <template>
+			        <paginate :page-count="pageCount" :page-range="3" :margin-pages="2" :click-handler="fnSearch" :prev-text="'<'"
+			            :next-text="'>'" :container-class="'pagination'" :page-class="'page-item'">
+			        </paginate>
+			    </template>
+			</section>
+		</div>
 	</div>
 </div>
 <!-- pageContent -- END -->
@@ -445,251 +92,196 @@
 
 
 <script type="text/javascript">
+var btn = "N";
+function show() {
+    if (btn == "N") {
+        self.btn = "Y";
+        document.getElementById('detailShowBox').classList.add('show');
+        showBtn.innerText = "접기";
+    } else {
+        document.getElementById('detailShowBox').classList.remove('show');
+        showBtn.innerText = "펼쳐보기";
+        self.btn = "N";
+    }
+}
+
 <!-- 페이징 추가 4-->
 Vue.component('paginate', VuejsPaginate)
+var marketView = new Vue({
+    el: '#marketView',
+    data: {
+        list: []
+        , info: {}
+        , imglist: {}
+        , reviewlist: {}
+        , productNo: "${map.productNo}"
+        , sessionId: "${sessionId}"
+        , productName: ""
+        , isOpen: false
+        , selectedItems: []
+        , productCnt: 1
 
-
-    var app = new Vue({ 
-        el: '#app',
-        data: {
-	        list : [] 
-	        , info : {}
-	        , imglist : {}
-	        , reviewlist : {}
-	        , productNo : "${map.productNo}"
-	        , sessionId : "${sessionId}"
-	        , productName : ""
-	        , isOpen : false
-	        , selectedItems : []
-	        , productCnt : 1
-	        
-	        	<!-- 페이징 추가 5-->
-			, selectPage: 1
-			, pageCount: 1
-			, cnt : 0
-            
-        }
-    
-    	,filters: {
-            numberFormat: (value, numFix) => {
-                value = parseFloat(value);
-                if (!value) return '0';
-                return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-            },
-        }   
-        , methods: {
-            
-            fnGetList : function(){
-                var self = this;
-                var nparmap = {productNo : self.productNo, sessionId : self.sessionId};
-                
-				
-
-                //상품정보
-                $.ajax({
-                    url:"/smartmarket-view.dox",
-                    dataType:"json",
-                    type : "POST",
-                    data : nparmap,
-                    success : function(data) {
-                        console.log(data);
-                        //console.log(data.reviewList.list);
-                        self.info = data.info;
-                        self.imglist = data.imgList.list;
-                        //self.reviewlist = data.reviewList.list;
-                        
-                    }
-                });
-                
-                
-                <!-- 페이징 추가 6-->
-    			var startNum = ((self.selectPage-1) * 5);
-        		var lastNum = (self.selectPage * 5)
-        		var nparmap = {keyword : self.keyword
-        						, kind : self.selectItem
-        						, startNum : startNum
-        						, lastNum : lastNum
-        						, productNo : self.productNo};
-        		
-        		console.log(nparmap);
-                
-        		$.ajax({
-                    url:"/reviewlist.dox",
-                    dataType:"json",	
-                    type : "POST", 
-                    data : nparmap,
-                    success : function(data) { 
-                    	console.log(data);
-    	                self.list = data.list;
-    	                self.cnt = data.cnt;
-    	                self.pageCount = Math.ceil(self.cnt / 5);
-                    }
-                });
-
-            }
-        
-        	//장바구니담기
-        	, fnCart : function(productNo){
-    	    	var self = this;
-    	    	var nparmap = {productNo : self.productNo, productCnt : self.productCnt};
-
-    	    	
-    	    	if(self.sessionId=="" || self.sessionId =="undefind" ){
-    	    		alert("장바구니담기를 하시려면 로그인해주세요");
-    	    		return;
-    	    	}
-    	    	
-    	    	$.ajax({
-    	            url:"/addCart.dox",
-    	            dataType:"json",	
-    	            type : "POST", 
-    	            data : nparmap,
-    	            success : function(data) {            
-    	           	 	alert("장바구니에 담았습니다..");
-    	           		location.href="/cart.do";
-    	            }
-    	        });    	    	
-    	    	
-    	    	
-    		}
-        	
-        	//구매하기
-        	, fnOrder : function(){
-    	    	var self = this;
-    	    	var nparmap = {productNo : self.productNo, productCnt : self.productCnt};
-    	    	var selectedItems = [];
-
-    	    	
-    	    	if(self.sessionId=="" || self.sessionId =="undefind" ){
-    	    		alert("구매하시려면 로그인해주세요");
-    	    		return;
-    	    	}
-    	    	
-    	    	nparmap = {productNo : Number(self.productNo)
-    	    			, productCnt : self.productCnt
-    	    			, productPrice : self.info.productPrice
-    	    			, imgPath : self.info.imgPath
-    	    			, productName : self.info.productName
-    	    			, userid : self.sessionId // 영은 추가
-    	    	};
-    	    	selectedItems.push(nparmap);
-    	    	
-    	    	
-    	    	//console.log("상품번호 : ",self.productNo);
-    	    	//console.log("============",selectedItems);
-    	    	
-    	    	self.pageChange("/order.do", {selectedItems : selectedItems});
-    	    	
-    	    	
-    		}
-        	
-        	, pageChange : function(url, param) {
-        		var target = "_self";
-        		if(param == undefined){
-        		//	this.linkCall(url);
-        			return;
-        		}
-        		var form = document.createElement("form"); 
-        		form.name = "dataform";
-        		form.action = url;
-        		form.method = "post";
-        		form.target = target;
-        		for(var name in param){
-    				var item = name;
-    				var val = "";
-    				if(param[name] instanceof Object){
-    					val = JSON.stringify(param[name]);
-    				} else {
-    					val = param[name];
-    				}
-    				var input = document.createElement("input");
-    	    		input.type = "hidden";
-    	    		input.name = item;
-    	    		input.value = val;
-    	    		form.insertBefore(input, null);
-    			}
-        		document.body.appendChild(form);
-        		form.submit();
-        		document.body.removeChild(form);
-        	}
-        
-        
-	      
-        
-	        <!-- 페이징 추가 7-->
-			, fnSearch : function(pageNum){
-				var self = this;
-				self.selectPage = pageNum;
-				var startNum = ((pageNum-1) * 5);
-				var lastNum = (pageNum * 5) + 1;
-				var nparmap = {startNum : startNum, lastNum : lastNum, productNo : self.productNo};
-				
-				console.log(nparmap);
-				
-				$.ajax({
-					url : "/reviewlist.dox",
-					dataType : "json",
-					type : "POST",
-					data : nparmap,
-					success : function(data) {
-						
-						self.list = data.list;
-						self.cnt = data.cnt;
-						self.pageCount = Math.ceil(self.cnt / 5);
-					}
-				});
-			}
-        
-            
-        }   
-        , created: function () {
-            var self = this;
-            self.fnGetList();
-            
-        }
-    });
-
-
-
-    const clip2 = async () => {
-        navigator.clipboard.writeText(window.location.href);
-        alert("URL 주소가 복사되었습니다.");
+        <!-- 페이징 추가 5-->
+        , selectPage: 1
+        , pageCount: 1
+        , cnt: 0
     }
-
-
-
-    let isOpen = false;
-    
-    let view  = document.querySelector("#btn_all_view");    
-    view.addEventListener("click", function(){
-        if(isOpen ==false){
-            //document.querySelector("#product_script_detail").style.display="block";
-            document.querySelector(".img_rec").style.clip="auto";
-            document.querySelector(".product_script").style.height="3570px";            
-            
-            document.querySelector("#btn_all_hidden").style.display = "block";
-            document.querySelector("#btn_all_view").style.display="none";
-            isOpen = true;
+    , filters: {
+        numberFormat: (value, numFix) => {
+            value = parseFloat(value);
+            if (!value) return '0';
+            return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+        },
+    }
+    , methods: {
+        fnGetList: function () {
+            var self = this;
+            var nparmap = { productNo: self.productNo, sessionId: self.sessionId };
+            //상품정보
+            $.ajax({
+                url: "/smartmarket-view.dox",
+                dataType: "json",
+                type: "POST",
+                data: nparmap,
+                success: function (data) {
+                    console.log(data);
+                    self.info = data.info;
+                    self.imglist = data.imgList.list;
+                }
+            });
+			var startNum = ((self.selectPage - 1) * 5);
+            var lastNum = (self.selectPage * 5)
+            var nparmap = {
+                keyword: self.keyword
+                , kind: self.selectItem
+                , startNum: startNum
+                , lastNum: lastNum
+                , productNo: self.productNo
+            };
+            console.log(nparmap);
+            $.ajax({
+                url: "/reviewlist.dox",
+                dataType: "json",
+                type: "POST",
+                data: nparmap,
+                success: function (data) {
+                    console.log(data);
+                    self.list = data.list;
+                    self.cnt = data.cnt;
+                    self.pageCount = Math.ceil(self.cnt / 5);
+                }
+            });
         }
-    });
-
-    let hidden  = document.querySelector("#btn_all_hidden");
-    hidden.addEventListener("click", function(){
-        if(isOpen ==true){
-            //document.querySelector("#product_script_detail").style.display = "none";
-            document.querySelector(".img_rec").style.clip="rect( 0px, 780px, 900px, 0px )";            
-            document.querySelector(".product_script").style.height="900px";
-            
-            document.querySelector("#btn_all_hidden").style.display = "none";
-            document.querySelector("#btn_all_view").style.display="block";
-            
-            
-            document.querySelector("#product_discript_move").href="#product_discript"
-            
-            isOpen = false; 
+        //장바구니담기
+        , fnCart: function (productNo) {
+            var self = this;
+            var nparmap = { productNo: self.productNo, productCnt: self.productCnt };
+            if (self.sessionId == "" || self.sessionId == "undefind") {
+                alert("장바구니담기를 하시려면 로그인해주세요");
+                return;
+            }
+            $.ajax({
+                url: "/addCart.dox",
+                dataType: "json",
+                type: "POST",
+                data: nparmap,
+                success: function (data) {
+                    alert("장바구니에 담았습니다..");
+                    location.href = "/cart.do";
+                }
+            });
         }
-    });
+        //구매하기
+        , fnOrder: function () {
+            var self = this;
+            var nparmap = { productNo: self.productNo, productCnt: self.productCnt };
+            var selectedItems = [];
+            if (self.sessionId == "" || self.sessionId == "undefind") {
+                alert("구매하시려면 로그인해주세요");
+                return;
+            }
+            nparmap = {
+                productNo: Number(self.productNo)
+                , productCnt: self.productCnt
+                , productPrice: self.info.productPrice
+                , imgPath: self.info.imgPath
+                , productName: self.info.productName
+                , userid: self.sessionId
+            };
+            selectedItems.push(nparmap);
+            self.pageChange("/order.do", { selectedItems: selectedItems });
+        }
+        // 주소 복사
+        , fnClip: function () {
+            navigator.clipboard.writeText(window.location.href);
+            alert("복사되었습니다.");
+        }
+        , pageChange: function (url, param) {
+            var target = "_self";
+            if (param == undefined) {
+                return;
+            }
+            var form = document.createElement("form");
+            form.name = "dataform";
+            form.action = url;
+            form.method = "post";
+            form.target = target;
+            for (var name in param) {
+                var item = name;
+                var val = "";
+                if (param[name] instanceof Object) {
+                    val = JSON.stringify(param[name]);
+                } else {
+                    val = param[name];
+                }
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = item;
+                input.value = val;
+                form.insertBefore(input, null);
+            }
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+        , fnSearch: function (pageNum) {
+            var self = this;
+            self.selectPage = pageNum;
+            var startNum = ((pageNum - 1) * 5);
+            var lastNum = (pageNum * 5) + 1;
+            var nparmap = { startNum: startNum, lastNum: lastNum, productNo: self.productNo };
+            $.ajax({
+                url: "/reviewlist.dox",
+                dataType: "json",
+                type: "POST",
+                data: nparmap,
+                success: function (data) {
+                    self.list = data.list;
+                    self.cnt = data.cnt;
+                    self.pageCount = Math.ceil(self.cnt / 5);
+                }
+            });
+        }
+    }
+    , created: function () {
+        var self = this;
+        self.fnGetList();
+    }
+});
 
-
-   
+$(document).ready(function(){
+	$(".productScrollBtn").click(function(){
+		$('html,body').animate({scrollTop:$("#typeProduct").offset().top - 150}, 500);
+		return false;
+	});
+	$(".reviewScrollBtn").click(function(){
+		$('html,body').animate({scrollTop:$("#typeReview").offset().top - 150}, 500);
+		return false;
+	});
+	
+	var details = document.querySelector("details")
+	details.addEventListener("toggle", function() {
+		details.firstChild.textContent = "done"
+	})
+});
 </script>

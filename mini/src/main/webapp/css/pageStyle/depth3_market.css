@@ -1,0 +1,105 @@
+@charset "UTF-8"; 
+
+/***** (market) --- START *****/
+
+#pageContent.market .wrapper {min-height:inherit;}
+
+/* categorySection */
+#pageContent.market .categorySection {display:flex; flex-flow:row wrap; justify-content:center; margin-bottom:3em;}
+#pageContent.market .categorySection .categoryCircle {width:110px; height:110px; border-radius:50%; background:var(--base-colorWhite); display:flex; flex-flow:column wrap; align-items:center; justify-content:center; cursor:pointer; font-weight:700; margin:0 0.75em; transition:all 0.15s ease-in; font-size:0.875em;}
+
+
+/* productSection */
+#pageContent.market .searchSection {width:100%; margin-bottom:1em; display:flex; flex-flow:row nowrap; justify-content:space-between; align-items:flex-end;}
+#pageContent.market .searchSection .searchKind {font-size:1.75em; font-weight:700; transition:all 0.2s ease-out;}
+#pageContent.market .searchSection .searchCnt {font-size:1em;}
+#pageContent.market .searchSection .searchCnt span {font-weight:700; transition:all 0.2s ease-out;}
+
+
+/* productSection */
+#pageContent.market .productSection {margin-bottom:3em;}
+#pageContent.market .productSection .prodTitle {width:100%; margin-bottom:0.75em;}
+#pageContent.market .productSection .prodTitle .prodKind {font-size:1em; font-weight:700; transition:all 0.2s ease-out;}
+#pageContent.market .productSection .prodTitle .prodCnt {font-size:0.85em;}
+#pageContent.market .productSection .prodTitle .prodCnt span {font-weight:700; transition:all 0.2s ease-out;}
+#pageContent.market .productSection .prodArea {width:100%; display:flex; flex-flow:row wrap; justify-content:flex-start; align-items:stretch; margin-bottom:-20px;}
+#pageContent.market .productSection .prodArea .prodThumb {width:calc((100% - 6em) / 5); margin-right:1.5em; margin-bottom:3em; cursor:pointer;}
+#pageContent.market .productSection .prodArea .prodThumb:nth-child(5n) {margin-right:0;}
+#pageContent.market .productSection .prodArea .prodThumb .imgBox {width:100%; overflow:hidden;}
+#pageContent.market .productSection .prodArea .prodThumb .imgBox img {display:block; transition:all 0.15s ease-in;}
+#pageContent.market .productSection .prodArea .prodThumb:hover .imgBox  img {transform:scale(1.05);}
+#pageContent.market .productSection .prodArea .prodThumb .txtBox {width:100%; margin-top:1em;}
+#pageContent.market .productSection .prodArea .prodThumb .txtBox .text {min-height:0.875em; line-height:1; font-size:0.875em; font-weight:600; text-align:left; word-break:keep-all; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; margin-bottom:6px;}
+#pageContent.market .productSection .prodArea .prodThumb .txtBox .text.soldOut {color:var(--main-colorRed);}
+#pageContent.market .productSection .prodArea .prodThumb .txtBox .title {font-size:1.125em; text-align:left; word-break:keep-all; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; margin-bottom:0.25em;}
+#pageContent.market .productSection .prodArea .prodThumb .txtBox .price {font-size:0.875em; font-weight:500;}
+#pageContent.market .productSection .prodArea .prodThumb .txtBox .price .amount {color:var(--main-colorGreen); font-size:1.375em; font-weight:700;}
+#pageContent.market .productSection .prodArea .prodThumb .txtBox .review {font-size:0.875em; font-weight:600;}
+#pageContent.market .productSection .prodArea .prodThumb .txtBox .review i {color:var(--main-colorYellow);}
+
+#pageContent.market .productSection.typeRecomm {background:var(--base-colorLightGray); padding:2.5em 0 1em;}
+#pageContent.market .productSection.typeRecomm .wrapper {margin:0 auto;}
+
+/* typeView > marketInfoSection */
+#pageContent.market.typeView .marketInfoSection {width:100%; display:flex; flex-flow:row wrap; justify-content:space-between; align-items:stretch; margin-bottom:4em;}
+#pageContent.market.typeView .marketInfoSection .marketThumbArea {width:550px; height:450px; position:relative; overflow:hidden;}
+#pageContent.market.typeView .marketInfoSection .marketThumbArea img {width:100%; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:block;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea {width:calc(100% - 550px); padding-left:2em; display:flex; flex-flow:column wrap; justify-content:space-between; align-items:stretch;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoBox {min-height:calc(100% - 65px - 2em); display:flex; flex-flow:column; justify-content:space-around;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoTxt {border-bottom:1px solid var(--base-colorBasicGray); padding-bottom:1em;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoTxt .title {font-size:2em; font-weight:700; margin-bottom:0.5em;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoTxt .review {line-height:1; font-size:1.125em; font-weight:600; margin-bottom:1em;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoTxt .review i {color:var(--main-colorYellow);}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoTxt .summary {font-size:1.125em; font-weight:400;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoPrice {font-weight:700; font-size:1.25em; line-height:1;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoPrice .price {color:var(--main-colorGreen); font-size:1.5em; padding-left:8px;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoPrice .weight {font-size:0.875em; font-weight:500;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoCount {font-weight:700; font-size:1.25em; line-height:1;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoCount .name {letter-spacing:1em; margin-right:-1em;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoCount .count {font-size:0.875em; text-indent:-0.5em; color:var(--main-colorGreen); padding-left:8px;}
+#pageContent.market.typeView .marketInfoSection .marketInfoArea .infoCount .nowCnt {font-size:0.875em; font-weight:500; color:var(--base-colorCharcoal); padding-left:8px;}
+
+
+/* typeView > marketInfoSection */
+#pageContent.market.typeView .marketInfoSection .marketButtonBox {width:100%; display:flex; flex-flow:row nowrap; justify-content:space-between; align-items:center;}
+#pageContent.market.typeView .marketInfoSection .marketButtonBox > * {width:65px; height:65px; display:flex; align-items:center; justify-content:center; line-height:1; border:0; border-radius:20px; text-align:center; padding:5px; cursor:pointer;}
+#pageContent.market.typeView .marketInfoSection .marketButtonBox .buyBtn {width:calc((100% - 65px - 2em) / 2); background:var(--main-colorGreen); color:var(--base-colorWhite); font-size:1.25em; font-weight:600;}
+#pageContent.market.typeView .marketInfoSection .marketButtonBox .cartBtn {width:calc((100% - 65px - 2em) / 2); background:var(--base-colorCharcoal); color:var(--base-colorWhite); font-size:1.25em; font-weight:600;}
+#pageContent.market.typeView .marketInfoSection .marketButtonBox .shareBtn {background:var(--base-colorWhite); color:var(--main-colorGreen); font-size:1.5em;}
+
+
+/* typeView > marketTabSection */
+#pageContent.market.typeView .marketTabSection {width:100%; display:flex; flex-flow:row nowrap; text-align:center; cursor:pointer; margin-bottom:2em;}
+#pageContent.market.typeView .marketTabSection > * {width:50%; height:100%; display:block; line-height:1; font-size:1.125em; font-weight:700; color:var(--base-colorDarkGray); background:var(--base-colorLightGray); padding:1.5em 0.5em; border:0; outline:0;}
+#pageContent.market.typeView .marketTabSection > *.active {color:var(--main-colorGreen); background:var(--base-colorWhite);}
+
+
+/* typeView > productDetailSection */
+#pageContent.market.typeView .productDetailSection {margin-bottom:5em;}
+#pageContent.market.typeView .productDetailSection .imgAlign {max-height:30em; overflow:hidden; text-align:center;}
+#pageContent.market.typeView .productDetailSection .imgAlign#detailShowBox.show {max-height:100%;}
+#pageContent.market.typeView .productDetailSection .imgAlign img {margin:0 auto 3em;}
+#pageContent.market.typeView .productDetailSection .detailShowBtn {width:100%; text-align:center;}
+#pageContent.market.typeView .productDetailSection .detailShowBtn .showBtn {width:100%; height:60px; margin-top:1em; border-radius:15px; background:var(--base-colorWhite); border:1px solid var(--main-colorGreen); color:var(--main-colorGreen);}
+
+
+/* typeView > reviewSection */
+#pageContent.market.typeView .reviewSection .reviewItem {width:100%; cursor:pointer;}
+#pageContent.market.typeView .reviewSection .reviewItem i {color:var(--main-colorYellow);}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewSummary {width:100%; display:flex; flex-flow:row nowrap; justify-content:space-between; align-items:center; padding:2em 3em;}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewSummary > * {line-height:1; padding:5px;}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewSummary .rDate {width:200px; font-size:1.25em;}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewSummary .rProduct {width:calc(100% - 500px); font-weight:700; font-size:1.25em;}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewSummary .rTotal {width:100px; font-weight:700; font-size:1.25em;}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewSummary .rUser {width:200px; color:var(--base-colorDarkGray); font-weight:600; font-size:1.125em; display:flex; flex-flow:row nowrap; justify-content:flex-end; align-items:center;}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewSummary .rUser i {width:28px; height:28px; line-height:1; display:flex; justify-content:center; align-items:center; background:var(--base-colorDeepGray); border-radius:50%; color:var(--base-colorWhite); margin-right:8px;}
+
+#pageContent.market.typeView .reviewSection .reviewItem .reviewDetail {width:100%; display:flex; flex-flow:row; padding:0 3em 2em;}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewDetail > * {font-size:1.125em; line-height:1; padding:5px; margin-right:2em;}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewDetail > * span {font-weight:600; padding-left:0.5em;}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewDetail .typeSa {padding-left:205px;}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewDetail .typeDe {}
+#pageContent.market.typeView .reviewSection .reviewItem .reviewDetail .typeRe {}
+
+
+/***** (market) --- END *****/
