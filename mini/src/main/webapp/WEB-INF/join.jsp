@@ -293,6 +293,10 @@ var app = new Vue({
     			alert("비밀번호가 일치하지 않습니다.");
     			return;
     		}
+    		if(!self.pwValid){
+    			alert("비밀번호형식을 다시 확인해주세요");
+    			return;
+    		}
     		if(self.info.name == ""){
     			alert("이름을 입력해주세요");
     			return;
