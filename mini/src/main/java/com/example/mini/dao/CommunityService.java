@@ -16,6 +16,9 @@ public interface CommunityService {
 		// 커뮤니티 댓글 등록
 		void addComment(HashMap<String,Object>map);
 		
+		// 댓글 등록
+		void modifyComment(HashMap<String,Object>map);
+		
 		// 커뮤니티 글 등록
 		void addCom(HashMap<String,Object>map);
 		

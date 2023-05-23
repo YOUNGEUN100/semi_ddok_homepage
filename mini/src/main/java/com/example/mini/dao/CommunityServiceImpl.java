@@ -48,6 +48,13 @@ public class CommunityServiceImpl implements CommunityService{
 	public void addComment(HashMap<String, Object> map) {
 		communityMapper.insertComment(map);	
 	}
+	
+	// 댓글 수정
+	@Override
+	public void modifyComment(HashMap<String, Object> map) {
+		communityMapper.editComment(map);
+		
+	}
 
 	// 커뮤니티 글쓰기
 	@Override
@@ -108,6 +115,7 @@ public class CommunityServiceImpl implements CommunityService{
 		}
 		return resultMap;
 	}
+
 
 
 

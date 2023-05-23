@@ -24,6 +24,9 @@ public interface CommunityMapper {
 	// 댓글 리스트
 	List<Community> selectComment(HashMap<String, Object> map);
 	
+	// 댓글 등록
+	void editComment(HashMap<String,Object>map);
+	
 	// 커뮤니티 글 등록
 	void insertComment(HashMap<String,Object>map);
 	

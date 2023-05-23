@@ -78,6 +78,14 @@ public class CommunityController {
 		communityService.addComment(map);
 		return new Gson().toJson(resultMap);
 	}
+	// 댓글 수정
+	@RequestMapping(value = "/community/editcomment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String modifyComment(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		communityService.modifyComment(map);
+		return new Gson().toJson(resultMap);
+	}
 		
 	
 

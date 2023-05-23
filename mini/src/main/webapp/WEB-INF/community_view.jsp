@@ -47,20 +47,20 @@
 	                        <div class="infoBox"><i class="fa-solid fa-user"></i><span> {{item.nick}}</span><span class="date">({{item.cdatetime}})</span></div>
 							<div class="btnBox">
 								<button @click="fncommentDel(item.commentNo)" v-if="item.userId==sessionId || sessionStatus=='A'">삭제</button>
-								<!-- <button @click="" v-if="sessionId == item.userId || sessionStatus == 'A'">수정</button> -->
+								<button @click="fnEditComment(item)" v-if="sessionId == item.userId || sessionStatus == 'A'">수정</button>
 							</div>
 	                    </div>
 	                    
-	                    <div class="commentContent"> <!-- 댓글내용 -->
+	                    <div class="commentContent" v-if="editCoNo != item.commentNo"> <!-- 댓글내용 -->
 	                        <pre id="coContent">{{item.comment}}</pre>
 	                    </div>
-	                   <!--  <div class="commentContent" v-else> 댓글 수정버튼 영역
-	                        <textarea rows="5" v-model="commentInfo.content"></textarea>
+	                   	<div class="commentContent" v-else>
+	                        <textarea rows="5" v-model="editComment"></textarea>
 							<div class="btnBox">
-								<button @click="fnEditCommentFinish">수정</button>
+								<button @click="fnEditCommentFinish(item)">수정</button>
 								<button @click="fnEditCommentClose">취소</button>
 							</div>
-	                    </div> -->
+	                    </div>
 		                <!-- 댓글 출력 영역 끝 -->
 	                </div>
                 </div>
@@ -115,7 +115,10 @@ var communityView = new Vue({
 		, boardNo : "${map.boardNo}"
 		, sessionId: "${sessionId}"    
 		, sessionStatus : "${sessionStatus}"
-		, sessionNick : "${sessionNick}"    
+		, sessionNick : "${sessionNick}"
+		, editCoNo : ""
+		, editComment : ""
+		 
 	}
 	, methods: {
 		// 커뮤니티 글 상세
@@ -150,6 +153,41 @@ var communityView = new Vue({
 				}
 			});
 		}
+        // 댓글 수정 활성
+        , fnEditComment: function (item) {
+            var self = this;
+            self.editCoNo = item.commentNo;
+            self.editComment = item.comment;
+            console.log(item.comment);
+            console.log(self.commentInfo);
+        }
+        // 댓글 수정 취소버튼
+        , fnEditCommentClose: function () {
+            var self = this;
+            self.editCoNo = "";
+        }
+        // 댓글 수정 확인
+        , fnEditCommentFinish: function (item) {
+            var self = this;
+            if (!confirm("댓글을 수정하시겠습니까?")) {
+                return
+            }
+            var nparmap = {content : self.editComment, commentNo : item.commentNo};
+            $.ajax({
+                url: "/community/editcomment.dox",
+                dataType: "json",
+                type: "POST",
+                data: nparmap,
+                success: function (data) {
+                    alert("수정완료");
+                    self.editCoNo = "";
+                    self.editComment = "";
+                    self.fnCommentList();
+                }
+            });
+
+        }
+        
 		// 커뮤니티 글 삭제
 		, fnRemove : function() {
 			var self = this;
