@@ -129,9 +129,9 @@
 								<input type="file" :id="'file' + (n + 1)" name="file2">
 							</form>
 						</div>
-						<div id="re-info" style="display:none;">
+						<div id="re-info">
 							<label class="recipe-info">레시피 단계 설명</label>
-							<textarea id="memo" rows="5" :id="'cookContent' + (n + 1)" v-model="cookContent" ></textarea>
+							<textarea id="memo" rows="5" :id="'cookContent' + (n + 1)" v-model="contentList[n-1]" @keyup="check"></textarea>
 						</div>
 					</div>
 					
@@ -180,7 +180,8 @@ var recipeEdit = new Vue({
 		cnt : 1,
 		cookContent : "",
 		enrollFlg : false,
-		indexNum : 1
+		indexNum : 1,
+		contentList : []
 	}
 	// 4. 컴포넌트 추가
 	, components: {VueEditor}
@@ -227,6 +228,10 @@ var recipeEdit = new Vue({
 					location.href="/recipe.do";
 				}
 			});
+		},
+		check:function() {
+			var self = this;
+			console.log(self.contentList);
 		},
 		fnAddIndex : function() {
 	       	var self = this;
