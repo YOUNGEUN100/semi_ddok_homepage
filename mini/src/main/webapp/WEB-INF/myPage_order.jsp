@@ -4,79 +4,30 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <style>
-	.myArea{
-           background-color: #fff;
-           margin: 0 auto;
-           padding: 30px 80px;
-           display: flex; flex-direction: column; justify-content: center;
-           align-items: center;
-       }
-
-       .myArea .userBox{
-           width: 20%; height: 100%;
-           border:0;
-           text-align: center;  
-       }
+	.myArea{ background-color: #fff; margin: 0 auto; padding: 30px 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .myArea .userBox{ width: 20%; height: 100%; border:0; text-align: center;  }
        .myArea .userBox div{color: black;}
        .myArea .userBox img{width: 60px; height: 60px; }
-       .myArea .userBox .edit{
-          margin-bottom: 20px; font-size: 1.2em;
-       }
+       .myArea .userBox .edit{ margin-bottom: 20px; font-size: 1.2em;}
        .myArea .userBox .edit:hover{color: #5EA152; cursor: pointer;}
-
-       .myArea .contentBox{
-           width: 80%;  display: flex;
-           flex-direction: column;
-           justify-content: center;
-           align-items: center;
-       }
-       .myArea .contentBox .menuBox{
-         width: 100%; display: flex; flex-flow: row nowrap;
-         justify-content: center;
-       }
-       .myArea .contentBox .menuBox .menu{
-         width: 25%; text-align: center; padding: 10px;
-         box-shadow: 0 0 4px 0 #ccc; cursor: pointer;
-       }
-       .myArea .contentBox .menuBox .menu:first-child{
-         border-top-left-radius: 5px;
-         border-bottom-left-radius: 5px;
-         box-shadow: -2px 0 5px 0 #ccc;
-       }
-       .myArea .contentBox .menuBox .menu:last-child{
-         border-top-right-radius: 5px;
-         border-bottom-right-radius: 5px;
-         box-shadow: 2px 0 5px 0 #ccc;
-       }
-       .myArea .contentBox .menuBox .menu:hover{
-         background-color: #eee; color: black;
-       }
-       .myArea .contentBox .menuBox .menu:visited{
-         background-color: #ccc; color: black;
-       }
-
-       .myArea .contentBox .orderBox{
-         width: 100%; box-shadow: 0 0 5px #ccc;
-         border-radius: 20px; padding: 10px 30px;
-          margin-top: 30px; 
-       }
+       .myArea .contentBox{  width: 80%;  display: flex;flex-direction: column; justify-content: center;align-items: center; }
+       .myArea .contentBox .menuBox{width: 100%; display: flex; flex-flow: row nowrap; justify-content: center; }
+       .myArea .contentBox .menuBox .menu{width: 25%; text-align: center; padding: 10px; box-shadow: 0 0 4px 0 #ccc; cursor: pointer; }
+       .myArea .contentBox .menuBox .menu:first-child{ border-top-left-radius: 5px; border-bottom-left-radius: 5px; box-shadow: -2px 0 5px 0 #ccc; }
+       .myArea .contentBox .menuBox .menu:last-child{ border-top-right-radius: 5px;border-bottom-right-radius: 5px; box-shadow: 2px 0 5px 0 #ccc;}
+       .myArea .contentBox .menuBox .menu:hover{ background-color: #eee; color: black; }
+       .myArea .contentBox .menuBox .menu:visited{ background-color: #ccc; color: black; }
+       .myArea .contentBox .orderBox{ width: 100%; box-shadow: 0 0 5px #ccc; border-radius: 20px; padding: 10px 30px; margin-top: 30px;  }
        .myArea .contentBox .orderBox h1{font-size: 1.4em; margin:20px; padding: 5px; }
        .myArea .contentBox .orderBox .orderContent{padding: 15px; box-shadow: 0 0 5px #ccc; border-radius: 20px;}
-       .myArea .contentBox .orderBox #orderTop{
-	        display: flex; flex-direction: row; justify-content: space-between; 
-	        margin: 20px; border-bottom: 1px solid black; padding: 10px;
-       }
+       .myArea .contentBox .orderBox #orderTop{display: flex; flex-direction: row; justify-content: space-between;  margin: 20px; border-bottom: 1px solid black; padding: 10px;}
        .myArea .contentBox .orderBox .orderCenter{display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; 
         	align-items: center; margin:0 auto;  padding: 5px; margin-left: 20px;}
-       .myArea .contentBox .orderBox .orderCenter img{
-        	width: auto; height: 200px; margin: 20px;
-     	}
+       .myArea .contentBox .orderBox .orderCenter img{width: auto; height: 200px; margin: 20px;}
        .myArea .contentBox .orderBox .orderCenter .orderDetail{text-align: center; width: 70%;}
        .myArea .contentBox .orderBox .orderCenter .orderDetail div:first-child{font-size: 1.4em; font-weight: bold;}
-
        .myArea .contentBox .orderBox .orderBottom .orderHistory div{ padding: 10px;}
        .myArea .contentBox .orderBox .orderBottom .orderHistory .orderHistoryList{padding: 10px; box-shadow: 0 0 5px #ccc; border-radius: 20px; }
-
        .myArea .contentBox .orderBox .payMent div{padding: 5px; } 
        .myArea .contentBox .orderBox .payMent .orderPayment{padding: 15px; box-shadow: 0 0 5px #ccc; border-radius: 20px; margin-bottom: 30px;}
       
@@ -86,7 +37,7 @@
 <!-- pageContent -- START -->
 <div id="pageContent">
 	<div class="wrapper">
-		 <div id="app" class="myArea">
+		 <div id="myorderView" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="/./images/Sample_User_Icon.png">
                  <div class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()">{{sessionName}}님 환영합니다</div>
@@ -151,8 +102,8 @@
 
 //버튼 누를때 알맞은 화면보이기
 
-var app = new Vue({ 
-    el: '#app',
+var myorderView = new Vue({ 
+    el: '#myorderView',
     data: {
     	list : [],
     	info : {},

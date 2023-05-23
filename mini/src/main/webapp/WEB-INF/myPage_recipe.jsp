@@ -28,7 +28,7 @@
 <!-- pageContent -- START -->
 <div id="pageContent">
 	<div class="wrapper">
-		 <div id="mypageRecipe" class="myArea">
+		 <div id="myRecipe" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="/./images/Sample_User_Icon.png">
                 <a href="/modify.do" class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()">{{sessionName}}님 환영합니다</a>       
@@ -58,8 +58,8 @@
 
 <script type="text/javascript">
 
-var mypageRecipe = new Vue({ 
-    el: '#mypageRecipe',
+var myRecipe = new Vue({ 
+    el: '#myRecipe',
     data: {
     	list : []
     	, sessionName : "${sessionName}"
