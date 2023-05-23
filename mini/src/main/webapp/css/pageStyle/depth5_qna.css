@@ -26,7 +26,10 @@
 #pageContent.qna .boardSection .boardArea table tr > * i {position:relative; top:-0.06em; font-size:0.75em; margin:0 4px;}
 #pageContent.qna .boardSection .boardArea table td.notice {width:150px; font-weight:700; color:var(--main-colorGreen);}
 #pageContent.qna .boardSection .boardArea table td.title {width:calc(100% - 650px); min-width:200px; font-weight:600; font-size:1.0625em; text-align:justify;}
-#pageContent.qna .boardSection .boardArea table td.title i {color:var(--main-colorYellow); font-size:0.875em; top:0;}
+#pageContent.qna .boardSection .boardArea table td.notice {width:150px; font-weight:700; color:var(--main-colorGreen);}
+#pageContent.qna .boardSection .boardArea table td.title span {font-size:0.75em; margin-right:4px; line-height:1; padding:2px 6px; border:1px solid var(--base-colorCharcoal); background:var(--base-colorWhite);}
+#pageContent.qna .boardSection .boardArea table td.title span.complete {border-color:var(--main-colorGreen); color:var(--main-colorGreen);}
+#pageContent.qna .boardSection .boardArea table td.title span.progress {border-color:var(--base-colorDarkGray); color:var(--base-colorDarkGray);}
 #pageContent.qna .boardSection .boardArea table td.writer {width:150px;}
 #pageContent.qna .boardSection .boardArea table td.date {width:200px;}
 #pageContent.qna .boardSection .boardArea table td.view {width:150px;}

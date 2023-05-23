@@ -36,31 +36,33 @@
                 </div>
             </section>
             
-            <section class="commentSection typeBoxArea styleBoxRound typeMore styleBoxShadow">
-	            <div class="headArea">
-	            	<h3 class="title"><i class="fa-solid fa-a">.</i> 답변</h3>
-	            </div>
-	            <div v-if="list.length == 0" class="commentArea commentNull">관리자가 확인 후 답변드리겠습니다.</div>
-                <div v-else class="commentArea commentList">
-	                <div class="commentItem" v-for="(item, index) in list">
-	                    <div class="commentContent"> <!-- 댓글내용 -->
-	                        <pre id="coContent">{{item.comment}}</pre>
-	                    </div>
-	                    <div class="commenter"> <!-- 댓글작성자 댓글작성일 정보영역 -->
-	                        <div class="infoBox"><!-- <i class="fa-solid fa-user"></i><span> 똑똑</span> --><span class="date">답변일 : {{item.cdatetime}}</span></div>
-							<div class="btnBox">
-                          		<button v-if="sessionStatus=='A'" @click="fncommentDel(item.commentNo)">삭제</button>
-							</div>
-	                    </div>
+            <template>
+	            <section v-if="info.category == '1'" class="commentSection typeBoxArea styleBoxRound typeMore styleBoxShadow">
+		            <div class="headArea">
+		            	<h3 class="title"><i class="fa-solid fa-a">.</i> 답변</h3>
+		            </div>
+		            <div v-if="list.length == 0" class="commentArea commentNull">관리자가 확인 후 답변드리겠습니다.</div>
+	                <div v-else class="commentArea commentList">
+		                <div class="commentItem" v-for="(item, index) in list">
+		                    <div class="commentContent"> <!-- 댓글내용 -->
+		                        <pre id="coContent">{{item.comment}}</pre>
+		                    </div>
+		                    <div class="commenter"> <!-- 댓글작성자 댓글작성일 정보영역 -->
+		                        <div class="infoBox"><!-- <i class="fa-solid fa-user"></i><span> 똑똑</span> --><span class="date">답변일 : {{item.cdatetime}}</span></div>
+								<div class="btnBox">
+	                          		<button v-if="sessionStatus=='A'" @click="fncommentDel(item.commentNo)">삭제</button>
+								</div>
+		                    </div>
+		                </div>
 	                </div>
-                </div>
-                <template>
-	                <div v-if="sessionStatus=='A'" class="commentAdd">
-	                    <textarea rows="2" placeholder="관리자님, 문의 답글을 달아주세요." v-model="commentInfo.comment"></textarea>
-	                    <button class="styleHoverShadow" @click="fnCommentEnroll()">댓글등록</button>
-	                </div>
-	            </template>
-            </section>
+	                <template>
+		                <div v-if="sessionStatus=='A'" class="commentAdd">
+		                    <textarea rows="2" placeholder="관리자님, 문의 답글을 달아주세요." v-model="commentInfo.comment"></textarea>
+		                    <button class="styleHoverShadow" @click="fnCommentEnroll()">댓글등록</button>
+		                </div>
+		            </template>
+	            </section>
+            </template>
             
             <section class="btnSection">
                <button class="listBtn styleHoverShadow" onClick="location.href='/qna.do'">목록</button>
