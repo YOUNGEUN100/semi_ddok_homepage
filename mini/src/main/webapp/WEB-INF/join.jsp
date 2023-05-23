@@ -124,16 +124,16 @@
 
                     <div class="markEssential pw">비밀번호</div> <div  v-if="info.pw == ''"></div>
                		<template v-else> 
-	                	<span class="disableId" v-if="info.pw.length >= 20">20자 이내의 비밀번호를 입력해주세요</span>
-	                	<span v-else></span>
+	                	<span class="disableId" v-if="!pwValid">비밀번호 형식을 맞춰주세요</span>
+	                	<span class="ableId" v-else>올바른 형식의 비밀번호입니다</span>
                 	</template>
                     
-                    <template v-else-if="info.pw != '' && 20 > info.pw.length">
-                    	<span class="ableId" v-if="pwValid">올바른 형식의 비밀번호입니다</span>
-                    	<span class="disableId" v-else>올바른 형식의 비밀번호가 아닙니다</span>
-                    </template>
+<!--                     <template v-else-if="info.pw != '' && !pwValid"> -->
+<!--                     	<span class="ableId" v-if="pwValid">올바른 형식의 비밀번호입니다</span> -->
+<!--                     	<span class="disableId">올바른 형식의 비밀번호가 아닙니다</span> -->
+<!--                     </template> -->
                     
-                    <input type="password" id="password" v-model="info.pw" class="w100" maxlength="20" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
+                    <input type="password" id="password" v-model="info.pw" class="w100" maxlength="20" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)" @keyup="fnPwCheck">
                 </div>
                 
                 <div class="captionBox">
@@ -354,7 +354,7 @@ var app = new Vue({
 	   	 		console.log(self.aaa);
 	   	 	} else {
 	   	 		self.aaa= true;
-	   	 	console.log(self.aaa);
+	   	 		console.log(self.aaa);
 	   	 	};
 	   	 	var nparmap = {id : self.info.id};
 	        $.ajax({
@@ -374,6 +374,18 @@ var app = new Vue({
 		        }
 	        }); 
    	 	
+   	 	   },
+   	 	   
+   	 	   fnPwCheck : function() {
+   	 		   var self = this;
+   	 		   var str = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
+   	 		   if(!str.test(self.info.pw)){
+   	 			   self.pwValid = false;
+   	 			   console.log(self.pwValid);
+   	 		   } else {
+   	 			   self.pwValid = true;
+   	 			console.log(self.pwValid);
+   	 		   }
    	 	   },
    	 	//닉네임 중복체크
 		   	 fnNickCheck : function(){

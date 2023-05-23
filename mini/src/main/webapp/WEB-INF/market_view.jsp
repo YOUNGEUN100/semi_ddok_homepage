@@ -230,6 +230,9 @@ var marketView = new Vue({
         // 상품 삭제
         , fndelete: function () {
         	var self = this;
+        	if (!confirm("삭제하시겠습니까?")) {
+        		return
+        	}
         	var nparmap = { productNo: self.productNo};
             $.ajax({
                 url: "/smartmarket/delete.dox",

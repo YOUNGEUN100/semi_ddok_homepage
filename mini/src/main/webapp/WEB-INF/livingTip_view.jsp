@@ -31,7 +31,6 @@
 					<div id="adminBox" class="styleBoxShadow">
 						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
 						<div class="btnSet">
-							<button class="modBtn" @click="">수정</button>
 							<button class="delBtn" @click="fnDelete">삭제</button>
 						</div>
 					</div>
