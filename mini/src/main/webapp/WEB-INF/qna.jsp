@@ -103,7 +103,7 @@ var qnaList = new Vue({
 		sessionId: "${sessionId}",    
 		sessionStatus : "${sessionStatus}",
 		order : "recent",
-		category : ""
+		category : 2
 	}
 	, methods: {
 		fnGetQnaList: function () {

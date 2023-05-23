@@ -26,7 +26,7 @@
 					</div>
                     <template>
 		               <div class="fileBox" v-if="info.filePath">
-		               		<a class="attached" @click="fnOpenFile()">
+		               		<a class="attached" @click="fnDownloadFile()">
 		               			<i class="fa-solid fa-folder"></i> 첨부파일
 		               		</a>
 		               </div>
@@ -40,7 +40,7 @@
             
             <section class="commentSection">
 	            <div class="headArea typeBoxArea">
-	            	<h3 class="head"><i class="fa-solid fa-comments"></i> 댓글 </h3><span class="commCnt">({{info.cnt}})</span>
+	            	<h3 class="head"><i class="fa-solid fa-comments"></i> 댓글 </h3><span v-if="info.cnt > 0" class="commCnt">({{info.cnt}})</span>
 	            </div>
 	            <div v-if="list.length == 0" class="commentArea commentNull typeBoxArea styleBoxRound styleBoxShadow">등록된 댓글이 없습니다.</div>
                 <div v-else class="commentArea commentList">
@@ -193,6 +193,7 @@ var communityView = new Vue({
 		// 커뮤니티 글 삭제
 		, fnRemove : function() {
 			var self = this;
+			if (!confirm("삭제하시겠습니까?")) return;
 			var nparmap = {boardNo : self.boardNo};
 			$.ajax({
 				url:"/community/remove.dox",
@@ -200,7 +201,6 @@ var communityView = new Vue({
 				type : "POST", 
 				data : nparmap,
 				success : function(data) { 
-					if (!confirm("삭제하시겠습니까?")) return;
 					location.href="/community.do";
 				}
 			}); 
@@ -277,6 +277,7 @@ var communityView = new Vue({
 					return;
 				} else return;
 			}
+			if(!self.commentInfo.comment) {alert("댓글 내용을 입력하세요."); return;}
 			var nparmap = self.commentInfo;
 			$.ajax({
 				url:"/community/commentSave.dox",
@@ -307,10 +308,21 @@ var communityView = new Vue({
 				}
 			}); 
 		}
-		, fnOpenFile : function() {
+		// 파일 다운로드
+		, fnDownloadFile : function() {
 			var self = this;
-			console.log(self.info.filePath);
-            window.open(self.info.filePath);
+			var filename = self.info.saveName;
+			var url = "/download/" + filename; 
+			
+			var link = document.createElement("a");
+			link.href = url;
+			link.download = filename;
+			link.target = "_blank";
+			
+			link.click();
+			
+			//console.log(self.info.filePath);
+            //window.open(self.info.filePath);
 		}
 	}
 	, created: function () {
