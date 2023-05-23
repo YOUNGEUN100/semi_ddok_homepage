@@ -76,7 +76,6 @@
 		        PRODUCT_WEIGHT,
 		        PRODUCT_EA,
 		        PRODUCT_VOLUME,
-		        R_KIND,
 		        PRODUCT_KIND,
 		        PRODUCT_PRICE,
 		        PRODUCT_STOCK,
@@ -87,8 +86,7 @@
 					IMG_PATH
 					FROM T4_P_IMAGE
             		WHERE THUMBNAIL_YN = 'Y') B ON A.PRODUCT_NO = B.PRODUCT_NO
- 		WHERE PRODUCT_KIND != #{code} AND PRODUCT_NAME REGEXP #{ing}
-		
+ 		WHERE PRODUCT_KIND != #{code} AND PCLASS REGEXP #{ing}
 		ORDER BY RAND() LIMIT 2
 	</select>
 	
