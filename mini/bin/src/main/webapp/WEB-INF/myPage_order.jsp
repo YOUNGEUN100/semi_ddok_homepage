@@ -100,14 +100,14 @@
                     <a class="menu" id="review" href="/myPage/review.do">리뷰관리</a>
                 </div>  
                 
-                <div class="orderBox" v-for="(item, index) in list">
+                <div class="orderBox" >
                         <div><h1>주문 상세 내역</h1></div>
                     <div class="orderContent">
                         <div id="orderTop">
-                        <div>{{item.orderDate}} 주문</div><div>주문번호 {{item.orderNo}}</div><div>{{item.status}} </div>
+                        <div> {{list[0].orderDate}} 주문</div><div>주문번호 {{list[0].orderNo}}</div><div>{{list[0].status}} </div>
                         </div>  
                     
-                    <div class="orderCenter">
+                    <div class="orderCenter" v-for="(item, index) in list" >
                         <img :src="item.imgPath" name="상품이미지">
                         <div class="orderDetail">
                             <div>{{item.productName}}</div>
@@ -122,17 +122,17 @@
                         <div class="orderHistory">
                             <h1>받는 사람 정보</h1>
                             <div class="orderHistoryList">
-                                <div>받는 사람 : {{item.userName}}</div>
-                                <div>연락처 : {{item.hp}}</div>
-                                <div>받는 주소 : {{item.addr}}&ensp;{{item.addr2}}</div>
+                                <div>받는 사람 : {{list[0].userName}}</div>
+                                <div>연락처 : {{list[0].hp}}</div>
+                                <div>받는 주소 : {{list[0].addr}}&ensp;{{list[0].addr2}}</div>
                             </div>
                         </div>
 
                         <div class="payMent">
                             <h1>결제정보</h1>
                             <div class="orderPayment">
-                                <div>결제 수단 : {{item.payment}}</div>
-                                <div>총 결제금액 : {{item.orderPrice2}}원</div>
+                                <div>결제 수단 : {{payment}}</div>
+                                <div>총 결제금액 : {{total_productPrice | numberFormat()}}원</div>
                             </div>
                         </div>
                     </div>
@@ -155,14 +155,28 @@ var app = new Vue({
     el: '#app',
     data: {
     	list : [],
+    	info : {},
     	sessionName : "${sessionName}",
-    	sessionId : "${sessionId}"
+    	sessionId : "${sessionId}",
+    	orderNo : "${map.orderNo}",
+    	total_productPrice : 0,
+    	payment : ""
     }
+    
+	,filters: {
+	    numberFormat: (value, numFix) => {
+	        value = parseFloat(value);
+	        if (!value) return '0';
+	        return value.toFixed(numFix).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+	    },
+	}
+
     , methods : {
     	
+    	//주문 상세 내역
     	fnOrderDetail : function(){
             var self = this;
-            var nparmap = {id : self.sessionId};
+            var nparmap = {id : self.sessionId, orderNo : self.orderNo};
             $.ajax({
                 url:"/order/detail.dox",
                 dataType:"json",
@@ -170,22 +184,30 @@ var app = new Vue({
                 data : nparmap,
                 success : function(data) {
                 	if(self.sessionId == ''){
-                		alert("로그인을 해주세요");
+                		alert("로그인 해주세요");
                 		location.href="/login.do";
-                		return;
-                	}
-                	else{
+                	} else{
                 		self.list = data.list;
+                		console.log(self.list);
+                		
+                		//결제수단
+                		self.payment = self.list[0].payment;
+                		//총 결제금액
+                		cnt = self.list.length;                  	  
+                  	  	if(cnt > 0){
+              			 for (var i = 0; i < cnt; i += 1) { 
+              		    	  self.total_productPrice = self.total_productPrice + (self.list[i].orderPrice*Number(self.list[i].orderCnt));
+                	      	 } 		    	  
+                    	  }
+                		
                 	}
-                	
-                    
                 }
             });
 
         },
     	
     		
-    	
+    	//회원정보 수정페이지 연결
     	fnUserEdit : function(){
     		var self = this;
     		self.pageChange("/modify.do", {sessionId : self.sessionId});

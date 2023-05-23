@@ -1,0 +1,117 @@
+@charset "UTF-8"; 
+
+/***** (policy) --- START *****/
+
+#pageContent.policy select {width:120px; position:absolute; right:2em; bottom:100%; background:url("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99761B495C84AA8716") no-repeat 95% 50%; padding:0.8em 0.5em; border:0; border-radius:0; appearance:none;}
+#pageContent.policy table {border-collapse:separate; border-spacing:0 1em; table-layout:fixed; text-align:center;}
+#pageContent.policy table td {vertical-align:middle; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+
+
+/* policy_list */
+#pageContent.policy .policy_list {display:flex; flex-flow:column; justify-content:flex-end; align-items:flex-end}
+#pageContent.policy .policy_list table {width:100%; font-size:1.125em; table-layout:fixed;}
+#pageContent.policy .policy_list table tr {border-radius:1.5em; cursor:pointer;}
+#pageContent.policy .policy_list table tr > * {padding:1.5em 5px; line-height:1;}
+#pageContent.policy .policy_list table tr > * i {position:relative; top:-0.06em; font-size:0.75em; margin:0 4px;}
+#pageContent.policy .policy_list table td.cate {width:150px;}
+#pageContent.policy .policy_list table td.cate .cateBox {width:46px; text-align:center; line-height:1; font-weight:500; font-size:0.875em; padding:0.375em; background:var(--base-colorWhite); border:1px solid var(--main-colorGreen); color:var(--main-colorGreen); transition:all 0.25s ease-in;}
+#pageContent.policy .policy_list table td.title {width:calc(100% - 450px); min-width:200px; font-weight:600; font-size:1.0625em; text-align:justify;}
+#pageContent.policy .policy_list table td.title i {color:var(--main-colorYellow); font-size:0.875em; top:0;}
+#pageContent.policy .policy_list table td.date {width:150px;}
+#pageContent.policy .policy_list table td.view {width:150px;}
+#pageContent.policy .policy_list table tr:hover td.cate .cateBox {background:var(--main-colorGreen); color:var(--base-colorWhite);}
+
+
+
+
+h4 {margin-bottom:20px;}
+button {
+font-size:medium;
+padding:5px 10px;
+margin-right:10px;
+border-radius:10px;
+border:1px solid gainsboro;
+background-color:gainsboro;
+width:80px;
+height:40px;
+}
+button:hover {cursor:pointer;}
+.btns { display:flex; justify-content:space-between; }
+.container {
+border :1px solid red;
+border:5px solid rgba(245, 243, 243, 0.959);
+box-shadow:2px 2px 20px 0px #ece9e9;
+border-radius:35px;
+padding:20px 40px;
+margin-bottom:30px;
+width:100%;
+}
+.com_head .title {
+font-size:large;
+font-weight:bold;
+margin:20px auto;
+}
+.com_head .writer div:first-child { margin-bottom:10px;}
+.com_head .writer .flexc {display:flex; justify-content:space-between;}
+.com_content {
+margin:0px auto 20px auto;
+/* border:1px solid black; */
+padding:10px 10px;
+height:auto;
+}
+.comment_list div:first-child {margin-bottom:10px; }
+.comment {margin:10px 10px;}
+.comment .comment_enroll {
+margin:20px auto;
+padding:10px 10px;
+border:1px solid #999;
+border-radius:5px;
+display:flex;
+flex-direction:column;
+}
+.comment_enroll div{ margin-bottom:10px;}
+.comment_enroll input{
+width:1000px;
+padding:5px 5px;
+margin-bottom:20px;
+border:none;
+font-size:medium;
+}
+.comment_enroll button {
+width:60px;
+height:35px;
+}
+.comment_list button {
+width:50px;
+height:30px;
+font-size:small;
+margin-left :20px;
+background-color:white;
+}
+.mgr20 {margin-right:20px;}
+.mgb20 {margin-bottom:20px;}
+.com_content .attached {text-align:right;}
+.com_content .attached:hover {text-decoration:underline;cursor:pointer;}
+
+
+
+#pageContent.policy.typeView section {margin-bottom:3em}
+#pageContent.policy.typeView .board_section {min-height:20em;}
+#pageContent.policy.typeView .board_section .head_area {padding:2em 0 1em;}
+#pageContent.policy.typeView .board_section .head_area .title_box {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:flex-end; margin-bottom:1em; padding-bottom:1em; border-bottom:1px dotted var(--base-colorCharcoal);}
+#pageContent.policy.typeView .board_section .head_area .title_box .title {display:flex; flex-flow:row wrap; justify-content:flex-start; align-items:center; font-size:2em; font-weight:700; margin-bottom:0;}
+#pageContent.policy.typeView .board_section .head_area .info_box {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:center;}
+#pageContent.policy.typeView .board_section .head_area .info_box .hits {font-size:1.125em;}
+#pageContent.policy.typeView .board_section .head_area .info_box .date {font-size:1.125em;}
+#pageContent.policy.typeView .board_section .content_area {padding:2em 0 2.5em;}
+#pageContent.policy.typeView .board_section .content_area .txt_box {margin-bottom:1em;}
+#pageContent.policy.typeView .board_section .content_area .txt_box pre {font-size:1.125em; text-align:justify; overflow:auto; word-break:break-all; white-space:pre-wrap;}
+#pageContent.policy.typeView .board_section .content_area .txt_box pre ul {margin:1em 0;}
+#pageContent.policy.typeView .board_section .content_area .txt_box pre p {margin-bottom:0.5em;}
+#pageContent.policy.typeView .board_section .content_area .txt_box pre {}
+#pageContent.policy.typeView .board_section .content_area .txt_box pre {}
+#pageContent.policy.typeView .board_section .content_area .txt_box pre {}
+#pageContent.policy.typeView .board_section .content_area .file_box {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:center; padding:2em 0 2.5em; border-top:1px dotted var(--base-colorCharcoal);}
+
+
+/***** (policy) --- END *****/

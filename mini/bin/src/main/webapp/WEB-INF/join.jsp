@@ -35,8 +35,9 @@
      .joinArea .joinBox .nick{font-weight: bold; font-size: 0.95em; display : inline-block;}
      .joinArea .joinBox input{
 	       border: 0; border-bottom: 1px solid black;
-	       padding: 10px; margin-bottom: 20px; border-radius: 0%;
+	       padding: 10px; margin-bottom: 20px; border-radius: 0%; 
 	      }
+     
      .joinArea .joinBox input[type=date]{border: 0; border-bottom: 1px solid black;
      		 margin-bottom: 20px; }
      .joinArea .joinBox .duplicationBtn{
@@ -108,29 +109,31 @@
 	                    </template>
 	                   
 	                    <template v-else-if="info.id != '' && idCk " ><!--중복체크-->
-	                      <span class="ableId" v-if="idFlg">사용가능한 아이디입니다</span>
-	                      <span class="disableId" v-else>이미 사용중인 아이디입니다</span> 
+	                      <span class="ableId" v-if="idFlg && aaa">사용가능한 아이디입니다</span>
+	                      <span class="disableId" v-if="!aaa">영문과 숫자의 조합만 가능합니다</span>
+	                      <span class="disableId" v-if="!idFlg">이미 사용중인 아이디입니다</span> 
 	                    </template>
-	                    	
+	                    
+	                    
 	                    <div v-else></div>
 
-                    <input type="text" v-model="info.id" id="password" maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
+                    <input type="text" v-model="info.id" id="id" maxlength="20" class="w80" placeholder="아이디 입력(영문,숫자 포함 6~20자)"><button class="duplicationBtn" @click="fnCheck">중복체크</button>
                 </div> 
                 
                 <div class="captionBox">
 
                     <div class="markEssential pw">비밀번호</div> <div  v-if="info.pw == ''"></div>
                		<template v-else> 
-	                	<span class="disableId" v-if="info.pw.length >= 20">20자 이내의 비밀번호를 입력해주세요</span>
-	                	<span v-else></span>
+	                	<span class="disableId" v-if="!pwValid">비밀번호 형식을 맞춰주세요</span>
+	                	<span class="ableId" v-else>올바른 형식의 비밀번호입니다</span>
                 	</template>
                     
-                    <template v-else-if="info.pw != '' && 20 > info.pw.length">
-                    	<span class="ableId" v-if="pwValid">올바른 형식의 비밀번호입니다</span>
-                    	<span class="disableId" v-else>올바른 형식의 비밀번호가 아닙니다</span>
-                    </template>
+<!--                     <template v-else-if="info.pw != '' && !pwValid"> -->
+<!--                     	<span class="ableId" v-if="pwValid">올바른 형식의 비밀번호입니다</span> -->
+<!--                     	<span class="disableId">올바른 형식의 비밀번호가 아닙니다</span> -->
+<!--                     </template> -->
                     
-                    <input type="password" id="password" v-model="info.pw" class="w100" maxlength="20" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)">
+                    <input type="password" id="password" v-model="info.pw" class="w100" maxlength="20" placeholder="비밀번호 입력(영문,숫자,특수문자 포함 8~20자)" @keyup="fnPwCheck">
                 </div>
                 
                 <div class="captionBox">
@@ -162,7 +165,7 @@
                 
                 
                 <p class="markEssential">전화번호</p>
-                <input type="tel" id="tel" class="w100" @keypress="getPhoneMask" maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
+                <input type="tel" id="tel" @keypress="fnNumber" class="w100"  maxlength="14" placeholder="휴대폰 번호를 입력('-'제외 11자리 입력)" v-model="info.hp">
                 
                 
                 <p>이메일주소</p>
@@ -232,6 +235,7 @@
 	} 
 	
 	
+	
 var app = new Vue({ 
     el: '#app',
     data: {
@@ -263,7 +267,11 @@ var app = new Vue({
     	, idValid : false
     	, pwValid : false
    		, pwFlg : false
+   		, aaa : true
+   		
+
     }
+   
     
     , methods : {
     	//회원가입
@@ -283,6 +291,10 @@ var app = new Vue({
     		}
     		if(self.info.pw != self.info.pwck){
     			alert("비밀번호가 일치하지 않습니다.");
+    			return;
+    		}
+    		if(!self.pwValid){
+    			alert("비밀번호형식을 다시 확인해주세요");
     			return;
     		}
     		if(self.info.name == ""){
@@ -340,6 +352,14 @@ var app = new Vue({
    	 //아이디 중복체크
    	 	, fnCheck : function(){
 	   	 	var self = this;
+	   	 	var str = /^[a-zA-Z0-9]*$/;
+	   	 	if(!str.test(self.info.id)){
+	   	 		self.aaa= false;
+	   	 		console.log(self.aaa);
+	   	 	} else {
+	   	 		self.aaa= true;
+	   	 		console.log(self.aaa);
+	   	 	};
 	   	 	var nparmap = {id : self.info.id};
 	        $.ajax({
 	            url:"/user/check.dox",
@@ -358,6 +378,18 @@ var app = new Vue({
 		        }
 	        }); 
    	 	
+   	 	   },
+   	 	   
+   	 	   fnPwCheck : function() {
+   	 		   var self = this;
+   	 		   var str = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
+   	 		   if(!str.test(self.info.pw)){
+   	 			   self.pwValid = false;
+   	 			   console.log(self.pwValid);
+   	 		   } else {
+   	 			   self.pwValid = true;
+   	 			console.log(self.pwValid);
+   	 		   }
    	 	   },
    	 	//닉네임 중복체크
 		   	 fnNickCheck : function(){
@@ -399,34 +431,14 @@ var app = new Vue({
     		console.log(roadAddrPart1);
     		console.log(addrDetail);
     		console.log(engAddr);
+    	 },
+    	 fnNumber : function(){
+    		 var self = this;
+    		 self.info.hp = self.info.hp.replace(/[^0-9.]/g,'').replace(/(\..*)\./g, '%1');
     	 }
-    
-    	,
-    	//핸드폰번호 자동 '-'
-    	getPhoneMask(val) {
-    		var self = this;
-        	let res = self.getMask(val);
-	        self.info.hp = res;
-	        //서버 전송 값에는 '-' 를 제외하고 숫자만 저장
-	        self.model.info.hp = self.info.hp.replace(/[^0-9]/g, '');
-   		},
-   		getMask( phoneNumber ) {
-   	        if(!phoneNumber) return phoneNumber;
-   	        phoneNumber = phoneNumber.replace(/[^0-9]/g, '');
-   	        
-   	        let res = '';
-   	        if(phoneNumber.length < 3) {
-   	            res = phoneNumber;
-   	        }
-   	        else { 
-               if(phoneNumber.length > 10) { 
-                  res = phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 4) + '-' + phoneNumber.substr(7)
-               }
-  	        
-   	        }
-   		}
-    	//아이디 유효성
-    	
+    	 
+
+		
     	
     	
     		

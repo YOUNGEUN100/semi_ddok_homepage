@@ -70,10 +70,12 @@
 			LEFT JOIN T4_P_IMAGE I ON O.PRODUCT_NO = I.PRODUCT_NO
 			
 			WHERE USER_ID = #{id} AND THUMBNAIL_YN='Y'
-            GROUP BY ORDER_NO
+			GROUP BY ORDER_NO
+            
             	
 		</select>
 		
+		<!-- 주문 상세 내역 보기 -->
 		<select id="selectOrderInfo" parameterType="HashMap" resultType="com.example.mini.model.OrderList">
 			SELECT 
 				O.PRODUCT_NO, 
@@ -107,8 +109,61 @@
             LEFT JOIN T4_USER U ON U.USER_ID = O.USER_ID
 			
 			WHERE O.USER_ID = #{id} AND THUMBNAIL_YN='Y' AND ORDER_NO = #{orderNo}
-			GROUP BY ORDER_NO
-           
-    
+
 		</select>
+		
+		<select id="selectReview" parameterType="HashMap" resultType="com.example.mini.model.OrderList">
+			SELECT
+				SATISFACTION_GRADE,
+                REPURCHASE_GRADE,
+                DELIVERY_GRADE, 
+				O.PRODUCT_NO, 
+				ORDER_DATE,
+				ORDER_PRICE, 
+				FORMAT((ORDER_CNT*PRODUCT_PRICE) , 0) AS ORDER_PRICE2, 
+				O.USER_ID, 
+				O.ORDER_NO, 
+				ORDER_CNT, 
+				PRODUCT_NAME,
+				PRODUCT_VOLUME,
+				CONCAT(PRODUCT_WEIGHT, PRODUCT_VOLUME) AS WEIGHT,  
+				TITLE, 
+				CONTENT, 
+				IMG_PATH,
+                C.NAME AS STATUS,
+				FORMAT(PRODUCT_PRICE , 0) AS PRODUCT_PRICE2,
+				format(((PRODUCT_PRICE*100/ PRODUCT_WEIGHT*PRODUCT_EA)), 0) AS PER_PRICE,
+				ROUND((SATISFACTION_GRADE + REPURCHASE_GRADE + DELIVERY_GRADE)/3,1) AS STAR_AVG
+				
+				
+			FROM T4_ORDER O
+			
+            LEFT JOIN T4_PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
+            LEFT JOIN T4_CODE C ON C.CODE = O.DELIVERY_STATUS AND C.KIND='DELIVERY'
+			
+			LEFT JOIN T4_P_IMAGE I ON O.PRODUCT_NO = I.PRODUCT_NO
+            LEFT JOIN T4_USER U ON U.USER_ID = O.USER_ID
+            LEFT JOIN T4_REVIEW V ON V.PRODUCT_NO = O.PRODUCT_NO
+			
+			WHERE O.USER_ID = #{id} AND THUMBNAIL_YN='Y'
+            
+		</select>
+		
+		<select id="selectStar" parameterType="HashMap" resultType="com.example.mini.model.OrderList">
+			SELECT
+				SATISFACTION_GRADE,
+                REPURCHASE_GRADE,
+                DELIVERY_GRADE, 
+				O.PRODUCT_NO, 
+				ROUND((SATISFACTION_GRADE + REPURCHASE_GRADE + DELIVERY_GRADE)/3,1) AS STAR_AVG				
+				
+			FROM T4_ORDER O
+			
+            LEFT JOIN T4_PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
+			
+            LEFT JOIN T4_REVIEW V ON V.PRODUCT_NO = O.PRODUCT_NO
+			
+			WHERE O.USER_ID = #{id} AND THUMBNAIL_YN='Y'
+		</select>
+		
 	</mapper>

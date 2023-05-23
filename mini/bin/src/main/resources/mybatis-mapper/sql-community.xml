@@ -161,27 +161,46 @@
 		<!--qna 전체 리스트-->
 		<select id="selectQnaList" parameterType="hashmap" resultType="com.example.mini.model.Community">
 			SELECT 
-				BOARD_NO, 
+				B.BOARD_NO, 
 				B.USER_ID AS USER_ID,
 				U.NICK AS NICK, 
 				U.STATUS AS STATUS,
-				TITLE, 
-				CONTENT, 
-				HITS, 
-				CATEGORY, 
-				DATE_FORMAT(CDATETIME,'%Y-%m-%d') AS CDATETIME, 
-				DATE_FORMAT(UDATETIME,'%Y-%m-%d') AS UDATETIME, 
-				DELETE_YN
+				B.TITLE, 
+				B.CONTENT, 
+				B.HITS, 
+				B.CATEGORY, 
+				DATE_FORMAT(B.CDATETIME,'%Y-%m-%d') AS CDATETIME, 
+				DATE_FORMAT(B.UDATETIME,'%Y-%m-%d') AS UDATETIME, 
+				B.DELETE_YN,
+				C.COMMENT_NO
 			FROM T4_BOARD B
 			LEFT JOIN (SELECT USER_ID, NICK, STATUS FROM T4_USER) U ON U.USER_ID = B.USER_ID
-			WHERE BOARD_KIND = 'QNA' AND DELETE_YN = 'N'
-			<if test = "order == 'recent'">
-			ORDER BY CATEGORY DESC ,CDATETIME DESC
-        	</if>
-        	<if test = "order == 'view'">
-        	ORDER BY CATEGORY DESC ,HITS DESC
-        	</if>
+			LEFT JOIN (SELECT * FROM T4_COMMENT) C ON C.BOARD_NO = B.BOARD_NO
+			WHERE B.BOARD_KIND = 'QNA' AND B.DELETE_YN = 'N'
+			<if test ="category != '' and category != null">
+				AND B.CATEGORY = #{category}
+			</if>
 			LIMIT #{startNum}, 10
+		</select>
+		
+		<!--회원 문의 글 갯수-->
+		<select id="select1Cnt" parameterType="hashmap" resultType="int">
+			SELECT 
+				COUNT(*) AS CNT
+			FROM T4_BOARD B
+			LEFT JOIN (SELECT USER_ID, NICK, STATUS FROM T4_USER) U ON U.USER_ID = B.USER_ID
+			LEFT JOIN (SELECT * FROM T4_COMMENT) C ON C.BOARD_NO = B.BOARD_NO
+			WHERE B.BOARD_KIND = 'QNA' AND B.DELETE_YN = 'N' AND B.CATEGORY = 1
+		</select>
+		
+		<!-- 자주 묻는 글 갯수 -->
+		<select id="select2Cnt" parameterType="hashmap" resultType="int">
+			SELECT 
+				COUNT(*) AS CNT
+			FROM T4_BOARD B
+			LEFT JOIN (SELECT USER_ID, NICK, STATUS FROM T4_USER) U ON U.USER_ID = B.USER_ID
+			LEFT JOIN (SELECT * FROM T4_COMMENT) C ON C.BOARD_NO = B.BOARD_NO
+			WHERE B.BOARD_KIND = 'QNA' AND B.DELETE_YN = 'N' AND B.CATEGORY = 2
 		</select>
 		
 		<!--커뮤니티 글 리스트 개수 -->

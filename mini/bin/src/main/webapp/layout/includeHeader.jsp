@@ -19,7 +19,7 @@
 	                <a href="/funding.do">소비N빵</a>
 	                <ul class="depth2">
 	                    <li><a href="/funding.do">랜선펀딩</a></li>
-	                    <li><a href="/flea.do">랜선마켓</a></li>
+	                    <li><a href="/flea.do">랜선장터</a></li>
 	                </ul>
 	            </li>
 	            <li class="menu03">

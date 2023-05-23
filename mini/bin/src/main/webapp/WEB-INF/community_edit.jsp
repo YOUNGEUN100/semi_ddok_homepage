@@ -6,34 +6,16 @@
 
 <style>
       /* style START */
-        h1 { text-align: center;  }
+        .h1_center { text-align: center;  }
         legend {font-size: x-large; }
-        fieldset {
-            width: 100%;
-            height: auto;
-            border: 5px solid rgba(245, 243, 243, 0.959);
-            box-shadow: 2px 2px 20px 0px #ece9e9;
-            border-radius: 10px;
-            padding: 20px 30px;
-            margin: 40px 0;
-        }
-        fieldset li {display: flex; margin: 20px 5px; }
-        fieldset .enrol_re {float: left; width: 100px;font-weight: bold;  }
+        .fieldStyle {  width: 100%;  height: auto; border: 5px solid rgba(245, 243, 243, 0.959); box-shadow: 2px 2px 20px 0px #ece9e9; border-radius: 10px; padding: 20px 30px;margin: 40px 0;}
+        .fieldStyle li {display: flex; margin: 20px 5px; }
+        .fieldStyle .enrol_re {float: left; width: 100px;font-weight: bold;  }
         .recipe_file { display: flex; }
-        fieldset > li > #boarde_name, #content {  border-radius: 5px;  width: 100%; }
-        fieldset > li > #no_btn {  border-radius: 5px;  width: 15%; }
+        .fieldStyle > li > #boarde_name, #content {  border-radius: 5px;  width: 100%; }
+        .fieldStyle > li > #no_btn {  border-radius: 5px;  width: 15%; }
         .enrol_no {border-radius: 5px; width : 30%;}
-        .btn_box button {
-            border: none;
-            width: 100px;
-            height: 40px;
-            margin-left: 16px;
-            border-radius: 15px;
-            background-color: #999999;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-        }
+        .btn_box button {border: none;width: 100px;  height: 40px; margin-left: 16px;border-radius: 15px;background-color: #999999;color: white; font-size: 20px;font-weight: bold; }
         #add_area { text-align: center;margin:10px 0; }
         #step_num{margin-right: 30px;}
         #re_info {margin-bottom: 20px;}
@@ -49,8 +31,8 @@
 	<div class="wrapper">
         <!-- wrap START -->
         <div id="app">
-            <h1>글쓰기</h1>
-            <fieldset>
+            <h1 class="h1_center">글쓰기</h1>
+            <fieldset class="fieldStyle">
                   <li>
                     <label for="board_name" class="enrol_re">제목</label>
                     <input id="boarde_name" name="board_name" type="text" v-model="info.title" required >
@@ -138,7 +120,8 @@
             if (self.sessionStatus=='A') {
             	self.info.category = 2;
             }
-            
+            if (!self.info.title) {alert("글 제목을 입력해주세요."); return;}
+            if (!self.info.content) {alert("글 내용을 입력해주세요."); return;}
             var nparmap = self.info;
 	        $.ajax({
 	            url:"/community/save.dox",

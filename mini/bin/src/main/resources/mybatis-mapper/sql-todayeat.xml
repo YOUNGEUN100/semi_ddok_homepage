@@ -5,7 +5,7 @@
 <mapper namespace="com.example.mini.mapper.TodayEatMapper">
 
  	<select id="selectRecipeInfo" parameterType="hashmap" resultType="com.example.mini.model.TodayEat">
- 		SELECT R.RECIPE_NO AS RECIPE_NO, RECIPE_NAME, COOK_INGRE, I_T.IMG_PATH AS IMG_PATH_T, I_R.IMG_PATH AS IMG_PATH_R, I.CODE
+ 		SELECT R.RECIPE_NO AS RECIPE_NO, RECIPE_NAME, HASHTAG, COOK_INGRE, I_T.IMG_PATH AS IMG_PATH_T, I_R.IMG_PATH AS IMG_PATH_R, I.CODE
 		FROM T4_RECIPE AS R
 		INNER JOIN T4_R_PURPOSE AS P ON R.RECIPE_NO = P.RECIPE_NO
 		INNER JOIN T4_HOWTO AS H ON R.RECIPE_NO = H.RECIPE_NO
@@ -31,6 +31,24 @@
 	<select id="selectMenuRandom" parameterType="hashmap" resultType="com.example.mini.model.TodayEat">
 		SELECT MENU_NO, MENU_NAME, IMG_PATH
 		FROM T4_MENU
+		WHERE DELETE_YN = 'N'
+		ORDER BY RAND() LIMIT 1
+	</select>
+	
+	<!-- 전체 레시피 랜덤 추천 -->
+	<select id="selectRecipeRandom" parameterType="hashmap" resultType="com.example.mini.model.TodayEat">
+		SELECT A.RECIPE_NO, RECIPE_NAME, IMG_PATH AS IMG_PATH_T, IMG_PATH2 AS IMG_PATH_R, CODE, COOK_INGRE
+		FROM T4_RECIPE A
+        LEFT JOIN (SELECT RECIPE_NO,
+							IMG_PATH
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'Y') B ON A.RECIPE_NO = B.RECIPE_NO
+		LEFT JOIN (SELECT RECIPE_NO,
+							IMG_PATH AS IMG_PATH2
+					FROM T4_R_IMAGE
+					WHERE THUMBNAIL_YN = 'N') C ON A.RECIPE_NO = C.RECIPE_NO
+		LEFT JOIN (SELECT RECIPE_NO, CODE
+					FROM T4_INGREDIENT) D ON A.RECIPE_NO = D.RECIPE_NO
 		WHERE DELETE_YN = 'N'
 		ORDER BY RAND() LIMIT 1
 	</select>
@@ -68,10 +86,7 @@
 					IMG_PATH
 					FROM T4_P_IMAGE
             		WHERE THUMBNAIL_YN = 'Y') B ON A.PRODUCT_NO = B.PRODUCT_NO
- 		WHERE PRODUCT_KIND != #{code}  AND
-		<foreach collection="ingList" index="index" item="item" open="(" close=")" separator="or">
-			PRODUCT_NAME LIKE CONCAT ('%',#{item},'%')
-		</foreach>
+ 		WHERE PRODUCT_KIND != #{code} AND PCLASS REGEXP #{ing}
 		ORDER BY RAND() LIMIT 2
 	</select>
 	

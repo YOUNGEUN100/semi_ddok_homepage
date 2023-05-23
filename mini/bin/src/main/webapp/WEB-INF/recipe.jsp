@@ -54,6 +54,7 @@
             <section class="search-result-s" id="tag1">
             	<div class="result-text">
             		<span v-if="keyword != ''">검색결과 : {{keyword}}</span>	
+            		
 		            <span v-else>
             			<span v-if="rkind == '전체'">모든 레시피</span>	
             			<span v-else>검색결과 : {{rkind}}</span>
@@ -118,7 +119,6 @@
 
 <script type="text/javascript">
 Vue.component('paginate', VuejsPaginate)
-	 
 var recipeList = new Vue({ 
 	el: '#recipeList',
 	data: {
@@ -184,7 +184,6 @@ var recipeList = new Vue({
 					 self.selectPage = "1"; // 선택 페이지 초기화
 				}
 			})
-			
 		} 
 		// 목적별 리스트 가져오기
 		,fnGetRecipeListPur : function(item) {

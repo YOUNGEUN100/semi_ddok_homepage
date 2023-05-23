@@ -3,56 +3,40 @@
 <jsp:include page="/layout/head.jsp"></jsp:include>
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
-
-	<style>
-        .slidewrap {
-        	position:relative;
-            max-width: 1200px;
-            margin:0 auto;
-            overflow:hidden;
-        }        
-        .PreBtn {position:absolute;top:50%;left:3%;font-size:2em;}
-        .NextBtn {position:absolute;top:50%;right:3%;font-size:2em;}
-        .slidelist {
-            width:100%;
-            white-space: nowrap;
-            padding:0;
-            font-size: 0;
-            transition: all .5s;
-        }
-        .slidelist li {
-            display:inline-block;
-            vertical-align:middle;
-            width:100%;
-            
-        }
-        .slidelist a {
-            display:block;
-            position:relative;
-        }
-        .slidelist img {
-            width:100%;
-        }
-    </style>
-
+<link rel="stylesheet" href="/css/pageStyle/depth4_livingTip.css">
 
 <!-- pageContent -- START -->
-<div id="pageContent">
+<div id="pageContent" class="livingTip typeView">
 	<div class="wrapper">
-		 <div id="app">
-		 	<button @click="fnDelete">삭제</button>
-		  	<div class="slidewrap" >
-            	<ul class="slidelist">
-                	<li class="lili" v-for="(item, index) in list">
-                    	<a>
-                        	<img :src="item.imgPath">
-                    	</a>                        
-                	</li>                 
-             	</ul>
-             	<div class="PreBtn" @click="fnPreBtn"><i class="fa-solid fa-circle-chevron-left"></i></div>
-		  		<div class="NextBtn" @click="fnNextBtn"><i class="fa-solid fa-circle-chevron-right"></i></div>
-             </div>
- 	
+		<div id="livingTipView" class="livingTipViewContainer">
+		  	<section class="livingTipSection">
+		      	<p class="tip"><i class="fa-solid fa-arrow-pointer fa-beat"></i> 양 옆 화살표를 눌러 넘겨보세요!</p>
+		  		<div class="slideArea styleBoxRound typeMore styleBoxShadow">
+	            	<ul class="slideList">
+	                	<li class="slideItem" v-for="(item, index) in list">
+	                		<img :src="item.imgPath">
+	                	</li>                 
+	             	</ul>
+             	</div>
+             	<div class="arrowArea">
+	             	<div class="preBtn styleBoxShadow styleHoverShadow" @click="fnPreBtn"><i class="fa-solid fa-circle-chevron-left"></i></div>
+			  		<div class="nextBtn styleBoxShadow styleHoverShadow" @click="fnNextBtn"><i class="fa-solid fa-circle-chevron-right"></i></div>
+		  		</div>
+             </section>
+            
+			<!-- adminCtrlBox -- Don't touch -->
+			<template>
+				<div v-if="sessionStatus=='A'" id="adminCtrlArea">
+					<i id="adminBtn" class="fa-solid fa-gear fa-spin styleBoxShadow styleHoverShadow"></i>
+					<div id="adminBox" class="styleBoxShadow">
+						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
+						<div class="btnSet">
+							<button class="delBtn" @click="fnDelete">삭제</button>
+						</div>
+					</div>
+				</div>
+			</template>
+			<!-- adminCtrlBox -- Don't touch -->
 		 </div>
 	</div>
 </div>
@@ -62,70 +46,19 @@
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 <script type="text/javascript">
-/* $(function() {
-    $("#btn1").on("click",function(){
-        $(".slidelist").css("transform", "translateX(0%)");
-    })
-})
-$(function() {
-    $("#btn2").on("click",function(){
-        $(".slidelist").css("transform", "translateX(-100%)");
-    })
-})
-$(function() {
-    $("#btn3").on("click",function(){
-        $(".slidelist").css("transform", "translateX(-200%)");
-    })
-})
-$(function() {
-    $("#btn4").on("click",function(){
-        $(".slidelist").css("transform", "translateX(-300%)");
-    })
-})
-$(function() {
-    $("#btn5").on("click",function(){
-        $(".slidelist").css("transform", "translateX(-400%)");
-    })
-})
-$(function() {
-    $("#btn6").on("click",function(){
-        $(".slidelist").css("transform", "translateX(-500%)");
-    })
-}) */
-
-/* document.querySelector("#btn1").addEventListener('click', function () {
-        document.querySelector(".slidelist").style.transform = "translateX(0%)";
-    })
-document.querySelector("#btn2").addEventListener('click', function () {
-        document.querySelector(".slidelist").style.transform = "translateX(-100%)";
-    })
-document.querySelector("#btn3").addEventListener('click', function () {
-        document.querySelector(".slidelist").style.transform = "translateX(-200%)";
-    })
-document.querySelector("#btn4").addEventListener('click', function () {
-        document.querySelector(".slidelist").style.transform = "translateX(-300%)";
-    })
-document.querySelector("#btn5").addEventListener('click', function () {
-        document.querySelector(".slidelist").style.transform = "translateX(-400%)";
-    }) */
-
-var app = new Vue({
-	
-    el: '#app',
+var livingTipView = new Vue({
+    el: '#livingTipView',
     data: {
     	list : [],
-    	sessionId : "${sessionId}",
+        sessionId: "${sessionId}",
+        sessionStatus : "${sessionStatus}",
     	cardNo : "${map.cardNo}",
     	num : "",
     	page: 0
-
-
     }
     , methods : {
-    	
     	fnCardInfo : function(){
             var self = this;
-
             var nparmap = {cardNo : self.cardNo};
             $.ajax({
                 url:"/livingTip/view.dox",
@@ -137,12 +70,9 @@ var app = new Vue({
                 	self.num = data.list.length;
                 	console.log(self.num);
                 	console.log(data.list);
-                    
                 }
             });
-
         }
-    	
     	, fnDelete: function() {
     		var self = this;
     		if(!confirm("삭제하시겠습니까?")) {
@@ -156,32 +86,23 @@ var app = new Vue({
                 data : nparmap,
                 success : function(data) {
 					alert("삭제완료");
-                	       
                 }
             });
     	}
-    	
 	    , fnPreBtn: function() {
 	    	var self = this;
-	    	
 	    	if(self.page > 0) {
 	    		self.page--;
-	    		$(".slidelist").css("transform", "translateX(-" + self.page + "00%)");
-	    		console.log(self.page);
+	    		$(".slideList").css("transform", "translateX(-" + self.page + "00%)");
 	    	}
 	    }
-	    
 	    , fnNextBtn: function() {
 	    	var self = this;
 	    	if(self.page < self.num-1) {
 	    		self.page++;
-	    		$(".slidelist").css("transform", "translateX(-" + self.page + "00%)");
-	    		console.log(self.page);
+	    		$(".slideList").css("transform", "translateX(-" + self.page + "00%)");
 	    	}
-	    		  	    		
 	    }
-
-    	    
 	}	
     , created: function () {
     	var self = this;

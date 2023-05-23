@@ -8,54 +8,23 @@
 	.comTable { width : 100%;}
     .comTable, td,th {border-collapse: collapse; padding: 16px; table-layout: fixed;}
     .comTable .myboard {color: var(--main-colorGreen);font-weight:bold}
-    th {border-bottom:1px solid black;}
-    .comBtn {
-       font-size: medium;
-       padding: 5px 10px;
-       margin-right:10px;
-       border-radius: 10px;
-       border: 1px solid gainsboro;
-       background-color: gainsboro;
-       width: 80px;
-       height: 40px;
-       background-color: #E4DBD6;
-    }
-    .comBtn:hover {cursor: pointer;}
-	.comlist {
-		display: flex;
-	    flex-direction: column;
-		border: none;
-        box-sizing: border-box;
-        padding: 40px 40px;
-        width: 1200px;
-        margin-top: 20px;
-        margin-bottom : 20px;
-        border-radius: 20px;
-        box-shadow: 0px 0px 20px 5px #e7e6e6;
-	}
-	.comlist .center{text-align:center; }
-	.comlist .title:hover{cursor: pointer; text-decoration: underline;}
-	.comlist .title{text-align:left;}
+    .comTable th {border-bottom:1px solid black;}
+    #communityList .comBtn { font-size: medium; padding: 5px 10px;  margin-right:10px; border-radius: 10px;border: 1px solid gainsboro;background-color: gainsboro; width: 80px; height: 40px; background-color: #E4DBD6; }
+     #communityList .comBtn:hover {cursor: pointer;}
+	.comlist {display: flex;  flex-direction: column;border: none; box-sizing: border-box; padding: 40px 40px; width: 1200px; margin-top: 20px; margin-bottom : 20px;  border-radius: 20px; box-shadow: 0px 0px 20px 5px #e7e6e6;}
+	.comlist .center {text-align:center; }
+	.comlist .title:hover {cursor: pointer; text-decoration: underline;}
+	.comlist .title {text-align:left;}
 	
 	/* 페이징 추가2 */
 	.pagination {    margin: 24px auto; display: flex; justify-content: center;}
-    ul { text-align: center; }
-	.pagination li {
-	    min-width:32px;
-	    padding:4px 8px;
-	    text-align:center;
-	    margin:0 3px;
-	    border-radius: 6px;
-	    border:1px solid #eee;
-	    color:#666;
-	    display : inline;
-	}
+     ul { text-align: center; }
+	.pagination li {min-width:32px;padding:4px 8px;text-align:center; margin:0 3px; border-radius: 6px; border:1px solid #eee;color:#666;display : inline;}
 	.pagination li:hover {background: #E4DBD6;}
 	.page-item a {color:#666;text-decoration: none;}
 	.pagination li.active {background-color : #E7AA8D;color:#fff;}
 	.pagination li.active a {color:#fff;}
     /* 페이징 추가 끝 */
-	
 </style>
 
 
@@ -85,13 +54,13 @@
 		           	<tbody>
 		             	<tr class="center" v-for="(item, index) in list" >
 		                      <td class="no">{{item.boardNo}}</td>
-		                  <template>
-		                        <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></strong></td>
-		                        <template v-if="item.status=='C'">
-		                      		  <td colspan=3 class="title myboard" v-if="item.userId==sessionId" @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i> </td>
-		                      		  <td colspan=3 class="title"  v-else @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></td>
-		                        </template>
-	         	 		  </template>
+			                  <template>
+			                        <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></strong></td>
+			                        <template v-if="item.status=='C'">
+			                      		  <td colspan=3 class="title myboard" v-if="item.userId==sessionId" @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i> </td>
+			                      		  <td colspan=3 class="title"  v-else @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></td>
+			                        </template>
+		         	 		  </template>
 		 	                    <td class="writer">{{item.nick}}</td>
 		     	                <td class="date">{{item.cdatetime}}</td>
 		             	        <td class="view">{{item.hits}}</td>
@@ -165,7 +134,12 @@
                 }
 	            , fnChangeOrder: function () {
 	                var self = this;                    
-	                self.fnGetComList();
+			        var liList = $(".pagination").children();
+			        for (var i = 0; i < liList.length; i++) {
+			            liList.eq(i).removeClass("active");
+			        }
+			        liList.eq(1).addClass("active");
+			        self.fnSearch(1);
 	            }
             	<!-- 페이징 추가 7-->
         		, fnSearch : function(pageNum){

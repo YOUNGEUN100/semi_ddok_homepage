@@ -17,7 +17,7 @@
 				<div class="imgBox">
 					<img :src="info.imgPath" alt="menuImg">
 				</div>
-				<a class="replayBtn" href="/todayEat/store.do"><i class="fa-solid fa-arrow-rotate-left"></i> 다시 추천받기</a>
+				<button class="replayBtn" @click="fnReplay()"><i class="fa-solid fa-arrow-rotate-left"></i> 다시 추천받기</button>
 			</div>
 			<h4 class="resultMapTitle"><span id="location"></span>에서 찾아본 <span>{{info.menuName}} 맛집</span>은 여기래요!</h4>
 			<div class="resultMap">
@@ -103,7 +103,9 @@ var result = new Vue({
                 }
             }); 
 		},
-    	
+		fnReplay : function() {
+			location.href = "/todayEat/store.do";
+		},
     	initMap() {
     		var container = document.getElementById('map');
     	       var options = {

@@ -45,7 +45,7 @@
 				                    <td class="sale_flg" v-if="item.finishYn=='N'">{{item.boardKind2}}</td>
 				                    <td class="sale_flg disabled" v-else>{{item.boardKind2}}</td>
 				                    <td class="address">{{item.addr}}</td>
-				                    <td class="title">{{item.title}}</td>
+				                    <td class="title">{{item.title}} <span>[{{item.commentCnt}}]</span></td>
 				                    <td class="user">{{item.nick}}</td>
 				                    <td class="date">{{item.cdatetime2}}</td>
 				                    <td class="viewCnt">{{item.hits}}</td>
@@ -92,7 +92,7 @@
 	                                <td class="sale_flg" v-if="item.finishYn=='N'">{{item.boardKind2}}</td>
 	                                <td class="sale_flg disabled" v-else>{{item.boardKind2}}</td>
 	                                <td class="address">{{item.addr}}</td>
-	                                <td class="title">{{item.title}}</td>
+	                                <td class="title">{{item.title}} <span>[{{item.commentCnt}}]</span></td>
 	                                <td class="user">{{item.nick}}</td>
 	                                <td class="date">{{item.cdatetime2}}</td>
 	                                <td class="viewCnt">{{item.hits}}</td>
@@ -121,6 +121,7 @@
 					<div id="adminBox" class="styleBoxShadow">
 						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
 						<div class="btnSet">
+							<button class="addBtn" @click="fnAddFunding">등록</button>
 						</div>
 					</div>
 				</div>
@@ -180,7 +181,7 @@ var fleaList = new Vue({
             var self = this;
             // <!-- 페이징 추가 6-->     		
             var startNum = ((self.selectPage - 1) * 10);
-            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum, remainNum : self.remainNum,  pageCount : self.pageCount, selectPage : self.selectPage};
+            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum};
             $.ajax({
                 url: "/fleamarket/list.dox",
                 dataType: "json",
@@ -222,7 +223,7 @@ var fleaList = new Vue({
             var self = this;
             self.selectPage = pageNum;
             var startNum = ((pageNum - 1) * 10);
-            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum, remainNum : self.remainNum,  pageCount : self.pageCount, selectPage : self.selectPage };
+            var nparmap = { moreBtn: self.moreBtn, orderValue: self.orderValue, startNum: startNum};
             $.ajax({
                 url: "/fleamarket/list.dox",
                 dataType: "json",
@@ -266,7 +267,17 @@ var fleaList = new Vue({
 		    } else if (self.moreBtn == "on") {
 		        document.getElementById('page').style.display = 'none';
 		        self.moreBtn = "off"
-		        self.fnGetFleaList();
+		        
+		        var liList = $(".pagination").children();
+		        for (var i = 0; i < liList.length; i++) {
+		            liList.eq(i).removeClass("active");
+		            liList.eq(i).removeClass("disabled");
+		        }
+		        liList.eq(0).addClass("disabled");
+		        liList.eq(1).addClass("active");
+		        self.fnSearch(1);
+		        
+		        //self.fnGetFleaList();
 		        moreBtn.innerText = "더보기";
 		    }
 		}
@@ -281,7 +292,15 @@ var fleaList = new Vue({
 	        } else if (self.moreBtn2 == "on") {
 	            document.getElementById('page2').style.display = 'none';
 	            self.moreBtn2 = "off";
-	            self.fnGetFleaList2();
+	            
+		        var liList = $(".pagination2").children();
+		        for (var i = 0; i < liList.length; i++) {
+		            liList.eq(i).removeClass("active");
+		        }
+		        liList.eq(1).addClass("active");
+		        self.fnSearch2(1);
+
+	            //self.fnGetFleaList2();
 	            moreBtn2.innerText = "더보기";
 	        }
 	    }
@@ -293,10 +312,10 @@ var fleaList = new Vue({
 	            liList.eq(i).removeClass("active");
 	        }
 	        liList.eq(1).addClass("active");
-	        self.selectPage = 1,
-	            self.pageCount = 1,
-	            self.cnt = 0,
-	            self.fnGetFleaList();
+	        self.fnSearch(1);
+
+          	//self.fnGetFleaList();
+            
 	    }
 	    // 나눔글 카테고리 변경
 	    , fnChangeOrder2: function () {
@@ -306,10 +325,9 @@ var fleaList = new Vue({
 	            liList.eq(i).removeClass("active");
 	        }
 	        liList.eq(1).addClass("active");
-	        self.selectPage2 = 1,
-	            self.pageCount2 = 1,
-	            self.cnt2 = 0,
-	            self.fnGetFleaList2();
+	        self.fnSearch2(1);
+
+            //self.fnGetFleaList2();
 	    }
 	    // 랜선장터 글 보기
 	    , fnViewFlea: function (boardNo) {

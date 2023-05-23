@@ -40,7 +40,7 @@
             </section>
             <section class="comment_section">
 	            <div class="head_area typeBoxArea">
-	            	<h3 class="head"><i class="fa-solid fa-comments"></i> 댓글 </h3><span class="comm_cnt" style="color:red;">(00개)</span>
+	            	<h3 class="head"><i class="fa-solid fa-comments"></i> 댓글 </h3><span class="comm_cnt" style="color:red;">({{commentCnt}})</span>
 	            </div>
 	            <div v-if="list.length == 0" class="comment_area comment_null typeBoxArea styleBoxRound styleBoxShadow">등록된 댓글이 없습니다.</div>
                 <div v-else class="comment_area comment_list typeBoxArea styleBoxRound typeMore styleBoxShadow">
@@ -89,6 +89,10 @@
 								</div>
 		                        <pre class="comment_content">{{item.content}}</pre>
 		                    </div>
+		                    <div v-else style="margin-bottom:5px;">
+		                   		 <div class="info_box"><i class="fa-solid fa-user"></i><span> {{item.nick}}</span><span class="date">({{item.cdatetime2}})</span></div>
+		                    	<i class="fa-solid fa-lock"></i> 비밀 댓글입니다.
+		                    </div>
 		                </div>
 	                <!-- 대댓글 출력 영역 끝 -->
 	                </div>
@@ -134,6 +138,7 @@ var fleaView = new Vue({
     data: {
         info: {}, // 게시글 정보
         list: [], // 댓글 리스트
+        commentCnt : 0, //댓글 갯수
         imgList: [], //이미지리스트
         commentInfo: {}, // 댓글 수정용 정보
         boardNo: "${map.boardNo}",
@@ -157,7 +162,9 @@ var fleaView = new Vue({
                 data: nparmap,
                 success: function (data) {
                     self.info = data.info;
+                    self.commentCnt = data.commentCnt;
                     self.imgList = data.imgList;
+                    console.log(data.commentCnt);
                     console.log(data.info);
                     console.log(data.imgList);
                     self.fnGetFleaComment();

@@ -26,7 +26,7 @@
 
 		</select>
 		
-				<!-- 페이징 용 카운트 -->
+		<!-- 페이징 용 카운트 -->
 		<select id="pagingCnt" parameterType="hashmap" resultType="int">
 			SELECT COUNT(*) AS CNT
             FROM T4_CARDINFO
@@ -41,7 +41,7 @@
         		CDATETIME,
         		UDATETIME
 			FROM T4_CARDIMG
-			WHERE THUMBNAIL_YN = 'N' AND CARD_NO = #{cardNo};
+			WHERE CARD_NO = #{cardNo};
 		</select>
 		
 		<!-- 카드 등록 -->

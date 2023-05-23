@@ -54,7 +54,7 @@
 						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
 						<div class="btnSet">
 							<button class="modBtn" @click="fnEditFunding(info.fundingNo)">수정</button>
-							<button class="delBtn" @click="">삭제</button>
+							<button class="delBtn" @click="fnDeleteFunding">삭제</button>
 						</div>
 					</div>
 				</div>
@@ -161,6 +161,27 @@ var fundingView = new Vue({
                 }
             });
         }
+        
+        // 펀딩삭제
+        , fnDeleteFunding: function () {
+        	var self = this;
+        	if (!confirm("펀딩을 삭제하시겠습니까?")) {
+        		return;
+        	}
+        	var nparmap = {fundingNo: self.fundingNo};
+                $.ajax({
+                    url: "/funding/delete.dox",
+                    dataType: "json",
+                    type: "POST",
+                    data: nparmap,
+                    success: function (data) {
+                        console.log(data);
+                        alert("삭제완료");
+                        location.href = "/funding.do";
+                    }
+                });
+        }
+        
         // 펀딩 수정
         , fnEditFunding: function (fundingNo) {
             var self = this;

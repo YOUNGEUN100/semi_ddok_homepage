@@ -8,42 +8,41 @@
 <!-- pageContent -- START -->
 <div id="pageContent" class="todayEat">
 	<div class="wrapper">
-		<jsp:include page="/layout/includeLoading.jsp"></jsp:include>
+		<%-- <jsp:include page="/layout/includeLoading.jsp"></jsp:include> --%>
 		<div id="result" class="resultContainer">
 			<div class="resultMenu">
 	 			<h3 class="resultMenuTitle">
-					오늘 ‘<span id="menuName">{{info.recipeName}}</span>’ 어때요?
+					<span v-if="menuFlg">{{message}}</span> 오늘 ‘<span id="menuName">{{info.recipeName}}</span>’ 어때요?
 				</h3>
 				<div class="imgBox">
                 	<img class="img" :src="info.imgPathT">
 				</div>
-				<a class="replayBtn" @click="fnReplay()"><i class="fa-solid fa-arrow-rotate-left"></i> 다시 추천받기</a>
+				<button class="replayBtn" @click="fnReplay()"><i class="fa-solid fa-arrow-rotate-left"></i> 다시 추천받기</button>
 			</div>
 			<div class="resultMore">
 				<div class="recipeArea">
 					<h4 class="areaTitle"><span>{{info.recipeName}}</span>, 이렇게만 하면 맛보장</h4>
-					<div class="recipeImg styleBoxRound styleBoxShadow styleHoverShadow" @click="fnRecipeView(info.recipeNo)">
+					<div class="recipeBox styleBoxRound styleBoxShadow styleHoverShadow" @click="fnRecipeView(info.recipeNo)">
 						<img class="img" :src="info.imgPathR">
+						<div class="info">
+							<p class="hashtag">{{info.hashtag}}</p>
+						    <h4 class="title"><i class="fa-solid fa-utensils"></i> {{info.recipeName}}</h4>
+						</div>
 					</div>
 				</div>
 				<div class="marketArea">
-					<h4 class="areaTitle">부족한 재료는 바로 주문!</h4>
-									<section id="mainContent" class="nth2">
-    <div class="wrapper">
-        <h2 class="mctTitle">똑똑한 마켓</h2>
-        <div class="mctArea type5">
-            <div class="mctThumb typeCol" v-for="(item, index) in productList">
-                <a href="javaScript:;" class="imgBox" @click="fnView(item.productNo)">
-                    <img :src="item.imgPath" alt="">
-              </a>
-              <a href="javaScript:;" class="cartBtn"><i class="fa-solid fa-cart-plus" @click="fnView(item.productNo)"></i></a>
-              <a href="javaScript:;" class="txtBox" @click="fnView(item.productNo)">
-                  <p class="text">현재 {{item.productStock}}개 남았어요!</p>
-                  <h4 class="title">{{item.productName}}</h4>
-                  <div class="price"><span class="amount">{{item.productPrice | numberFormat()}}원</span> (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</div>
-              </a>
-          </div>
-          
+					<h4 class="areaTitle"><b>부족한 재료</b>는 바로 주문!</h4>
+					<div class="marketBox">
+		            <div class="thumb styleHoverShadow typeThumb" v-for="(item, index) in productList" @click="fnView(item.productNo)">
+		            	<div class="imgBox styleBoxRound"><img :src="item.imgPath" alt=""></div>
+						<div class="txtBox">
+						    <p class="text">현재 {{item.productStock}}개 남았어요!</p>
+						    <h4 class="title">{{item.productName}}</h4>
+						    <div class="price"><span class="amount">{{item.productPrice | numberFormat()}}원</span> (100{{item.productVolume}}당 {{item.productPrice*100 / item.productWeight*item.productEa | numberFormat()}}원)</div>
+						</div>
+					</div>
+          		</div>
+          	</div>
         </div>
     </div>
 </section>
@@ -62,6 +61,8 @@ var result = new Vue({
 	data: {
 		list : [], 
 		info : {},
+		menuFlg : false,
+		message : "",
 		param : {
 			r_purpose : "${hmap.r_purpose}",
 			howto : "${hmap.howto}",
@@ -70,7 +71,8 @@ var result = new Vue({
 		},
 		ingList : [],
 		productList : [],
-		code : ""
+		code : "",
+		ing:""
 	}
 	, filters: {
 	    numberFormat: (value, numFix) => {
@@ -80,6 +82,47 @@ var result = new Vue({
 	    },
 	}
 	, methods: {
+		// 전체 메뉴 랜덤하게 가져오기
+		fnGetRecipe : function() {
+            var self = this;
+            var nparmap = {};
+            
+            $.ajax({
+                url:"/todayEat/recipe/resultR.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                    self.info = data.menu;
+                    self.code = data.menu.code;
+                    self.info.imgPathT = "../" + data.menu.imgPathT;
+                    self.info.imgPathR = "../" + data.menu.imgPathR;
+                    console.log(self.info);
+                    console.log(data.menu.code);
+                    
+                	var ingArray = self.info.cookIngre.split(',');// ,로 나눠서 재료 배열만들기
+					
+					var filtered = ingArray.filter((element) => element != '밥'); //밥 제외
+					var ingList = filtered.filter((element) => element != '물');// 물 제외
+                    console.log("split 결과 = " + ingArray);
+                    console.log("밥 제거 = " + filtered);
+                    console.log("물 제거 = " + ingList);
+                    
+                    var ingStr = ingList.join("|"); //다시 구분 | 문자로
+                    self.ing = ingStr.replaceAll(" ","");//공백없애기
+                    console.log("최종 재료값 = " + self.ing);
+                    
+                  // console.log("menu 데이터는" + data.menu);
+                  //  console.log(data.menu);
+                    self.message = "검색결과가 없어요. 대신";
+                    self.menuFlg = true;
+
+					self.fnGetProduct();
+                  
+                }
+            }); 
+		},
+		
 		fnGetRecipeResult : function() {
             var self = this;
             var nparmap = self.param;
@@ -91,22 +134,33 @@ var result = new Vue({
                 type : "POST",
                 data : nparmap,
                 success : function(data) {
-                    self.info = data.info;
-                    self.code = data.info.code;
-                    console.log(self.info);
-                    self.info.imgPathT = "../" + data.info.imgPathT;
-                    self.info.imgPathR = "../" + data.info.imgPathR;
+
+					if (!data.info) {
+                    	self.fnGetRecipe();
+                    }
+                    else{
+                    	self.info = data.info;
+                    	self.code = data.info.code;
+                    	
+                    	var ingArray = self.info.cookIngre.split(',');// ,로 나눠서 재료 배열만들기
+    					
+    					var filtered = ingArray.filter((element) => element != '밥'); //밥 제외
+    					var ingList = filtered.filter((element) => element != '물');// 물 제외
+                        console.log("split 결과 = " + ingArray);
+                        console.log("밥 제거 = " + filtered);
+                        console.log("물 제거 = " + ingList);
+                        
+                        var ingStr = ingList.join("|"); //다시 구분 | 문자로
+                        self.ing = ingStr.replaceAll(" ","");//공백없애기
+                        console.log("최종 재료값 = " + self.ing);
+                        
+	                    console.log(self.info);
+	                    self.info.imgPathT = "../" + data.info.imgPathT;
+	                    self.info.imgPathR = "../" + data.info.imgPathR;
+	                    
+	                    self.fnGetProduct();
+                    }
                     
-                    //재료 자르기
-                    var ingArray = self.info.cookIngre.split(',');
-					// 김, 밥 필터
-					var filtered = ingArray.filter((element) => element != '밥');
-					self.ingList = filtered.filter((element) => element != '물');
-                    console.log("split 결과 = " + ingArray);
-                    console.log("필터결과1 = " + filtered);
-                    console.log("필터결과2 = " + self.ingList);
-                    console.log("제외할 코드 = " + self.code);
-					self.fnGetProduct();
 					
                 }
             }); 
@@ -114,7 +168,7 @@ var result = new Vue({
 		// 구매유도 리스트
 		, fnGetProduct : function() {
 			var self = this;	
- 			var nparmap = {ingList : JSON.stringify(self.ingList), code : self.code};
+ 			var nparmap = {ing : self.ing, code : self.code};
 			
 			$.ajax({
                 url:"/todayEat/recipe/product.dox",
@@ -123,7 +177,7 @@ var result = new Vue({
                 data : nparmap,
                 success : function(data) {
                     self.productList = data.list;
-                    console.log(data);
+                    console.log(self.productList);
 					
                 }
             });
