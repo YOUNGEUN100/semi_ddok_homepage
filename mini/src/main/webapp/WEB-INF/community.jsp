@@ -134,7 +134,12 @@
                 }
 	            , fnChangeOrder: function () {
 	                var self = this;                    
-	                self.fnGetComList();
+			        var liList = $(".pagination").children();
+			        for (var i = 0; i < liList.length; i++) {
+			            liList.eq(i).removeClass("active");
+			        }
+			        liList.eq(1).addClass("active");
+			        self.fnSearch(1);
 	            }
             	<!-- 페이징 추가 7-->
         		, fnSearch : function(pageNum){

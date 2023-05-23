@@ -271,9 +271,9 @@ var fleaList = new Vue({
 		        }
 		        liList.eq(1).addClass("active");
 		        self.fnSearch(1);
-// 		        self.selectPage = 1;
-// 		            self.pageCount = 1;
-// 		            self.cnt = 0;
+//  		        self.selectPage = 1;
+//  		            self.pageCount = 1;
+//  		            self.cnt = 0;
 		        self.moreBtn = "off"
 		        self.fnGetFleaList();
 		        moreBtn.innerText = "더보기";
@@ -294,10 +294,10 @@ var fleaList = new Vue({
 		            liList.eq(i).removeClass("active");
 		        }
 		        liList.eq(1).addClass("active");
-		        self.fnSearch(1);
-// 		        self.selectPage2 = 1;
-// 	            self.pageCount2 = 1;
-// 	            self.cnt2 = 0;
+		        self.fnSearch2(1);
+//  		        self.selectPage2 = 1;
+//  	            self.pageCount2 = 1;
+//  	            self.cnt2 = 0;
 	            self.moreBtn2 = "off";
 	            self.fnGetFleaList2();
 	            moreBtn2.innerText = "더보기";
@@ -312,9 +312,10 @@ var fleaList = new Vue({
 	        }
 	        liList.eq(1).addClass("active");
 	        self.fnSearch(1);
-	       /* self.pageCount = 1;
-            self.cnt = 0;  
-          	self.fnGetFleaList(); */
+// 	        self.selectPage = 1;
+//  	       	self.pageCount = 1;
+//             self.cnt = 0;  
+          	self.fnGetFleaList();
             
 	    }
 	    // 나눔글 카테고리 변경
@@ -325,11 +326,11 @@ var fleaList = new Vue({
 	            liList.eq(i).removeClass("active");
 	        }
 	        liList.eq(1).addClass("active");
-	        self.fnSearch(2);
-// 	        self.selectPage2 = 1;
-//             self.pageCount2 = 1;
-//             self.cnt2 = 0;
-//             self.fnGetFleaList2();
+	        self.fnSearch2(1);
+//  	        self.selectPage2 = 1;
+//              self.pageCount2 = 1;
+//              self.cnt2 = 0;
+             self.fnGetFleaList2();
 	    }
 	    // 랜선장터 글 보기
 	    , fnViewFlea: function (boardNo) {

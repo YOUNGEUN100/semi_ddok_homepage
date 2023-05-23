@@ -111,15 +111,12 @@
                 }
 	            , fnChangeOrder: function () {
 	                var self = this;
-	                var liList = $(".pagination").children();
-                    for(var i=0; i<liList.length; i++){
-                    	liList.eq(i).removeClass("active");
-                    }
-                    liList.eq(1).addClass("active");
-                    self.selectPage = 1,
-            		self.pageCount = 1,
-            		self.cnt = 0,
-	                self.fnGetPolList();
+			        var liList = $(".pagination").children();
+			        for (var i = 0; i < liList.length; i++) {
+			            liList.eq(i).removeClass("active");
+			        }
+			        liList.eq(1).addClass("active");
+			        self.fnSearch(1);
 	            }
             	<!-- 페이징 추가 7-->
         		, fnSearch : function(pageNum){
