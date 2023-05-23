@@ -215,13 +215,11 @@ var recipeEdit = new Vue({
 						var form = new FormData();
 						form.append( "file2",  $("#file" + i)[0].files[0]);
 						form.append( "recipeNo",  data.recipeNo); // pk
-						form.append( "cookContent", self.contentList[0]);
-						//form.append("cookIndex", self.cnt);
-						//form.append("cookContent", self.cookContent);
-						//console.log(form);
-						console.log("fnEnroll의 i");
-						console.log(i);
+						form.append( "cookContent", self.contentList[i-2]);
+						form.append( "cookIndex", self.cnt);
+						
 						self.uploadCook(form); 
+						self.cnt++;
 					}
 					
 					alert("등록되었습니다!");
@@ -236,9 +234,9 @@ var recipeEdit = new Vue({
 		},
 		fnAddIndex : function() {
 	       	var self = this;
-	       	self.cnt += 1;
+
 	       	self.indexNum += 1;
-	       	console.log(self.cnt);
+
 	       	
 	       	/* document.getElementById("recipe-step").innerHTML += 
 				` <div class="step-box">

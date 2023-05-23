@@ -612,7 +612,8 @@
 				#{fundingGoalCnt},
 				#{fundingPrice},
 				NOW(),
-				NOW()
+				NOW(),
+				'N'
 				)
 		</insert>
 		

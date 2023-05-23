@@ -315,8 +315,8 @@ public class SmartMarketController {
 		                HashMap<String, Object> map = new HashMap<String, Object>();
 		                map.put("imageName", saveFileName);
 		                map.put("productNo", productNo);
-		                map.put("imageOrgName", originFilename+saveFileName);	                
-		                map.put("imagePath", uploadpath);
+		                map.put("imageOrgName", originFilename);	                
+		                map.put("imagePath", uploadpath+saveFileName);
 		                map.put("imageSize", size);
 		                
 		                // insert 쿼리 실행

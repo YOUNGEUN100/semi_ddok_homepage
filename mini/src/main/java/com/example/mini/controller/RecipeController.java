@@ -239,7 +239,7 @@ public class RecipeController {
 
 		// 요리 과정 이미지 첨부파일
 		@RequestMapping("/cook/fileUpload.dox")
-		public String cookImgInput(@RequestParam("file2") MultipartFile multi, @RequestParam("recipeNo") int recipeNo, @RequestParam("cookContent") String cookContent, HttpServletRequest request, HttpServletResponse response, Model model) {
+		public String cookImgInput(@RequestParam("file2") MultipartFile multi, @RequestParam("recipeNo") int recipeNo,@RequestParam("cookIndex") int cookIndex, @RequestParam("cookContent") String cookContent, HttpServletRequest request, HttpServletResponse response, Model model) {
 			
 			String path = "c:\\images";
 			try {
@@ -249,7 +249,7 @@ public class RecipeController {
 				String orlgName = multi.getOriginalFilename();
 				String extName = orlgName.substring(orlgName.lastIndexOf("."), orlgName.length());
 				
-				String cookIndex = orlgName.substring(orlgName.lastIndexOf("_")+1, orlgName.lastIndexOf("."));
+				//String cookIndex = orlgName.substring(orlgName.lastIndexOf("_")+1, orlgName.lastIndexOf("."));
 				long fileSize = multi.getSize();
 				String saveName = genSaveFileName(extName);
 

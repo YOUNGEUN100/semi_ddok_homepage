@@ -86,6 +86,7 @@ var livingTipView = new Vue({
                 data : nparmap,
                 success : function(data) {
 					alert("삭제완료");
+					location.href="/livingTip.do";
                 }
             });
     	}
