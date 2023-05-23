@@ -133,7 +133,8 @@
                 C.NAME AS STATUS,
 				FORMAT(PRODUCT_PRICE , 0) AS PRODUCT_PRICE2,
 				format(((PRODUCT_PRICE*100/ PRODUCT_WEIGHT*PRODUCT_EA)), 0) AS PER_PRICE,
-				ROUND((SATISFACTION_GRADE + REPURCHASE_GRADE + DELIVERY_GRADE)/3,1) AS STAR_AVG
+				ROUND((SATISFACTION_GRADE + REPURCHASE_GRADE + DELIVERY_GRADE)/3) AS STAR_AVG
+
 				
 				
 			FROM T4_ORDER O
@@ -149,21 +150,17 @@
             
 		</select>
 		
-		<select id="selectStar" parameterType="HashMap" resultType="com.example.mini.model.OrderList">
-			SELECT
-				SATISFACTION_GRADE,
-                REPURCHASE_GRADE,
-                DELIVERY_GRADE, 
-				O.PRODUCT_NO, 
-				ROUND((SATISFACTION_GRADE + REPURCHASE_GRADE + DELIVERY_GRADE)/3,1) AS STAR_AVG				
-				
-			FROM T4_ORDER O
-			
-            LEFT JOIN T4_PRODUCT P ON P.PRODUCT_NO = O.PRODUCT_NO
-			
-            LEFT JOIN T4_REVIEW V ON V.PRODUCT_NO = O.PRODUCT_NO
-			
-			WHERE O.USER_ID = #{id} AND THUMBNAIL_YN='Y'
-		</select>
+		<insert id="insertReview" parameterType="HashMap">
+			INSERT INTO T4_REVIEW
+				   (
+					PRODUCT_NO,
+	                USER_ID,
+	                SATISFACTION_GRADE,
+	                REPURCHASE_GRADE,
+	                DELIVERY_GRADE,
+	                CDATETIME
+	                )
+			VALUES(#{productNo}, #{id}, #{satisfactionGrade}, #{repurchaseGrade}, #{deliveryGrade}, now())
+		</insert>
 		
 	</mapper>

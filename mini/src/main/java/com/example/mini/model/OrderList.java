@@ -17,7 +17,7 @@ public class OrderList {
 	private String addr2;
 	private String hp;
 	private String payment;
-	private Integer productNo ; 
+	private int productNo ; 
 	private String productName ; 
 	private Integer productWeight; 
 	private Integer productEa; 

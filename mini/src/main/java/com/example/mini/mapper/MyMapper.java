@@ -27,6 +27,6 @@ public interface MyMapper {
 	//리뷰관리
 	List<OrderList> selectReview(HashMap<String, Object>map);
 	
-	//별점
-	List<OrderList> selectStar(HashMap<String, Object>map);
+	//리뷰등록
+	void insertReview(HashMap<String, Object>map);
 }

@@ -24,6 +24,6 @@ public interface MyService {
 	//리뷰관리
 	List<OrderList> searchReview(HashMap<String, Object>map);
 	
-	//별점
-	List<OrderList> searchStar(HashMap<String, Object>map);
+	//리뷰등록
+	void addReivew(HashMap<String, Object>map);
 }

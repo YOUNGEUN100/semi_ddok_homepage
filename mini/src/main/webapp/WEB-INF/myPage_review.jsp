@@ -2,6 +2,7 @@
 
 <jsp:include page="/layout/head.jsp"></jsp:include>
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
+<script src="https://unpkg.com/vue-star-rating/dist/VueStarRating.umd.min.js"></script>
 
 <style>
 	.myArea{
@@ -91,9 +92,11 @@
           color: #fff; border: 0; border-radius: 8px; width: 110px; 
           font-size: 0.9em; font-weight: bold; 
       }
+      .myArea .contentBox .reviewBox .starAvg{
+         font-weight:700;
+      }
       .myArea .contentBox .reviewBox .star{
-          display: flex; flex-direction: column; align-items: center; font-size: 0.9em;
-          margin:0; 
+         text-align:center;
       }
       .myArea .contentBox .reviewBox .starBox{
           display: flex; flex-direction: column; align-items: center; width:30%;
@@ -108,8 +111,8 @@
 		  unicode-bidi: bidi-override;
 		  width: max-content;
 		  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-		  -webkit-text-stroke-width: 0.5px;
-		  -webkit-text-stroke-color: #dfbc00;
+		  -webkit-text-stroke-width: 1.5px;
+		  -webkit-text-stroke-color: #eddc7d;
 		}
 		 
 		.star-ratings-fill {
@@ -133,7 +136,7 @@
       .star-rating {
           display: flex;
           flex-direction: row-reverse;
-          font-size: 1.7em;
+          font-size: 1.5em;
           line-height: 2.0rem;
           justify-content: space-around;
           padding: 0 0.2em;
@@ -143,19 +146,8 @@
       .star-rating input {
           display: none;
       }
-      .star-rating label {
-          -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-          -webkit-text-stroke-width: 0.5px;
-          -webkit-text-stroke-color: #dfbc00;
-          cursor: pointer;
-      }
-      .star-rating :checked ~ label {
-          -webkit-text-fill-color: gold;
-      }
-      .star-rating label:hover,
-      .star-rating label:hover ~ label {
-          -webkit-text-fill-color: #fff58c;
-      }
+      
+    
 </style>
 
 
@@ -188,64 +180,47 @@
                             <div>수량 : {{item.orderCnt}}개</div>
                             <div>총 결제금액 : {{item.orderPrice2}}원</div>
                         </div>
-						<div class="starTitle">총 평점
+						<div class="starTitle" v-if="item.starAvg > 0">총 평점
 	                       	<div class="star-ratings">
-								<div class="star-ratings-fill space-x-2 text-lg"  :style="{ width: + '%' }">
+	                       		<div class="star-ratings-fill space-x-2 text-lg" v-if="item.starAvg == 5">
 									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 								</div>
-								<div class="star-ratings-base space-x-2 text-lg">
+								<div  class="star-ratings-fill space-x-2 text-lg" v-if="item.starAvg > 4">
+									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+								</div>
+								<div class="star-ratings-fill space-x-2 text-lg" v-else-if="item.starAvg > 3">
+									<span>★</span><span>★</span><span>★</span><span>★</span>
+								</div>
+								<div class="star-ratings-fill space-x-2 text-lg" v-else-if="item.starAvg > 2">
+									<span>★</span><span>★</span><span>★</span>
+								</div>
+								<div  class="star-ratings-fill space-x-2 text-lg" v-else-if="item.starAvg > 1">
+									<span>★</span><span>★</span><span>★</span>
+								</div>
+								<div  class="star-ratings-fill space-x-2 text-lg" v-else>
+									<span>★</span><span>★</span><span>★</span>
+								</div>
+								<div class="star-ratings-base space-x-2 text-lg" >
 									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 								</div>
 							</div>
+							<div class="starAvg">{{item.starAvg}}점 / 5점</div>
 						</div>
 						
 
-                        <div class="starBox">
+                        <div class="starBox" v-else>
 	                        <div class="star">
 	                        	<span>상품만족도</span>
-	                            <div class="star-rating space-x-4 mx-auto"> 
-	                                <input type="radio" id="5-stars" name="rating" value="5" />
-	                                <label for="5-stars" class="star pr-4">★</label>
-	                                <input type="radio" id="4-stars" name="rating" value="4" />
-	                                <label for="4-stars" class="star">★</label>
-	                                <input type="radio" id="3-stars" name="rating" value="3" />
-	                                <label for="3-stars" class="star">★</label>
-	                                <input type="radio" id="2-stars" name="rating" value="2" />
-	                                <label for="2-stars" class="star">★</label>
-	                                <input type="radio" id="1-star" name="rating" value="1"  />
-	                                <label for="1-star" class="star">★</label>
-	                            </div> 
+	                            <star-rating v-model="ratingProduct" v-bind:star-size="20" border-width="1.5" border-color="#eddc7d" inactive-color="#fff" ></star-rating>
 	                        </div>
 	                        <div class="star">
 	                        	<span>재구매의사</span>
-	                            <div class="star-rating space-x-4 mx-auto">
-	                                <input type="radio" id="5-stars" name="rating" value="5" />
-	                                <label for="5-stars" class="star pr-4">★</label>
-	                                <input type="radio" id="4-stars" name="rating" value="4" />
-	                                <label for="4-stars" class="star">★</label>
-	                                <input type="radio" id="3-stars" name="rating" value="3" />
-	                                <label for="3-stars" class="star">★</label>
-	                                <input type="radio" id="2-stars" name="rating" value="2" />
-	                                <label for="2-stars" class="star">★</label>
-	                                <input type="radio" id="1-star" name="rating" value="1"  />
-	                                <label for="1-star" class="star">★</label>
-	                            </div>
+	                            <star-rating v-model="ratingRepurchase" v-bind:star-size="20" border-width="1.5" border-color="#eddc7d" inactive-color="#fff"></star-rating>
 	                        </div>
 	                        <div class="star">
 	                        	<span>배송만족도</span>
-	                            <div class="star-rating space-x-4 mx-auto">
-	                                <input type="radio" id="5-stars" name="rating" value="5" />
-	                                <label for="5-stars" class="star pr-4">★</label>
-	                                <input type="radio" id="4-stars" name="rating" value="4" />
-	                                <label for="4-stars" class="star">★</label>
-	                                <input type="radio" id="3-stars" name="rating" value="3" />
-	                                <label for="3-stars" class="star">★</label>
-	                                <input type="radio" id="2-stars" name="rating" value="2" />
-	                                <label for="2-stars" class="star">★</label>
-	                                <input type="radio" id="1-star" name="rating" value="1"  />
-	                                <label for="1-star" class="star">★</label>
-	                            </div>
-	                            <button class="reviewBtn">등록하기</button>
+	                            <star-rating v-model="ratingDelivery" v-bind:star-size="20" border-width="1.5" border-color="#eddc7d" inactive-color="#fff"></star-rating>
+	                            <button class="reviewBtn" @click="fnReviewAdd(item.productNo)">등록하기</button>
 	                        </div>
                         </div>
                     </div>    
@@ -259,29 +234,25 @@
 
 
 <jsp:include page="/layout/tail.jsp"></jsp:include>
-
 <script type="text/javascript">
 
-//버튼 누를때 알맞은 화면보이기
+Vue.component('star-rating', VueStarRating.default);
 
 var app = new Vue({ 
+
     el: '#app',
     data: {
     	list : []
-    	, star : []
 		, sessionName : "${sessionName}"
 		, sessionId : "${sessionId}"
 		, orderNo : "${map.orderNo}"
 		, productNo : "${map.productNo}"
-		, score : ""
+		, ratingProduct : ""
+		, ratingRepurchase : ""
+		, ratingDelivery : ""
+
 		
-    },
-    computed : {
-    	ratingToPercent() {
-    	      const score = +this.starAvg * 20;
-    	      console.log(score);
-    	      return score + 1.5;
-    	 },
+				
     }
     
     , methods : {
@@ -300,33 +271,30 @@ var app = new Vue({
                 		location.href = "/login.do";
                 	}else{
                     	self.list = data.list;
+                    	console.log(self.list);
                     	
                 	}  
                 }
             });
 
-        },
-        fnStar : function(){
-        	var self = this;
-            var nparmap = {id : self.sessionId, orderNo : self.orderNo};
-            $.ajax({
-                url:"/review/star.dox",
-                dataType:"json",
-                type : "POST",
-                data : nparmap,
-                success : function(data) {	
-                    	self.list = data.list;
-                    	for(var i=0; i<data.list.length; i++){
-                    		var score = self.list[i].starAvg*20;
-                    		console.log(score);
-                    	} return score + 1.5;
-                	}  
-                
-            });
-        },
+        }
+    	, fnReviewAdd : function(productNo){
+    		var self = this;
+	      	var nparmap = {id : self.sessionId, productNo:productNo, satisfactionGrade : self.ratingProduct, repurchaseGrade: self.ratingRepurchase, deliveryGrade : self.ratingDelivery};
+	        $.ajax({
+	            url:"/review/insert.dox",
+	            dataType:"json",	
+	            type : "POST", 
+	            data : nparmap,
+	            success : function(data) {  
+	            	console.log(data);
+	            }
+	        }); 
+    		
+   	 	}
 
     	//정보수정페이지 이동
-    	fnUserEdit : function(){
+    	, fnUserEdit : function(){
     		var self = this;
     		self.pageChange("/modify.do", {sessionId : self.sessionId});
     	},
@@ -366,7 +334,8 @@ var app = new Vue({
     , created: function () {
     	var self = this;
     	self.fnReview();
-    
+    	
+    	
 	}
 });
 	

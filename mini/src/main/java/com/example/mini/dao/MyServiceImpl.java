@@ -46,9 +46,10 @@ public class MyServiceImpl implements MyService{
 		return myMapper.selectReview(map);
 	}
 	@Override
-	public List<OrderList>  searchStar(HashMap<String, Object> map) {
+	public void addReivew(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		return myMapper.selectStar(map);
+		myMapper.insertReview(map);
 	}
+	
 	
 }

@@ -122,13 +122,13 @@ public class MyController {
 			return new Gson().toJson(resultMap);
 		}
 		
-		@RequestMapping(value = "/review/star.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@RequestMapping(value = "/review/insert.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 		@ResponseBody
-		public String reviewStar(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		public String addUser(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();
-			List<OrderList> star = myService.searchStar(map);
+			myService.addReivew(map);
 			resultMap.put("result", "success");
-			resultMap.put("star", star);
+			
 			return new Gson().toJson(resultMap);
 		}
 		
