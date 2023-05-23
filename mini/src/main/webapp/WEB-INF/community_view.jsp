@@ -21,14 +21,16 @@
                     </div>
                 </div>
                 <div class="contentArea">
-                    <div class="txtBox">
-                    	<pre v-html="info.content"></pre>
-                    </div>
-	               <div class="fileBox" v-if="info.filePath">
-	               		<a class="attached" @click="fnOpenFile()">
-	               			<i class="fa-regular fa-folder fa-sm"></i> 첨부파일
-	               		</a>
-	               </div>
+					<div class="txtBox">
+						<pre v-html="info.content"></pre>
+					</div>
+                    <template>
+		               <div class="fileBox" v-if="info.filePath">
+		               		<a class="attached" @click="fnOpenFile()">
+		               			<i class="fa-solid fa-folder"></i> 첨부파일
+		               		</a>
+		               </div>
+	               </template>
                 </div>
                 <div class="btnArea" v-if="sessionId == info.userId || sessionStatus == 'A'">
                     <button class="modBtn" @click="fnGoModify()">수정</button>
@@ -308,7 +310,7 @@ var communityView = new Vue({
 		, fnOpenFile : function() {
 			var self = this;
 			console.log(self.info.filePath);
-			location.href = self.info.filePath;
+            window.open(self.info.filePath);
 		}
 	}
 	, created: function () {

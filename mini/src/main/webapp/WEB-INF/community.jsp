@@ -34,7 +34,7 @@
 									<template v-if="item.userId==sessionId">
 					                	<td class="notice myboard">내글</td>
 										<td class="title myboard" v-if="item.userId==sessionId">
-											{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i>
+											{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i><span>[{{item.cnt}}]</span>
 										</td>
 									</template>
 									<template v-else>

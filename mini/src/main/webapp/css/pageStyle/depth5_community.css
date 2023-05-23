@@ -45,7 +45,8 @@
 #pageContent.community.typeView .boardSection .contentArea .txtBox pre ul {margin:1em 0;}
 #pageContent.community.typeView .boardSection .contentArea .txtBox pre p {margin-bottom:0.5em;}
 #pageContent.community.typeView .boardSection .contentArea .fileBox {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:center; padding:2em 0 2.5em; border-top:1px dotted var(--base-colorCharcoal);}
-
+#pageContent.community.typeView .boardSection .contentArea .fileBox a {font-weight:600; display:inline-block; cursor:pointer;}
+#pageContent.community.typeView .boardSection .contentArea .fileBox a i {color:var(--main-colorYellow); margin-right:10px;}
 
 /* typeView > commentSection */
 #pageContent.community.typeView .commentSection {}

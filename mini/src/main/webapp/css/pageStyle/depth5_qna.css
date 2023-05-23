@@ -1,0 +1,82 @@
+@charset "UTF-8"; 
+
+/***** (qna) --- START *****/
+
+#pageContent.qna select {width:120px; background:url("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99761B495C84AA8716") no-repeat 95% 50%; padding:0.8em 0.5em; border:0; border-radius:0; appearance:none;}
+#pageContent.qna table {border-collapse:separate; border-spacing:0 1em; table-layout:fixed; text-align:center;}
+#pageContent.qna table td {vertical-align:middle; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+
+
+/* boardSection > boardInfo */
+#pageContent.qna .boardSection .boardInfo {width:100%; min-height:48px; display:flex; flex-flow:row wrap; justify-content:center; align-items:center;position:relative;  margin-bottom:1em;}
+#pageContent.qna .boardSection .boardInfo .writeBtn {display:inline-block; background:var(--main-colorGreen); border:0; border-radius:1em; color:var(--base-colorWhite); line-height:1; padding:1em 2em; position:absolute; right:0; bottom:0;}
+#pageContent.qna .boardSection .boardInfo .categoryBox {width:100%; display:flex; flex-flow:row wrap; justify-content:center; align-items:center;}
+#pageContent.qna .boardSection .boardInfo .categoryBox .categoryCircle {width:120px; height:120px; border-radius:50%; background:var(--base-colorBasicGray); display:flex; flex-flow:column wrap; align-items:center; justify-content:center; cursor:pointer; font-weight:700; margin:0 0.75em; border:1px solid var(--base-colorBasicGray); transition:all 0.15s ease-in;}
+#pageContent.qna .boardSection .boardInfo .categoryBox .categoryCircle img {filter:grayscale(1);}
+#pageContent.qna .boardSection .boardInfo .categoryBox .categoryCircle.active {background:var(--base-colorWhite); border-color:var(--main-colorGreen); color:var(--main-colorGreen); font-weight:800;}
+#pageContent.qna .boardSection .boardInfo .categoryBox .categoryCircle.active img {filter:grayscale(0);}
+#pageContent.qna .boardSection .boardInfo .categoryBox .categoryCircle:not(.active):hover {background:var(--base-colorWhite); border-color:var(--base-colorDeepGray);}
+
+
+/* boardSection > boardArea */
+#pageContent.qna .boardSection .boardArea {display:flex; flex-flow:column; justify-content:flex-end; align-items:flex-end}
+#pageContent.qna .boardSection .boardArea table {width:100%; font-size:1.125em; table-layout:fixed;}
+#pageContent.qna .boardSection .boardArea table tr {border-radius:1.5em; cursor:pointer;}
+#pageContent.qna .boardSection .boardArea table tr > * {padding:1.5em 5px; line-height:1;}
+#pageContent.qna .boardSection .boardArea table tr > * i {position:relative; top:-0.06em; font-size:0.75em; margin:0 4px;}
+#pageContent.qna .boardSection .boardArea table td.notice {width:150px; font-weight:700; color:var(--main-colorGreen);}
+#pageContent.qna .boardSection .boardArea table td.title {width:calc(100% - 650px); min-width:200px; font-weight:600; font-size:1.0625em; text-align:justify;}
+#pageContent.qna .boardSection .boardArea table td.title i {color:var(--main-colorYellow); font-size:0.875em; top:0;}
+#pageContent.qna .boardSection .boardArea table td.writer {width:150px;}
+#pageContent.qna .boardSection .boardArea table td.date {width:200px;}
+#pageContent.qna .boardSection .boardArea table td.view {width:150px;}
+
+
+
+
+
+/* typeView > boardSection */
+#pageContent.qna.typeView section {margin-bottom:3em}
+#pageContent.qna.typeView .boardSection {min-height:20em;}
+#pageContent.qna.typeView .boardSection .headArea {padding:2em 0 1em;}
+#pageContent.qna.typeView .boardSection .headArea .titleBox {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:flex-end; margin-bottom:1em; padding-bottom:1em; border-bottom:1px dotted var(--base-colorCharcoal);}
+#pageContent.qna.typeView .boardSection .headArea .titleBox .title {display:flex; flex-flow:row wrap; justify-content:flex-start; align-items:center; font-size:2em; font-weight:700; margin-bottom:0;}
+#pageContent.qna.typeView .boardSection .headArea .titleBox .title i {margin-right:10px;}
+#pageContent.qna.typeView .boardSection .headArea .infoBox {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:flex-start;}
+#pageContent.qna.typeView .boardSection .headArea .infoBox .hits {font-size:1.125em;}
+#pageContent.qna.typeView .boardSection .headArea .infoBox .date {font-size:1.125em; text-align:right;}
+#pageContent.qna.typeView .boardSection .headArea .infoBox .date span {display:block; font-size:0.75em;}
+#pageContent.qna.typeView .boardSection .contentArea {padding:2em 0 2.5em;}
+#pageContent.qna.typeView .boardSection .contentArea .txtBox {margin-bottom:1em;}
+#pageContent.qna.typeView .boardSection .contentArea .txtBox pre {font-size:1.125em; text-align:justify; overflow:auto; word-break:break-all; white-space:pre-wrap;}
+#pageContent.qna.typeView .boardSection .contentArea .txtBox pre ul {margin:1em 0;}
+#pageContent.qna.typeView .boardSection .contentArea .txtBox pre p {margin-bottom:0.5em;}
+#pageContent.qna.typeView .boardSection .contentArea .fileBox {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:center; padding:2em 0 2.5em; border-top:1px dotted var(--base-colorCharcoal);}
+
+
+/* typeView > commentSection */
+#pageContent.qna.typeView .commentSection {margin-bottom:2em;}
+#pageContent.qna.typeView .commentSection .headArea {display:flex; flex-flow:row wrap; justify-content:flex-start; align-items:flex-end; margin-bottom:0.5em; padding-left:0; padding-right:0;}
+#pageContent.qna.typeView .commentSection .headArea .head {line-height:1; margin-bottom:0;}
+#pageContent.qna.typeView .commentSection .headArea .commCnt {line-height:1; font-weight:600; padding-bottom:0.125em; padding-left:4px;}
+.commenter {display:flex; flex-flow:row wrap;}
+#pageContent.qna.typeView .commentSection .commentList .commentItem {margin-bottom:1.5em;}
+#pageContent.qna.typeView .commentSection .commentList .commenter {display:flex; flex-flow:row nowrap; justify-content:flex-end; align-items:flex-end; margin-bottom:0.75em;}
+#pageContent.qna.typeView .commentSection .commentList .infoBox {display:flex; flex-flow:row nowrap; align-items:flex-end;}
+#pageContent.qna.typeView .commentSection .commentList .infoBox i {width:30px; height:30px; line-height:1; display:flex; justify-content:center; align-items:center; background:var(--base-colorDeepGray); border-radius:50%; color:var(--base-colorWhite); margin-right:8px;}
+#pageContent.qna.typeView .commentSection .commentList .infoBox span {font-size:1.125em; font-weight:700;}
+#pageContent.qna.typeView .commentSection .commentList .infoBox span.date {color:var(--base-colorDarkGray); font-size:0.875em; font-weight:500; padding-left:4px;}
+#pageContent.qna.typeView .commentSection .commentList .btnBox {font-size:0.875em;}
+#pageContent.qna.typeView .commentSection .commentList .btnBox button {border:0; border-radius:0; background:none; color:var(--base-colorDarkGray); font-weight:600; text-decoration:underline; padding:2px; margin-left:2px;}
+#pageContent.qna.typeView .commentSection .commentList .commentContent {font-size:1.125em; margin:0.5em 0;}
+#pageContent.qna.typeView .commentSection .commentNull {padding-bottom:1.5em; color:var(--base-colorDarkGray); font-weight:600; text-align:center;}
+#pageContent.qna.typeView .commentSection .commentAdd {display:flex; flex-flow:row nowrap; margin-top:2em;}
+#pageContent.qna.typeView .commentSection .commentAdd textarea {width:100%; font-size:1.125em;}
+#pageContent.qna.typeView .commentSection .commentAdd button {width:120px; font-size:1.125em; font-weight:700; margin-left:1.5em; border:1px solid var(--base-colorBasicGray); border-radius:1em;}
+
+/* typeView > btnSection */
+#pageContent.qna.typeView .btnSection {text-align:right;}
+#pageContent.qna.typeView .btnSection .listBtn {display:inline-block; background:var(--main-colorGreen); border:0; border-radius:1em; color:var(--base-colorWhite); line-height:1; padding:1em 2em;}
+
+
+/***** (policy) --- END *****/
