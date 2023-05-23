@@ -109,9 +109,11 @@
 	                    </template>
 	                   
 	                    <template v-else-if="info.id != '' && idCk " ><!--중복체크-->
-	                      <span class="ableId" v-if="idFlg">사용가능한 아이디입니다</span>
-	                      <span class="disableId" v-else>이미 사용중인 아이디입니다</span> 
+	                      <span class="ableId" v-if="idFlg && aaa">사용가능한 아이디입니다</span>
+	                      <span class="disableId" v-if="!aaa">영문과 숫자의 조합만 가능합니다</span>
+	                      <span class="disableId" v-if="!idFlg">이미 사용중인 아이디입니다</span> 
 	                    </template>
+	                    
 	                    
 	                    <div v-else></div>
 
@@ -265,6 +267,8 @@ var app = new Vue({
     	, idValid : false
     	, pwValid : false
    		, pwFlg : false
+   		, aaa : true
+   		
 
     }
    
@@ -344,6 +348,14 @@ var app = new Vue({
    	 //아이디 중복체크
    	 	, fnCheck : function(){
 	   	 	var self = this;
+	   	 	var str = /^[a-zA-Z0-9]*$/;
+	   	 	if(!str.test(self.info.id)){
+	   	 		self.aaa= false;
+	   	 		console.log(self.aaa);
+	   	 	} else {
+	   	 		self.aaa= true;
+	   	 	console.log(self.aaa);
+	   	 	};
 	   	 	var nparmap = {id : self.info.id};
 	        $.ajax({
 	            url:"/user/check.dox",
