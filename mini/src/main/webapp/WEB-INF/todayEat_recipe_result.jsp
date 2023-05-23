@@ -103,7 +103,7 @@ var result = new Vue({
                 	var ingArray = self.info.cookIngre.split(',');// ,로 나눠서 재료 배열만들기
 					
 					var filtered = ingArray.filter((element) => element != '밥'); //밥 제외
-					var ingList = filtered.filter((element) => element != '물');// 물 제오
+					var ingList = filtered.filter((element) => element != '물');// 물 제외
                     console.log("split 결과 = " + ingArray);
                     console.log("밥 제거 = " + filtered);
                     console.log("물 제거 = " + ingList);
@@ -145,7 +145,7 @@ var result = new Vue({
                     	var ingArray = self.info.cookIngre.split(',');// ,로 나눠서 재료 배열만들기
     					
     					var filtered = ingArray.filter((element) => element != '밥'); //밥 제외
-    					var ingList = filtered.filter((element) => element != '물');// 물 제오
+    					var ingList = filtered.filter((element) => element != '물');// 물 제외
                         console.log("split 결과 = " + ingArray);
                         console.log("밥 제거 = " + filtered);
                         console.log("물 제거 = " + ingList);
