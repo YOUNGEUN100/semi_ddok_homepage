@@ -4,104 +4,82 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <style>
-	table { width : 100%; table-layout:fixed;}
-    table, td,th {
-        border-collapse: collapse;
-        padding: 16px;
-        table-layout: fixed;
-    }
-    th {border-bottom:1px solid black;}
-    button {
-       font-size: medium;
-       padding: 5px 10px;
-       margin-right:10px;
-       border-radius: 10px;
-       border: 1px solid gainsboro;
-       background-color: gainsboro;
-       width: 80px;
-       height: 40px;
-       background-color: #E4DBD6;
-    }
-    button:hover {cursor: pointer;}
-	.comlist {
-		display: flex;
-	    flex-direction: column;
-		border: none;
-        box-sizing: border-box;
-        padding: 40px 40px;
-        margin-top: 20px;
-        margin-bottom : 20px;
-        border-radius: 20px;
-        box-shadow: 0px 0px 20px 5px #e7e6e6;
-	}
+	.wrapper .qbtn {  font-size: medium; padding: 5px 10px; margin-right:10px; border-radius: 10px;border: 1px solid gainsboro; background-color: gainsboro;width: 80px; height: 40px; background-color: #E4DBD6;}
+    .wrapper .qbtn:hover {cursor: pointer;}
+	.comlist table { width : 100%; table-layout:fixed;}
+    .comlist table, td,th {  border-collapse: collapse; padding: 16px; table-layout: fixed; }
+    .comlist th {border-bottom:1px solid black;}
+	.comlist {display: flex; flex-direction: column;border: none;box-sizing: border-box;padding: 40px 40px;margin-top: 20px;margin-bottom : 20px;border-radius: 20px;box-shadow: 0px 0px 20px 5px #e7e6e6;}
 	.comlist .center{text-align:center; }
 	.comlist .title:hover{cursor: pointer;}
 	.comlist .title{text-align:left;}
-	
+	.comlist .complete {color: var(--main-colorGreen); border:1px solid var(--main-colorGreen); padding: 1px;}
+	.comlist .progress {color: var(--main-colorRed); border:1px solid var(--main-colorRed); padding: 1px;}
 	
 	.pagination { margin:24px;display: inline-flex;}
     ul { text-align: center; }
-	.pagination li {
-	    min-width:32px;
-	    padding:4px 8px;
-	    text-align:center;
-	    margin:0 3px;
-	    border-radius: 6px;
-	    border:1px solid #eee;
-	    color:#666;
-	    display : inline;
-	}
+	.pagination li {min-width:32px;padding:4px 8px; text-align:center;margin:0 3px; border-radius: 6px; border:1px solid #eee;color:#666; display : inline;}
 	.pagination li:hover {background: #E4DBD6;}
 	.page-item a {color:#666;text-decoration: none;}
 	.pagination li.active {background-color : #E7AA8D;color:#fff;}
 	.pagination li.active a {color:#fff;}
-  
 	#page {text-align:center;} 
+	
+	.qnaBtnBox {text-align:center;}
+	.qnaBtn {width:150px;}
 </style>
 
 
 <!-- pageContent -- START -->
 <div id="pageContent">
-	<div class="wrapper">
-		 <div id="app">
-		 	<select v-model = "order" @change = "fnChangeOrder()">
-		        <option value = "" selected disabled>정렬</option>
-		         <option value = "recent">최신순</option>
-		         <option value = "view">조회수</option>
-	        </select>
+	<div class="wrapper" id="qnaList">
+		<!-- 사용고려중_ display:none 으로 줌 -->
+	 	<select v-model = "order" @change = "fnChangeOrder()" style="display:none;">
+	        <option value = "" selected disabled>정렬</option>
+	         <option value = "recent">최신순</option>
+	         <option value = "view">조회수</option>
+        </select>
+        
+        <div class="qnaBtnBox">
+        	<button class="qnaBtn"  @click="fnqOrder(2)">자주 묻는 질문</button>
+        	<button class="qnaBtn" @click="fnqOrder(1)">회원 문의</button>
+        </div>
       
-          <div class="comlist">
-             <table>                            
-             	<thead>
-             		<tr>
-             			<th>글번호</th>
-             			<th colspan=3>제목</th>
-             			<th>작성자</th>
-             			<th>작성일</th>
-             			<th>조회수</th>
-             		</tr>
-             	</thead>
-             	
-             	<tbody>
-	              	<tr class="center" v-for="(item, index) in list" >
-                        <td class="no">{{index+1}}</td>
-	                   <template>
-	                        <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
-	                        <td colspan=3 class="title" v-if="item.status=='C'" @click="fnViewCom(item.boardNo)">{{item.title}}</td>
-                        </template>
-   	                    <td class="writer">{{item.nick}}</td>
-       	                <td class="date">{{item.cdatetime}}</td>
-               	        <td class="view">{{item.hits}}</td>
-	                  </tr>                                 
-              </tbody>        	                       
-             </table>
-           </div>
+        <div class="comlist">
+           <table>                            
+	          	<thead>
+	          		<tr>
+	          			<th>글번호</th>
+	          			<th colspan=3>제목</th>
+	          			<th>작성자</th>
+	          			<th>작성일</th>
+	          			<th>조회수</th>
+	          		</tr>
+	          	</thead>
+	          	<tbody>
+	            	<tr class="center" v-for="(item, index) in list" >
+	                     <td class="no">{{index+1}}</td>
+	                 	<template>
+	                      <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}}</strong></td>
+	                      <template v-if="item.status=='C'">
+	                        	<td colspan=3 class="title"  v-if="item.commentNo > 0" @click="fnViewCom(item.boardNo)"><span class="complete">답변완료</span> {{item.title}} </td>
+	                        	<td colspan=3 class="title" v-if="item.commentNo == 0" @click="fnViewCom(item.boardNo)"><span class="progress">답변대기</span> {{item.title}}</td>
+	                      </template>
+	                    
+	                     </template>
+	                    <td class="writer">{{item.nick}}</td>
+    	                <td class="date">{{item.cdatetime}}</td>
+            	        <td class="view">{{item.hits}}</td>
+	                </tr>                                 
+            	</tbody>        	                       
+           </table>
+         </div>
+         
+         <button class="qbtn" @click="fnAddCom()">문의하기</button>
            
-           <button @click="fnAddCom()">문의하기</button>
-           
-            <!-- 페이징 추가3 -->
-            <div id="page">
-            <template >
+          <!-- 페이징 추가3 -->
+          <div id="page">
+	          <template >
 				  <paginate id="page"
 				    :page-count="pageCount"
 				    :page-range="3"
@@ -112,13 +90,10 @@
 				    :container-class="'pagination'"
 				    :page-class="'page-item'">
 				  </paginate>
-				</template>         
-			</div>
+			</template>         
+		</div>
 		 
-		 
-		 
-		 
-		 </div>
+
 	</div>
 </div>
 <!-- pageContent -- END -->
@@ -129,37 +104,46 @@
 <script type="text/javascript">
 Vue.component('paginate', VuejsPaginate)
 
-var app = new Vue({
-          el: '#app',
+var qnaList = new Vue({
+          el: '#qnaList',
           data: {
             list : [],
             cnt : 0,
+            cnt1 : 0,
+            cnt2: 0,
             // 페이징 추가5
    		 selectPage : 1,
    		 pageCount : 1,
    	     sessionId: "${sessionId}",    
    		 sessionStatus : "${sessionStatus}",
-   		 order : "recent"
+   		 order : "recent",
+   		 category : ""
           }
           , methods: {
           	// 커뮤니티 리스트
               fnGetQnaList: function () {
-                  var self = this;   
-               // 페이징 추가6
+                var self = this;   
       			var startNum = ((self.selectPage-1) * 10);
-          		var nparmap = {startNum : startNum, order : self.order};
-          		console.log(self.order);
+          		var nparmap = {startNum : startNum, order : self.order, category : self.category};
+          		//console.log(self.order);
                   $.ajax({
                       url: "/qna/list.dox",
                       dataType: "json",
                       type: "POST",
                       data: nparmap,
                       success: function (data) {
-                      	console.log(data.list);
+                      	//console.log(data.list);
                       	self.list = data.list;
                          self.cnt = data.cnt;
-                         console.log(self.cnt);
-    					 	self.pageCount = Math.ceil(self.cnt / 10);
+                         self.cnt1 = data.cnt1;
+                         self.cnt2 = data.cnt2;
+                         	if (self.category == 1) {
+                         		self.pageCount = Math.ceil(self.cnt1 / 10);
+                         	} else if (self.category == 2) {
+                         		self.pageCount = Math.ceil(self.cnt2 / 10);
+                         	} else {
+                         		self.pageCount = Math.ceil(self.cnt / 10);
+                         	}
                       }
                   });
               }
@@ -167,22 +151,37 @@ var app = new Vue({
 	                var self = this;                    
 	                self.fnGetQnaList();
 	            }
+	            ,fnqOrder : function (num) {
+	            	var self = this;
+	            	if (num == 1) {self.category = 1; self.selectPage = 1;}
+	            	if (num == 2) {self.category = 2; self.selectPage = 1;}
+	            	self.fnGetQnaList();
+	            }
           	<!-- 페이징 추가 7-->
       		, fnSearch : function(pageNum){
       			var self = this;
       			self.selectPage = pageNum;
       			var startNum = ((pageNum-1) * 10);
-      			var nparmap = {startNum : startNum, order : self.order};
+      			var nparmap = {startNum : startNum, order : self.order, category : self.category};
       			$.ajax({
       				url : "/qna/list.dox",
       				dataType : "json",
       				type : "POST",
       				data : nparmap,
       				success : function(data) {
-      					self.list = data.list;
-      					console.log(data.list);
-      					self.cnt = data.cnt;
-      					self.pageCount = Math.ceil(self.cnt / 10);
+      					//console.log(data.list);
+                      	self.list = data.list;
+                         self.cnt = data.cnt;
+                         self.cnt1 = data.cnt1;
+                         self.cnt2 = data.cnt2;
+                         //console.log(self.cnt);
+                         	if (self.category == 1) {
+                         		self.pageCount = Math.ceil(self.cnt1 / 10);
+                         	} else if (self.category == 2) {
+                         		self.pageCount = Math.ceil(self.cnt2 / 10);
+                         	} else {
+                         		self.pageCount = Math.ceil(self.cnt / 10);
+                         	}
       				}
       			});
       		}

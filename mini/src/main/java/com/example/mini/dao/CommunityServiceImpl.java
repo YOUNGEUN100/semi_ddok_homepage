@@ -21,6 +21,7 @@ public class CommunityServiceImpl implements CommunityService{
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();	
 		resultMap.put("list", communityMapper.selectComList(map));
 		resultMap.put("cnt", communityMapper.selectComCnt(map));
+		
 		resultMap.put("result","success");
 		return resultMap;
 	}
@@ -81,7 +82,11 @@ public class CommunityServiceImpl implements CommunityService{
 	public HashMap<String, Object> searchQnaList(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();	
 		resultMap.put("list", communityMapper.selectQnaList(map));
+		
 		resultMap.put("cnt", communityMapper.selectQnaCnt(map));
+		resultMap.put("cnt1", communityMapper.select1Cnt(map));
+		resultMap.put("cnt2", communityMapper.select2Cnt(map));
+		
 		resultMap.put("result","success");
 		return resultMap;
 	}

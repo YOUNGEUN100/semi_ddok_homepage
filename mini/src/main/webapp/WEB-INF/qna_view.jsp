@@ -6,69 +6,21 @@
 <style>
 	<!--스타일 입력 -->
 	h4 {margin-bottom: 20px;}
-    button {
-       font-size: medium;
-       padding: 5px 10px;
-       margin-right:10px;
-       border-radius: 10px;
-       border: 1px solid gainsboro;
-       background-color: gainsboro;
-       width: 80px;
-       height: 40px;
-    }
+    button { font-size: medium;padding: 5px 10px;  margin-right:10px; border-radius: 10px;border: 1px solid gainsboro; background-color: gainsboro;width: 80px;height: 40px;  }
     button:hover {cursor: pointer;}
     .btns { display: flex; justify-content: space-between;  }
-    .container {
-	    border : 1px solid red;
-        border: 5px solid rgba(245, 243, 243, 0.959);
-        box-shadow: 2px 2px 20px 0px #ece9e9;
-        border-radius: 35px;
-        padding: 20px 40px;
-        margin-bottom: 30px;
-        width: 100%;
-	}
-    .com_head .title {
-        font-size: large;
-        font-weight: bold;
-        margin: 20px auto;
-    }
+    .container {  border : 1px solid red;  border: 5px solid rgba(245, 243, 243, 0.959); box-shadow: 2px 2px 20px 0px #ece9e9; border-radius: 35px;padding: 20px 40px;margin-bottom: 30px;width: 100%;}
+    .com_head .title {font-size: large; font-weight: bold;margin: 20px auto; }
     .com_head .writer div:first-child { margin-bottom: 10px;}
     .com_head .writer .flexc {display:flex; justify-content: space-between;}
-   .com_content {
-        margin: 20px auto 40px auto;
-        /* border: 1px solid black; */
-        padding: 10px 10px;
-        height: 300px;
-   }
+   .com_content {margin: 20px auto 40px auto;padding: 10px 10px;height: 300px;}
    .comment_list div:first-child {margin-bottom: 10px; }
    .comment {margin: 10px 10px;}
-   .comment .comment_enroll {
-        margin: 20px auto;
-        padding: 10px 10px;
-        border: 1px solid #999;
-        border-radius: 5px;
-        display: flex;
-        flex-direction: column;
-   }
+   .comment .comment_enroll {margin: 20px auto;padding: 10px 10px;border: 1px solid #999;border-radius: 5px;display: flex;flex-direction: column;}
    .comment_enroll div{  margin-bottom: 10px;}
-   .comment_enroll input{
-        width: 1000px;
-        padding: 5px 5px;
-        margin-bottom: 20px;
-        border: none;
-        font-size: medium;
-   }
-   .comment_enroll button {
-         width: 60px;
-         height: 35px;
-   }
-   .comment_list button {
-         width: 50px;
-         height: 30px;
-         font-size:small;
-         margin-left : 20px;
-         background-color: white;
-   }
+   .comment_enroll input{width: 1000px;padding: 5px 5px;margin-bottom: 20px;border: none;font-size: medium;}
+   .comment_enroll button { width: 60px;height: 35px;}
+   .comment_list button { width: 50px; height: 30px;font-size:small; margin-left : 20px;background-color: white;}
    .mgr20 {margin-right: 20px;}
    .mgb20 {margin-bottom: 20px;}
    .mgt20 {margin-top: 20px;}
@@ -77,68 +29,58 @@
 
 <!-- pageContent -- START -->
 <div id="pageContent">
-	<div class="wrapper">
-		<div id="app">
+	<div class="wrapper" id="qnaView">
 
-           <div class="container">
-               <div class="com_head">
-                   <div class="title">{{info.title}}</div>
-                   <div class="writer">
-                       <div>{{info.nick}}</div> 
-                       <div class="flexc">
-                       		<div>
-	                       		<span class="mg20">작성일 {{info.cdatetime}}</span>
-	                           <span>조회 {{info.hits}}</span> 
-                       		</div>
-                       		<div>수정일 {{info.udatetime}}</div>
-                       </div>
-                       
-                   </div>
-               </div>
-               <hr>
-               <div class="com_content" v-html="info.content"><pre></pre></div>
-               
-               
-               <div class="comment" v-if="info.status!='A'">
-               		<hr>
-                   <h4 class="mgb20 mgt20">답변</h4>
-                   <div class="comment_list" v-for="(item, index) in list" >
-                       <div>
-                           <span class="mg20">{{item.nick}}</span>
-                           <span>{{item.cdatetime}}</span>
-                            <button v-if="sessionStatus=='A'" @click="fncommentDel(item.commentNo)">삭제</button>
-                       </div>
-                       <div class="mgb20">{{item.comment}}</div>
-                      
-                   </div>
-                   
-                   <div class="comment_enroll" v-if="sessionStatus=='A'">
-                   		<template>
-                   			<div v-else>{{sessionNick}}</div>
-                   		</template>
-                   
-                      <input type="text" placeholder="관리자님, 문의 답글을 달아주세요." v-model="commentInfo.comment">
-                      <button @click="fnCommentEnroll()">등록</button>
-                   </div>
-                   
-               </div>
-           
-           </div>
-           <!--container 끝-->
-           <div class="btns">
-               <span>
-                   
-                   <button @click="fnGoModify()" v-if="info.userId==sessionId || sessionStatus=='A'">수정</button>
-                   <button @click="fnRemove()" v-if="info.userId==sessionId || sessionStatus=='A'">삭제</button>
-               </span>
-               <button onClick="location.href='/qna.do'">목록</button>
-           </div>
-
-       </div>
-		
-		
-		
-		
+         <div class="container">
+             <div class="com_head">
+                 <div class="title">{{info.title}}</div>
+                 <div class="writer">
+                     <div>{{info.nick}}</div> 
+                     <div class="flexc">
+                   		<div>
+                   			<span class="mg20">작성일 {{info.cdatetime}}</span>
+                   			<span>조회 {{info.hits}}</span> 
+                   		</div>
+                   		<div>수정일 {{info.udatetime}}</div>
+                     </div>
+                 </div>
+             </div>
+             
+             <hr>
+             <div class="com_content" v-html="info.content"><pre></pre></div>
+             
+             
+             <div class="comment" v-if="info.status!='A'">
+            	 <hr>
+                 <h4 class="mgb20 mgt20">답변</h4>
+                 
+                 <div v-if="length==0">관리자가 확인 후 답변드리겠습니다. </div>
+                 <div v-if="length>0" class="comment_list" v-for="(item, index) in list" >
+                     <div>
+                         <span class="mg20">{{item.nick}}</span>
+                         <span>{{item.cdatetime}}</span>
+                          <button v-if="sessionStatus=='A'" @click="fncommentDel(item.commentNo)">삭제</button>
+                     </div>
+                     <div class="mgb20">{{item.comment}}</div>
+                 </div>
+                 
+                 <div class="comment_enroll" v-if="sessionStatus=='A'">
+                 		<template>
+                 			<div v-else>{{sessionNick}}</div>
+                 		</template>
+                    <input type="text" placeholder="관리자님, 문의 답글을 달아주세요." v-model="commentInfo.comment">
+                    <button @click="fnCommentEnroll()">등록</button>
+                 </div>
+             </div>
+         </div>
+         <!--container 끝-->
+         <div class="btns">
+             <span>
+                 <!--<button @click="fnGoModify()" v-if="info.userId==sessionId || sessionStatus=='A'">수정</button>  -->
+                 <button @click="fnRemove()" v-if="info.userId==sessionId || sessionStatus=='A'">삭제</button>
+             </span>
+             <button onClick="location.href='/qna.do'">목록</button>
+         </div>
 	</div>
 </div>
 <!-- pageContent -- END -->
@@ -148,10 +90,11 @@
 
 <script type="text/javascript">
  // 자바 스크립트 입력
-   var app = new Vue({
-            el: '#app',
+   var qnaView = new Vue({
+            el: '#qnaView',
             data: {
             	list : []
+   			  , length : 0
               , info : {}
    			  , commentInfo : {
 	   				boardNo : "${map.boardNo}",
@@ -192,6 +135,8 @@
 			                data : nparmap,
 			                success : function(data) {
 			                    self.list = data.list;
+			                    self.length = data.list.length;
+			                    console.log(self.list.length);
 			                    console.log("댓글 리스트는");
 			                    console.log(data.list);
 			                }

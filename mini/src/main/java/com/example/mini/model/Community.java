@@ -26,6 +26,7 @@ public class Community {
 	
 	private String comment;
 	private int commentNo;
+	private int cnt;
 	
 	
 	
@@ -163,6 +164,12 @@ public class Community {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 
 	

@@ -57,4 +57,8 @@ public interface CommunityMapper {
 	// QNA 글보기
 	Community selectQnaInfo(HashMap<String, Object>map);
 	
+	// QNA 회원 글 개수
+	int select1Cnt(HashMap<String,Object>map);
+	// QNA 공지글 개수
+	int select2Cnt(HashMap<String,Object>map);
 }

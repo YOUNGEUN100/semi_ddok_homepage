@@ -199,7 +199,7 @@ public class CommunityController {
 		request.setAttribute("map", map);
 		return "/qna";
 	}
-	// 커뮤니티 리스트 뿌리기
+	// QNA 리스트 뿌리기
 	@RequestMapping(value = "/qna/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
 	@ResponseBody
 	public String qnaList(Model model, @RequestParam HashMap <String, Object> map) throws Exception {
