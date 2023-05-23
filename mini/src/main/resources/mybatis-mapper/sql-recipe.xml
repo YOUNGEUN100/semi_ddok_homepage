@@ -61,6 +61,9 @@
 					FROM T4_R_IMAGE
 					WHERE THUMBNAIL_YN = 'Y') I 
 					ON I.RECIPE_NO = R.RECIPE_NO 
+			<if test="keyword != '' and keyword != null">
+			WHERE RECIPE_NAME LIKE CONCAT('%', #{keyword}, '%')
+			</if>
 		</select>
 		
 		
@@ -252,6 +255,7 @@
 			FROM T4_R_IMAGE 
 			WHERE THUMBNAIL_YN = 'N'
 			AND RECIPE_NO = #{recipeNo}
+			ORDER BY COOK_INDEX
 		</select>
 	
 		<!--레시피 조회수-->

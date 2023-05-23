@@ -14,8 +14,8 @@
                 <ul class="area-list">
 					<li class="no">
 						<label for="recipe_no" class="enrol-re" >레시피 번호</label>
-						<input id="recipe_no" name="recipe_no" type="number" min="1" max="999999" v-model="info.recipeNo" placeholder="숫자만 입력가능" required>
-						<button id="no_btn" @click="fnCheck()">레시피번호 중복 확인</button>
+						<input id="recipe_no" name="recipe_no" type="number" min="1" max="999999" v-model="info.recipeNo" placeholder="숫자만 입력가능" required @keyup.enter="fnCheck()">
+						<button id="no_btn" @click="fnCheck()" >레시피번호 중복 확인</button>
 					</li>
 					<li class="name">
 						<label for="recipe_name" class="enrol-re">레시피 제목</label>
@@ -129,9 +129,9 @@
 								<input type="file" :id="'file' + (n + 1)" name="file2">
 							</form>
 						</div>
-						<div id="re-info">
+						<div id="re-info" style="display:none;">
 							<label class="recipe-info">레시피 단계 설명</label>
-							<textarea id="memo" rows="5" :id="'cookContent' + (n + 1)" v-model="cookContent"></textarea>
+							<textarea id="memo" rows="5" :id="'cookContent' + (n + 1)" v-model="cookContent" ></textarea>
 						</div>
 					</div>
 					
@@ -224,7 +224,7 @@ var recipeEdit = new Vue({
 					
 					alert("등록되었습니다!");
 					
-					//location.href="/recipe.do";
+					location.href="/recipe.do";
 				}
 			});
 		},
