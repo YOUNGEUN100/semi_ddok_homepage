@@ -221,6 +221,10 @@
              				location.href="/login.do";    		
              			} else return;
              		 }
+            		 if (self.commentInfo.content == "") {
+            			 alert("내용을 입력하세요");
+            			 return;
+            		 }
                    	var nparmap = self.commentInfo;
         	        $.ajax({
         	            url:"/community/commentSave.dox",

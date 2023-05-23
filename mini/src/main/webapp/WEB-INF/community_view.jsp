@@ -38,7 +38,7 @@
             
             <section class="commentSection">
 	            <div class="headArea typeBoxArea">
-	            	<h3 class="head"><i class="fa-solid fa-comments"></i> 댓글 </h3><span class="commCnt">(<!-- {{commentCnt}} -->)</span>
+	            	<h3 class="head"><i class="fa-solid fa-comments"></i> 댓글 </h3><span class="commCnt">({{info.cnt}})</span>
 	            </div>
 	            <div v-if="list.length == 0" class="commentArea commentNull typeBoxArea styleBoxRound styleBoxShadow">등록된 댓글이 없습니다.</div>
                 <div v-else class="commentArea commentList">

@@ -27,7 +27,7 @@
 								<template v-if="item.status=='A'">
 				                	<td class="notice admin">공지</td>
 									<td class="title admin">
-										{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i>
+										{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i><span>[{{item.cnt}}]</span>
 									</td>
 								</template>
 								<template v-if="item.status=='C'">
@@ -39,7 +39,7 @@
 									</template>
 									<template v-else>
 										<td class="notice"></td>
-										<td class="title">{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i></td>
+										<td class="title">{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i><span>[{{item.cnt}}]</span></td>
 									</template>
 								</template>
 							</template>
