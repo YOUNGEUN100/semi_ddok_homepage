@@ -27,19 +27,24 @@
 								<template v-if="item.status=='A'">
 				                	<td class="notice admin">공지</td>
 									<td class="title admin">
-										{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i><span v-if="item.cnt>0">[{{item.cnt}}]</span>
+										{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i>
+										<span class="commCnt" v-if="item.cnt != 0"><i class="fa-solid fa-comment-dots"></i> {{item.cnt}}</span>
 									</td>
 								</template>
 								<template v-if="item.status=='C'">
 									<template v-if="item.userId==sessionId">
 					                	<td class="notice myboard">내글</td>
 										<td class="title myboard" v-if="item.userId==sessionId">
-											{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i><span v-if="item.cnt>0">[{{item.cnt}}]</span>
+											{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i>
+											<span class="commCnt" v-if="item.cnt != 0"><i class="fa-solid fa-comment-dots"></i> {{item.cnt}}</span>
 										</td>
 									</template>
 									<template v-else>
 										<td class="notice"></td>
-										<td class="title">{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i><span v-if="item.cnt>0">[{{item.cnt}}]</span></td>
+										<td class="title">
+											{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i>
+											<span class="commCnt" v-if="item.cnt != 0"><i class="fa-solid fa-comment-dots"></i> {{item.cnt}}</span>
+										</td>
 									</template>
 								</template>
 							</template>

@@ -30,8 +30,10 @@
 #pageContent.flea .flea_section .flea_list table tr:hover td {font-weight:700;}
 #pageContent.flea .flea_section .flea_list table tr > * {padding:1em 5px; line-height:1;}
 #pageContent.flea .flea_section .flea_list table th.sale_flg {width:120px; letter-spacing:0.25em;}
-#pageContent.flea .flea_section .flea_list table th.address {width:240px; letter-spacing:0.25em;}
-#pageContent.flea .flea_section .flea_list table th.title {width:calc(100% - 820px); min-width:200px; letter-spacing:0.5em;}
+#pageContent.flea .flea_section .flea_list table th.address {width:300px; letter-spacing:0.25em;}
+#pageContent.flea .flea_section .flea_list table th.title {width:calc(100% - 880px); min-width:200px; letter-spacing:0.5em;}
+#pageContent.flea .flea_section .flea_list table td.title span.commCnt {padding:0 5px; border-radius:10px; border:1px solid var(--base-colorCharcoal); color:var(--base-colorCharcoal); font-size:0.75em; font-weight:600;}
+#pageContent.flea .flea_section .flea_list table td.title span.commCnt i {color:var(--base-colorCharcoal); margin:0;}
 #pageContent.flea .flea_section .flea_list table th.user {width:120px;}
 #pageContent.flea .flea_section .flea_list table th.date {width:140px;}
 #pageContent.flea .flea_section .flea_list table th.viewCnt {width:100px;}

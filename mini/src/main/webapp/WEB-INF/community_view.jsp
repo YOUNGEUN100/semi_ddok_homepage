@@ -17,7 +17,7 @@
 	                </div>
                     <div class="infoBox">
                         <span class="user"><i class="fa-solid fa-user"></i> {{info.nick}}</span>
-                        <span class="date"><i class="fa-regular fa-calendar"></i> {{info.cdatetime}} (최근 수정 : {{info.udatetime}})</span>
+                        <span class="date"><i class="fa-regular fa-calendar"></i> {{info.cdatetime}} <span>(최근 수정 : {{info.udatetime}})</span></span>
                     </div>
                 </div>
                 <div class="contentArea">

@@ -41,7 +41,7 @@
 										</td>
 									</template>
 									<template v-else>
-										<td class="notice"></td>
+										<td class="notice">QnA</td>
 										<td class="title">
 											<span v-if="item.commentNo > 0" class="complete">답변완료</span>
 											<span v-if="item.commentNo == 0" class="progress">답변대기</span> 

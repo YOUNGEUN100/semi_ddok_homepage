@@ -24,6 +24,8 @@
 #pageContent.community .boardSection .boardArea table td.notice.myboard {color:var(--main-colorGreen);}
 #pageContent.community .boardSection .boardArea table td.title {width:calc(100% - 650px); min-width:200px; font-weight:600; font-size:1.0625em; text-align:justify;}
 #pageContent.community .boardSection .boardArea table td.title i {color:var(--main-colorYellow); font-size:0.875em; top:0;}
+#pageContent.community .boardSection .boardArea table td.title span.commCnt {padding:0 5px; border-radius:10px; border:1px solid var(--base-colorCharcoal); color:var(--base-colorCharcoal); font-size:0.75em; font-weight:600;}
+#pageContent.community .boardSection .boardArea table td.title span.commCnt i {color:var(--base-colorCharcoal); margin:0;}
 #pageContent.community .boardSection .boardArea table td.writer {width:150px;}
 #pageContent.community .boardSection .boardArea table td.date {width:200px;}
 #pageContent.community .boardSection .boardArea table td.view {width:150px;}
@@ -39,6 +41,7 @@
 #pageContent.community.typeView .boardSection .headArea .infoBox {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:center;}
 #pageContent.community.typeView .boardSection .headArea .infoBox .hits {font-size:1.125em;}
 #pageContent.community.typeView .boardSection .headArea .infoBox .date {font-size:1.125em;}
+#pageContent.community.typeView .boardSection .headArea .infoBox .date span {display:block; font-size:0.75em;}
 #pageContent.community.typeView .boardSection .contentArea {padding:2em 0 2.5em;}
 #pageContent.community.typeView .boardSection .contentArea .txtBox {margin-bottom:1em;}
 #pageContent.community.typeView .boardSection .contentArea .txtBox pre {font-size:1.125em; text-align:justify; overflow:auto; word-break:break-all; white-space:pre-wrap;}

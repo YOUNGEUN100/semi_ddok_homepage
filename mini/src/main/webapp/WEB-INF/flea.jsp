@@ -46,7 +46,7 @@
 				                    <td class="sale_flg" v-if="item.finishYn=='N'">{{item.boardKind2}}</td>
 				                    <td class="sale_flg disabled" v-else>{{item.boardKind2}}</td>
 				                    <td class="address">{{item.addr}}</td>
-				                    <td class="title">{{item.title}} <span v-if="item.commentCnt != 0">[{{item.commentCnt}}]</span></td>
+				                    <td class="title">{{item.title}} <span class="commCnt" v-if="item.commentCnt != 0"><i class="fa-solid fa-comment-dots"></i> {{item.commentCnt}}</span></td>
 				                    <td class="user">{{item.nick}}</td>
 				                    <td class="date">{{item.cdatetime2}}</td>
 				                    <td class="viewCnt">{{item.hits}}</td>
@@ -94,7 +94,7 @@
 	                                <td class="sale_flg" v-if="item.finishYn=='N'">{{item.boardKind2}}</td>
 	                                <td class="sale_flg disabled" v-else>{{item.boardKind2}}</td>
 	                                <td class="address">{{item.addr}}</td>
-	                                <td class="title">{{item.title}} <span v-if="item.commentCnt != 0">[{{item.commentCnt}}]</span></td>
+				                    <td class="title">{{item.title}} <span class="commCnt" v-if="item.commentCnt != 0"><i class="fa-solid fa-comment-dots"></i> {{item.commentCnt}}</span></td>
 	                                <td class="user">{{item.nick}}</td>
 	                                <td class="date">{{item.cdatetime2}}</td>
 	                                <td class="viewCnt">{{item.hits}}</td>
