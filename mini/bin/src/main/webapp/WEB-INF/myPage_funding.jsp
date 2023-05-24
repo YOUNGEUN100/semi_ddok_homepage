@@ -14,12 +14,11 @@
     .myArea .contentBox {width: 80%;  display: flex; flex-direction: column; justify-content: center;  align-items: center; }
     .myArea .contentBox .menuBox {width: 100%; display: flex; flex-flow: row nowrap;   justify-content: center;}
     .myArea .contentBox .menuBox .menu {width: 25%; text-align: center; padding: 10px; box-shadow: 0 0 4px 0 #ccc; cursor: pointer; }
+    .myArea .contentBox .menuBox .menu_funding {background-color:var(--base-colorBasicGray);}
     .myArea .contentBox .menuBox .menu:first-child {border-top-left-radius: 5px; border-bottom-left-radius: 5px;  box-shadow: -2px 0 5px 0 #ccc; }
     .myArea .contentBox .menuBox .menu:last-child {border-top-right-radius: 5px;  border-bottom-right-radius: 5px;  box-shadow: 2px 0 5px 0 #ccc;}
     .myArea .contentBox .menuBox .menu:hover {background-color: #eee; color: black; }
     .myArea .contentBox .menuBox .menu:visited {background-color: #ccc; color: black; }
-    .myArea .contentBox .menuBox .menu {background-color:var(--base-colorBasicGray); }
-
     .myArea .contentBox .fundingBox {width: 100%; box-shadow: 0 0 5px #ccc;display: flex; flex-direction: row; border-radius: 20px;  margin-top: 30px; }
     .myArea .contentBox .fundingBox img {width: 80%; border: 1px solid #ccc; border-radius: 50%; margin: 5px; cursor: pointer; }
     .myArea .contentBox .fundingBox .fundContent {width: 70%; margin-left:20px;  }
@@ -36,7 +35,7 @@
 <!-- pageContent -- START -->
 <div id="pageContent">
 	<div class="wrapper">
-		 <div id="app" class="myArea">
+		 <div id="myFunding" class="myArea">
             <div class="userBox"> <!--위-->
                 <img src="/./images/Sample_User_Icon.png">
                 <div class="edit" title="회원정보 수정은 여길 누르세요" @click="fnUserEdit()">{{sessionName}}님 환영합니다</div>
@@ -78,8 +77,8 @@
 
 <script type="text/javascript">
 
-var app = new Vue({ 
-    el: '#app',
+var myFunding = new Vue({ 
+    el: '#myFunding',
     data: {
     	list : [],
     	sessionName : "${sessionName}",

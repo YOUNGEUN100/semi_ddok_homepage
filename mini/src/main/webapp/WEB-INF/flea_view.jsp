@@ -52,7 +52,7 @@
 								<div class="btn_box">
 									<button @click="fnDeleteComment(item.commentNo)" v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">삭제</button>
 									<button @click="fnEditComment(item)" v-if="sessionId == item.userId || sessionStatus == 'A'">수정</button>
-									<button @click="fnRecommentBtn(item)" v-if="sessionId !== ''">답글달기</button>
+									<button @click="fnRecommentBtn(item)" v-if="sessionId == item.userId || sessionStatus == 'A' || sessionId == info.userId">답글달기</button>
 								</div>
 		                    </div>
 		                    

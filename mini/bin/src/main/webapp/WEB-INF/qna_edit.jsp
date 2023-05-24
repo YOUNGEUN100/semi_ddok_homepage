@@ -140,6 +140,8 @@
         , fnModify : function() {
             var self = this;
             var nparmap = self.info;
+            if (!self.info.title) {alert("문의 제목을 입력해주세요."); return;}
+            if (!self.info.content) {alert("문의 내용을 입력해주세요."); return;}
 	        $.ajax({
 	            url:"/community/modify.dox",
 	            dataType:"json",	

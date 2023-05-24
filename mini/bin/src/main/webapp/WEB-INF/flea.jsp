@@ -25,6 +25,7 @@
 			        <select v-model="orderValue" @change="fnChangeOrder">
 	                    <option value="recent">최신순</option>
 	                    <option value="viewCnt">조회수</option>
+	                    <option value="finishN">판매중</option>
 			        </select>
 			    </div>
 				<div class="flea_list">
@@ -72,6 +73,7 @@
                     <select v-model="orderValue2" @change="fnChangeOrder2">
                         <option value="recent">최신순</option>
                         <option value="viewCnt">조회수</option>
+                        <option value="finishN">나눔중</option>
                     </select>
 			    </div>
 			    <div class="flea_list">

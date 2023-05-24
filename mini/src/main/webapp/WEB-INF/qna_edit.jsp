@@ -84,18 +84,19 @@
     	// 수정할 글 불러오기
     	 fnGetInfo : function(){
 	            var self = this;
+	            if(self.boardNo == "") {
+	            	return;
+	            }
 	            var nparmap = {boardNo : self.boardNo};
 	            // 레시피 설명
 	            $.ajax({
-	                url:"/community/view.dox",
+	                url:"/qna/view.dox",
 	                dataType:"json",
 	                type : "POST",
 	                data : nparmap,
 	                success : function(data) {
-	                	//console.log(data.info);
-	                	if (data.info.length > 1) return;
-	                    self.info = data.info[0];
-	                   	console.log(self.info);
+	                	console.log(data.info);
+	                    self.info = data.info;
 	                }
 	            });
 	
