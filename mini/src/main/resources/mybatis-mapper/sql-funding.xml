@@ -33,7 +33,7 @@
 					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
             	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
 				END AS UDATETIME2,
-				DELETE_YN,
+				A.DELETE_YN,
 				SECRET_YN,
 				ANSWER_YN,
             	B.ADDR,
@@ -49,7 +49,7 @@
                      	WHERE DELETE_YN = 'N'
                      	GROUP BY BOARD_NO ) C ON A.BOARD_NO = C.BOARD_NO
         	
-        	WHERE BOARD_KIND = 'T_LAN' AND DELETE_YN = 'N']]>
+        	WHERE BOARD_KIND = 'T_LAN' AND A.DELETE_YN = 'N']]>
         	<if test = "orderValue == 'finishN'">
         	AND FINISH_YN = 'N'
         	</if>
@@ -103,7 +103,7 @@
 					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
             	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
 				END AS UDATETIME2,
-				DELETE_YN,
+				A.DELETE_YN,
 				SECRET_YN,
 				ANSWER_YN,
             	B.ADDR,
@@ -115,11 +115,11 @@
         	
            	LEFT JOIN(	SELECT BOARD_NO,
 					COUNT(COMMENT_NO) AS COMMENT_CNT
-			FROM T4_COMMENT 
-         	WHERE DELETE_YN = 'N'
-           	GROUP BY BOARD_NO ) C ON A.BOARD_NO = C.BOARD_NO
+					FROM T4_COMMENT 
+         			WHERE DELETE_YN = 'N'
+           			GROUP BY BOARD_NO ) C ON A.BOARD_NO = C.BOARD_NO
      	
-        	WHERE BOARD_KIND = 'D_LAN' AND DELETE_YN ='N']]>
+        	WHERE BOARD_KIND = 'D_LAN' AND A.DELETE_YN ='N']]>
         	
         	<if test = "orderValue2 == 'finishN'">
         	AND FINISH_YN = 'N'
@@ -186,7 +186,7 @@
 					WHEN CURDATE() = DATE_FORMAT(UDATETIME,'%Y-%m-%d') then DATE_FORMAT(UDATETIME,'%H : %i : %s')
             	    ELSE DATE_FORMAT(UDATETIME,'%Y-%m-%d') 
 				END AS UDATETIME2,
-				DELETE_YN,
+				A.DELETE_YN,
 				SECRET_YN,
 				ANSWER_YN,
             	B.ADDR
@@ -243,7 +243,7 @@
 
 			LEFT JOIN T4_USER B ON A.USER_ID = B.USER_ID
 			
-			WHERE BOARD_NO = #{boardNo} AND DELETE_YN = 'N'
+			WHERE BOARD_NO = #{boardNo} AND A.DELETE_YN = 'N'
             
             ORDER BY COMMENT_RENO;
 		</select>	
