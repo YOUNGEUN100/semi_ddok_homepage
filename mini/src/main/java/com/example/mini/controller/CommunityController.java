@@ -194,7 +194,7 @@ public class CommunityController {
 	 
 	 private static final String FILE_DIRECTORY = System.getProperty("user.dir") + "/src/main/webapp/images/file/";
 
-	  //  @GetMapping("/download/{filename}")
+	    @GetMapping("/download2/{filename}")
 	    public ResponseEntity<Resource> downloadFile(@PathVariable String filename, HttpServletRequest request) throws IOException {
 	        // 파일 경로 생성
 	        Path filePath = Paths.get(FILE_DIRECTORY, filename);
