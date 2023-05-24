@@ -366,8 +366,8 @@ IMP.init(userCode);
     	, info : {}
         , productNo : ""
         , productCnt : ""
-        , sessionId : "${sessionId}"
-        , selectedItems : [${map.selectedItems}]
+        , sessionId : "${sessionId}" //하나의 문자열로 받을때  ""로 받는다.
+        , selectedItems : [${map.selectedItems}] //맵이나 리스트로 받을때는 ""을 풀어야한다. / ""는 문자열로 인식함
         , selectAll: false
         , total_productPrice : 0
         , orderNo : ""

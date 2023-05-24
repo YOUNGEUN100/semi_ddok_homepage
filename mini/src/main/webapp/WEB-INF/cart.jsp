@@ -246,11 +246,11 @@
                     <div class="cart">
                         <div id="cart_font"><!-- img src="./images/icons8-cart-64.png" width="10"--> 장바구니</div>
                     </div>
-                    <div class="cart_menu">
+                    <div class="cart_menu" v-if="list.length>0">
                         <div class="buy">구매목록</div>
                         <div class="buy_empt"></div>
                     </div>
-                    <div class="cart_title_border">
+                    <div class="cart_title_border" v-if="list.length>0">
                         <table id="table2">
                             <tr id="tr2">
                                 <td width="110">전체선택</td>
@@ -260,7 +260,7 @@
                             </tr>
                         </table>                       
                     </div>
-                    <div class="cart_title">
+                    <div class="cart_title"  v-if="list.length>0">
                         <div id="cart_title_font">판매자 배송상품</div>
                     </div>
                     <div class="cart_content" v-if="list.length>0">
