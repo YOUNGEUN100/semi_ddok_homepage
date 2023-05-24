@@ -5,12 +5,14 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <style>
+	
 	.editArea{
         background-color: #fff;
         width: 480px; margin: 0 auto;
         border-radius: 20px;
         box-shadow: 0 0 10px #dddddd;
         padding: 40px 80px; 
+        margin-bottom:10px;
        }
 
      .editArea .captionEssential {
@@ -76,7 +78,11 @@
       .editArea .editBox .viewAddr{ border-bottom:1px solid black; padding: 8px; color:#888; font-size:0.9em;}
       .editArea .editBox .addrBtn{border-radius: 5px; border: 0.7px solid black;
           background-color: #fff; padding: 10px; margin-top: 10px; width: 100%;
-          font-weight: bold; font-size: 0.8em; margin-bottom:20px;}
+          font-weight: bold; font-size: 0.8em; margin-bottom:20px; color: black;}
+      .editArea .editBox .duplicationBtn{
+	       border-radius: 8px; border: 0.7px solid black;
+	       background-color: #fff; padding: 5px 13px; 
+	       font-weight: bold; font-size: 0.75em;}
      
       
       input[type="date"]::placeholder{
@@ -94,13 +100,17 @@
            background-color: #5EA152; color:#fff; 
            border-radius: 8px; padding: 10px; border: 0; font-weight: bold; 
            width: 76%; margin-left: 30px;}
+      .deletebtnBox{width:480px; display:flex; flex-direction:row; justify-content:end; padding-right:40px; }
+      .deleteBtn{color: var(--base-colorDarkGray); border: 0; background-color: var(--base-colorWhite);
+      			border-bottom:1px solid var(--base-colorDarkGray); border-radius:0; padding:0; line-height:1;}
 </style>
 
 
 <!-- pageContent -- START -->
 <div id="pageContent">
-	<div class="wrapper">
-		 <div id="app" class="editArea">
+	<div class="wrapper " id="app">
+
+		<div  class="editArea">
         <div class="editBox">
             <div class="captionBox">
                 <span class="markEssential">아이디</span>
@@ -130,9 +140,13 @@
             <div class="unchangeable">{{user.name}}<small>(변경은 고객센터로 문의해주세요)</small></div>
            
             <p class="markEssential">닉네임</p>
-            <div class="unchangeable nickChange" v-if="nickChange" @click="fnChage">{{user.nick}}<small> (변경하려면 클릭)</small></div>
-            <div v-else>
+            
+            <div class="unchangeable nickChange" v-if="nickChange" @click="fnNickChange">{{user.nick}}<small> (변경하려면 클릭)</small></div>
+            
+            <div v-else>            	
             	<input type="text" class="w100" placeholder="변경할 닉네임을 입력해 주세요" v-model="info.nick">
+            	
+            	
             </div>
            
             <p class="markEssential">전화번호</p>
@@ -154,7 +168,7 @@
             </select> 
             
             <p class="markEssential">주소</p>
-            <div v-if="nickChange">
+            <div v-if="addrChange">
             	<div class="viewAddr">{{user.addr}}&ensp;{{user.addr2}}</div>
             	<button class="addrBtn" @click="fnChage">주소 변경</button>
             </div>
@@ -164,10 +178,7 @@
 	            <input type="text" class="w100 addr" placeholder="주소" v-model="info.addr">
 	            <input type="text" class="w100 addr2" placeholder="상세주소 입력" v-model="info.addr2">
             </div>
-            
-            <p class="gender" >성별</p>
-            <label for="M" class="genderBox"><input type="radio" id="M" name="gender" class="genderValue" v-model="info.gender" value="M">남성</label>
-            <label for="F" class="genderBox"><input type="radio" id="F" name="gender" class="genderValue" v-model="info.gender" value="F">여성</label>
+
             
             <div>
                 <p class="markEssential">생년월일</p>
@@ -182,8 +193,10 @@
         <div class="btnBox">
             <button class="joinBtn" @click="fnEditUser">변경하기</button>
         </div>
-        
     </div>
+	    <div class="deletebtnBox">
+	    	<button class="deleteBtn" @click="fnRemoveUser">탈퇴하기</button>
+	    </div>
 	</div>
 </div>
 <!-- pageContent -- END -->
@@ -211,13 +224,14 @@ var app = new Vue({
     		zipCode:"",
     		addr:"",
     		addr2:"",
-    		gender:"",
     		livingYear:""
     	},
     	
     	sessionId : "${sessionId}",
     	sessionPw : "${sessionPw}",
-    	nickChange: true
+    	nickChange: true,
+    	addrChange : true
+    	
     	
     }
     , methods : {
@@ -265,14 +279,37 @@ var app = new Vue({
     	        }); 
 	        
         },
-        
-        
-    	
+	      
+        // 탈퇴
+        fnRemoveUser : function() {
+            var self = this;
+            self.info.id = self.sessionId;
+            self.info.pw = self.sessionPw;
+            var nparmap = self.info;
+            	$.ajax({
+    	            url:"/user/remove.dox",
+    	            dataType:"json",	
+    	            type : "POST", 
+    	            data : nparmap,
+    	            success : function(data) { 
+    	            	console.log(data)
+						alert("탈퇴가 완료되었습니다.");
+    	            	location.href="/login.do";
+
+    	            }
+    	        }); 
+        },
+		//주소 보여주고 변경원하면 바뀌게 변경
         fnChage : function(){
+        	var self = this;
+        	self.addrChange = !self.addrChange;
+        }
+        , // 닉네임 보여주고 변경원하면 바뀌게 변경
+        fnNickChange : function(){
         	var self = this;
         	self.nickChange = !self.nickChange;
         }
-        ,	
+        , //주소	
     	 fnSearchAddr : function(){
  	 		var self = this;
  	 		var option = "width = 500, height = 500, top = 100, left = 200, location = no"

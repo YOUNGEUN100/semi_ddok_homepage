@@ -20,19 +20,19 @@
 				PW_Q,
 				PW_A
 			FROM T4_USER
-			WHERE USER_ID=#{id} AND PASSWORD=#{pw}
+			WHERE USER_ID=#{id} AND PASSWORD=#{pw} AND DELETE_YN = 'N'
 		</select>
 		
 		<select id="selectUserCnt" parameterType="HashMap" resultType="int">
 			SELECT COUNT(*) AS CNT 
 			FROM T4_USER
-			WHERE USER_ID = #{id}
+			WHERE USER_ID = #{id} AND DELETE_YN = 'N'
 		</select>
 		
 		<select id="selectUserNickCnt" parameterType="HashMap" resultType="int">
 			SELECT COUNT(*) AS CNT 
 			FROM T4_USER
-			WHERE NICK = #{nick}
+			WHERE NICK = #{nick} AND DELETE_YN = 'N'
 		</select>
 		
 		<insert id="insertUser" parameterType="HashMap">
@@ -50,33 +50,34 @@
 				ADDR2,
 				JOINDATE,
 				PW_Q,
-				PW_A)
+				PW_A,
+				DELETE_YN)
 			VALUES(#{id}, #{pw}, #{name}, #{nick}, #{email}, #{birth},
-			#{hp}, #{livingYear}, 'C', #{addr}, #{addr2}, now(), #{pwQ}, #{pwA})
+			#{hp}, #{livingYear}, 'C', #{addr}, #{addr2}, now(), #{pwQ}, #{pwA}, 'N')
 		</insert>
 		
 		<select id="selectUserId" parameterType="HashMap" resultType="com.example.mini.model.User">
 			SELECT USER_ID 
 			FROM T4_USER
-			WHERE NAME = #{name} AND HP = #{hp} AND BIRTH = #{birth}
+			WHERE NAME = #{name} AND HP = #{hp} AND BIRTH = #{birth} AND DELETE_YN = 'N'
 		</select>
 		
 		<select id="selectUserIdCnt" parameterType="HashMap" resultType="int">
 			SELECT COUNT(USER_ID)  
 			FROM T4_USER
-			WHERE NAME = #{name} AND HP = #{hp} AND BIRTH = #{birth}
+			WHERE NAME = #{name} AND HP = #{hp} AND BIRTH = #{birth}  AND DELETE_YN = 'N'
 		</select>
 		
 		<select id="selectUserPw" parameterType="HashMap" resultType="com.example.mini.model.User">
 			SELECT PASSWORD 
 			FROM T4_USER 
-			WHERE USER_ID = #{id} AND NAME = #{name} AND PW_Q = #{pwQ} AND PW_A = #{pwA}
+			WHERE USER_ID = #{id} AND NAME = #{name} AND PW_Q = #{pwQ} AND PW_A = #{pwA} AND DELETE_YN = 'N'
 		</select>
 		
 		<update id="updatePw" parameterType="HashMap">
 			UPDATE T4_USER
 			SET PASSWORD = #{pw}
-			WHERE USER_ID  = #{id} AND NAME = #{name} AND PW_Q = #{pwQ} AND PW_A =#{pwA}
+			WHERE USER_ID  = #{id} AND NAME = #{name} AND PW_Q = #{pwQ} AND PW_A =#{pwA} AND DELETE_YN = 'N'
 		</update> 
 		
 		<select id="selectUser" parameterType="hashmap" resultType="com.example.mini.model.User">
@@ -97,7 +98,7 @@
 				PW_Q,
 				PW_A
 			FROM T4_USER
-			WHERE USER_ID = #{id}
+			WHERE USER_ID = #{id} AND DELETE_YN = 'N'
 		</select>
 		
 		<update id="updateUser" parameterType="HashMap">
@@ -107,12 +108,17 @@
                 <if test="nick != '' "> NICK = #{nick},</if> 
                 <if test="email != '' "> EMAIL= #{email},</if>
                 <if test="hp != '' "> HP = #{hp},</if>
-                <if test="gender != '' "> GENDER = #{gender},</if>
                 <if test="addr != '' "> ADDR = #{addr},</if>
                 <if test="addr2 != '' "> ADDR2 = #{addr2},</if>
                 <if test="livingYear != '' "> LIVING_YEAR = #{livingYear},</if>
         	</trim>
 				
+			WHERE USER_ID = #{id}
+		</update>
+		
+		<update id="deleteUser" parameterType="HashMap">
+			UPDATE T4_USER
+			SET DELETE_YN = 'Y'
 			WHERE USER_ID = #{id}
 		</update>
 		

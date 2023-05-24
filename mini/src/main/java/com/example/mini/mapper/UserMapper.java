@@ -39,4 +39,6 @@ public interface UserMapper {
 	//회원정보 변경
 	void updateUser(HashMap<String, Object>map);
 	
+	//회원탈퇴
+	void deleteUser(HashMap<String, Object>map);
 }

@@ -178,6 +178,16 @@ public class UserController {
 		resultMap.put("result", "success");
 		return new Gson().toJson(resultMap);
 	}
+	//탈퇴
+	@RequestMapping(value = "/user/remove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String deleteUser(Model model, @RequestParam HashMap<String, Object> map ) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		userService.removeUser(map);
+		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
 	
 	@RequestMapping("/payment.do") 
     public String payment(Model model) throws Exception{

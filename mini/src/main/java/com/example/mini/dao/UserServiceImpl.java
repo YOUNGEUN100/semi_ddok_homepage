@@ -94,6 +94,11 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		userMapper.updateUser(map);
 	}
+	@Override
+	public void removeUser(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		userMapper.deleteUser(map);
+	}
 	
 
 }

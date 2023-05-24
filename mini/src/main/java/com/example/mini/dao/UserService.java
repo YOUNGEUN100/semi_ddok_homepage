@@ -35,4 +35,7 @@ public interface UserService {
 	
 	//회원 정보 변경
 	void editUser(HashMap<String, Object>map);
+	
+	//회원탈퇴
+	void removeUser(HashMap<String, Object>map);
 }

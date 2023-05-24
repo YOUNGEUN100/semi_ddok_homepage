@@ -16,6 +16,7 @@ public class User {
 	private String joindate;
 	private String pwQ;
 	private String pwA;
+	private String deleteYn;
 	
 	
 	public String getUserId() {
@@ -107,6 +108,12 @@ public class User {
 	}
 	public void setPwA(String pwA) {
 		this.pwA = pwA;
+	}
+	public String getDeleteYn() {
+		return deleteYn;
+	}
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
 	}
 
 	
