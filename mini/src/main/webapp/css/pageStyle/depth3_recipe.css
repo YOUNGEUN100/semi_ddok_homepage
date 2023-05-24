@@ -137,4 +137,23 @@ padding:1em 0 0.5em 2.5em;}
 
 
 
+@media print {
+	.noPrint {display:none !important;}
+	.noPrint > * {display:none !important;}
+	
+	.wrapper {padding:0;}
+	#pageContent .typeBoxArea {padding:1.5em 2em;}
+	
+	#pageContent.recipe.typeView {font-size:0.75em; padding:1em;}
+	#pageContent.recipe.typeView .recipe-info-section .recipe-thumb-area {width:50%;}
+	#pageContent.recipe.typeView .recipe-info-section .recipe-info-area {width:50%;}
+	#pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info-box {height:100%; margin-bottom:0;}
+	#pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info_txt .title {margin-bottom:0;}
+	#pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info_keyword .type {width:calc(100% / 3);}
+	#pageContent.recipe.typeView .recipe-info-section .recipe-info-area .info_keyword .type img {width:36px; margin-bottom:0.5em;}
+	#pageContent.recipe.typeView .ingredient-section {margin:2em 0;}
+	
+}
+
+
 /***** (recipe) --- END *****/

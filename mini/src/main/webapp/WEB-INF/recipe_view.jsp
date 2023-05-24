@@ -12,7 +12,7 @@
 		<div id="recipeView" class="recipeViewContainer">
             <section class="recipe-info-section">
                 <div class="recipe-thumb-area styleBoxRound styleBoxShadow">
-                    <div class="re-view-cnt">
+                    <div class="re-view-cnt noPrint">
                         <i class="fa-solid fa-eye"></i>
                         <span>{{info.recipeHits}}</span>
                     </div>
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="recipe-btn-Box">
+                    <div class="recipe-btn-Box noPrint">
                         <div class="save-btn styleBoxShadow styleHoverShadow" @click="fnSave()">레시피 저장하기</div>
                         <div class="print-btn styleBoxShadow styleHoverShadow" @click="fnPrint()"><i class="fa-solid fa-print"></i></div>
                         <div class="share-btn styleBoxShadow styleHoverShadow" @click="fnClip()"><i class="fa-solid fa-share-nodes"></i></div>
@@ -119,10 +119,8 @@
 	                success : function(data) {
 	                    self.info = data.info;
 	                    console.log(self.info);
-	                    
 	                }
 	            });
-	
 	        }
 		    // 만드는 방법 리스트 가져오기
 			,fnGetCookMethod : function() {
@@ -169,30 +167,28 @@
 			}
 			// 레시피 인쇄
 			, fnPrint : function() {
-				  let printHtml = $('#printarea').html();
-				  let win = window.open('','_blank','fullscreen');
+				let printHtml = $('#printarea').html();
+				let win = window.open('','_blank','fullscreen');
+				 
+				//win.document.write('');
+				win.document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">');
+				win.document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">');
+				win.document.write('<link rel="stylesheet" href="/css/pageStyle/pageStyle.css">');
+				 
+				win.document.write('<link rel="stylesheet" href="/css/common.css">');
+				win.document.write('<link rel="stylesheet" href="/css/layoutStyle.css">');
+				win.document.write('<link rel="stylesheet" href="/css/mainStyle.css">');
+				win.document.write('<link rel="stylesheet" href="/css/pageStyle/depth3_recipe.css">');
+				win.document.write("<html><head></head><body>");
+				win.document.write(printHtml);
+				win.document.write("</body></html>");
 				  
-				  //max-width = 1240px, min-height=calc(100vh - 140px - 520px)margin: 0 auto;padding: 0 20px;position: relative;
-				   
-				  //win.document.write('');
-				  win.document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">');
-				  win.document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">');
-				  win.document.write('<link rel="stylesheet" href="/css/pageStyle/pageStyle.css">');
-				  
-				 win.document.write('<link rel="stylesheet" href="/css/common.css">');
-				 win.document.write('<link rel="stylesheet" href="/css/layoutStyle.css">');
-				 win.document.write('<link rel="stylesheet" href="/css/mainStyle.css">');
-				  win.document.write('<link rel="stylesheet" href="/css/pageStyle/depth3_recipe.css">');
-				  win.document.write("<html><head></head><body>");
-				  win.document.write(printHtml);
-				  win.document.write("</body></html>");
-				  
-				  win.document.close();
-				  setTimeout(function() {
-				  win.focus();
-				  win.print();
-				  win.close();
-				  }, 1000);
+				win.document.close();
+				setTimeout(function() {
+					win.focus();
+					win.print();
+					win.close();
+				}, 1000);
 			}
 			// 레시피 삭제
 			, fnRemoveRecipe : function() {

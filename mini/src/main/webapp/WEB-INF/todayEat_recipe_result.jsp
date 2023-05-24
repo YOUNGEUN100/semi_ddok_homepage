@@ -111,22 +111,16 @@ var result = new Vue({
                     console.log("밥 제거 = " + filtered);
                     console.log("물 제거 = " + ingList);
                     
-                    var ingStr = ingList.join("|"); //다시 구분 | 문자로
-                    self.ing = ingStr.replaceAll(" ","");//공백없애기
+                    var ingStr = ingList.join("|");
+                    self.ing = ingStr.replaceAll(" ","");
                     console.log("최종 재료값 = " + self.ing);
-                    
-                  // console.log("menu 데이터는" + data.menu);
-                  //  console.log(data.menu);
                     self.message1 = "알맞은 추천레시피를 찾지 못했어요 😥";
                     self.message2 = "대신, ";
                     self.menuFlg = true;
-
 					self.fnGetProduct();
-                  
                 }
             }); 
 		},
-		
 		fnGetRecipeResult : function() {
             var self = this;
             var nparmap = self.param;
