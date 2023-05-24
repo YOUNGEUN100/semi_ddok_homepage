@@ -629,7 +629,7 @@ IMP.init(userCode);
     	        	            data : nparmap,
     	        	            success : function(data) {
     	        	            	alert("주문되었습니다.");
-    	        	            //	location.href="/main.do";
+    	        	            	location.href="/main.do";
     	        	            }
     	        	        });    	              
     	        		}
