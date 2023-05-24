@@ -36,6 +36,7 @@
                     ) C 
 			ON A.PRODUCT_NO = C.PRODUCT_NO
 			WHERE B.THUMBNAIL_YN='Y'
+			AND A.DELETE_YN = 'N'
 			<if test="product_kind !='' and product_kind != null">
 				AND PRODUCT_KIND = #{product_kind}
 			</if>
@@ -60,6 +61,7 @@
                     ) C 
 			ON A.PRODUCT_NO = C.PRODUCT_NO
 			WHERE B.THUMBNAIL_YN='Y'
+			AND A.DELETE_YN = 'N'
 			<if test="product_kind !='' and product_kind != null">
 			AND PRODUCT_KIND = #{product_kind}
 			</if>
@@ -136,6 +138,7 @@
                     ) C 
 			ON A.PRODUCT_NO = C.PRODUCT_NO
 			WHERE B.THUMBNAIL_YN='Y'
+			AND A.DELETE_YN = 'N'
 			<if test="productNo !='' and productNo != null">
 			AND A.PRODUCT_NO = #{productNo}
 		</if>
@@ -319,10 +322,11 @@
 				, IMG_PATH
 				, IMG_SIZE
 				, THUMBNAIL_YN
+				, DELETE_YN
 				, CDATETIME)
 			VALUES
 				(DEFAULT, #{productNo}, #{imageOrgName}, #{imageName}, #{imagePath}
-				, #{imageSize}, 'Y', DEFAULT)
+				, #{imageSize}, 'Y', DEFAULT, DEFAULT)
 		</insert>		
 		
 		<!-- 상품 이미지 등록  -->
@@ -335,10 +339,11 @@
 				, IMG_PATH
 				, IMG_SIZE
 				, THUMBNAIL_YN
+				, DELETE_YN
 				, CDATETIME)
 			VALUES
 				(DEFAULT, #{productNo}, #{imageOrgName}, #{imageName}, #{imagePath}
-				, #{imageSize}, 'N', DEFAULT)
+				, #{imageSize}, 'N', DEFAULT, DEFAULT)
 		</insert>
 				
 

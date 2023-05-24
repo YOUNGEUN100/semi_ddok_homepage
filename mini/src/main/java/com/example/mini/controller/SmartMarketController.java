@@ -290,7 +290,7 @@ public class SmartMarketController {
 		    public String result2(@RequestParam("file1") MultipartFile multi, @RequestParam("productNo") int productNo, HttpServletRequest request,HttpServletResponse response, Model model)
 		    {
 		        String url = null;
-		        String path="/images/";
+		        String path="/images/product/";
 		        try {
 		 
 		            //String uploadpath = request.getServletContext().getRealPath(path);
@@ -309,7 +309,7 @@ public class SmartMarketController {
 		            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
 		            if(!multi.isEmpty())
 		            {
-		                File file = new File(path2 + "\\src\\main\\webapp\\images", saveFileName);
+		                File file = new File(path2 + "\\src\\main\\webapp\\images\\product", saveFileName);
 		                multi.transferTo(file);
 
 		                HashMap<String, Object> map = new HashMap<String, Object>();
@@ -336,7 +336,7 @@ public class SmartMarketController {
 	    public String result3(@RequestParam("file2") MultipartFile multi, @RequestParam("productNo") int productNo, HttpServletRequest request,HttpServletResponse response, Model model)
 	    {
 	        String url = null;
-	        String path="/images/";
+	        String path="/images/product/";
 	        try {
 	 
 	            //String uploadpath = request.getServletContext().getRealPath(path);
@@ -355,7 +355,7 @@ public class SmartMarketController {
 	            System.out.println("Working Directory = " + path2 + "\\src\\webapp\\images");
 	            if(!multi.isEmpty())
 	            {
-	                File file = new File(path2 + "\\src\\main\\webapp\\images", saveFileName);
+	                File file = new File(path2 + "\\src\\main\\webapp\\images\\product", saveFileName);
 	                multi.transferTo(file);
 
 	                HashMap<String, Object> map = new HashMap<String, Object>();

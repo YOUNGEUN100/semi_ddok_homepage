@@ -118,7 +118,7 @@
                             <div class="volume_box">
                                 <span>상품 용량</span> 
                                 <select class="sel" name="productVolume" id="productVolume" v-model="info.productVolume">
-                                	<option value="" selected>:::용량선택:::</option>								    								    
+                                	<option value="" selected>::: 용량선택 :::</option>								    								    
                                 	<option value="g" >그램(g)</option>
                                 	<option value="ml" >밀리리터(ml)</option>
 								</select>                                 
@@ -135,7 +135,7 @@
                             <div class="open_date_box">
                                 <span>할인여부</span>
                                 <select class="sel" name="discountYN" id="discountYN" v-model="info.discountYN">
-                                	<option value="" selected>:::선택:::</option>								    								    
+                                	<option value="" selected>::: 선택 :::</option>								    								    
                                 	<option value="Y" >예</option>
                                 	<option value="N" >아니요</option>
 								</select>

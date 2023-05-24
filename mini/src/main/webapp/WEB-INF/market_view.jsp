@@ -20,7 +20,7 @@
 	                    <div class="infoTxt">
 	                    	<h3 class="title">{{info.productName}}</h3>
 	                    	<p class="review" v-if="(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)>0"><i class="fa-solid fa-star"></i> {{(info.satisfactionGrade + info.repurchaseGrade + info.deliveryGrade)/3 |  numberFormat(1)}}</p>
-	                    	<p class="summary">{{info.content}}</p>
+	                    	<p class="summary" v-html="info.content"></p>
 	                    </div>
                         <div class="infoPrice">
                             <span>판매가</span>
@@ -59,7 +59,7 @@
 			    <div class="reviewScrollBtn active">후기</div>
 			</section>
 			
-			<section class="reviewSection" v-if="self.cnt>0">
+			<section class="reviewSection" v-if="cnt>0 || cnt !=''"> 
 				<details class="reviewItem styleBoxRound styleBoxShadow styleHoverShadow" v-for="(item, index) in list">
 				    <summary class="reviewSummary">
 				    	<div class="rDate">{{item.cdatetime}}</div>
@@ -196,6 +196,8 @@ var marketView = new Vue({
                     self.list = data.list;
                     self.cnt = data.cnt;
                     self.pageCount = Math.ceil(self.cnt / 5);
+                    
+                    console.log("=============",data);
                 }
             });
         }
@@ -257,6 +259,9 @@ var marketView = new Vue({
         , fndelete: function () {
         	var self = this;
         	var nparmap = { productNo: self.productNo};
+            console.log("==================",nparmap);
+            
+            
             $.ajax({
                 url: "/smartmarket/delete.dox",
                 dataType: "json",
@@ -266,7 +271,7 @@ var marketView = new Vue({
                     alert("삭제완료.");
                     location.href = "/market.do";
                 }
-            });
+            });            
         	
         }
         // 주소 복사
