@@ -312,7 +312,7 @@ var communityView = new Vue({
 		, fnDownloadFile : function() {
 			var self = this;
 			var filename = self.info.saveName;
-			var url = "/download/" + filename; 
+			var url = "/download2/" + filename; 
 			
 			var link = document.createElement("a");
 			link.href = url;
