@@ -90,9 +90,9 @@
                         <div> 배송완료</div><div>주문번호 : {{item.orderNo}}</div>
                     </div>
                     <div class="reviewCenter">
-                        <img :src="item.imgPath" name="상품이미지">
+                        <img :src="item.imgPath" name="상품이미지" @click="fnMarket(item)">
                         <div class="detail">
-                            <div>{{item.productName}}</div>
+                            <div @click="fnMarket(item)">{{item.productName}}</div>
                             <div>{{item.productPrice2}}원 (100{{item.productWeight}}당 {{item.perPrice}}원)</div>
                             <div>수량 : {{item.orderCnt}}개</div>
                             <div>총 결제금액 : {{item.orderPrice2}}원</div>
@@ -197,6 +197,7 @@ var myReview = new Vue({
             });
 
         }
+    	//리뷰등록
     	, fnReviewAdd : function(productNo){
     		var self = this;
 	      	var nparmap = {id : self.sessionId, productNo:productNo, satisfactionGrade : self.ratingProduct, repurchaseGrade: self.ratingRepurchase, deliveryGrade : self.ratingDelivery};
@@ -212,6 +213,12 @@ var myReview = new Vue({
 	        }); 
     		
    	 	}
+   	//마켓상세보기
+        , fnMarket: function(item) {
+            var self = this;
+            
+            self.pageChange("/market/view.do", { productNo: item.productNo});
+        }
 
     	//정보수정페이지 이동
     	, fnUserEdit : function(){
