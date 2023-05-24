@@ -37,7 +37,7 @@
 	
 	<!-- 전체 레시피 랜덤 추천 -->
 	<select id="selectRecipeRandom" parameterType="hashmap" resultType="com.example.mini.model.TodayEat">
-		SELECT A.RECIPE_NO, RECIPE_NAME, IMG_PATH AS IMG_PATH_T, IMG_PATH2 AS IMG_PATH_R, CODE, COOK_INGRE
+		SELECT A.RECIPE_NO, RECIPE_NAME, HASHTAG, IMG_PATH AS IMG_PATH_T, IMG_PATH2 AS IMG_PATH_R, CODE, COOK_INGRE
 		FROM T4_RECIPE A
         LEFT JOIN (SELECT RECIPE_NO,
 							IMG_PATH

@@ -52,3 +52,7 @@
 .styleRed li.active:hover {background:var(--main-colorRed);}
 /***** (pagination) --- END *****/
 
+
+.ql-toolbar.ql-snow+.ql-container.ql-snow {height:30em; overflow:auto;}
+.ql-align-center {text-align:center;}
+.ql-align-right {text-align:right;}

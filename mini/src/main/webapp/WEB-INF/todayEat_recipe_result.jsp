@@ -12,7 +12,9 @@
 		<div id="result" class="resultContainer">
 			<div class="resultMenu">
 	 			<h3 class="resultMenuTitle">
-					<span v-if="menuFlg">{{message}}</span> 오늘 ‘<span id="menuName">{{info.recipeName}}</span>’ 어때요?
+					<span class="resultCant" v-if="menuFlg">{{message1}}</span> 
+					<span class="instead" v-if="menuFlg">{{message2}}</span> 
+					오늘 ‘<span id="menuName">{{info.recipeName}}</span>’ 어때요?
 				</h3>
 				<div class="imgBox">
                 	<img class="img" :src="info.imgPathT">
@@ -62,7 +64,8 @@ var result = new Vue({
 		list : [], 
 		info : {},
 		menuFlg : false,
-		message : "",
+		message1 : "",
+		message2 : "",
 		param : {
 			r_purpose : "${hmap.r_purpose}",
 			howto : "${hmap.howto}",
@@ -114,7 +117,8 @@ var result = new Vue({
                     
                   // console.log("menu 데이터는" + data.menu);
                   //  console.log(data.menu);
-                    self.message = "검색결과가 없어요. 대신";
+                    self.message1 = "알맞은 추천레시피를 찾지 못했어요 😥";
+                    self.message2 = "대신, ";
                     self.menuFlg = true;
 
 					self.fnGetProduct();

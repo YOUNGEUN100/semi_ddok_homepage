@@ -40,7 +40,8 @@
 
 #pageContent.todayEat .resultMenu {text-align:center; margin-bottom:5em;}
 #pageContent.todayEat .resultMenuTitle {font-size:1.75em;}
-#pageContent.todayEat .resultMenuTitle span {font-size:1.25em;}
+#pageContent.todayEat .resultMenuTitle span.resultCant {font-size:0.75em; font-weight:600; display:block; text-align:center; margin-bottom:0.5em;}
+#pageContent.todayEat .resultMenuTitle span#menuName {font-size:1.25em;}
 #pageContent.todayEat .resultMenu .imgBox {width:360px; height:360px; border-radius:50%; background:var(--base-colorBasicGray); margin:1em auto 2em; position:relative; overflow:hidden;}
 #pageContent.todayEat .resultMenu .imgBox img {max-width:inherit; height:100%; display:block; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
 #pageContent.todayEat .replayBtn {font-weight:600;}
@@ -50,6 +51,10 @@
 #pageContent.todayEat .resultMapTitle span {font-weight:700;}
 #pageContent.todayEat .resultMap {width:100%; position:relative; display:flex; flex-flow:row wrap; justify-content:space-between; align-items:stretch;}
 #pageContent.todayEat .resultMap .map_wrap {width:calc(100% - 370px); position:relative; height:500px;}
+.balloon {  
+position:relative; margin:50px; background:pink; border-radius:10px;
+}
+.balloon:after {content:''; border-top:0px solid transparent; border-left:10px solid transparent; border-right:10px solid transparent; border-bottom:10px solid pink; position:absolute; top:-10px; left:200px;}
 #pageContent.todayEat .resultMap #menu_wrap {width:350px; height:500px; overflow-y:auto; text-align:justify; font-size:0.875em; line-height:1.25; background:var(--base-colorWhite); padding:0.5em;}
 #pageContent.todayEat .resultMap #menu_wrap h5 {font-size:1.125em;}
 #pageContent.todayEat .infowindow {font-size:0.875em; font-weight:500;}

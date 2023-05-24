@@ -151,7 +151,14 @@ var recipeList = new Vue({
 					 self.cnt = data.cnt;
 					 self.keycnt = data.list.length;
 					 self.pageCount = Math.ceil(self.cnt / 12);
+					 
+					 if(self.keyword != "") {
+					    var offset = $("#tag1").offset();
+					    $("html, body").animate({scrollTop:offset.top - 150}, 500);
+					    console.log(offset);
+					}
 				}
+			
 			})
 		}
 		// 페이징 메소드
@@ -319,5 +326,12 @@ $(document).ready(function(){
     $("#all-btn").on("click", function() {
     	$(cateBox).addClass("active");
     });
+});
+
+$(document).ready(function(){
+	$(".categoryCircle").click(function(){
+		$('html,body').animate({scrollTop:$("#search-result-s").offset().top - 150}, 500);
+		return false;
+	});
 });
 </script>

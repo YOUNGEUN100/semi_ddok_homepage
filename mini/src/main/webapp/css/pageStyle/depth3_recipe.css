@@ -46,7 +46,8 @@
 #pageContent.recipe .item-list .item {width:calc((100% - 60px) / 3); margin-right:30px; cursor:pointer; margin-bottom:2em;}
 #pageContent.recipe .item-list .item:nth-child(3n) {margin-right:0;}
 #pageContent.recipe .item-list .item:hover .img-box img {transform:scale(1.05); transition:all 0.2s ease-out;}
-#pageContent.recipe .item-list .item .img-box {width:100%; height:250px; margin-bottom:0.5em; position:relative; text-align:center; overflow:hidden;}
+#pageContent.recipe .item-list .item .img-box {width:100%; margin-bottom:0.5em; position:relative; text-align:center; overflow:hidden;}
+#pageContent.recipe .item-list .item .img-box img {display:block;}
 #pageContent.recipe .item-list .item .img-box .re-view-cnt {display:inline-block; line-height:1; padding:0.2em 0.5em; background:rgba(255,255,255,0.9); border-radius:15px; font-size:0.875em; font-weight:600; position:absolute; top:10px; right:10px; z-index:9;}
 #pageContent.recipe .item-list .item .img-box .re-view-cnt i {color:var(--base-colorCharcoal); font-size:0.875em;}
 #pageContent.recipe .item-list .item .img-box .re-view-cnt span {transition:all 0.2s ease-out;}
