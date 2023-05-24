@@ -22,79 +22,7 @@
 #pageContent.policy .policy_list table tr:hover td.cate .cateBox {background:var(--main-colorGreen); color:var(--base-colorWhite);}
 
 
-
-
-h4 {margin-bottom:20px;}
-button {
-font-size:medium;
-padding:5px 10px;
-margin-right:10px;
-border-radius:10px;
-border:1px solid gainsboro;
-background-color:gainsboro;
-width:80px;
-height:40px;
-}
-button:hover {cursor:pointer;}
-.btns { display:flex; justify-content:space-between; }
-.container {
-border :1px solid red;
-border:5px solid rgba(245, 243, 243, 0.959);
-box-shadow:2px 2px 20px 0px #ece9e9;
-border-radius:35px;
-padding:20px 40px;
-margin-bottom:30px;
-width:100%;
-}
-.com_head .title {
-font-size:large;
-font-weight:bold;
-margin:20px auto;
-}
-.com_head .writer div:first-child { margin-bottom:10px;}
-.com_head .writer .flexc {display:flex; justify-content:space-between;}
-.com_content {
-margin:0px auto 20px auto;
-/* border:1px solid black; */
-padding:10px 10px;
-height:auto;
-}
-.comment_list div:first-child {margin-bottom:10px; }
-.comment {margin:10px 10px;}
-.comment .comment_enroll {
-margin:20px auto;
-padding:10px 10px;
-border:1px solid #999;
-border-radius:5px;
-display:flex;
-flex-direction:column;
-}
-.comment_enroll div{ margin-bottom:10px;}
-.comment_enroll input{
-width:1000px;
-padding:5px 5px;
-margin-bottom:20px;
-border:none;
-font-size:medium;
-}
-.comment_enroll button {
-width:60px;
-height:35px;
-}
-.comment_list button {
-width:50px;
-height:30px;
-font-size:small;
-margin-left :20px;
-background-color:white;
-}
-.mgr20 {margin-right:20px;}
-.mgb20 {margin-bottom:20px;}
-.com_content .attached {text-align:right;}
-.com_content .attached:hover {text-decoration:underline;cursor:pointer;}
-
-
-
+/* typeView > board_section */
 #pageContent.policy.typeView section {margin-bottom:3em}
 #pageContent.policy.typeView .board_section {min-height:20em;}
 #pageContent.policy.typeView .board_section .head_area {padding:2em 0 1em;}
@@ -108,10 +36,15 @@ background-color:white;
 #pageContent.policy.typeView .board_section .content_area .txt_box pre {font-size:1.125em; text-align:justify; overflow:auto; word-break:break-all; white-space:pre-wrap;}
 #pageContent.policy.typeView .board_section .content_area .txt_box pre ul {margin:1em 0;}
 #pageContent.policy.typeView .board_section .content_area .txt_box pre p {margin-bottom:0.5em;}
-#pageContent.policy.typeView .board_section .content_area .txt_box pre {}
-#pageContent.policy.typeView .board_section .content_area .txt_box pre {}
-#pageContent.policy.typeView .board_section .content_area .txt_box pre {}
 #pageContent.policy.typeView .board_section .content_area .file_box {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:center; padding:2em 0 2.5em; border-top:1px dotted var(--base-colorCharcoal);}
+#pageContent.policy.typeView .board_section .content_area .file_box a {font-weight:600; display:inline-block; cursor:pointer;}
+#pageContent.policy.typeView .board_section .content_area .file_box a i {color:var(--main-colorYellow); margin-right:10px;}
+
+
+
+/* typeView > btnSection */
+#pageContent.policy.typeView .btnSection {text-align:right;}
+#pageContent.policy.typeView .btnSection .listBtn {display:inline-block; background:var(--main-colorGreen); border:0; border-radius:1em; color:var(--base-colorWhite); line-height:1; padding:1em 2em;}
 
 
 /***** (policy) --- END *****/

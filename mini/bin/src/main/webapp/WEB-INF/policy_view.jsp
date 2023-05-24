@@ -4,9 +4,7 @@
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
 <link rel="stylesheet" href="/css/pageStyle/depth4_policy.css">
-<style>
-	.aa{margin-left:40px;}
-</style>
+
 <!-- pageContent -- START -->
 <div id="pageContent" class="policy typeView">
 	<div class="wrapper">
@@ -25,15 +23,17 @@
                     <div class="txt_box">
                     	<pre v-html="info.content"></pre>
                     </div>
-	               <div class="file_box">
-	               		<a v-if="info.filePath" class="attached" @click="fnOpenFile()">
-	               			<i class="fa-regular fa-folder fa-sm"></i> 첨부파일
-	               		</a>
-	               </div>
+                    <template>
+		               <div class="file_box" v-if="info.filePath">
+		               		<a class="attached" @click="fnOpenFile()">
+		               			<i class="fa-solid fa-folder"></i> 첨부파일
+		               		</a>
+		               </div>
+	               </template>
                 </div>
             </section>
-            <section>
-               <button onClick="location.href='/policy.do'">목록</button>
+            <section class="btnSection">
+               <button class="listBtn styleHoverShadow" onClick="location.href='/policy.do'">목록</button>
             </section>
             
 			<!-- adminCtrlBox -- Don't touch -->
@@ -55,10 +55,9 @@
 </div>
 <!-- pageContent -- END -->
 
-
 <jsp:include page="/layout/tail.jsp"></jsp:include>
+
 <script type="text/javascript">
-// 자바 스크립트 입력
 var policyView = new Vue({
     el: '#policyView',
     data: {
@@ -177,11 +176,18 @@ var policyView = new Vue({
             var self = this;
             self.pageChange("/policy/edit.do", { boardNo: self.boardNo });
         }
+        // 파일 다운로드
         , fnOpenFile: function () {
             var self = this;
-            
-            console.log(self.info.filePath);
-            /* location.href = self.info.filePath; */
+			var filename = self.info.saveName;
+			var url = "/download/" + filename; 
+			
+			var link = document.createElement("a");
+			link.href = url;
+			link.download = filename;
+			link.target = "_blank";
+			
+			link.click();
         }
     }
     , created: function () {

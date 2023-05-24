@@ -32,7 +32,7 @@
 	               </div>
                 </div>
                 <div class="btnArea" v-if="sessionId == info.userId || sessionStatus == 'A'">
-                    <button class="delBtn" @click="fncommentDel(item.commentNo)">삭제</button>
+                    <button class="delBtn" @click="fnRemove">삭제</button>
                 </div>
             </section>
             

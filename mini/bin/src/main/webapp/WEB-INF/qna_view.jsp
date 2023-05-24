@@ -3,265 +3,250 @@
 <jsp:include page="/layout/head.jsp"></jsp:include>
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
-<style>
-	<!--스타일 입력 -->
-	h4 {margin-bottom: 20px;}
-    button { font-size: medium;padding: 5px 10px;  margin-right:10px; border-radius: 10px;border: 1px solid gainsboro; background-color: gainsboro;width: 80px;height: 40px;  }
-    button:hover {cursor: pointer;}
-    .btns { display: flex; justify-content: space-between;  }
-    .container {  border : 1px solid red;  border: 5px solid rgba(245, 243, 243, 0.959); box-shadow: 2px 2px 20px 0px #ece9e9; border-radius: 35px;padding: 20px 40px;margin-bottom: 30px;width: 100%;}
-    .com_head .title {font-size: large; font-weight: bold;margin: 20px auto; }
-    .com_head .writer div:first-child { margin-bottom: 10px;}
-    .com_head .writer .flexc {display:flex; justify-content: space-between;}
-   .com_content {margin: 20px auto 40px auto;padding: 10px 10px;height: 300px;}
-   .comment_list div:first-child {margin-bottom: 10px; }
-   .comment {margin: 10px 10px;}
-   .comment .comment_enroll {margin: 20px auto;padding: 10px 10px;border: 1px solid #999;border-radius: 5px;display: flex;flex-direction: column;}
-   .comment_enroll div{  margin-bottom: 10px;}
-   .comment_enroll input{width: 1000px;padding: 5px 5px;margin-bottom: 20px;border: none;font-size: medium;}
-   .comment_enroll button { width: 60px;height: 35px;}
-   .comment_list button { width: 50px; height: 30px;font-size:small; margin-left : 20px;background-color: white;}
-   .mgr20 {margin-right: 20px;}
-   .mgb20 {margin-bottom: 20px;}
-   .mgt20 {margin-top: 20px;}
-</style>
 
+<link rel="stylesheet" href="/css/pageStyle/depth5_qna.css">
 
 <!-- pageContent -- START -->
-<div id="pageContent">
-	<div class="wrapper" id="qnaView">
-
-         <div class="container">
-             <div class="com_head">
-                 <div class="title">{{info.title}}</div>
-                 <div class="writer">
-                     <div>{{info.nick}}</div> 
-                     <div class="flexc">
-                   		<div>
-                   			<span class="mg20">작성일 {{info.cdatetime}}</span>
-                   			<span>조회 {{info.hits}}</span> 
-                   		</div>
-                   		<div>수정일 {{info.udatetime}}</div>
-                     </div>
-                 </div>
-             </div>
-             
-             <hr>
-             <div class="com_content" v-html="info.content"><pre></pre></div>
-             
-             
-             <div class="comment" v-if="info.status!='A'">
-            	 <hr>
-                 <h4 class="mgb20 mgt20">답변</h4>
-                 
-                 <div v-if="length==0">관리자가 확인 후 답변드리겠습니다. </div>
-                 <div v-if="length>0" class="comment_list" v-for="(item, index) in list" >
-                     <div>
-                         <span class="mg20">{{item.nick}}</span>
-                         <span>{{item.cdatetime}}</span>
-                          <button v-if="sessionStatus=='A'" @click="fncommentDel(item.commentNo)">삭제</button>
-                     </div>
-                     <div class="mgb20">{{item.comment}}</div>
-                 </div>
-                 
-                 <div class="comment_enroll" v-if="sessionStatus=='A'">
-                 		<template>
-                 			<div v-else>{{sessionNick}}</div>
-                 		</template>
-                    <input type="text" placeholder="관리자님, 문의 답글을 달아주세요." v-model="commentInfo.comment">
-                    <button @click="fnCommentEnroll()">등록</button>
-                 </div>
-             </div>
-         </div>
-         <!--container 끝-->
-         <div class="btns">
-             <span>
-                 <!--<button @click="fnGoModify()" v-if="info.userId==sessionId || sessionStatus=='A'">수정</button>  -->
-                 <button @click="fnRemove()" v-if="info.userId==sessionId || sessionStatus=='A'">삭제</button>
-             </span>
-             <button onClick="location.href='/qna.do'">목록</button>
-         </div>
+<div id="pageContent" class="qna typeView">
+	<div class="wrapper">
+		<div id="qnaView" class="qnaViewContainer">
+            <section class="boardSection typeBoxArea styleBoxRound typeMore styleBoxShadow">
+                <div class="headArea">
+	                <div class="titleBox">
+	                	<h3 class="title"><i class="fa-solid fa-q">.</i> {{info.title}}</h3>
+                        <span class="hits"><i class="fa-solid fa-eye"></i> {{info.hits}}</span>
+	                </div>
+                    <div class="infoBox">
+                        <span class="user"><i class="fa-solid fa-user"></i> {{info.nick}}</span>
+                        <span class="date"><i class="fa-regular fa-calendar"></i> {{info.cdatetime}} <span>(최근 수정 : {{info.udatetime}})</span></span>
+                    </div>
+                </div>
+                <div class="contentArea">
+                    <div class="txtBox">
+                    	<pre v-html="info.content"></pre>
+                    </div>
+	               <div class="fileBox" v-if="info.filePath">
+	               		<a class="attached" @click="fnOpenFile()">
+	               			<i class="fa-regular fa-folder fa-sm"></i> 첨부파일
+	               		</a>
+	               </div>
+                </div>
+                <div class="btnArea" v-if="sessionId == info.userId || sessionStatus == 'A'">
+                    <button class="delBtn" @click="fncommentDel(item.commentNo)">삭제</button>
+                </div>
+            </section>
+            
+            <template>
+	            <section v-if="info.category == '1'" class="commentSection typeBoxArea styleBoxRound typeMore styleBoxShadow">
+		            <div class="headArea">
+		            	<h3 class="title"><i class="fa-solid fa-a">.</i> 답변</h3>
+		            </div>
+		            <div v-if="list.length == 0" class="commentArea commentNull">관리자가 확인 후 답변드리겠습니다.</div>
+	                <div v-else class="commentArea commentList">
+		                <div class="commentItem" v-for="(item, index) in list">
+		                    <div class="commentContent"> <!-- 댓글내용 -->
+		                        <pre id="coContent">{{item.comment}}</pre>
+		                    </div>
+		                    <div class="commenter"> <!-- 댓글작성자 댓글작성일 정보영역 -->
+		                        <div class="infoBox"><!-- <i class="fa-solid fa-user"></i><span> 똑똑</span> --><span class="date">답변일 : {{item.cdatetime}}</span></div>
+								<div class="btnBox">
+	                          		<button v-if="sessionStatus=='A'" @click="fncommentDel(item.commentNo)">삭제</button>
+								</div>
+		                    </div>
+		                </div>
+	                </div>
+	                <template>
+		                <div v-if="sessionStatus=='A'" class="commentAdd">
+		                    <textarea rows="2" placeholder="관리자님, 문의 답글을 달아주세요." v-model="commentInfo.comment"></textarea>
+		                    <button class="styleHoverShadow" @click="fnCommentEnroll()">댓글등록</button>
+		                </div>
+		            </template>
+	            </section>
+            </template>
+            
+            <section class="btnSection">
+               <button class="listBtn styleHoverShadow" onClick="location.href='/qna.do'">목록</button>
+            </section>
+            
+			<!-- adminCtrlBox -- Don't touch -->
+			<template>
+				<div v-if="sessionStatus=='A'" id="adminCtrlArea">
+					<i id="adminBtn" class="fa-solid fa-gear fa-spin styleBoxShadow styleHoverShadow"></i>
+					<div id="adminBox" class="styleBoxShadow">
+						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
+						<div class="btnSet">
+		                    <button class="modBtn" @click="fnGoModify()">수정</button>
+		                    <button class="delBtn" @click="fnRemove()">삭제</button>
+						</div>
+					</div>
+				</div>
+			</template>
+			<!-- adminCtrlBox -- Don't touch -->
+       </div>
 	</div>
 </div>
 <!-- pageContent -- END -->
 
-
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 <script type="text/javascript">
- // 자바 스크립트 입력
-   var qnaView = new Vue({
-            el: '#qnaView',
-            data: {
-            	list : []
-   			  , length : 0
-              , info : {}
-   			  , commentInfo : {
-	   				boardNo : "${map.boardNo}",
-	        		userId : "${sessionId}",
-	        		comment : ""
-   			  }
-              , boardNo : "${map.boardNo}"
-          	  , sessionId: "${sessionId}"    
-          	  , sessionStatus : "${sessionStatus}"
-          	  , sessionNick : "${sessionNick}"    
-            }
-            , methods: {
-            	// 커뮤니티 글 상세
-            	 fnGetInfo : function(){
-     	            var self = this;
-     	            var nparmap = {boardNo : self.boardNo};
-     	            $.ajax({
-     	                url:"/qna/view.dox",
-     	                dataType:"json",
-     	                type : "POST",
-     	                data : nparmap,
-     	                success : function(data) {
-     	                	 console.log("글 데이터는");
-      	                    console.log(data.info);
-     	                    self.info = data.info;
-     	                  
-     	                }
-     	            });
-     	        }
-		         // 댓글 리스트
-		       	 ,fnCommentList : function(){
-			            var self = this;
-			            var nparmap = {boardNo : self.boardNo};
-			            $.ajax({
-			                url:"/community/commentList.dox",
-			                dataType:"json",
-			                type : "POST",
-			                data : nparmap,
-			                success : function(data) {
-			                    self.list = data.list;
-			                    self.length = data.list.length;
-			                    console.log(self.list.length);
-			                    console.log("댓글 리스트는");
-			                    console.log(data.list);
-			                }
-			            });
-			
-			        }
-            	 // 커뮤니티 글 삭제
-                , fnRemove : function() {
-                    var self = this;
-                    var nparmap = {boardNo : self.boardNo};
-        	        $.ajax({
-        	            url:"/community/remove.dox",
-        	            dataType:"json",	
-        	            type : "POST", 
-        	            data : nparmap,
-        	            success : function(data) { 
-        	            	if (!confirm("삭제하시겠습니까?")) return;
-        	            	
-        	           	 	location.href="/qna.do";
-        	            }
-        	        }); 
+var qnaView = new Vue({
+    el: '#qnaView',
+    data: {
+        list : []
+        , length : 0
+        , info : {}
+        , commentInfo : {
+            boardNo : "${map.boardNo}",
+            userId : "${sessionId}",
+            comment : ""
+        }
+        , boardNo : "${map.boardNo}"
+        , sessionId: "${sessionId}"    
+        , sessionStatus : "${sessionStatus}"
+        , sessionNick : "${sessionNick}"    
+    }
+    , methods: {
+        fnGetInfo : function(){
+            var self = this;
+            var nparmap = {boardNo : self.boardNo};
+            $.ajax({
+                url:"/qna/view.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                    console.log("글 데이터는");
+                    console.log(data.info);
+                    self.info = data.info;
                 }
-            		<!-- 페이징 추가 7-->
-        		, fnSearch : function(pageNum){
-        			var self = this;
-        			self.selectPage = pageNum;
-        			var startNum = ((pageNum-1) * 10);
-        			console.log(pageNum);
-        			console.log(startNum);
-        			var nparmap = {startNum : startNum};
-        			$.ajax({
-        				url : "/community/list.dox",
-        				dataType : "json",
-        				type : "POST",
-        				data : nparmap,
-        				success : function(data) {
-        					self.list = data.list;
-        					self.cnt = data.cnt;
-        					self.pageCount = Math.ceil(self.cnt / 10);
-        				}
-        			});
-        		}
-            	, pageChange : function(url, param) {
-            		var target = "_self";
-            		if(param == undefined){
-            		//	this.linkCall(url);
-            			return;
-            		}
-            		var form = document.createElement("form"); 
-            		form.name = "dataform";
-            		form.action = url;
-            		form.method = "post";
-            		form.target = target;
-            		for(var name in param){
-        				var item = name;
-        				var val = "";
-        				if(param[name] instanceof Object){
-        					val = JSON.stringify(param[name]);
-        				} else {
-        					val = param[name];
-        				}
-        				var input = document.createElement("input");
-        	    		input.type = "hidden";
-        	    		input.name = item;
-        	    		input.value = val;
-        	    		form.insertBefore(input, null);
-        			}
-            		document.body.appendChild(form);
-            		form.submit();
-            		document.body.removeChild(form);
-            	}
-            	// 글 수정 페이지로 가기
-            	, fnGoModify: function() {
-            		var self = this;
-            		self.pageChange("/qna/edit.do", {boardNo : self.boardNo});            		
-            	}
-            	// 댓글 등록하기
-            	, fnCommentEnroll : function() {
-            		 var self = this;
-            		 if (self.sessionId == "") {
-             			if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")){            				
-             				location.href="/login.do";    		
-             			} else return;
-             		 }
-                   	var nparmap = self.commentInfo;
-        	        $.ajax({
-        	            url:"/community/commentSave.dox",
-        	            dataType:"json",	
-        	            type : "POST", 
-        	            data : nparmap,
-        	            success : function(data) {  
-        	            	console.log(data);
-        	            	alert("등록되었습니다!");
-        	            	self.fnCommentList();
-        	            	self.commentInfo.comment = "";
-        	            }
-        	        }); 
-            	}
-            	// 댓글 삭제하기
-            	, fncommentDel : function(commentNo) {
-            		 var self = this;
-            		 if (!confirm("삭제하시겠습니까?")) return;
-                     var nparmap = {commentNo : commentNo};
-         	        $.ajax({
-         	            url:"/community/commentRemove.dox",
-         	            dataType:"json",	
-         	            type : "POST", 
-         	            data : nparmap,
-         	            success : function(data) { 
-         	            	alert("댓글이 삭제되었습니다.");
-         	            	self.fnCommentList();
-         	            }
-         	        }); 
-            	}
-            
-
-
+            });
+        }
+        ,fnCommentList : function(){
+            var self = this;
+            var nparmap = {boardNo : self.boardNo};
+            $.ajax({
+                url:"/community/commentList.dox",
+                dataType:"json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                    self.list = data.list;
+                    self.length = data.list.length;
+                    console.log(self.list.length);
+                    console.log("댓글 리스트는");
+                    console.log(data.list);
+                }
+            });
+        }
+        , fnRemove : function() {
+            var self = this;
+            var nparmap = {boardNo : self.boardNo};
+            $.ajax({
+                url:"/community/remove.dox",
+                dataType:"json",	
+                type : "POST", 
+                data : nparmap,
+                success : function(data) { 
+                    if (!confirm("삭제하시겠습니까?")) return;
+                    location.href="/qna.do";
+                }
+            }); 
+        }
+        , fnSearch : function(pageNum){
+            var self = this;
+            self.selectPage = pageNum;
+            var startNum = ((pageNum-1) * 10);
+            console.log(pageNum);
+            console.log(startNum);
+            var nparmap = {startNum : startNum};
+            $.ajax({
+                url : "/community/list.dox",
+                dataType : "json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                    self.list = data.list;
+                    self.cnt = data.cnt;
+                    self.pageCount = Math.ceil(self.cnt / 10);
+                }
+            });
+        }
+        , pageChange : function(url, param) {
+            var target = "_self";
+            if(param == undefined){
+                return;
             }
-            , created: function () {
-            	var self = this;
-            	console.log(self.sessionNick);
-            	console.log(self.boardNo);
-            	self.fnGetInfo();
-            	self.fnCommentList();
+            var form = document.createElement("form"); 
+                form.name = "dataform";
+                form.action = url;
+                form.method = "post";
+                form.target = target;
+            for(var name in param){
+                var item = name;
+                var val = "";
+                if(param[name] instanceof Object){
+                    val = JSON.stringify(param[name]);
+                } else {
+                    val = param[name];
+                }
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = item;
+                input.value = val;
+                form.insertBefore(input, null);
             }
-        });
-
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+        , fnGoModify: function() {
+            var self = this;
+            self.pageChange("/qna/edit.do", {boardNo : self.boardNo});            		
+        }
+        , fnCommentEnroll : function() {
+            var self = this;
+            if (self.sessionId == "") {
+                if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")){            				
+                    location.href="/login.do";    		
+                } else return;
+            }
+            var nparmap = self.commentInfo;
+            $.ajax({
+                url:"/community/commentSave.dox",
+                dataType:"json",	
+                type : "POST", 
+                data : nparmap,
+                success : function(data) {  
+                    console.log(data);
+                    alert("등록되었습니다!");
+                    self.fnCommentList();
+                    self.commentInfo.comment = "";
+                }
+            }); 
+        }
+        , fncommentDel : function(commentNo) {
+            var self = this;
+            if (!confirm("삭제하시겠습니까?")) return;
+            var nparmap = {commentNo : commentNo};
+            $.ajax({
+                url:"/community/commentRemove.dox",
+                dataType:"json",	
+                type : "POST", 
+                data : nparmap,
+                success : function(data) { 
+                    alert("댓글이 삭제되었습니다.");
+                    self.fnCommentList();
+                }
+            }); 
+        }
+    }
+    , created: function () {
+        var self = this;
+        console.log(self.sessionNick);
+        console.log(self.boardNo);
+        self.fnGetInfo();
+        self.fnCommentList();
+    }
+});
 </script>

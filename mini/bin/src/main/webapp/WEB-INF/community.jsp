@@ -3,89 +3,78 @@
 <jsp:include page="/layout/head.jsp"></jsp:include>
 <jsp:include page="/layout/includePageVisual.jsp"></jsp:include>
 
-<style>
-	<!--스타일 입력 --> 
-	.comTable { width : 100%;}
-    .comTable, td,th {border-collapse: collapse; padding: 16px; table-layout: fixed;}
-    .comTable .myboard {color: var(--main-colorGreen);font-weight:bold}
-    .comTable th {border-bottom:1px solid black;}
-    #communityList .comBtn { font-size: medium; padding: 5px 10px;  margin-right:10px; border-radius: 10px;border: 1px solid gainsboro;background-color: gainsboro; width: 80px; height: 40px; background-color: #E4DBD6; }
-     #communityList .comBtn:hover {cursor: pointer;}
-	.comlist {display: flex;  flex-direction: column;border: none; box-sizing: border-box; padding: 40px 40px; width: 1200px; margin-top: 20px; margin-bottom : 20px;  border-radius: 20px; box-shadow: 0px 0px 20px 5px #e7e6e6;}
-	.comlist .center {text-align:center; }
-	.comlist .title:hover {cursor: pointer; text-decoration: underline;}
-	.comlist .title {text-align:left;}
-	
-	/* 페이징 추가2 */
-	.pagination {    margin: 24px auto; display: flex; justify-content: center;}
-     ul { text-align: center; }
-	.pagination li {min-width:32px;padding:4px 8px;text-align:center; margin:0 3px; border-radius: 6px; border:1px solid #eee;color:#666;display : inline;}
-	.pagination li:hover {background: #E4DBD6;}
-	.page-item a {color:#666;text-decoration: none;}
-	.pagination li.active {background-color : #E7AA8D;color:#fff;}
-	.pagination li.active a {color:#fff;}
-    /* 페이징 추가 끝 */
-</style>
-
+<link rel="stylesheet" href="/css/pageStyle/depth5_community.css">
 
 <!-- pageContent -- START -->
-<div id="pageContent">
+<div id="pageContent" class="community">
 	<div class="wrapper">
-		<div id="communityList">
-       
-	        <select v-model = "order" @change = "fnChangeOrder()">
-		         <option value = "" selected disabled>정렬</option>
-		         <option value = "recent">최신순</option>
-		         <option value = "view">조회수</option>
-	        </select>
-	      
-	        <div class="comlist">
-	           <table class="comTable">                            
-		           	<thead>
-		           		<tr>
-		           			<th>글번호</th>
-		           			<th colspan=3>제목</th>
-		           			<th>작성자</th>
-		           			<th>작성일</th>
-		           			<th>조회수</th>
-		           		</tr>
-		           	</thead>
-	           	
-		           	<tbody>
-		             	<tr class="center" v-for="(item, index) in list" >
-		                      <td class="no">{{item.boardNo}}</td>
-			                  <template>
-			                        <td colspan=3 class="title" v-if="item.status=='A'" @click="fnViewCom(item.boardNo)"><strong>{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></strong></td>
-			                        <template v-if="item.status=='C'">
-			                      		  <td colspan=3 class="title myboard" v-if="item.userId==sessionId" @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i> </td>
-			                      		  <td colspan=3 class="title"  v-else @click="fnViewCom(item.boardNo)">{{item.title}} <i v-if="item.filePath" class="fa-regular fa-folder fa-xs"></i></td>
-			                        </template>
-		         	 		  </template>
-		 	                    <td class="writer">{{item.nick}}</td>
-		     	                <td class="date">{{item.cdatetime}}</td>
-		             	        <td class="view">{{item.hits}}</td>
-	                 	</tr>                                 
-		            </tbody>        	                       
-	           </table>
-	         </div>
-	           
-	         <button class="comBtn" @click="fnAddCom()">글쓰기</button>
-	     
-	        
-	         <template>
-				  <paginate id="page"
-				    :page-count="pageCount"
-				    :page-range="3"
-				    :margin-pages="2"
-				    :click-handler="fnSearch"
-				    :prev-text="'<'"
-				    :next-text="'>'"
-				    :container-class="'pagination'"
-				    :page-class="'page-item'">
-				  </paginate>
-			</template>         
+		<div id="communityList" class="communityListContainer">
+			<section class="boardSection">
+                <div class="boardInfo">
+                	<div class="btnBox">
+                		<button v-if="sessionStatus=='C'" class="writeBtn styleBoxShadow styleHoverShadow" @click="fnAddCom()">글쓰기</button>
+                	</div>
+					<select v-model="order" @change="fnChangeOrder()">
+						<option value="" selected disabled>정렬</option>
+						<option value="recent">최신순</option>
+						<option value="view">조회수</option>
+					</select>
+                </div>
+				<div class="boardArea">
+				    <table>
+			            <tr class="list_item styleBoxShadow styleHoverShadow" v-for="(item, index) in list" @click="fnViewCom(item.boardNo)">
+							<template>
+								<template v-if="item.status=='A'">
+				                	<td class="notice admin">공지</td>
+									<td class="title admin">
+										{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i><span v-if="item.cnt>0">[{{item.cnt}}]</span>
+									</td>
+								</template>
+								<template v-if="item.status=='C'">
+									<template v-if="item.userId==sessionId">
+					                	<td class="notice myboard">내글</td>
+										<td class="title myboard" v-if="item.userId==sessionId">
+											{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i><span v-if="item.cnt>0">[{{item.cnt}}]</span>
+										</td>
+									</template>
+									<template v-else>
+										<td class="notice"></td>
+										<td class="title">{{item.title}} <i v-if="item.filePath" class="fa-solid fa-folder"></i><span v-if="item.cnt>0">[{{item.cnt}}]</span></td>
+									</template>
+								</template>
+							</template>
+	 	                    <td class="writer"><i class="fa-solid fa-user"></i> {{item.nick}}</td>
+	     	                <td class="date"><i class="fa-solid fa-calendar-days"></i> {{item.cdatetime}}</td>
+	             	        <td class="view"><i class="fa-solid fa-eye"></i> {{item.hits}}</td>
+			            </tr>
+					</table>
+					<template>
+						<paginate id="page" :page-count="pageCount"
+											:page-range="3"
+											:margin-pages="2"
+											:click-handler="fnSearch"
+											:prev-text="'<'"
+											:next-text="'>'"
+											:container-class="'pagination'"
+											:page-class="'page-item'">
+						</paginate>
+					</template> 
+				</div>
+			</section>
 			
-	        
+			<!-- adminCtrlBox -- Don't touch -->
+			<template>
+				<div v-if="sessionStatus=='A'" id="adminCtrlArea">
+					<i id="adminBtn" class="fa-solid fa-gear fa-spin styleBoxShadow styleHoverShadow"></i>
+					<div id="adminBox" class="styleBoxShadow">
+						<div class="boxTitle">’<span class="pageName"></span>’ 게시판</div>
+						<div class="btnSet">
+							<button class="addBtn" @click="fnAddCom()">등록</button>
+						</div>
+					</div>
+				</div>
+			</template>
+			<!-- adminCtrlBox -- Don't touch -->
 		</div>
 	</div>
 </div>
@@ -95,128 +84,114 @@
 <jsp:include page="/layout/tail.jsp"></jsp:include>
 
 <script type="text/javascript">
- // 자바 스크립트 입력 
- Vue.component('paginate', VuejsPaginate)
- 
-  var communityList = new Vue({
-            el: '#communityList',
-            data: {
-              list : [],
-              cnt : 0,
-              // 페이징 추가5
-     		 selectPage : 1,
-     		 pageCount : 1,
-     	     sessionId: "${sessionId}",    
-     		 sessionStatus : "${sessionStatus}",
-     		 order : "recent"
-            }
-            , methods: {
-            	// 커뮤니티 리스트
-                fnGetComList: function () {
-                    var self = this;   
-                 // 페이징 추가6
-        			var startNum = ((self.selectPage-1) * 10);
-            		var nparmap = {startNum : startNum, order : self.order};
-            		console.log(self.order);
-                    $.ajax({
-                        url: "/community/list.dox",
-                        dataType: "json",
-                        type: "POST",
-                        data: nparmap,
-                        success: function (data) {
-                        	console.log(data.list);
-                        	self.list = data.list;
-                            self.cnt = data.cnt;
-                            console.log("게시글의 개수는 :" + self.cnt);
-      					 	self.pageCount = Math.ceil(self.cnt / 10);
-                        }
-                    });
+Vue.component('paginate', VuejsPaginate)
+var communityList = new Vue({
+    el: '#communityList',
+    data: {
+        list : [],
+        cnt : 0,
+        selectPage : 1,
+        pageCount : 1,
+        sessionId: "${sessionId}",
+        sessionStatus : "${sessionStatus}",
+        order : "recent"
+    }
+    , methods: {
+        fnGetComList: function () {
+            var self = this;
+            var startNum = ((self.selectPage-1) * 10);
+            var nparmap = {startNum : startNum, order : self.order};
+            console.log(self.order);
+            $.ajax({
+                url: "/community/list.dox",
+                dataType: "json",
+                type: "POST",
+                data: nparmap,
+                success: function (data) {
+                    console.log(data.list);
+                    self.list = data.list;
+                    self.cnt = data.cnt;
+                    console.log("게시글의 개수는 :" + self.cnt);
+                    self.pageCount = Math.ceil(self.cnt / 10);
                 }
-	            , fnChangeOrder: function () {
-	                var self = this;                    
-			        var liList = $(".pagination").children();
-			        for (var i = 0; i < liList.length; i++) {
-			            liList.eq(i).removeClass("active");
-			        }
-			        liList.eq(1).addClass("active");
-			        self.fnSearch(1);
-	            }
-            	<!-- 페이징 추가 7-->
-        		, fnSearch : function(pageNum){
-        			var self = this;
-        			self.selectPage = pageNum;
-        			var startNum = ((pageNum-1) * 10);
-        			console.log(startNum);
-        			var nparmap = {startNum : startNum, order : self.order};
-        			$.ajax({
-        				url : "/community/list.dox",
-        				dataType : "json",
-        				type : "POST",
-        				data : nparmap,
-        				success : function(data) {
-        					self.list = data.list;
-        					console.log(self.list);
-        					self.cnt = data.cnt;
-        					self.pageCount = Math.ceil(self.cnt / 10);
-        				}
-        			});
-        		}
-            	, pageChange : function(url, param) {
-            		var target = "_self";
-            		if(param == undefined){
-            		//	this.linkCall(url);
-            			return;
-            		}
-            		var form = document.createElement("form"); 
-            		form.name = "dataform";
-            		form.action = url;
-            		form.method = "post";
-            		form.target = target;
-            		for(var name in param){
-        				var item = name;
-        				var val = "";
-        				if(param[name] instanceof Object){
-        					val = JSON.stringify(param[name]);
-        				} else {
-        					val = param[name];
-        				}
-        				var input = document.createElement("input");
-        	    		input.type = "hidden";
-        	    		input.name = item;
-        	    		input.value = val;
-        	    		form.insertBefore(input, null);
-        			}
-            		document.body.appendChild(form);
-            		form.submit();
-            		document.body.removeChild(form);
-            	}
-            	
-            	// 커뮤니티 글보기
-            	, fnViewCom: function(boardNo) {
-            		var self = this;
-            		self.pageChange("/community/view.do", {boardNo : boardNo});            		
-            	}
-            	
-            	// 커뮤니티 글쓰기
-            	, fnAddCom: function() {
-            		var self = this;
-            		if (self.sessionId == "") {
-            			if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")) {            				
-            				location.href="/login.do"
-            				return;
-            			} else {
-            				return;
-            			}            			
-            		}
-            		location.href = "/community/edit.do";
-            	}
-
-
+            });
+        }
+        , fnChangeOrder: function () {
+            var self = this;
+            var liList = $(".pagination").children();
+            for (var i = 0; i < liList.length; i++) {
+                liList.eq(i).removeClass("active");
             }
-            , created: function () {
-            	var self = this;
-                self.fnGetComList();
-                
+            liList.eq(1).addClass("active");
+            self.fnSearch(1);
+        }
+        , fnSearch : function(pageNum){
+            var self = this;
+            self.selectPage = pageNum;
+            var startNum = ((pageNum-1) * 10);
+            console.log(startNum);
+            var nparmap = {startNum : startNum, order : self.order};
+            $.ajax({
+                url : "/community/list.dox",
+                dataType : "json",
+                type : "POST",
+                data : nparmap,
+                success : function(data) {
+                    self.list = data.list;
+                    console.log(self.list);
+                    self.cnt = data.cnt;
+                    self.pageCount = Math.ceil(self.cnt / 10);
+                }
+            });
+        }
+        , pageChange : function(url, param) {
+            var target = "_self";
+            if(param == undefined){
+                return;
             }
-        });
+            var form = document.createElement("form");
+            form.name = "dataform";
+            form.action = url;
+            form.method = "post";
+            form.target = target;
+            for(var name in param){
+                var item = name;
+                var val = "";
+                if(param[name] instanceof Object){
+                    val = JSON.stringify(param[name]);
+                } else {
+                    val = param[name];
+                }
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = item;
+                input.value = val;
+                form.insertBefore(input, null);
+            }
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+        , fnViewCom: function(boardNo) {
+            var self = this;
+            self.pageChange("/community/view.do", {boardNo : boardNo});
+        }
+        , fnAddCom: function() {
+            var self = this;
+            if (self.sessionId == "") {
+                if (confirm("로그인이 필요한 서비스입니다. 로그인 하시겠습니까?")) {
+                    location.href = "/login.do"
+                    return;
+                } else {
+                    return;
+                }            
+            }
+            location.href = "/community/edit.do";
+        }
+    }
+    , created: function () {
+        var self = this;
+        self.fnGetComList();
+    }
+});
 </script>

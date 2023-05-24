@@ -38,7 +38,7 @@ $(document).ready(function(){
         var icon = $(this).children("i");
         setTimeout(function() {
             $(icon).removeClass("action");
-            alert("장바구니에 성공적으로 담았습니다.");
+            //alert("장바구니에 성공적으로 담았습니다.");
         }, 800);
         $(icon).addClass("action");
     });

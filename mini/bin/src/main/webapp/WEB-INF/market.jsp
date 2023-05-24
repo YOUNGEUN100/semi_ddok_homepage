@@ -33,7 +33,8 @@
 						    <h4 class="title">{{item2.productName}}</h4>
 						    <div class="price">
 						    	<span class="amount">{{fnNumberFormat(item2.productPrice)}}원</span> 
-						    	(100{{item2.productVolume}}당 {{fnNumberFormat((item2.productPrice*100) / (item2.productWeight*item2.productEa))}}원)
+						    	<span v-if="item2.productVolume=='g' || item2.productVolume=='ml'">(100{{item2.productVolume}}당 {{fnNumberFormat((item2.productPrice*100) / (item2.productWeight*item2.productEa))}}원)</span>
+						    	<span v-else>(1{{item2.productVolume}}당 {{fnNumberFormat((item2.productPrice) / (item2.productWeight*item2.productEa))}}원)</span>
 						    </div>
 						    <div class="review" v-if="(item2.satisfactionGrade + item2.repurchaseGrade + item2.deliveryGrade)>0">
 							    <i class="fa-solid fa-star"></i>
@@ -64,7 +65,8 @@
 						    <h4 class="title">{{item.productName}}</h4>
 						    <div class="price">
 						    	<span class="amount">{{fnNumberFormat(item.productPrice)}}원</span> 
-						    	(100{{item.productVolume}}당 {{fnNumberFormat((item.productPrice*100) / (item.productWeight*item.productEa))}}원)
+						    	<span v-if="item.productVolume=='g' || item.productVolume=='ml'">(100{{item.productVolume}}당 {{fnNumberFormat((item.productPrice*100) / (item.productWeight*item.productEa))}}원)</span>
+						    	<span v-else>(1{{item.productVolume}}당 {{fnNumberFormat((item.productPrice) / (item.productWeight*item.productEa))}}원)</span>
 						    </div>
 						    <div class="review" v-if="(item.satisfactionGrade + item.repurchaseGrade + item.deliveryGrade)>0">
 						    	<i class="fa-solid fa-star"></i>
@@ -165,13 +167,12 @@ var marketList = new Vue({
             self.pageChange("/market/view.do", { productNo: productNo });
         }
     	
-    	//숫자에 컴마 추가
+    	
     	, fnNumberFormat: function(n1){
     		const option = {maximumFractionDigits:1};
     		return Math.floor(n1).toLocaleString();
     	}
     	
-    	//소수점 1자리 절사
     	, fnNumberFormat2: function(n1){
     		const option = {maximumFractionDigits:1};
     		return n1.toFixed(1);

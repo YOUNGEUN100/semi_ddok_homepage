@@ -42,7 +42,7 @@
 
 
 /* item-list */
-#pageContent.recipe .item-list {display:flex; flex-flow:row wrap; justify-content:space-between; align-items:stretch;}
+#pageContent.recipe .item-list {display:flex; flex-flow:row wrap; justify-content:flex-start; align-items:stretch;}
 #pageContent.recipe .item-list .item {width:calc((100% - 60px) / 3); margin-right:30px; cursor:pointer; margin-bottom:2em;}
 #pageContent.recipe .item-list .item:nth-child(3n) {margin-right:0;}
 #pageContent.recipe .item-list .item:hover .img-box img {transform:scale(1.05); transition:all 0.2s ease-out;}

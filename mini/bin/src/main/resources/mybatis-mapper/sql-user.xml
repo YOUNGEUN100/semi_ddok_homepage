@@ -52,7 +52,7 @@
 				PW_Q,
 				PW_A)
 			VALUES(#{id}, #{pw}, #{name}, #{nick}, #{email}, #{birth},
-			#{hp}, #{livingYear}, #{status}, #{addr}, #{addr2}, now(), #{pwQ}, #{pwA})
+			#{hp}, #{livingYear}, 'C', #{addr}, #{addr2}, now(), #{pwQ}, #{pwA})
 		</insert>
 		
 		<select id="selectUserId" parameterType="HashMap" resultType="com.example.mini.model.User">
