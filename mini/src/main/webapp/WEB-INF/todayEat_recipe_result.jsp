@@ -8,7 +8,7 @@
 <!-- pageContent -- START -->
 <div id="pageContent" class="todayEat">
 	<div class="wrapper">
-		<%-- <jsp:include page="/layout/includeLoading.jsp"></jsp:include> --%>
+		<jsp:include page="/layout/includeLoading.jsp"></jsp:include>
 		<div id="result" class="resultContainer">
 			<div class="resultMenu">
 	 			<h3 class="resultMenuTitle">
