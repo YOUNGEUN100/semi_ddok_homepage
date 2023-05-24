@@ -110,7 +110,7 @@
                                 <span>상품명</span> <input class="title" type="text" v-model="info.productName"> ex) 국내산 로메인 (텍스트)
                             </div>
                             <div class="weight_box">
-                                <span>상품 무게</span> <input class="title" type="number" v-model="info.productWeight"> ex) 2000 (숫자)
+                                <span>상품 무게</span> <input class="title" type="number" v-model="info.productWeight"> ex) 2000 (숫자만)/ 단위: g, ml등
                             </div>
                             <div class="ea_box">
                                 <span>상품 개수</span> <input class="title" type="number" v-model="info.productEa"> ex) 5 (숫자)
@@ -257,7 +257,7 @@
 								self.upload2(form);
 							}                              	
                         	
-                        	
+                            location.href = "/market.do";
                         	
                         }
                     });
