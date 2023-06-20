@@ -2,6 +2,9 @@
 자취생을 위한 홈페이지
 ## 발표 ppt
 - https://github.com/YOUNGEUN100/semi_ddok_homepage/files/11794926/ddok_ppt_team4.pdf
+## 시연 영상
+- https://youtu.be/XvCDHYX4Si8
+- https://youtu.be/GOjzIMLz3Bw
 ## 활용 장비 및 재료
 - html, css JavaScrips
 - jQuery, Vue.js, Java
