@@ -1,4 +1,4 @@
-# semi_ddok_homepage
+# semi_ddok_homepage (똑똑 홈페이지)
 자취생을 위한 홈페이지
 ## 발표 ppt
 - https://github.com/YOUNGEUN100/semi_ddok_homepage/files/11794926/ddok_ppt_team4.pdf
