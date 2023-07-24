@@ -1,5 +1,12 @@
 # semi_ddok_homepage (똑똑 홈페이지)
 자취생을 위한 홈페이지
+## Collaborators
+- https://github.com/YOUNGEUN100
+- https://github.com/anjxxyi
+- https://github.com/BarBamBa
+- https://github.com/hyungeongchoi2
+- https://github.com/kimsungjin1423
+- https://github.com/Seojongki
 ## 발표 ppt
 - https://github.com/YOUNGEUN100/semi_ddok_homepage/files/11794926/ddok_ppt_team4.pdf
 ## 시연 영상
@@ -28,3 +35,5 @@
 - 실시간 시간 출력
 - 세션을 통해 회원서비스 구현
 - 첨부파일 업로드, 다운로드
+## 
+
