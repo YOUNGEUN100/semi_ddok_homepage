@@ -1,12 +1,12 @@
 # semi_ddok_homepage (똑똑 홈페이지)
 자취생을 위한 홈페이지
 ## Collaborators
-- https://github.com/YOUNGEUN100
-- https://github.com/anjxxyi
-- https://github.com/BarBamBa
-- https://github.com/hyungeongchoi2
-- https://github.com/kimsungjin1423
-- https://github.com/Seojongki
+- 서영은 https://github.com/YOUNGEUN100
+- 안재이 https://github.com/anjxxyi
+- 강현국 https://github.com/BarBamBa
+- 최현정 https://github.com/hyungeongchoi2
+- 김성진 https://github.com/kimsungjin1423
+- 서종기 https://github.com/Seojongki
 ## 발표 ppt
 - https://github.com/YOUNGEUN100/semi_ddok_homepage/files/11794926/ddok_ppt_team4.pdf
 ## 시연 영상
