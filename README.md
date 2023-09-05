@@ -17,8 +17,12 @@
 <img src="https://github.com/YOUNGEUN100/semi_ddok_homepage/assets/121986519/0b42cde0-9858-49f4-b929-1e422e5d5e49" alt="사용자" width="300"/>
 <img src="https://github.com/YOUNGEUN100/semi_ddok_homepage/assets/121986519/997be35f-e4ba-4ad8-b41a-79ee1f7b8ccd" alt="관리자 width="300"/>
 </div>
+
+
 - 사용자 : https://youtu.be/XvCDHYX4Si8
 - 관리자 : https://youtu.be/GOjzIMLz3Bw
+
+
 ## 🛠 활용 장비 및 재료
 <div style="display: flex; flex-direction: row;">
 <img src="https://img.shields.io/badge/HTML5-3DDC84?style=flat-square&logo=html&logoColor=white"/>
