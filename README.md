@@ -7,6 +7,17 @@
 - 최현정 https://github.com/hyungeongchoi2
 - 김성진 https://github.com/kimsungjin1423
 - 서종기 https://github.com/Seojongki
+
+| 이름       | 역할           | GitHub 프로필                               |
+|------------|----------------|---------------------------------------------|
+| 서영은     | 팀원1 역할    | [팀원1 GitHub](https://github.com/YOUNGEUN100) |
+| 안재이     | 팀원2 역할    | [팀원2 GitHub](https://github.com/anjxxyi) |
+| 강현국     | 팀원3 역할    | [팀원3 GitHub](https://github.com/BarBamBa) |
+| 최현정     | 팀원4 역할    | [팀원4 GitHub](https://github.com/hyungeongchoi2) |
+| 김성진     | 팀원5 역할    | [팀원5 GitHub](https://github.com/kimsungjin1423) |
+| 서종기     | 팀원6 역할    | [팀원6 GitHub](https://github.com/Seojongki) |
+
+
 ## 발표 ppt
 - https://github.com/YOUNGEUN100/semi_ddok_homepage/files/11794926/ddok_ppt_team4.pdf
 ## 🎞 시연 영상
