@@ -13,14 +13,14 @@
 - 사용자 : https://youtu.be/XvCDHYX4Si8
 - 관리자 : https://youtu.be/GOjzIMLz3Bw
 ## 🛠 활용 장비 및 재료
-<img src="https://img.shields.io/badge/html-00000?style=flat-square&logo=html&logoColor=00000"/>
-<img src="https://img.shields.io/badge/css-00000?style=flat-square&logo=css&logoColor=00000"/>
-<img src="https://img.shields.io/badge/JavaScript-00000?style=flat-square&logo=JavaScript&logoColor=00000"/>
-<img src="https://img.shields.io/badge/jQuery-00000?style=flat-square&logo=jQuery&logoColor=00000"/>
-<img src="https://img.shields.io/badge/Vue.js-00000?style=flat-square&logo=Vue.js&logoColor=00000"/>
-<img src="https://img.shields.io/badge/Java-00000?style=flat-square&logo=Java&logoColor=00000"/>
-<img src="https://img.shields.io/badge/MySql-00000?style=flat-square&logo=MySql&logoColor=00000"/>
-<img src="https://img.shields.io/badge/SpringBoot-00000?style=flat-square&logo=SpringBoot&logoColor=00000"/>
+<img src="https://img.shields.io/badge/html-FFCA28?style=flat-square&logo=html&logoColor=white"/>
+<img src="https://img.shields.io/badge/css-FFCA28?style=flat-square&logo=css&logoColor=white"/>
+<img src="https://img.shields.io/badge/JavaScript-FFCA28?style=flat-square&logo=JavaScript&logoColor=white"/>
+<img src="https://img.shields.io/badge/jQuery-FFCA28?style=flat-square&logo=jQuery&logoColor=white"/>
+<img src="https://img.shields.io/badge/Vue.js-FFCA28?style=flat-square&logo=Vue.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/Java-FFCA28?style=flat-square&logo=Java&logoColor=white"/>
+<img src="https://img.shields.io/badge/MySql-FFCA28?style=flat-square&logo=MySql&logoColor=white"/>
+<img src="https://img.shields.io/badge/SpringBoot-FFCA28?style=flat-square&logo=SpringBoot&logoColor=white"/>
 
 
 ## 📑 프로젝트 수행절차
