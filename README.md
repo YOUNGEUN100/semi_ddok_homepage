@@ -14,12 +14,12 @@
 - 관리자 : https://youtu.be/GOjzIMLz3Bw
 ## 🛠 활용 장비 및 재료
 <div style="display: flex; flex-direction: row;">
-<img src="https://img.shields.io/badge/HTML-3DDC84?style=flat-square&logo=html&logoColor=white"/>
-<img src="https://img.shields.io/badge/CSS-3DDC84?style=flat-square&logo=css&logoColor=white"/>
+<img src="https://img.shields.io/badge/HTML5-3DDC84?style=flat-square&logo=html&logoColor=white"/>
+<img src="https://img.shields.io/badge/CSS3-3DDC84?style=flat-square&logo=css&logoColor=white"/>
 <img src="https://img.shields.io/badge/JavaScript-3DDC84?style=flat-square&logo=JavaScript&logoColor=white"/>
 <img src="https://img.shields.io/badge/jQuery-3DDC84?style=flat-square&logo=jQuery&logoColor=white"/>
 <img src="https://img.shields.io/badge/Vue.js-3DDC84?style=flat-square&logo=Vue.js&logoColor=white"/>
-<img src="https://img.shields.io/badge/JAVA-3DDC84?style=flat-square&logo=Java&logoColor=white"/>
+<img src="https://img.shields.io/badge/Java-3DDC84?style=flat-square&logo=Java&logoColor=white"/>
 <img src="https://img.shields.io/badge/MySql-3DDC84?style=flat-square&logo=MySql&logoColor=white"/>
 <img src="https://img.shields.io/badge/SpringBoot-3DDC84?style=flat-square&logo=SpringBoot&logoColor=white"/>
 <img src="https://img.shields.io/badge/MyBatis-3DDC84?style=flat-square&logo=MyBatis&logoColor=white"/>
