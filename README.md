@@ -13,6 +13,7 @@
 - 사용자 : https://youtu.be/XvCDHYX4Si8
 - 관리자 : https://youtu.be/GOjzIMLz3Bw
 ## 🛠 활용 장비 및 재료
+<div style="display: flex; flex-direction: row;">
 <img src="https://img.shields.io/badge/html-FFCA28?style=flat-square&logo=html&logoColor=white"/>
 <img src="https://img.shields.io/badge/css-FFCA28?style=flat-square&logo=css&logoColor=white"/>
 <img src="https://img.shields.io/badge/JavaScript-FFCA28?style=flat-square&logo=JavaScript&logoColor=white"/>
@@ -21,7 +22,7 @@
 <img src="https://img.shields.io/badge/Java-FFCA28?style=flat-square&logo=Java&logoColor=white"/>
 <img src="https://img.shields.io/badge/MySql-FFCA28?style=flat-square&logo=MySql&logoColor=white"/>
 <img src="https://img.shields.io/badge/SpringBoot-FFCA28?style=flat-square&logo=SpringBoot&logoColor=white"/>
-
+</div>
 
 ## 📑 프로젝트 수행절차
 - 총 개발기간 4/27 ~ 5/24 (4주)
