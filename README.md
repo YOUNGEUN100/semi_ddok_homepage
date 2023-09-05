@@ -1,5 +1,7 @@
 # semi_ddok_homepage (똑똑 홈페이지)
 자취생을 위한 홈페이지
+<img src="https://github.com/YOUNGEUN100/semi_ddok_homepage/assets/121986519/0b42cde0-9858-49f4-b929-1e422e5d5e49" />
+
 ## 👨‍👩‍👦‍👦 Collaborators : 팀원 소개
 | 이름       | 역할           | GitHub 프로필                               |
 |------------|----------------|---------------------------------------------|
