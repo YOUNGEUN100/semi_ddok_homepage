@@ -22,6 +22,7 @@
 <img src="https://img.shields.io/badge/JAVA-FFCA28?style=flat-square&logo=Java&logoColor=white"/>
 <img src="https://img.shields.io/badge/MySql-FFCA28?style=flat-square&logo=MySql&logoColor=white"/>
 <img src="https://img.shields.io/badge/SpringBoot-FFCA28?style=flat-square&logo=SpringBoot&logoColor=white"/>
+<img src="https://img.shields.io/badge/MyBatis-FFCA28?style=flat-square&logo=MyBatis&logoColor=white"/>
 </div>
 
 ## 📑 프로젝트 수행절차
