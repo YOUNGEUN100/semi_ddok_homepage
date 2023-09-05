@@ -14,7 +14,7 @@
 | 김성진     | 프론트엔드      | [kimsungjin1423](https://github.com/kimsungjin1423) |
 | 서종기     | 풀스택          | [Seojongki](https://github.com/Seojongki) |
 
-## 발표 ppt
+## 📕 발표 ppt
 - https://github.com/YOUNGEUN100/semi_ddok_homepage/files/11794926/ddok_ppt_team4.pdf
 ## 🎞 시연 영상
 - 사용자 : https://youtu.be/XvCDHYX4Si8
