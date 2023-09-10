@@ -13,6 +13,8 @@
 | 최현정     | 풀스택          | [hyungeongchoi2](https://github.com/hyungeongchoi2) |
 | 김성진     | 프론트엔드      | [kimsungjin1423](https://github.com/kimsungjin1423) |
 | 서종기     | 풀스택          | [Seojongki](https://github.com/Seojongki) |
+| 이한빈     | 서버 빌드 및 배포  | [21V](https://github.com/21V) |
+
 
 ## 📕 발표 ppt
 - https://github.com/YOUNGEUN100/semi_ddok_homepage/files/11794926/ddok_ppt_team4.pdf
